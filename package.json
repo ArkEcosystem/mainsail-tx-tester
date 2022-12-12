@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "core-tester-script",
+    "description": "A simple command line utility to create and broadcast transactions.",
+    "scripts": {
+        "start": "node dist/index.js",
+        "build": "yarn clean && yarn compile",
+        "debug": "node --inspect-brk dist/index.js",
+        "clean": "del dist",
+        "compile": "./node_modules/typescript/bin/tsc"
+    },
+    "dependencies": {
+        "@arkecosystem/core": "^3.0.0-next.22",
+        "@arkecosystem/core-utils": "2.7.25",
+        "@arkecosystem/crypto": "^3.0.0-next.22",
+        "fs-extra": "^9.0.1",
+        "reflect-metadata": "^0.1.13"
+    },
+    "devDependencies": {
+        "typescript": "^3.9.5",
+        "del-cli": "^3.0.0",
+        "@commitlint/cli": "^11.0.0",
+        "@commitlint/config-conventional": "^11.0.0",
+        "@typescript-eslint/eslint-plugin": "^3.0.0",
+        "@typescript-eslint/parser": "^3.0.0",
+        "eslint": "^7.0.0",
+        "eslint-config-prettier": "^6.10.1",
+        "eslint-plugin-jest": "^24.0.0",
+        "eslint-plugin-prettier": "^3.1.2",
+        "eslint-plugin-simple-import-sort": "^5.0.2",
+        "prettier": "^2.0.2"
+    }
+}
