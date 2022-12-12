@@ -1,5 +1,6 @@
-import { loadConfig } from "./loader";
+import { loadConfig, loadCryptoConfig } from "./loader";
 
 const config = loadConfig();
 
 console.log(config);
+console.log(loadCryptoConfig());
