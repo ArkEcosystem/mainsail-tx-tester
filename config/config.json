@@ -1,0 +1,14 @@
+{
+    "peer": {
+        "ip": "127.0.0.1",
+        "port": "4003",
+        "protocol": "http"
+      },
+      "senderPassphrase": "clay harbor enemy utility margin pretty hub comic piece aerobic umbrella acquire",
+      "transfer": {
+        "recipientId": "A00000000000000000000000",
+        "fee": "100",
+        "amount": "1",
+        "vendorField": "vendor field"
+      }
+}
