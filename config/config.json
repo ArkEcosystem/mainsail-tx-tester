@@ -6,8 +6,8 @@
       },
       "senderPassphrase": "clay harbor enemy utility margin pretty hub comic piece aerobic umbrella acquire",
       "transfer": {
-        "recipientId": "A00000000000000000000000",
-        "fee": "100",
+        "recipientId": "AG8kwwk4TsYfA2HdwaWBVAJQBj6VhdcpMo",
+        "fee": "10000000",
         "amount": "1",
         "vendorField": "vendor field"
       }
