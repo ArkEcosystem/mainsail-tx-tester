@@ -3,14 +3,10 @@ import { Config } from "./types";
 import { join } from "path";
 
 export const loadConfig = (): Config => {
-    return readJSONSync(join(__dirname, "../config/config.json"));
-};
-
-export const loadCryptoConfig = (): any => {
     return {
-        exceptions: readJSONSync(join(__dirname, "../config/crypto/exceptions.json")),
-        genesisBlock: readJSONSync(join(__dirname, "../config/crypto/genesisBlock.json")),
-        milestones: readJSONSync(join(__dirname, "../config/crypto/milestones.json")),
-        network: readJSONSync(join(__dirname, "../config/crypto/network.json")),
-    };
+        crypto: readJSONSync(join(__dirname, "../../mainsail/packages/core/bin/config/testnet/crypto.json")),
+        peers: readJSONSync(join(__dirname, "../../mainsail/packages/core/bin/config/testnet/peers.json")),
+        genesisWallet: readJSONSync(join(__dirname, "../../mainsail/packages/core/bin/config/testnet/genesis-wallet.json")),
+        validators: readJSONSync(join(__dirname, "../../mainsail/packages/core/bin/config/testnet/validators.json")),
+    }
 };

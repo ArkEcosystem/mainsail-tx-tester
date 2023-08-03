@@ -1,11 +1,11 @@
-import { httpie } from "@arkecosystem/core-utils";
-import { Interfaces } from "@arkecosystem/crypto";
+import { http } from "../../mainsail/packages/utils";
+import { Contracts } from "../../mainsail/packages/contracts";
 import { Peer } from "./types";
 
 export const getWalletNonce = async (peer: Peer, walletAddress: string): Promise<number> => {
     try {
-        const response = await httpie.get(`${getServerUrl(peer)}/api/wallets/${walletAddress}`);
-        return parseInt(response.body.data.nonce);
+        const response = await http.get(`${getServerUrl(peer)}/api/wallets/${walletAddress}`);
+        return parseInt(response.data.nonce);
     } catch (err) {
         console.error(`Cannot find wallet by address ${walletAddress}: ${err.message}`);
         throw err;
@@ -14,31 +14,31 @@ export const getWalletNonce = async (peer: Peer, walletAddress: string): Promise
 
 export const getHeight = async (peer: Peer): Promise<number> => {
     try {
-        const response = await httpie.get(`${getServerUrl(peer)}/api/blockchain`);
-        return parseInt(response.body.data.block.height);
+        const response = await http.get(`${getServerUrl(peer)}/api/blockchain`);
+        return parseInt(response.data.data.block.height);
     } catch (err) {
         console.error(`Cannot get height: ${err.message}`);
         throw err;
     }
 };
 
-export const postTransaction = async (peer: Peer, transaction: Interfaces.ITransactionData): Promise<void> => {
+export const postTransaction = async (peer: Peer, transaction: Contracts.Crypto.ITransactionData): Promise<void> => {
     try {
-        const response = await httpie.post(`${getServerUrl(peer)}/api/transactions`, {
+        const response = await http.post(`${getServerUrl(peer)}/api/transactions`, {
             headers: { "Content-Type": "application/json" },
             body: {
-                transactions: [transaction],
+                transactions: [transaction] as any,
             },
         });
 
-        if (response.status !== 200 || response.body.errors) {
-            console.log(JSON.stringify(response.body));
+        if (response.statusCode !== 200) {
+            console.log(JSON.stringify(response.data));
 
-            return response.body;
+            return response.data;
         } else {
             console.log(`Transaction is sent`);
 
-            return response.body;
+            return response.data;
         }
     } catch (err) {
         console.error(`Cannot post transaction: ${err.message}`);
@@ -46,5 +46,5 @@ export const postTransaction = async (peer: Peer, transaction: Interfaces.ITrans
 };
 
 const getServerUrl = (peer: Peer): string => {
-    return `${peer.protocol}://${peer.ip}:${peer.port}`;
+    return `${peer.protocol ?? "http"}://${peer.ip}:4003`;
 };

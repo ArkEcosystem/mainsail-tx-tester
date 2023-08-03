@@ -1,20 +1,43 @@
 import * as Loader from "./loader";
 import * as Client from "./client";
-import * as Builder from "./builder";
-import { Identities, Managers } from "@arkecosystem/crypto";
+import { getApplication } from "./boot";
+import { TransferBuilder } from "../../mainsail/packages/crypto-transaction-transfer";
+import { Contracts, Identifiers } from "../../mainsail/packages/contracts";
 
 const main = async () => {
     const config = Loader.loadConfig();
-    const cryptoConfig = Loader.loadCryptoConfig();
 
-    Managers.configManager.setConfig(cryptoConfig);
-    Managers.configManager.setHeight(await Client.getHeight(config.peer));
+    const app = await getApplication(config);
 
-    const nonce = await Client.getWalletNonce(config.peer, Identities.Address.fromPassphrase(config.senderPassphrase));
+    const peer = config.peers.list[0];
+    const recipientWallet = config.genesisWallet;
 
-    const transfer = Builder.makeTransfer(config.senderPassphrase, nonce, config.transfer);
+    const latestHeight = await Client.getHeight(peer);
+    console.log(`>> latest height: ${latestHeight}`);
 
-    await Client.postTransaction(config.peer, transfer.data);
+    const senderPassphrase = config.validators.secrets[0];
+    const senderAddress = await app.getTagged<Contracts.Crypto.IAddressFactory>(
+        Identifiers.Cryptography.Identity.AddressFactory,
+        "type",
+        "wallet",
+    ).fromMnemonic(senderPassphrase);
+    console.log({ senderAddress, senderPassphrase });
+
+    const walletNonce = await Client.getWalletNonce(peer, senderAddress);
+    console.log(`>> using wallet: ${senderAddress} nonce: ${walletNonce}`);
+
+    const signed = await app
+        .resolve(TransferBuilder)
+        .network(config.crypto.network.pubKeyHash)
+        .fee("10000000")
+        .nonce((walletNonce + 1).toFixed(0))
+        .recipientId(recipientWallet.address)
+        .amount("1000000000")
+        .sign(senderPassphrase)
+
+    const struct = await signed.getStruct();
+    await Client.postTransaction(peer, struct);
+    console.log(`>> tx id: ${struct.id}`);
 };
 
 main();
