@@ -29,7 +29,10 @@ export const getApplication = async (config: Config): Promise<Application> => {
     await app.resolve(CoreCryptoHashBcrypto).register();
     await app.resolve(CoreCryptoSignatureSchnorr).register();
     await app.resolve(CoreCryptoKeyPairSchnorr).register();
+
+    // TODO: base58
     await app.resolve(CoreCryptoAddressBech32m).register();
+
     await app.resolve(CoreCryptoWif).register();
     await app.resolve(CoreFees).register();
     await app.resolve(CoreFeesStatic).register();
