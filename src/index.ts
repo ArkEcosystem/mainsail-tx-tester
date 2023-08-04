@@ -10,18 +10,27 @@ const main = async () => {
     const app = await getApplication(config);
 
     const peer = config.peers.list[0];
-    const recipientWallet = config.genesisWallet;
+    const senderWallet = config.genesisWallet;
 
     const latestHeight = await Client.getHeight(peer);
     console.log(`>> latest height: ${latestHeight}`);
 
-    const senderPassphrase = config.validators.secrets[0];
     const senderAddress = await app.getTagged<Contracts.Crypto.IAddressFactory>(
         Identifiers.Cryptography.Identity.AddressFactory,
         "type",
         "wallet",
-    ).fromMnemonic(senderPassphrase);
-    console.log({ senderAddress, senderPassphrase });
+    ).fromMnemonic(senderWallet.passphrase);
+
+
+
+    const recipientPassphrase = config.validators.secrets[0];
+    const recipientAddress = await app.getTagged<Contracts.Crypto.IAddressFactory>(
+        Identifiers.Cryptography.Identity.AddressFactory,
+        "type",
+        "wallet",
+    ).fromMnemonic(recipientPassphrase);
+
+    // console.log({ senderAddress, recipientPassphrase, recipientAddress });
 
     const walletNonce = await Client.getWalletNonce(peer, senderAddress);
     console.log(`>> using wallet: ${senderAddress} nonce: ${walletNonce}`);
@@ -31,11 +40,12 @@ const main = async () => {
         .network(config.crypto.network.pubKeyHash)
         .fee("10000000")
         .nonce((walletNonce + 1).toFixed(0))
-        .recipientId(recipientWallet.address)
+        .recipientId(recipientAddress)
         .amount("1000000000")
-        .sign(senderPassphrase)
+        .sign(senderWallet.passphrase)
 
     const struct = await signed.getStruct();
+    console.log("struct", struct)
     await Client.postTransaction(peer, struct);
     console.log(`>> tx id: ${struct.id}`);
 };
