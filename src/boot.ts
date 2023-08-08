@@ -37,7 +37,7 @@ export const getApplication = async (config: Config): Promise<Application> => {
             await app.resolve(CoreCryptoAddressBase58).register();
             break;
         }
-        case "bech32": {
+        case "bech32m": {
             await app.resolve(CoreCryptoAddressBech32m).register();
             break;
         }
@@ -65,8 +65,8 @@ const detectAddressType = (config: Config): AddressType => {
         return "base58";
     }
 
-    if ("bech32" in milestone.address) {
-        return "bech32";
+    if ("bech32m" in milestone.address) {
+        return "bech32m";
     }
 
     throw new Error("unsupported:" + JSON.stringify(milestone.address));

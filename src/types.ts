@@ -8,7 +8,7 @@ export type Config = {
     validators: ValidatorConfig;
 };
 
-export type AddressType = "base58" | "bech32";
+export type AddressType = "base58" | "bech32m";
 
 export type PeerConfig = {
     list: Peer[];
