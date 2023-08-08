@@ -2,6 +2,7 @@ import { Container } from "../../mainsail/packages/container/distribution";
 import { Identifiers, Contracts } from "../../mainsail/packages/contracts/distribution";
 import { Application, } from "../../mainsail/packages/kernel/distribution";
 
+import { ServiceProvider as CoreCryptoAddressBase58 } from "../../mainsail/packages/crypto-address-base58";
 import { ServiceProvider as CoreCryptoAddressBech32m } from "../../mainsail/packages/crypto-address-bech32m";
 import { ServiceProvider as CoreCryptoConfig } from "../../mainsail/packages/crypto-config";
 import { ServiceProvider as CoreCryptoHashBcrypto } from "../../mainsail/packages/crypto-hash-bcrypto";
@@ -17,7 +18,7 @@ import { ServiceProvider as CoreFees } from "../../mainsail/packages/fees";
 import { ServiceProvider as CoreFeesStatic } from "../../mainsail/packages/fees-static";
 import { ServiceProvider as CoreSerializer } from "../../mainsail/packages/serializer";
 import { ServiceProvider as CoreValidation } from "../../mainsail/packages/validation";
-import { Config } from "./types";
+import { AddressType, Config } from "./types";
 
 export const getApplication = async (config: Config): Promise<Application> => {
     const app = new Application(new Container());
@@ -30,8 +31,17 @@ export const getApplication = async (config: Config): Promise<Application> => {
     await app.resolve(CoreCryptoSignatureSchnorr).register();
     await app.resolve(CoreCryptoKeyPairSchnorr).register();
 
-    // TODO: base58
-    await app.resolve(CoreCryptoAddressBech32m).register();
+    const addressType = detectAddressType(config);
+    switch (addressType) {
+        case "base58": {
+            await app.resolve(CoreCryptoAddressBase58).register();
+            break;
+        }
+        case "bech32": {
+            await app.resolve(CoreCryptoAddressBech32m).register();
+            break;
+        }
+    }
 
     await app.resolve(CoreCryptoWif).register();
     await app.resolve(CoreFees).register();
@@ -47,3 +57,17 @@ export const getApplication = async (config: Config): Promise<Application> => {
 
     return app;
 };
+
+const detectAddressType = (config: Config): AddressType => {
+    const milestone = config.crypto.milestones[0];
+
+    if ("base58" in milestone.address) {
+        return "base58";
+    }
+
+    if ("bech32" in milestone.address) {
+        return "bech32";
+    }
+
+    throw new Error("unsupported:" + JSON.stringify(milestone.address));
+}
