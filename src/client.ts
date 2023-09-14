@@ -46,5 +46,5 @@ export const postTransaction = async (peer: Peer, transaction: Contracts.Crypto.
 };
 
 const getServerUrl = (peer: Peer): string => {
-    return `${peer.protocol ?? "http"}://${peer.ip}:4003`;
+    return `${peer.protocol ?? "http"}://${peer.ip}:4006`;
 };
