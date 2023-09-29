@@ -11,6 +11,7 @@ import { ServiceProvider as CoreCryptoSignatureSchnorr } from "../../mainsail/pa
 import { ServiceProvider as CoreCryptoTransaction } from "../../mainsail/packages/crypto-transaction";
 import { ServiceProvider as CoreCryptoTransactionTransfer } from "../../mainsail/packages/crypto-transaction-transfer";
 import { ServiceProvider as CoreCryptoTransactionValidatorRegistration } from "../../mainsail/packages/crypto-transaction-validator-registration";
+import { ServiceProvider as CoreCryptoTransactionMultiPayment } from "../../mainsail/packages/crypto-transaction-multi-payment";
 import { ServiceProvider as CoreCryptoTransactionVote } from "../../mainsail/packages/crypto-transaction-vote";
 import { ServiceProvider as CoreCryptoValidation } from "../../mainsail/packages/crypto-validation";
 import { ServiceProvider as CoreCryptoWif } from "../../mainsail/packages/crypto-wif";
@@ -50,6 +51,7 @@ export const getApplication = async (config: Config): Promise<Application> => {
     await app.resolve(CoreCryptoTransactionValidatorRegistration).register();
     await app.resolve(CoreCryptoTransactionTransfer).register();
     await app.resolve(CoreCryptoTransactionVote).register();
+    await app.resolve(CoreCryptoTransactionMultiPayment).register();
 
     app.get<Contracts.Crypto.IConfiguration>(Identifiers.Cryptography.Configuration).setConfig(config.crypto);
 
