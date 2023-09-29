@@ -53,8 +53,6 @@ export const getApplication = async (config: Config): Promise<Application> => {
 
     app.get<Contracts.Crypto.IConfiguration>(Identifiers.Cryptography.Configuration).setConfig(config.crypto);
 
-    app.bind(Identifiers.Application).toConstantValue(app);
-
     return app;
 };
 
