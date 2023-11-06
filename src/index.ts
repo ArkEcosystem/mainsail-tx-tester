@@ -3,7 +3,10 @@ import * as Client from "./client";
 import { getApplication } from "./boot";
 // @ts-ignore
 import { TransferBuilder } from "../../mainsail/packages/crypto-transaction-transfer";
+// @ts-ignore
 import { MultiPaymentBuilder } from "../../mainsail/packages/crypto-transaction-multi-payment";
+// @ts-ignore
+import { VoteBuilder } from "../../mainsail/packages/crypto-transaction-vote/distribution";
 import { Contracts, Identifiers } from "../../mainsail/packages/contracts";
 
 const main = async () => {
@@ -23,8 +26,6 @@ const main = async () => {
         "wallet",
     ).fromMnemonic(senderWallet.passphrase);
 
-
-
     const recipientPassphrase = config.validators.secrets[0];
     const recipientAddress = await app.getTagged<Contracts.Crypto.IAddressFactory>(
         Identifiers.Cryptography.Identity.AddressFactory,
@@ -37,23 +38,32 @@ const main = async () => {
     const walletNonce = await Client.getWalletNonce(peer, senderAddress);
     console.log(`>> using wallet: ${senderAddress} nonce: ${walletNonce}`);
 
-    const signed = await app
-        .resolve(MultiPaymentBuilder)
-        .network(config.crypto.network.pubKeyHash)
-        .fee("10000000")
-        .nonce((walletNonce + 1).toFixed(0))
-        .addPayment(recipientAddress, "1000000000")
-        .addPayment(recipientAddress, "2000000000")
-        .addPayment(recipientAddress, "3000000000")
-        .sign(senderWallet.passphrase)
-
     // const signed = await app
-    //     .resolve(TransferBuilder)
+    //     .resolve(MultiPaymentBuilder)
     //     .network(config.crypto.network.pubKeyHash)
     //     .fee("10000000")
     //     .nonce((walletNonce + 1).toFixed(0))
+    //     .addPayment(recipientAddress, "1000000000")
+    //     .addPayment(recipientAddress, "2000000000")
+    //     .addPayment(recipientAddress, "3000000000")
+    //     .sign(senderWallet.passphrase)
+
+    const signed = await app
+        .resolve(TransferBuilder)
+        .network(config.crypto.network.pubKeyHash)
+        .fee("10000000")
+        .nonce((walletNonce + 1).toFixed(0))
+        .recipientId(recipientAddress)
+        .amount("1000000000")
+        .sign(senderWallet.passphrase)
+
+    // const signed = await app
+    //     .resolve(VoteBuilder)
+    //     .network(config.crypto.network.pubKeyHash)
+    //     .fee("100000000")
+    //     .nonce((walletNonce + 1).toFixed(0))
     //     .recipientId(recipientAddress)
-    //     .amount("1000000000")
+    //     .votesAsset(["4724580539e22dde52d257f3e39e6fa9911659ddcc31b8b2971b5ed20e10e873"])
     //     .sign(senderWallet.passphrase)
 
     const struct = await signed.getStruct();
