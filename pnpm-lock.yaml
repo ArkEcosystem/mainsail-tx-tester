@@ -5,6 +5,222 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@mainsail/api':
+    specifier: link:/home/user/git/mainsail/packages/api
+    version: link:../mainsail/packages/api
+  '@mainsail/api-common':
+    specifier: link:/home/user/git/mainsail/packages/api-common
+    version: link:../mainsail/packages/api-common
+  '@mainsail/api-database':
+    specifier: link:/home/user/git/mainsail/packages/api-database
+    version: link:../mainsail/packages/api-database
+  '@mainsail/api-development':
+    specifier: link:/home/user/git/mainsail/packages/api-development
+    version: link:../mainsail/packages/api-development
+  '@mainsail/api-http':
+    specifier: link:/home/user/git/mainsail/packages/api-http
+    version: link:../mainsail/packages/api-http
+  '@mainsail/api-sync':
+    specifier: link:/home/user/git/mainsail/packages/api-sync
+    version: link:../mainsail/packages/api-sync
+  '@mainsail/api-transaction-pool':
+    specifier: link:/home/user/git/mainsail/packages/api-transaction-pool
+    version: link:../mainsail/packages/api-transaction-pool
+  '@mainsail/bootstrap':
+    specifier: link:/home/user/git/mainsail/packages/bootstrap
+    version: link:../mainsail/packages/bootstrap
+  '@mainsail/cli':
+    specifier: link:/home/user/git/mainsail/packages/cli
+    version: link:../mainsail/packages/cli
+  '@mainsail/configuration-generator':
+    specifier: link:/home/user/git/mainsail/packages/configuration-generator
+    version: link:../mainsail/packages/configuration-generator
+  '@mainsail/consensus':
+    specifier: link:/home/user/git/mainsail/packages/consensus
+    version: link:../mainsail/packages/consensus
+  '@mainsail/container':
+    specifier: link:/home/user/git/mainsail/packages/container
+    version: link:../mainsail/packages/container
+  '@mainsail/contracts':
+    specifier: link:/home/user/git/mainsail/packages/contracts
+    version: link:../mainsail/packages/contracts
+  '@mainsail/core':
+    specifier: link:/home/user/git/mainsail/packages/core
+    version: link:../mainsail/packages/core
+  '@mainsail/crypto-address-base58':
+    specifier: link:/home/user/git/mainsail/packages/crypto-address-base58
+    version: link:../mainsail/packages/crypto-address-base58
+  '@mainsail/crypto-address-bech32':
+    specifier: link:/home/user/git/mainsail/packages/crypto-address-bech32
+    version: link:../mainsail/packages/crypto-address-bech32
+  '@mainsail/crypto-address-bech32m':
+    specifier: link:/home/user/git/mainsail/packages/crypto-address-bech32m
+    version: link:../mainsail/packages/crypto-address-bech32m
+  '@mainsail/crypto-address-keccak256':
+    specifier: link:/home/user/git/mainsail/packages/crypto-address-keccak256
+    version: link:../mainsail/packages/crypto-address-keccak256
+  '@mainsail/crypto-address-ss58':
+    specifier: link:/home/user/git/mainsail/packages/crypto-address-ss58
+    version: link:../mainsail/packages/crypto-address-ss58
+  '@mainsail/crypto-block':
+    specifier: link:/home/user/git/mainsail/packages/crypto-block
+    version: link:../mainsail/packages/crypto-block
+  '@mainsail/crypto-commit':
+    specifier: link:/home/user/git/mainsail/packages/crypto-commit
+    version: link:../mainsail/packages/crypto-commit
+  '@mainsail/crypto-config':
+    specifier: link:/home/user/git/mainsail/packages/crypto-config
+    version: link:../mainsail/packages/crypto-config
+  '@mainsail/crypto-consensus-bls12-381':
+    specifier: link:/home/user/git/mainsail/packages/crypto-consensus-bls12-381
+    version: link:../mainsail/packages/crypto-consensus-bls12-381
+  '@mainsail/crypto-hash-bcrypto':
+    specifier: link:/home/user/git/mainsail/packages/crypto-hash-bcrypto
+    version: link:../mainsail/packages/crypto-hash-bcrypto
+  '@mainsail/crypto-hash-noble':
+    specifier: link:/home/user/git/mainsail/packages/crypto-hash-noble
+    version: link:../mainsail/packages/crypto-hash-noble
+  '@mainsail/crypto-hash-wasm':
+    specifier: link:/home/user/git/mainsail/packages/crypto-hash-wasm
+    version: link:../mainsail/packages/crypto-hash-wasm
+  '@mainsail/crypto-key-pair-bls12-381':
+    specifier: link:/home/user/git/mainsail/packages/crypto-key-pair-bls12-381
+    version: link:../mainsail/packages/crypto-key-pair-bls12-381
+  '@mainsail/crypto-key-pair-ecdsa':
+    specifier: link:/home/user/git/mainsail/packages/crypto-key-pair-ecdsa
+    version: link:../mainsail/packages/crypto-key-pair-ecdsa
+  '@mainsail/crypto-key-pair-ed25519':
+    specifier: link:/home/user/git/mainsail/packages/crypto-key-pair-ed25519
+    version: link:../mainsail/packages/crypto-key-pair-ed25519
+  '@mainsail/crypto-key-pair-schnorr':
+    specifier: link:/home/user/git/mainsail/packages/crypto-key-pair-schnorr
+    version: link:../mainsail/packages/crypto-key-pair-schnorr
+  '@mainsail/crypto-messages':
+    specifier: link:/home/user/git/mainsail/packages/crypto-messages
+    version: link:../mainsail/packages/crypto-messages
+  '@mainsail/crypto-signature-bls12-381':
+    specifier: link:/home/user/git/mainsail/packages/crypto-signature-bls12-381
+    version: link:../mainsail/packages/crypto-signature-bls12-381
+  '@mainsail/crypto-signature-ecdsa':
+    specifier: link:/home/user/git/mainsail/packages/crypto-signature-ecdsa
+    version: link:../mainsail/packages/crypto-signature-ecdsa
+  '@mainsail/crypto-signature-ed25519':
+    specifier: link:/home/user/git/mainsail/packages/crypto-signature-ed25519
+    version: link:../mainsail/packages/crypto-signature-ed25519
+  '@mainsail/crypto-signature-schnorr':
+    specifier: link:/home/user/git/mainsail/packages/crypto-signature-schnorr
+    version: link:../mainsail/packages/crypto-signature-schnorr
+  '@mainsail/crypto-signature-schnorr-legacy':
+    specifier: link:/home/user/git/mainsail/packages/crypto-signature-schnorr-legacy
+    version: link:../mainsail/packages/crypto-signature-schnorr-legacy
+  '@mainsail/crypto-transaction':
+    specifier: link:/home/user/git/mainsail/packages/crypto-transaction
+    version: link:../mainsail/packages/crypto-transaction
+  '@mainsail/crypto-transaction-multi-payment':
+    specifier: link:/home/user/git/mainsail/packages/crypto-transaction-multi-payment
+    version: link:../mainsail/packages/crypto-transaction-multi-payment
+  '@mainsail/crypto-transaction-multi-signature-registration':
+    specifier: link:/home/user/git/mainsail/packages/crypto-transaction-multi-signature-registration
+    version: link:../mainsail/packages/crypto-transaction-multi-signature-registration
+  '@mainsail/crypto-transaction-transfer':
+    specifier: link:/home/user/git/mainsail/packages/crypto-transaction-transfer
+    version: link:../mainsail/packages/crypto-transaction-transfer
+  '@mainsail/crypto-transaction-username-registration':
+    specifier: link:/home/user/git/mainsail/packages/crypto-transaction-username-registration
+    version: link:../mainsail/packages/crypto-transaction-username-registration
+  '@mainsail/crypto-transaction-username-resignation':
+    specifier: link:/home/user/git/mainsail/packages/crypto-transaction-username-resignation
+    version: link:../mainsail/packages/crypto-transaction-username-resignation
+  '@mainsail/crypto-transaction-validator-registration':
+    specifier: link:/home/user/git/mainsail/packages/crypto-transaction-validator-registration
+    version: link:../mainsail/packages/crypto-transaction-validator-registration
+  '@mainsail/crypto-transaction-validator-resignation':
+    specifier: link:/home/user/git/mainsail/packages/crypto-transaction-validator-resignation
+    version: link:../mainsail/packages/crypto-transaction-validator-resignation
+  '@mainsail/crypto-transaction-vote':
+    specifier: link:/home/user/git/mainsail/packages/crypto-transaction-vote
+    version: link:../mainsail/packages/crypto-transaction-vote
+  '@mainsail/crypto-validation':
+    specifier: link:/home/user/git/mainsail/packages/crypto-validation
+    version: link:../mainsail/packages/crypto-validation
+  '@mainsail/crypto-wif':
+    specifier: link:/home/user/git/mainsail/packages/crypto-wif
+    version: link:../mainsail/packages/crypto-wif
+  '@mainsail/crypto-worker':
+    specifier: link:/home/user/git/mainsail/packages/crypto-worker
+    version: link:../mainsail/packages/crypto-worker
+  '@mainsail/database':
+    specifier: link:/home/user/git/mainsail/packages/database
+    version: link:../mainsail/packages/database
+  '@mainsail/fees':
+    specifier: link:/home/user/git/mainsail/packages/fees
+    version: link:../mainsail/packages/fees
+  '@mainsail/fees-burn':
+    specifier: link:/home/user/git/mainsail/packages/fees-burn
+    version: link:../mainsail/packages/fees-burn
+  '@mainsail/fees-managed':
+    specifier: link:/home/user/git/mainsail/packages/fees-managed
+    version: link:../mainsail/packages/fees-managed
+  '@mainsail/fees-static':
+    specifier: link:/home/user/git/mainsail/packages/fees-static
+    version: link:../mainsail/packages/fees-static
+  '@mainsail/kernel':
+    specifier: link:/home/user/git/mainsail/packages/kernel
+    version: link:../mainsail/packages/kernel
+  '@mainsail/logger-pino':
+    specifier: link:/home/user/git/mainsail/packages/logger-pino
+    version: link:../mainsail/packages/logger-pino
+  '@mainsail/logger-winston':
+    specifier: link:/home/user/git/mainsail/packages/logger-winston
+    version: link:../mainsail/packages/logger-winston
+  '@mainsail/networking-dns':
+    specifier: link:/home/user/git/mainsail/packages/networking-dns
+    version: link:../mainsail/packages/networking-dns
+  '@mainsail/networking-ntp':
+    specifier: link:/home/user/git/mainsail/packages/networking-ntp
+    version: link:../mainsail/packages/networking-ntp
+  '@mainsail/p2p':
+    specifier: link:/home/user/git/mainsail/packages/p2p
+    version: link:../mainsail/packages/p2p
+  '@mainsail/processor':
+    specifier: link:/home/user/git/mainsail/packages/processor
+    version: link:../mainsail/packages/processor
+  '@mainsail/proposer':
+    specifier: link:/home/user/git/mainsail/packages/proposer
+    version: link:../mainsail/packages/proposer
+  '@mainsail/serializer':
+    specifier: link:/home/user/git/mainsail/packages/serializer
+    version: link:../mainsail/packages/serializer
+  '@mainsail/state':
+    specifier: link:/home/user/git/mainsail/packages/state
+    version: link:../mainsail/packages/state
+  '@mainsail/test-framework':
+    specifier: link:/home/user/git/mainsail/packages/test-framework
+    version: link:../mainsail/packages/test-framework
+  '@mainsail/transaction-pool':
+    specifier: link:/home/user/git/mainsail/packages/transaction-pool
+    version: link:../mainsail/packages/transaction-pool
+  '@mainsail/transactions':
+    specifier: link:/home/user/git/mainsail/packages/transactions
+    version: link:../mainsail/packages/transactions
+  '@mainsail/utils':
+    specifier: link:/home/user/git/mainsail/packages/utils
+    version: link:../mainsail/packages/utils
+  '@mainsail/validation':
+    specifier: link:/home/user/git/mainsail/packages/validation
+    version: link:../mainsail/packages/validation
+  '@mainsail/validator':
+    specifier: link:/home/user/git/mainsail/packages/validator
+    version: link:../mainsail/packages/validator
+  '@mainsail/validator-set-static':
+    specifier: link:/home/user/git/mainsail/packages/validator-set-static
+    version: link:../mainsail/packages/validator-set-static
+  '@mainsail/validator-set-vote-weighted':
+    specifier: link:/home/user/git/mainsail/packages/validator-set-vote-weighted
+    version: link:../mainsail/packages/validator-set-vote-weighted
+  '@mainsail/webhooks':
+    specifier: link:/home/user/git/mainsail/packages/webhooks
+    version: link:../mainsail/packages/webhooks
   fs-extra:
     specifier: ^9.0.1
     version: 9.0.1
