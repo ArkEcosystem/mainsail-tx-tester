@@ -1,13 +1,12 @@
-import { http } from "../../mainsail/packages/utils";
-import { Contracts } from "../../mainsail/packages/contracts";
+import { http } from "@mainsail/utils";
 import { Peer } from "./types";
 
-export const getWalletNonce = async (peer: Peer, walletAddress: string): Promise<number> => {
+export const getWalletNonce = async (peer: Peer, publicKey: string): Promise<number> => {
     try {
-        const response = await http.get(`${getApiServerUrl(peer)}/api/wallets/${walletAddress}`);
-        return parseInt(response.data.nonce);
+        const response = await http.get(`${getApiServerUrl(peer)}/api/wallets/${publicKey}`);
+        return parseInt(response.data.nonce ?? "0");
     } catch (err) {
-        console.error(`Cannot find wallet by address ${walletAddress}: ${err.message}`);
+        console.error(`Cannot find wallet by address ${publicKey}: ${err.message}`);
         throw err;
     }
 };
@@ -22,7 +21,7 @@ export const getHeight = async (peer: Peer): Promise<number> => {
     }
 };
 
-export const postTransaction = async (peer: Peer, transaction: Contracts.Crypto.ITransactionData): Promise<void> => {
+export const postTransaction = async (peer: Peer, transaction: string): Promise<void> => {
     try {
         const response = await http.post(`${getApiTxPoolServerUrl(peer)}/api/transaction-pool`, {
             headers: { "Content-Type": "application/json" },
@@ -36,8 +35,6 @@ export const postTransaction = async (peer: Peer, transaction: Contracts.Crypto.
 
             return response.data;
         } else {
-            console.log(`Transaction is sent`);
-
             return response.data;
         }
     } catch (err) {

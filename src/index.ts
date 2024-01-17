@@ -1,75 +1,77 @@
 import * as Loader from "./loader";
 import * as Client from "./client";
-import { getApplication } from "./boot";
-// @ts-ignore
-import { TransferBuilder } from "../../mainsail/packages/crypto-transaction-transfer";
-// @ts-ignore
-import { MultiPaymentBuilder } from "../../mainsail/packages/crypto-transaction-multi-payment";
-// @ts-ignore
-import { VoteBuilder } from "../../mainsail/packages/crypto-transaction-vote/distribution";
-import { Contracts, Identifiers } from "../../mainsail/packages/contracts";
+// // @ts-ignore
+// import { TransferBuilder } from "../../mainsail/packages/crypto-transaction-transfer";
+// // @ts-ignore
+// import { MultiPaymentBuilder } from "../../mainsail/packages/crypto-transaction-multi-payment";
+// // @ts-ignore
+// import { VoteBuilder } from "../../mainsail/packages/crypto-transaction-vote/distribution";
+// // @ts-ignore
+// import { MultiSignatureBuilder } from "../../mainsail/packages/crypto-transaction-multi-signature-registration";
+import { makeTransfer } from "./builder";
 
 const main = async () => {
     const config = Loader.loadConfig();
-
-    const app = await getApplication(config);
-
-    const peer = config.peers.list[0];
-    const senderWallet = config.genesisWallet;
+    const peer = config.cli.peer;
 
     const latestHeight = await Client.getHeight(peer);
     console.log(`>> latest height: ${latestHeight}`);
 
-    const senderAddress = await app.getTagged<Contracts.Crypto.IAddressFactory>(
-        Identifiers.Cryptography.Identity.AddressFactory,
-        "type",
-        "wallet",
-    ).fromMnemonic(senderWallet.passphrase);
 
-    const recipientPassphrase = config.validators.secrets[0];
-    const recipientAddress = await app.getTagged<Contracts.Crypto.IAddressFactory>(
-        Identifiers.Cryptography.Identity.AddressFactory,
-        "type",
-        "wallet",
-    ).fromMnemonic(recipientPassphrase);
+    const tx = await makeTransfer(
+        config,
+    );
 
-    // console.log({ senderAddress, recipientPassphrase, recipientAddress });
-
-    const walletNonce = await Client.getWalletNonce(peer, senderAddress);
-    console.log(`>> using wallet: ${senderAddress} nonce: ${walletNonce}`);
-
-    // const signed = await app
-    //     .resolve(MultiPaymentBuilder)
-    //     .network(config.crypto.network.pubKeyHash)
-    //     .fee("10000000")
-    //     .nonce((walletNonce + 1).toFixed(0))
-    //     .addPayment(recipientAddress, "1000000000")
-    //     .addPayment(recipientAddress, "2000000000")
-    //     .addPayment(recipientAddress, "3000000000")
-    //     .sign(senderWallet.passphrase)
-
-    const signed = await app
-        .resolve(TransferBuilder)
-        .network(config.crypto.network.pubKeyHash)
-        .fee("10000000")
-        .nonce((walletNonce + 1).toFixed(0))
-        .recipientId(recipientAddress)
-        .amount("1000000000")
-        .sign(senderWallet.passphrase)
-
-    // const signed = await app
-    //     .resolve(VoteBuilder)
-    //     .network(config.crypto.network.pubKeyHash)
-    //     .fee("100000000")
-    //     .nonce((walletNonce + 1).toFixed(0))
-    //     .recipientId(recipientAddress)
-    //     .votesAsset(["4724580539e22dde52d257f3e39e6fa9911659ddcc31b8b2971b5ed20e10e873"])
-    //     .sign(senderWallet.passphrase)
-
-    const struct = await signed.getStruct();
-    console.log("struct", struct)
-    await Client.postTransaction(peer, struct);
-    console.log(`>> tx id: ${struct.id}`);
+    await Client.postTransaction(peer, tx.serialized.toString("hex"));
+    console.log(`>> sent tx ${tx.id} to ${peer.ip}`);
 };
 
 main();
+
+// const builder = app
+//     .resolve(MultiPaymentBuilder)
+//     .network(config.crypto.network.pubKeyHash)
+//     .fee("10000000")
+//     .vendorField(Buffer.from("a".repeat(255), "utf8").toString("utf8"))
+//     .nonce((walletNonce + 1).toFixed(0));
+
+// for (let i = 0; i < 125; i++) {
+//     builder.addPayment(recipientAddress, `${i + 1}000000000`)
+// }
+
+// const signed = await builder.sign(senderWallet.passphrase);
+
+// const signed = await app
+//     .resolve(TransferBuilder)
+//     .network(config.crypto.network.pubKeyHash)
+//     .fee("10000000")
+//     .nonce((walletNonce + 1).toFixed(0))
+//     .recipientId(recipientAddress)
+//     .amount("1000000000")
+//     .vendorField("Hello Mainsail")
+//     .sign(senderWallet.passphrase)
+
+// const payload = app
+//     .resolve(MultiSignatureBuilder)
+//     .network(config.crypto.network.pubKeyHash)
+//     .fee("500000000")
+//     .nonce((walletNonce + 1).toFixed(0))
+//     .recipientId(recipientAddress)
+//     .min(2)
+//     .participant(senderPublicKey)
+//     .participant(senderPublicKey2)
+//     .vendorField("Hello Mainsail");
+
+// await payload.multiSign(senderWallet.passphrase, 0);
+// await payload.multiSign(config.validators.secrets[1], 1);
+
+// await payload.sign(senderWallet.passphrase);
+
+// const signed = await app
+//     .resolve(VoteBuilder)
+//     .network(config.crypto.network.pubKeyHash)
+//     .fee("100000000")
+//     .nonce((walletNonce + 1).toFixed(0))
+//     .recipientId(recipientAddress)
+//     .votesAsset(["4724580539e22dde52d257f3e39e6fa9911659ddcc31b8b2971b5ed20e10e873"])
+//     .sign(senderWallet.passphrase)

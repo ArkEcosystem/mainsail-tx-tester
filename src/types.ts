@@ -1,24 +1,14 @@
-import { Contracts } from "../../mainsail/packages/contracts";
-import { Contracts as ConfigurationContracts } from "../../mainsail/packages/configuration-generator";
+import { Contracts } from "@mainsail/contracts";
+import cli from "../config/config.json";
+
+export type Peer = typeof cli.peer;
 
 export type Config = {
-    genesisWallet: ConfigurationContracts.Wallet;
     crypto: Contracts.Crypto.NetworkConfig;
-    peers: PeerConfig;
-    validators: ValidatorConfig;
+    cli: typeof cli;
 };
 
 export type AddressType = "base58" | "bech32m";
-
-export type PeerConfig = {
-    list: Peer[];
-}
-
-export type Peer = {
-    ip: string;
-    port: number;
-    protocol?: string;
-};
 
 export type ValidatorConfig = {
     secrets: string[];

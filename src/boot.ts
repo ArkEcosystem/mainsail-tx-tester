@@ -1,24 +1,26 @@
-import { Container } from "../../mainsail/packages/container/distribution";
-import { Identifiers, Contracts } from "../../mainsail/packages/contracts/distribution";
-import { Application, } from "../../mainsail/packages/kernel/distribution";
+import { Container } from "@mainsail/container";
+import { Identifiers, Contracts } from "@mainsail/contracts";
+import { Application, } from "@mainsail/kernel";
 
-import { ServiceProvider as CoreCryptoAddressBase58 } from "../../mainsail/packages/crypto-address-base58";
-import { ServiceProvider as CoreCryptoAddressBech32m } from "../../mainsail/packages/crypto-address-bech32m";
-import { ServiceProvider as CoreCryptoConfig } from "../../mainsail/packages/crypto-config";
-import { ServiceProvider as CoreCryptoHashBcrypto } from "../../mainsail/packages/crypto-hash-bcrypto";
-import { ServiceProvider as CoreCryptoKeyPairSchnorr } from "../../mainsail/packages/crypto-key-pair-schnorr";
-import { ServiceProvider as CoreCryptoSignatureSchnorr } from "../../mainsail/packages/crypto-signature-schnorr";
-import { ServiceProvider as CoreCryptoTransaction } from "../../mainsail/packages/crypto-transaction";
-import { ServiceProvider as CoreCryptoTransactionTransfer } from "../../mainsail/packages/crypto-transaction-transfer";
-import { ServiceProvider as CoreCryptoTransactionValidatorRegistration } from "../../mainsail/packages/crypto-transaction-validator-registration";
-import { ServiceProvider as CoreCryptoTransactionMultiPayment } from "../../mainsail/packages/crypto-transaction-multi-payment";
-import { ServiceProvider as CoreCryptoTransactionVote } from "../../mainsail/packages/crypto-transaction-vote";
-import { ServiceProvider as CoreCryptoValidation } from "../../mainsail/packages/crypto-validation";
-import { ServiceProvider as CoreCryptoWif } from "../../mainsail/packages/crypto-wif";
-import { ServiceProvider as CoreFees } from "../../mainsail/packages/fees";
-import { ServiceProvider as CoreFeesStatic } from "../../mainsail/packages/fees-static";
-import { ServiceProvider as CoreSerializer } from "../../mainsail/packages/serializer";
-import { ServiceProvider as CoreValidation } from "../../mainsail/packages/validation";
+import { ServiceProvider as CoreCryptoAddressBase58 } from "@mainsail/crypto-address-base58";
+import { ServiceProvider as CoreCryptoAddressBech32m } from "@mainsail/crypto-address-bech32m";
+import { ServiceProvider as CoreCryptoConfig } from "@mainsail/crypto-config";
+import { ServiceProvider as CoreCryptoHashBcrypto } from "@mainsail/crypto-hash-bcrypto";
+import { ServiceProvider as CoreCryptoKeyPairSchnorr } from "@mainsail/crypto-key-pair-schnorr";
+import { ServiceProvider as CoreCryptoSignatureSchnorr } from "@mainsail/crypto-signature-schnorr";
+// import { ServiceProvider as CoreCryptoKeyPairSchnorr } from "@mainsail/crypto-key-pair-ecdsa";
+// import { ServiceProvider as CoreCryptoSignatureSchnorr } from "@mainsail/crypto-signature-schnorr-legacy";
+import { ServiceProvider as CoreCryptoTransaction } from "@mainsail/crypto-transaction";
+import { ServiceProvider as CoreCryptoTransactionTransfer } from "@mainsail/crypto-transaction-transfer";
+import { ServiceProvider as CoreCryptoTransactionValidatorRegistration } from "@mainsail/crypto-transaction-validator-registration";
+import { ServiceProvider as CoreCryptoTransactionMultiPayment } from "@mainsail/crypto-transaction-multi-payment";
+import { ServiceProvider as CoreCryptoTransactionVote } from "@mainsail/crypto-transaction-vote";
+import { ServiceProvider as CoreCryptoValidation } from "@mainsail/crypto-validation";
+import { ServiceProvider as CoreCryptoWif } from "@mainsail/crypto-wif";
+import { ServiceProvider as CoreFees } from "@mainsail/fees";
+import { ServiceProvider as CoreFeesStatic } from "@mainsail/fees-static";
+import { ServiceProvider as CoreSerializer } from "@mainsail/serializer";
+import { ServiceProvider as CoreValidation } from "@mainsail/validation";
 import { AddressType, Config } from "./types";
 
 export const getApplication = async (config: Config): Promise<Application> => {
@@ -53,7 +55,7 @@ export const getApplication = async (config: Config): Promise<Application> => {
     await app.resolve(CoreCryptoTransactionVote).register();
     await app.resolve(CoreCryptoTransactionMultiPayment).register();
 
-    app.get<Contracts.Crypto.IConfiguration>(Identifiers.Cryptography.Configuration).setConfig(config.crypto);
+    app.get<Contracts.Crypto.Configuration>(Identifiers.Cryptography.Configuration).setConfig(config.crypto);
 
     return app;
 };
