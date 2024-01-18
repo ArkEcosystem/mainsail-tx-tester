@@ -12,6 +12,39 @@
     "amount": "1",
     "vendorField": "vendor field"
   },
+  "vote": {
+    "voteAsset": "d2ebcc8c5827e5c0feb0f226f84e4bffc7275729b8a04464f84cabcfc7bedcb1",
+    "unvoteAsset": "",
+    "fee": "100000000"
+  },
+  "userNameRegistration": {
+    "username": "simple_tx_tester",
+    "fee": "2500000000"
+  },
+  "userNameResignation": {
+    "fee": "2500000000"
+  },
+  "multiPayment": {
+    "fee": "10000000",
+    "vendorField": "",
+    "payments": [
+      {
+        "recipientId": "ark1ychmwwx6h332dkc0ykgn0e0s6c7jhk0j4j8wwqv66jualrun29msyccfzf",
+        "amount": "100000000"
+      },
+      {
+        "recipientId": "ark1saw3xnkjw5cx0hwzka5e9jg96gtn4lu0uhsxngcrltgly70sy93s99tahy",
+        "amount": "200000000"
+      }
+    ]
+  },
+  "validatorRegistration": {
+    "validatorPublicKey": "a08058db53e2665c84a40f5152e76dd2b652125a6079130d4c315e728bcf4dd1dfb44ac26e82302331d61977d3141118",
+    "fee": "2500000000"
+  },
+  "validatorResignation": {
+    "fee": "2500000000"
+  },
   "plugins": [
     {
       "package": "@mainsail/validation"
