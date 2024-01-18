@@ -11,5 +11,73 @@
     "fee": "10000000",
     "amount": "1",
     "vendorField": "vendor field"
-  }
+  },
+  "plugins": [
+    {
+      "package": "@mainsail/validation"
+    },
+    {
+      "package": "@mainsail/crypto-config"
+    },
+    {
+      "package": "@mainsail/crypto-validation"
+    },
+    {
+      "package": "@mainsail/crypto-hash-bcrypto"
+    },
+    {
+      "__comment__": "replace as needed for ARK network compat",
+      "package": "@mainsail/crypto-signature-schnorr"
+    },
+    {
+      "__comment__": "replace as needed for ARK network compat",
+      "package": "@mainsail/crypto-key-pair-schnorr"
+    },
+    {
+      "__comment__": "replace as needed for ARK network compat",
+      "package": "@mainsail/crypto-address-bech32m"
+    },
+    {
+      "package": "@mainsail/crypto-consensus-bls12-381"
+    },
+    {
+      "package": "@mainsail/crypto-wif"
+    },
+    {
+      "package": "@mainsail/serializer"
+    },
+    {
+      "package": "@mainsail/fees"
+    },
+    {
+      "package": "@mainsail/fees-static"
+    },
+    {
+      "package": "@mainsail/crypto-transaction"
+    },
+    {
+      "package": "@mainsail/crypto-transaction-username-registration"
+    },
+    {
+      "package": "@mainsail/crypto-transaction-username-resignation"
+    },
+    {
+      "package": "@mainsail/crypto-transaction-validator-registration"
+    },
+    {
+      "package": "@mainsail/crypto-transaction-validator-resignation"
+    },
+    {
+      "package": "@mainsail/crypto-transaction-multi-payment"
+    },
+    {
+      "package": "@mainsail/crypto-transaction-multi-signature-registration"
+    },
+    {
+      "package": "@mainsail/crypto-transaction-transfer"
+    },
+    {
+      "package": "@mainsail/crypto-transaction-vote"
+    }
+  ]
 }
