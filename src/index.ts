@@ -17,21 +17,28 @@ const main = async () => {
     const latestHeight = await Client.getHeight(peer);
     console.log(`>> latest height: ${latestHeight}`);
 
-    const tx = await makeTx(parseInt(process.argv[2]), config);
+    const txType = parseInt(process.argv[2]);
+    const tx = await makeTx(txType, config);
 
     await Client.postTransaction(peer, tx.serialized.toString("hex"));
-    console.log(`>> sent tx ${tx.id} to ${peer.ip}`);
+    console.log(`>> sent ${transactions[txType]} ${tx.id} to ${peer.ip}`);
 };
+
+const transactions = {
+    1: "Transfer",
+    2: "Vote",
+    3: "UsernameRegistration",
+    4: "UsernameResignation",
+    5: "MultiPayment",
+    6: "ValidatorRegistration",
+    7: "ValidatorResignation"
+}
 
 const help = () => {
     console.log("Please provide TX number in arguments:")
-    console.log("1 - Transfer")
-    console.log("2 - Vote")
-    console.log("3 - UsernameRegistration")
-    console.log("4 - UsernameResignation")
-    console.log("5 - MultiPayment")
-    console.log("5 - ValidatorRegistration")
-    console.log("6 - ValidatorResignation")
+    for(let key in transactions) {
+        console.log(`${key} - ${transactions[key]}`)
+    }
 }
 
 const makeTx = async (txType: number, config: Config): Promise<Contracts.Crypto.Transaction> => {
