@@ -1,11 +1,10 @@
+import { Contracts } from "@mainsail/contracts";
 import * as Loader from "./loader";
 import * as Client from "./client";
 import * as Builder from "./builder";
 import { Config } from "./types";
-import { Contracts } from "@mainsail/contracts";
 
-
-const main = async () => {
+const main = async () => {  
     if(process.argv.length < 3) {
         help();
         return;
@@ -17,8 +16,41 @@ const main = async () => {
     const latestHeight = await Client.getHeight(peer);
     console.log(`>> latest height: ${latestHeight}`);
 
-    const txType = parseInt(process.argv[2]);
-    const tx = await makeTx(txType, config);
+    const args = process.argv.slice(2);
+
+    let tx: Contracts.Crypto.Transaction;
+    let txType: number;
+
+    // "transfer" "abc" "1" -- used by faucet
+    if (args.length === 3) {
+        const action = args[0];
+        const recipientId = args[1];
+        const amount = args[2];
+
+        // node dist/index.js transfer "recipientId" "amount"
+        if (action !== "transfer" || !recipientId || !amount) {
+            throw new Error("action must be 'transfer' followed by the recipient and amount");
+        }
+
+        txType = 1;
+
+        tx = await Builder.makeTransfer(
+            {
+                ...config,
+                cli: {
+                    ...config.cli,
+                    transfer: {
+                        ...config.cli.transfer,
+                        amount,
+                        recipientId,
+                    }
+                }
+            },
+        );
+    } else {
+        txType = parseInt(process.argv[2]);
+        tx = await makeTx(txType, config);
+    }
 
     await Client.postTransaction(peer, tx.serialized.toString("hex"));
     console.log(`>> sent ${transactions[txType]} ${tx.id} to ${peer.ip}`);
