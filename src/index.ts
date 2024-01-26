@@ -24,36 +24,61 @@ const main = async () => {
     // "transfer" "abc" "1" -- used by faucet
     if (args.length === 3) {
         const action = args[0];
-        const recipientId = args[1];
+        const recipients = args[1].split(","); // comma-separated
         const amount = args[2];
 
-        // node dist/index.js transfer "recipientId" "amount"
-        if (action !== "transfer" || !recipientId || !amount) {
-            throw new Error("action must be 'transfer' followed by the recipient and amount");
+        // node dist/index.js transfer "recipients" "amount"
+        if (action !== "transfer" || !recipients || !recipients.length || !amount) {
+            throw new Error("action must be 'transfer' followed by the recipients and amount");
         }
 
-        txType = 1;
-
-        tx = await Builder.makeTransfer(
-            {
-                ...config,
-                cli: {
-                    ...config.cli,
-                    transfer: {
-                        ...config.cli.transfer,
-                        amount,
-                        recipientId,
+        
+        if (recipients.length === 1) {
+            txType = 1;
+            tx = await Builder.makeTransfer(
+                {
+                    ...config,
+                    cli: {
+                        ...config.cli,
+                        transfer: {
+                            ...config.cli.transfer,
+                            amount,
+                            recipientId: recipients[0],
+                        }
                     }
-                }
-            },
-        );
+                },
+            );
+        } else {
+            txType = 5;
+            tx = await Builder.makeMultiPayment(
+                {
+                    ...config,
+                    cli: {
+                        ...config.cli,
+                        multiPayment: {
+                            ...config.cli.multiPayment,
+                            payments: recipients.map(recipientId => ({
+                                amount,
+                                recipientId,
+                            })),
+                        }
+                    }
+                },
+            );
+
+        }
     } else {
         txType = parseInt(process.argv[2]);
         tx = await makeTx(txType, config);
     }
 
-    await Client.postTransaction(peer, tx.serialized.toString("hex"));
-    console.log(`>> sent ${transactions[txType]} ${tx.id} to ${peer.ip}`);
+    try {
+        await Client.postTransaction(peer, tx.serialized.toString("hex"));
+        console.log(`>> sent ${transactions[txType]} ${tx.id} to ${peer.ip}`);
+    } catch (ex) {
+        console.log(ex.message);
+        console.log(`>> failed to send tx ${tx.id} to ${peer.ip}`);
+    }
 };
 
 const transactions = {
