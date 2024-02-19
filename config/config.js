@@ -64,15 +64,15 @@ module.exports = {
         },
         {
             __comment__: "replace as needed for ARK network compat",
-            package: "@mainsail/crypto-signature-schnorr",
+            package: "@mainsail/crypto-signature-schnorr-secp256k1",
         },
         {
             __comment__: "replace as needed for ARK network compat",
-            package: "@mainsail/crypto-key-pair-schnorr",
+            package: "@mainsail/crypto-key-pair-ecdsa",
         },
         {
             __comment__: "replace as needed for ARK network compat",
-            package: "@mainsail/crypto-address-bech32m",
+            package: "@mainsail/crypto-address-base58",
         },
         {
             package: "@mainsail/crypto-consensus-bls12-381",
