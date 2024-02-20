@@ -10,7 +10,7 @@ module.exports = {
     senderPassphrase:
         "foam very swear render trial rapid large step raven sunny drift orchard cushion pipe file legend save kangaroo develop usage vast drama word win",
     transfer: {
-        recipientId: "ark1ychmwwx6h332dkc0ykgn0e0s6c7jhk0j4j8wwqv66jualrun29msyccfzf",
+        recipientId: "DCzk4aCBCeHTDUZ3RnkiK8aqpYYZ9iC51W",
         fee: "10000000",
         amount: "1",
         vendorField: "",
