@@ -221,6 +221,9 @@ dependencies:
   fs-extra:
     specifier: ^9.0.1
     version: 9.1.0
+  mainsail-network-config:
+    specifier: https://github.com/ArkEcosystem/mainsail-network-config
+    version: github.com/ArkEcosystem/mainsail-network-config/52b7ebc7b494182c36ed6fb4e8938a55c1e2494c
   reflect-metadata:
     specifier: ^0.1.13
     version: 0.1.14
@@ -8324,4 +8327,10 @@ packages:
 
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+    dev: false
+
+  github.com/ArkEcosystem/mainsail-network-config/52b7ebc7b494182c36ed6fb4e8938a55c1e2494c:
+    resolution: {tarball: https://codeload.github.com/ArkEcosystem/mainsail-network-config/tar.gz/52b7ebc7b494182c36ed6fb4e8938a55c1e2494c}
+    name: mainsail-network-config
+    version: 0.0.0
     dev: false

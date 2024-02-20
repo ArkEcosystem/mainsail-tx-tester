@@ -1,12 +1,10 @@
-import { readJSONSync } from "fs-extra";
 import { Config } from "./types";
-import { join } from "path";
 
-import cli from "../config/config.json";
+import cli from "../config/config.js";
 
 export const loadConfig = (): Config => {
     return {
-        crypto: readJSONSync(join(__dirname, cli.cryptoJsonPath)),
+        crypto: cli.crypto,
         cli,
-    }
+    };
 };

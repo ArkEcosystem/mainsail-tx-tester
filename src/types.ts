@@ -1,5 +1,5 @@
 import { Contracts } from "@mainsail/contracts";
-import cli from "../config/config.json";
+import cli from "../config/config.js";
 
 export type Peer = typeof cli.peer;
 
@@ -12,7 +12,7 @@ export type AddressType = "base58" | "bech32m";
 
 export type ValidatorConfig = {
     secrets: string[];
-}
+};
 
 export type Transfer = {
     recipientId: string;
