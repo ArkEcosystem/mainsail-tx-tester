@@ -31,4 +31,4 @@ TX Sender is using the Public API to obtain the wallet nonce and Transaction Poo
 
 ## Check transactions
 
--   `curl --location --request GET 'http://127.0.0.1:4003/api/transactions?senderId=ANBkoGqWeTSiaEVgVzSKZd3jS7UWzv9PSo&recipientId=AG8kwwk4TsYfA2HdwaWBVAJQBj6VhdcpMo&version=2&type=0&typeGroup=1&vendorField=%endor%'`
+-   `curl --location --request GET 'http://127.0.0.1:4003/api/transactions?senderId=DCzk4aCBCeHTDUZ3RnkiK8aqpYYZ9iC51W'`
