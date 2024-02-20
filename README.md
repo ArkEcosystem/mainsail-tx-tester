@@ -1,4 +1,4 @@
-# Core Tx Tester
+# Mainsail Tx Tester
 
 ## Installation
 
