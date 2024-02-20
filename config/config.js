@@ -13,7 +13,7 @@ module.exports = {
         recipientId: "ark1ychmwwx6h332dkc0ykgn0e0s6c7jhk0j4j8wwqv66jualrun29msyccfzf",
         fee: "10000000",
         amount: "1",
-        vendorField: "vendor field",
+        vendorField: "",
     },
     vote: {
         voteAsset: "d2ebcc8c5827e5c0feb0f226f84e4bffc7275729b8a04464f84cabcfc7bedcb1",
