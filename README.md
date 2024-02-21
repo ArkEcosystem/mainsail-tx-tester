@@ -1,5 +1,7 @@
 # Mainsail Tx Tester
 
+![Logo](banner.png)
+
 ## Installation
 
 -   `pnpm i`
