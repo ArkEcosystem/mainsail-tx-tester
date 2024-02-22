@@ -1,6 +1,6 @@
 import { getApplication } from "./boot";
 import { loadConfig } from "./loader";
-import { Contracts, Identifiers } from "@mainsail/contracts";
+import { makeIdentityFactories } from "./builder";
 
 const main = async () => {
     if (process.argv.length !== 3) {
@@ -18,27 +18,6 @@ const main = async () => {
 
     console.log("Public Key: ", await publicKeyFactory.fromMnemonic(mnemonic));
     console.log("Address: ", await addressFactory.fromMnemonic(mnemonic));
-};
-
-const makeIdentityFactories = (
-    app: Contracts.Kernel.Application,
-): {
-    addressFactory: Contracts.Crypto.AddressFactory;
-    publicKeyFactory: Contracts.Crypto.PublicKeyFactory;
-} => {
-    return {
-        addressFactory: app.getTagged<Contracts.Crypto.AddressFactory>(
-            Identifiers.Cryptography.Identity.Address.Factory,
-            "type",
-            "wallet",
-        ),
-
-        publicKeyFactory: app.getTagged<Contracts.Crypto.PublicKeyFactory>(
-            Identifiers.Cryptography.Identity.PublicKey.Factory,
-            "type",
-            "wallet",
-        ),
-    };
 };
 
 main();
