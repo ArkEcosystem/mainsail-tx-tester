@@ -31,9 +31,8 @@ export const makeTransfer = async (config: Config): Promise<Contracts.Crypto.Tra
         .vendorField(transfer.vendorField)
         .sign(senderPassphrase);
 
-
     return signed.build();
-}
+};
 
 export const makeVote = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
@@ -60,11 +59,10 @@ export const makeVote = async (config: Config): Promise<Contracts.Crypto.Transac
         builder = builder.unvotesAsset([vote.unvoteAsset]);
     }
 
-    const signed = await builder
-        .sign(senderPassphrase);
+    const signed = await builder.sign(senderPassphrase);
 
     return signed.build();
-}
+};
 
 export const makeUsernameRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
@@ -86,7 +84,7 @@ export const makeUsernameRegistration = async (config: Config): Promise<Contract
         .sign(senderPassphrase);
 
     return signed.build();
-}
+};
 
 export const makeUsernameResignation = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
@@ -107,7 +105,7 @@ export const makeUsernameResignation = async (config: Config): Promise<Contracts
         .sign(senderPassphrase);
 
     return signed.build();
-}
+};
 
 export const makeMultiPayment = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
@@ -130,11 +128,10 @@ export const makeMultiPayment = async (config: Config): Promise<Contracts.Crypto
         builder = builder.addPayment(recipientId, amount);
     }
 
-    const signed = await builder
-        .sign(senderPassphrase);
+    const signed = await builder.sign(senderPassphrase);
 
     return signed.build();
-}
+};
 
 export const makeValidatorRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
@@ -156,7 +153,7 @@ export const makeValidatorRegistration = async (config: Config): Promise<Contrac
         .sign(senderPassphrase);
 
     return signed.build();
-}
+};
 
 export const makeValidatorResignation = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
@@ -177,11 +174,13 @@ export const makeValidatorResignation = async (config: Config): Promise<Contract
         .sign(senderPassphrase);
 
     return signed.build();
-}
+};
 
-const makeIdentityFactories = (app: Contracts.Kernel.Application): {
-    addressFactory: Contracts.Crypto.AddressFactory,
-    publicKeyFactory: Contracts.Crypto.PublicKeyFactory
+export const makeIdentityFactories = (
+    app: Contracts.Kernel.Application,
+): {
+    addressFactory: Contracts.Crypto.AddressFactory;
+    publicKeyFactory: Contracts.Crypto.PublicKeyFactory;
 } => {
     return {
         addressFactory: app.getTagged<Contracts.Crypto.AddressFactory>(
@@ -194,6 +193,6 @@ const makeIdentityFactories = (app: Contracts.Kernel.Application): {
             Identifiers.Cryptography.Identity.PublicKey.Factory,
             "type",
             "wallet",
-        )
-    }
-}
+        ),
+    };
+};

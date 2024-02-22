@@ -2,20 +2,71 @@
 
 ![Logo](banner.png)
 
-## Installation
+## Yarn
 
--   `pnpm i`
--   `pnpm run build`
+### Installation
 
-## Usage
+```bash
+yarn
+yarn build
+```
+
+### Usage
 
 Show help:
 
--   `pnpm run start`
+```bash
+yarn start
+```
 
 Send TX:
 
--   `pnpm run start <TX number>`
+```bash
+yarn start <TX number>
+```
+
+Generate wallets **Mnemonic**, **Address** and **Public Key**:
+
+```bash
+yarn wallet
+```
+
+```bash
+yarn wallet "custom mnemonic"
+```
+
+## PNPM
+
+### Installation
+
+```bash
+pnpm i
+pnpm run build
+```
+
+### Usage
+
+Show help:
+
+```bash
+pnpm run start
+```
+
+Send TX:
+
+```bash
+pnpm run start <TX number>
+```
+
+Generate wallets **Mnemonic**, **Address** and **Public Key**:
+
+```bash
+pnpm run wallet
+```
+
+```bash
+pnpm run wallet "custom mnemonic"
+```
 
 ## Configuration
 
@@ -33,4 +84,6 @@ TX Sender is using the Public API to obtain the wallet nonce and Transaction Poo
 
 ## Check transactions
 
--   `curl --location --request GET 'http://127.0.0.1:4003/api/transactions?senderId=DCzk4aCBCeHTDUZ3RnkiK8aqpYYZ9iC51W'`
+```bash
+curl --location --request GET 'http://127.0.0.1:4003/api/transactions?senderId=DCzk4aCBCeHTDUZ3RnkiK8aqpYYZ9iC51W'
+```
