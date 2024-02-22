@@ -84,6 +84,7 @@
         "@mainsail/validator-set-vote-weighted": "0.0.1-alpha.7",
         "@mainsail/webhooks": "0.0.1-alpha.7",
         "mainsail-network-config": "https://github.com/ArkEcosystem/mainsail-network-config",
+        "bip39": "3.1.0",
         "fs-extra": "^9.0.1",
         "reflect-metadata": "^0.1.13"
     },
