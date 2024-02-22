@@ -17,6 +17,10 @@ Send TX:
 
 -   `pnpm run start <TX number>`
 
+Generate wallet **Address** and **Public Key**:
+
+-   `pnpm run wallet "mnemonic"`
+
 ## Configuration
 
 Look into `/config/config.js` file.
