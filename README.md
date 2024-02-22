@@ -2,12 +2,35 @@
 
 ![Logo](banner.png)
 
-## Installation
+## Yarn
+
+### Installation
+
+-   `yarn`
+-   `yarn build`
+
+### Usage
+
+Show help:
+
+-   `yarn start`
+
+Send TX:
+
+-   `yarn start <TX number>`
+
+Generate wallet **Address** and **Public Key**:
+
+-   `yarn wallet "mnemonic"`
+
+## PNPM
+
+### Installation
 
 -   `pnpm i`
 -   `pnpm run build`
 
-## Usage
+### Usage
 
 Show help:
 
