@@ -4,6 +4,7 @@
     "description": "A simple command line utility to create and broadcast transactions.",
     "scripts": {
         "start": "node dist/index.js",
+        "wallet": "node dist/wallet-data.js",
         "build": "del dist && tsc",
         "build:watch": "del dist && tsc -w",
         "debug": "node --inspect-brk dist/index.js",
