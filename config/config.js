@@ -2,7 +2,7 @@ const crypto = require("mainsail-network-config/testnet/mainsail/crypto.json");
 
 module.exports = {
     peer: {
-        ip: "127.0.0.1",
+        ip: "49.13.30.19",
         port: "4003",
         protocol: "http",
     },
