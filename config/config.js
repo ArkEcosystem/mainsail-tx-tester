@@ -7,8 +7,7 @@ module.exports = {
         protocol: "http",
     },
     crypto: crypto,
-    senderPassphrase:
-        "foam very swear render trial rapid large step raven sunny drift orchard cushion pipe file legend save kangaroo develop usage vast drama word win",
+    senderPassphrase: "",
     transfer: {
         recipientId: "DCzk4aCBCeHTDUZ3RnkiK8aqpYYZ9iC51W",
         fee: "10000000",
