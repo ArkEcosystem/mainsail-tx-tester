@@ -1,16 +1,15 @@
 const crypto = require("mainsail-network-config/testnet/mainsail/crypto.json");
 
 module.exports = {
+    senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     peer: {
-        ip: "127.0.0.1",
+        ip: "49.13.30.19",
         port: "4003",
         protocol: "http",
     },
     crypto: crypto,
-    senderPassphrase:
-        "foam very swear render trial rapid large step raven sunny drift orchard cushion pipe file legend save kangaroo develop usage vast drama word win",
     transfer: {
-        recipientId: "DCzk4aCBCeHTDUZ3RnkiK8aqpYYZ9iC51W",
+        recipientId: "DNvqMC1YBF76AoT1emyqVGHyfwNw31RCws",
         fee: "10000000",
         amount: "1",
         vendorField: "",
@@ -32,11 +31,11 @@ module.exports = {
         vendorField: "",
         payments: [
             {
-                recipientId: "ark1ychmwwx6h332dkc0ykgn0e0s6c7jhk0j4j8wwqv66jualrun29msyccfzf",
+                recipientId: "DNvqMC1YBF76AoT1emyqVGHyfwNw31RCws",
                 amount: "100000000",
             },
             {
-                recipientId: "ark1saw3xnkjw5cx0hwzka5e9jg96gtn4lu0uhsxngcrltgly70sy93s99tahy",
+                recipientId: "DCFP8KogR2Jq34JuH6SdUpHjMPzLm3hpaC",
                 amount: "200000000",
             },
         ],
