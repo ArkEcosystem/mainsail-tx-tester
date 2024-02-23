@@ -1,13 +1,13 @@
 const crypto = require("mainsail-network-config/testnet/mainsail/crypto.json");
 
 module.exports = {
+    senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     peer: {
         ip: "49.13.30.19",
         port: "4003",
         protocol: "http",
     },
     crypto: crypto,
-    senderPassphrase: "",
     transfer: {
         recipientId: "DCzk4aCBCeHTDUZ3RnkiK8aqpYYZ9iC51W",
         fee: "10000000",
