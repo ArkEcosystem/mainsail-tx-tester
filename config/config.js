@@ -9,7 +9,7 @@ module.exports = {
     },
     crypto: crypto,
     transfer: {
-        recipientId: "DCzk4aCBCeHTDUZ3RnkiK8aqpYYZ9iC51W",
+        recipientId: "DNvqMC1YBF76AoT1emyqVGHyfwNw31RCws",
         fee: "10000000",
         amount: "1",
         vendorField: "",
@@ -31,11 +31,11 @@ module.exports = {
         vendorField: "",
         payments: [
             {
-                recipientId: "ark1ychmwwx6h332dkc0ykgn0e0s6c7jhk0j4j8wwqv66jualrun29msyccfzf",
+                recipientId: "DNvqMC1YBF76AoT1emyqVGHyfwNw31RCws",
                 amount: "100000000",
             },
             {
-                recipientId: "ark1saw3xnkjw5cx0hwzka5e9jg96gtn4lu0uhsxngcrltgly70sy93s99tahy",
+                recipientId: "DCFP8KogR2Jq34JuH6SdUpHjMPzLm3hpaC",
                 amount: "200000000",
             },
         ],
