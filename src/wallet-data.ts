@@ -8,10 +8,11 @@ const main = async () => {
 
     const app = await getApplication(loadConfig());
 
-    const { publicKeyFactory, addressFactory } = makeIdentityFactories(app);
+    const { publicKeyFactory, privateKeyFactory, addressFactory } = makeIdentityFactories(app);
 
     console.log("Mnemonic: ", mnemonic);
     console.log("Public Key: ", await publicKeyFactory.fromMnemonic(mnemonic));
+    console.log("Private Key: ", await privateKeyFactory.fromMnemonic(mnemonic));
     console.log("Address: ", await addressFactory.fromMnemonic(mnemonic));
 };
 

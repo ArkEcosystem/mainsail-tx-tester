@@ -181,6 +181,7 @@ export const makeIdentityFactories = (
 ): {
     addressFactory: Contracts.Crypto.AddressFactory;
     publicKeyFactory: Contracts.Crypto.PublicKeyFactory;
+    privateKeyFactory: Contracts.Crypto.PrivateKeyFactory;
 } => {
     return {
         addressFactory: app.getTagged<Contracts.Crypto.AddressFactory>(
@@ -191,6 +192,12 @@ export const makeIdentityFactories = (
 
         publicKeyFactory: app.getTagged<Contracts.Crypto.PublicKeyFactory>(
             Identifiers.Cryptography.Identity.PublicKey.Factory,
+            "type",
+            "wallet",
+        ),
+
+        privateKeyFactory: app.getTagged<Contracts.Crypto.PublicKeyFactory>(
+            Identifiers.Cryptography.Identity.PrivateKey.Factory,
             "type",
             "wallet",
         ),
