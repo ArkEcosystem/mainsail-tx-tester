@@ -4,8 +4,8 @@ import * as Client from "./client";
 import * as Builder from "./builder";
 import { Config } from "./types";
 
-const main = async () => {  
-    if(process.argv.length < 3) {
+const main = async () => {
+    if (process.argv.length < 3) {
         help();
         return;
     }
@@ -32,40 +32,34 @@ const main = async () => {
             throw new Error("action must be 'transfer' followed by the recipients and amount");
         }
 
-        
         if (recipients.length === 1) {
             txType = 1;
-            tx = await Builder.makeTransfer(
-                {
-                    ...config,
-                    cli: {
-                        ...config.cli,
-                        transfer: {
-                            ...config.cli.transfer,
-                            amount,
-                            recipientId: recipients[0],
-                        }
-                    }
+            tx = await Builder.makeTransfer({
+                ...config,
+                cli: {
+                    ...config.cli,
+                    transfer: {
+                        ...config.cli.transfer,
+                        amount,
+                        recipientId: recipients[0],
+                    },
                 },
-            );
+            });
         } else {
             txType = 5;
-            tx = await Builder.makeMultiPayment(
-                {
-                    ...config,
-                    cli: {
-                        ...config.cli,
-                        multiPayment: {
-                            ...config.cli.multiPayment,
-                            payments: recipients.map(recipientId => ({
-                                amount,
-                                recipientId,
-                            })),
-                        }
-                    }
+            tx = await Builder.makeMultiPayment({
+                ...config,
+                cli: {
+                    ...config.cli,
+                    multiPayment: {
+                        ...config.cli.multiPayment,
+                        payments: recipients.map((recipientId) => ({
+                            amount,
+                            recipientId,
+                        })),
+                    },
                 },
-            );
-
+            });
         }
     } else {
         txType = parseInt(process.argv[2]);
@@ -73,8 +67,10 @@ const main = async () => {
     }
 
     try {
-        await Client.postTransaction(peer, tx.serialized.toString("hex"));
+        const result = await Client.postTransaction(peer, tx.serialized.toString("hex"));
         console.log(`>> sent ${transactions[txType]} ${tx.id} to ${peer.ip}`);
+
+        console.log(result);
     } catch (ex) {
         console.log(ex.message);
         console.log(`>> failed to send tx ${tx.id} to ${peer.ip}`);
@@ -88,18 +84,18 @@ const transactions = {
     4: "UsernameResignation",
     5: "MultiPayment",
     6: "ValidatorRegistration",
-    7: "ValidatorResignation"
-}
+    7: "ValidatorResignation",
+};
 
 const help = () => {
-    console.log("Please provide TX number in arguments:")
-    for(let key in transactions) {
-        console.log(`${key} - ${transactions[key]}`)
+    console.log("Please provide TX number in arguments:");
+    for (let key in transactions) {
+        console.log(`${key} - ${transactions[key]}`);
     }
-}
+};
 
 const makeTx = async (txType: number, config: Config): Promise<Contracts.Crypto.Transaction> => {
-    switch(txType) {
+    switch (txType) {
         case 1:
             return await Builder.makeTransfer(config);
         case 2:
@@ -115,8 +111,8 @@ const makeTx = async (txType: number, config: Config): Promise<Contracts.Crypto.
         case 7:
             return await Builder.makeValidatorResignation(config);
         default:
-            throw new Error("Invalid TX type")
+            throw new Error("Invalid TX type");
     }
-}
+};
 
 main();
