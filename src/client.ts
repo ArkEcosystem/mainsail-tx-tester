@@ -43,7 +43,7 @@ export const postTransaction = async (peer: Peer, transaction: string): Promise<
 };
 
 const getApiServerUrl = (peer: Peer): string => {
-    return `${peer.protocol ?? "http"}://${peer.ip}:4003`;
+    return `${peer.protocol ?? "http"}://${peer.ip}:${peer.port ?? 4003}`;
 };
 
 const getApiTxPoolServerUrl = (peer: Peer): string => {
