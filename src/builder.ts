@@ -122,7 +122,8 @@ export const makeMultiPayment = async (config: Config): Promise<Contracts.Crypto
     let builder = app
         .resolve(MultiPaymentBuilder)
         .fee(multiPayment.fee)
-        .nonce((walletNonce + 1).toFixed(0));
+        .nonce((walletNonce + 1).toFixed(0))
+        .vendorField(multiPayment.vendorField);
 
     for (const { amount, recipientId } of multiPayment.payments) {
         builder = builder.addPayment(recipientId, amount);
