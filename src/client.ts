@@ -4,7 +4,8 @@ import { Peer } from "./types";
 export const getWalletNonce = async (peer: Peer, publicKey: string): Promise<number> => {
     try {
         const response = await http.get(`${getApiServerUrl(peer)}/api/wallets/${publicKey}`);
-        return parseInt(response.data.nonce ?? "0");
+        const nonce = response.data.nonce ?? response.data.data.nonce ?? "0";
+        return parseInt(nonce);
     } catch (err) {
         console.error(`Cannot find wallet by address ${publicKey}: ${err.message}`);
         throw err;
