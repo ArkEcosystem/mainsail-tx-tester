@@ -4,7 +4,7 @@ const config = {
     senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     peer: {
         apiUrl: "https://dwallets.mainsailhq.com",
-        apiTxPoolUrl: "https://dwallets.mainsailhq.com",
+        apiTxPoolUrl: "https://dwallets.mainsailhq.com/tx",
     },
     crypto: crypto,
     transfer: {
