@@ -9,11 +9,9 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": [
-      "es2020"
-    ],
-    "module": "CommonJS",
-    "moduleResolution": "node",
+		"lib": ["es2021"],
+		"module": "nodenext",
+		"moduleResolution": "nodenext",
     "newLine": "lf",
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
@@ -27,7 +25,7 @@
     "sourceMap": true,
     "strict": true,
     "stripInternal": true,
-    "target": "es2020",
+    "target": "es2021",
     "typeRoots": [
       "reflect-metadata",
       "node_modules/@types"

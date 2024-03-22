@@ -1,7 +1,7 @@
 import { Container } from "@mainsail/container";
 import { Identifiers, Contracts } from "@mainsail/contracts";
 import { Application, Providers } from "@mainsail/kernel";
-import { Config } from "./types";
+import { Config } from "./types.js";
 
 export const getApplication = async (config: Config): Promise<Application> => {
     const app = new Application(new Container());
@@ -9,7 +9,8 @@ export const getApplication = async (config: Config): Promise<Application> => {
     const plugins = config.cli.plugins;
     for (const plugin of plugins) {
         const packageModule = plugin.package;
-        const serviceProvider: Providers.ServiceProvider = app.resolve(require(packageModule).ServiceProvider);
+        const { ServiceProvider } = await import(packageModule);
+        const serviceProvider: Providers.ServiceProvider = app.resolve(ServiceProvider);
         await serviceProvider.register();
     }
 

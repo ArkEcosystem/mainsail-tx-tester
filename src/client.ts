@@ -1,9 +1,9 @@
 import { http } from "@mainsail/utils";
-import { Peer } from "./types";
+import { Peer } from "./types.js";
 
 export const getWalletNonce = async (peer: Peer, publicKey: string): Promise<number> => {
     try {
-        const response = await http.get(`${getApiServerUrl(peer)}/api/wallets/${publicKey}`);
+        const response = await http.get(`${peer.apiUrl}/api/wallets/${publicKey}`);
         const nonce = response.data.nonce ?? response.data.data.nonce ?? "0";
         return parseInt(nonce);
     } catch (err) {
@@ -14,7 +14,7 @@ export const getWalletNonce = async (peer: Peer, publicKey: string): Promise<num
 
 export const getHeight = async (peer: Peer): Promise<number> => {
     try {
-        const response = await http.get(`${getApiServerUrl(peer)}/api/blockchain`);
+        const response = await http.get(`${peer.apiUrl}/api/blockchain`);
         return parseInt(response.data.data.block.height);
     } catch (err) {
         console.error(`Cannot get height: ${err.message}`);
@@ -24,7 +24,7 @@ export const getHeight = async (peer: Peer): Promise<number> => {
 
 export const postTransaction = async (peer: Peer, transaction: string): Promise<void> => {
     try {
-        const response = await http.post(`${getApiTxPoolServerUrl(peer)}/api/transaction-pool`, {
+        const response = await http.post(`${peer.apiTxPoolUrl}/api/transaction-pool`, {
             headers: { "Content-Type": "application/json" },
             body: {
                 transactions: [transaction] as any,
@@ -41,12 +41,4 @@ export const postTransaction = async (peer: Peer, transaction: string): Promise<
     } catch (err) {
         console.error(`Cannot post transaction: ${err.message}`);
     }
-};
-
-const getApiServerUrl = (peer: Peer): string => {
-    return `${peer.protocol ?? "http"}://${peer.ip}:${peer.port ?? 4003}`;
-};
-
-const getApiTxPoolServerUrl = (peer: Peer): string => {
-    return `${peer.protocol ?? "http"}://${peer.ip}:4007`;
 };

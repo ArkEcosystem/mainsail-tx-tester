@@ -1,6 +1,6 @@
-import { getApplication } from "./boot";
-import { loadConfig } from "./loader";
-import { makeIdentityFactories } from "./builder";
+import { getApplication } from "./boot.js";
+import { loadConfig } from "./loader.js";
+import { makeIdentityFactories } from "./builder.js";
 import { generateMnemonic } from "bip39";
 
 const main = async () => {
