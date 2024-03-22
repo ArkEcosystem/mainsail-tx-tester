@@ -6,9 +6,9 @@ import { UsernameResignationBuilder } from "@mainsail/crypto-transaction-usernam
 import { MultiPaymentBuilder } from "@mainsail/crypto-transaction-multi-payment";
 import { ValidatorRegistrationBuilder } from "@mainsail/crypto-transaction-validator-registration";
 import { ValidatorResignationBuilder } from "@mainsail/crypto-transaction-validator-resignation";
-import * as Client from "./client";
-import { Config } from "./types";
-import { getApplication } from "./boot";
+import * as Client from "./client.js";
+import { Config } from "./types.js";
+import { getApplication } from "./boot.js";
 
 export const makeTransfer = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;

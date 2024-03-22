@@ -1,8 +1,8 @@
 import { Contracts } from "@mainsail/contracts";
-import * as Loader from "./loader";
-import * as Client from "./client";
-import * as Builder from "./builder";
-import { Config } from "./types";
+import * as Loader from "./loader.js";
+import * as Client from "./client.js";
+import * as Builder from "./builder.js";
+import { Config } from "./types.js";
 
 const main = async () => {
     if (process.argv.length < 3) {
@@ -68,7 +68,7 @@ const main = async () => {
 
     try {
         const result = await Client.postTransaction(peer, tx.serialized.toString("hex"));
-        console.log(`>> sent ${transactions[txType]} ${tx.id} to ${peer.ip}`);
+        console.log(`>> sent ${transactions[txType]} ${tx.id} to ${peer.apiTxPoolUrl}`);
 
         console.log(result);
     } catch (ex) {

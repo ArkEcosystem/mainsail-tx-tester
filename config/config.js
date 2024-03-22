@@ -1,11 +1,10 @@
-const crypto = require("mainsail-network-config/testnet/mainsail/crypto.json");
+import crypto from "mainsail-network-config/testnet/mainsail/crypto.json" with { type: "json" }
 
-module.exports = {
+const config = {
     senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     peer: {
-        ip: "49.13.30.19",
-        port: "4003",
-        protocol: "http",
+        apiUrl: "https://dwallets.mainsailhq.com",
+        apiTxPoolUrl: "https://dwallets.mainsailhq.com",
     },
     crypto: crypto,
     transfer: {
@@ -117,3 +116,5 @@ module.exports = {
         },
     ],
 };
+
+export default config;
