@@ -1,13 +1,13 @@
 import { http } from "@mainsail/utils";
 import { Peer } from "./types.js";
 
-export const getWalletNonce = async (peer: Peer, publicKey: string): Promise<number> => {
+export const getWalletNonce = async (peer: Peer, address: string): Promise<number> => {
     try {
-        const response = await http.get(`${peer.apiUrl}/api/wallets/${publicKey}`);
+        const response = await http.get(`${peer.apiUrl}/api/wallets/${address}`);
         const nonce = response.data.nonce ?? response.data.data.nonce ?? "0";
         return parseInt(nonce);
     } catch (err) {
-        console.error(`Cannot find wallet by address ${publicKey}: ${err.message}`);
+        console.error(`Cannot find wallet by address ${address}: ${err.message}`);
         throw err;
     }
 };
