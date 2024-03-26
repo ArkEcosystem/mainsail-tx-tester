@@ -9,18 +9,29 @@ import { ValidatorResignationBuilder } from "@mainsail/crypto-transaction-valida
 import * as Client from "./client.js";
 import { Config } from "./types.js";
 import { getApplication } from "./boot.js";
+import { Application } from "@mainsail/kernel";
+
+const getWalletNonce = async (app: Application, config: Config): Promise<number> => {
+    const { peer, senderPassphrase } = config.cli;
+
+    const { addressFactory } = makeIdentityFactories(app);
+
+    const walletAddress = await addressFactory.fromMnemonic(senderPassphrase);
+
+    const walletNonce = await Client.getWalletNonce(peer, walletAddress);
+
+    console.log(`>> using wallet: ${walletAddress} nonce: ${walletNonce}`);
+
+    return walletNonce;
+};
 
 export const makeTransfer = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
-    const { transfer, peer, senderPassphrase } = cli;
+    const { transfer, senderPassphrase } = cli;
 
     const app = await getApplication(config);
-    const { publicKeyFactory } = makeIdentityFactories(app);
 
-    const senderPublicKey = await publicKeyFactory.fromMnemonic(senderPassphrase);
-
-    const walletNonce = await Client.getWalletNonce(peer, senderPublicKey);
-    console.log(`>> using wallet: ${senderPublicKey} nonce: ${walletNonce}`);
+    const walletNonce = await getWalletNonce(app, config);
 
     const signed = await app
         .resolve(TransferBuilder)
@@ -36,15 +47,11 @@ export const makeTransfer = async (config: Config): Promise<Contracts.Crypto.Tra
 
 export const makeVote = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
-    const { vote, peer, senderPassphrase } = cli;
+    const { vote, senderPassphrase } = cli;
 
     const app = await getApplication(config);
-    const { publicKeyFactory } = makeIdentityFactories(app);
 
-    const senderPublicKey = await publicKeyFactory.fromMnemonic(senderPassphrase);
-
-    const walletNonce = await Client.getWalletNonce(peer, senderPublicKey);
-    console.log(`>> using wallet: ${senderPublicKey} nonce: ${walletNonce}`);
+    const walletNonce = await getWalletNonce(app, config);
 
     let builder = app
         .resolve(VoteBuilder)
@@ -66,15 +73,11 @@ export const makeVote = async (config: Config): Promise<Contracts.Crypto.Transac
 
 export const makeUsernameRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
-    const { userNameRegistration, peer, senderPassphrase } = cli;
+    const { userNameRegistration, senderPassphrase } = cli;
 
     const app = await getApplication(config);
-    const { publicKeyFactory } = makeIdentityFactories(app);
 
-    const senderPublicKey = await publicKeyFactory.fromMnemonic(senderPassphrase);
-
-    const walletNonce = await Client.getWalletNonce(peer, senderPublicKey);
-    console.log(`>> using wallet: ${senderPublicKey} nonce: ${walletNonce}`);
+    const walletNonce = await getWalletNonce(app, config);
 
     const signed = await app
         .resolve(UsernameRegistrationBuilder)
@@ -88,15 +91,11 @@ export const makeUsernameRegistration = async (config: Config): Promise<Contract
 
 export const makeUsernameResignation = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
-    const { userNameResignation, peer, senderPassphrase } = cli;
+    const { userNameResignation, senderPassphrase } = cli;
 
     const app = await getApplication(config);
-    const { publicKeyFactory } = makeIdentityFactories(app);
 
-    const senderPublicKey = await publicKeyFactory.fromMnemonic(senderPassphrase);
-
-    const walletNonce = await Client.getWalletNonce(peer, senderPublicKey);
-    console.log(`>> using wallet: ${senderPublicKey} nonce: ${walletNonce}`);
+    const walletNonce = await getWalletNonce(app, config);
 
     const signed = await app
         .resolve(UsernameResignationBuilder)
@@ -109,15 +108,11 @@ export const makeUsernameResignation = async (config: Config): Promise<Contracts
 
 export const makeMultiPayment = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
-    const { multiPayment, peer, senderPassphrase } = cli;
+    const { multiPayment, senderPassphrase } = cli;
 
     const app = await getApplication(config);
-    const { publicKeyFactory } = makeIdentityFactories(app);
 
-    const senderPublicKey = await publicKeyFactory.fromMnemonic(senderPassphrase);
-
-    const walletNonce = await Client.getWalletNonce(peer, senderPublicKey);
-    console.log(`>> using wallet: ${senderPublicKey} nonce: ${walletNonce}`);
+    const walletNonce = await getWalletNonce(app, config);
 
     let builder = app
         .resolve(MultiPaymentBuilder)
@@ -136,15 +131,11 @@ export const makeMultiPayment = async (config: Config): Promise<Contracts.Crypto
 
 export const makeValidatorRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
-    const { validatorRegistration, peer, senderPassphrase } = cli;
+    const { validatorRegistration, senderPassphrase } = cli;
 
     const app = await getApplication(config);
-    const { publicKeyFactory } = makeIdentityFactories(app);
 
-    const senderPublicKey = await publicKeyFactory.fromMnemonic(senderPassphrase);
-
-    const walletNonce = await Client.getWalletNonce(peer, senderPublicKey);
-    console.log(`>> using wallet: ${senderPublicKey} nonce: ${walletNonce}`);
+    const walletNonce = await getWalletNonce(app, config);
 
     const signed = await app
         .resolve(ValidatorRegistrationBuilder)
@@ -158,15 +149,11 @@ export const makeValidatorRegistration = async (config: Config): Promise<Contrac
 
 export const makeValidatorResignation = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
-    const { validatorResignation, peer, senderPassphrase } = cli;
+    const { validatorResignation, senderPassphrase } = cli;
 
     const app = await getApplication(config);
-    const { publicKeyFactory } = makeIdentityFactories(app);
 
-    const senderPublicKey = await publicKeyFactory.fromMnemonic(senderPassphrase);
-
-    const walletNonce = await Client.getWalletNonce(peer, senderPublicKey);
-    console.log(`>> using wallet: ${senderPublicKey} nonce: ${walletNonce}`);
+    const walletNonce = await getWalletNonce(app, config);
 
     const signed = await app
         .resolve(ValidatorResignationBuilder)
