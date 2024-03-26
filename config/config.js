@@ -14,7 +14,7 @@ const config = {
         vendorField: "",
     },
     vote: {
-        voteAsset: "d2ebcc8c5827e5c0feb0f226f84e4bffc7275729b8a04464f84cabcfc7bedcb1",
+        voteAsset: "03f25455408f9a7e6c6a056b121e68fbda98f3511d22e9ef27b0ebaf1ef9e4eabc",
         unvoteAsset: "",
         fee: "100000000",
     },
