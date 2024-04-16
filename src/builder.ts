@@ -51,7 +51,6 @@ export const makeMultisignatureRegistration = async (config: Config): Promise<Co
         .resolve(MultiSignatureBuilder)
         .fee(multiSignatureRegistration.fee)
         .nonce((walletNonce + 1).toFixed(0))
-        .recipientId(await publicKeyFactory.fromMultiSignatureAsset(multisignatureAsset))
         .senderPublicKey(await publicKeyFactory.fromMnemonic(senderPassphrase))
         .multiSignatureAsset(multisignatureAsset);
 
