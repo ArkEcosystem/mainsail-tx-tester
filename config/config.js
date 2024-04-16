@@ -1,4 +1,4 @@
-import crypto from "mainsail-network-config/testnet/mainsail/crypto.json" with { type: "json" }
+import crypto from "mainsail-network-config/testnet/mainsail/crypto.json" with { type: "json" };
 
 const config = {
     senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET

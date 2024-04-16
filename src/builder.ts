@@ -40,11 +40,7 @@ export const makeMultisignatureRegistration = async (config: Config): Promise<Co
 
     const multisignatureAsset = {
         min: multiSignatureRegistration.min,
-        publicKeys: [
-            multiSignatureRegistration.participants[0].publicKey,
-            multiSignatureRegistration.participants[1].publicKey,
-            multiSignatureRegistration.participants[2].publicKey,
-        ],
+        publicKeys: multiSignatureRegistration.participants.map((participant) => participant.publicKey),
     };
 
     const transaction = await app
