@@ -40,7 +40,11 @@ export const makeMultisignatureRegistration = async (config: Config): Promise<Co
 
     const multisignatureAsset = {
         min: multiSignatureRegistration.min,
-        publicKeys: multiSignatureRegistration.participants.map((participant) => participant.publicKey),
+        publicKeys: await Promise.all(
+            multiSignatureRegistration.participants.map(
+                async (participant) => await publicKeyFactory.fromMnemonic(participant),
+            ),
+        ),
     };
 
     const transaction = await app
@@ -52,7 +56,7 @@ export const makeMultisignatureRegistration = async (config: Config): Promise<Co
 
     // Sign with each participant
     for (const [index, participant] of multiSignatureRegistration.participants.entries()) {
-        await transaction.multiSign(participant.passphrase, index);
+        await transaction.multiSign(participant, index);
     }
 
     // Sign with the sender
