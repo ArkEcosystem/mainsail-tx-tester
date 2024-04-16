@@ -1,8 +1,9 @@
-import { Contracts } from "@mainsail/contracts";
-import * as Loader from "./loader.js";
-import * as Client from "./client.js";
 import * as Builder from "./builder.js";
+import * as Client from "./client.js";
+import * as Loader from "./loader.js";
+
 import { Config } from "./types.js";
+import { Contracts } from "@mainsail/contracts";
 
 const main = async () => {
     if (process.argv.length < 3) {
@@ -85,6 +86,7 @@ const transactions = {
     5: "MultiPayment",
     6: "ValidatorRegistration",
     7: "ValidatorResignation",
+    8: "MultiSignatureRegistration",
 };
 
 const help = () => {
@@ -110,6 +112,8 @@ const makeTx = async (txType: number, config: Config): Promise<Contracts.Crypto.
             return await Builder.makeValidatorRegistration(config);
         case 7:
             return await Builder.makeValidatorResignation(config);
+        case 8:
+            return await Builder.makeMultisignatureRegistration(config);
         default:
             throw new Error("Invalid TX type");
     }

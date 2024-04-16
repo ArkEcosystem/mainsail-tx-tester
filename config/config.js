@@ -39,6 +39,27 @@ const config = {
             },
         ],
     },
+    multiSignatureRegistration: {
+        min: 2,
+        participants: [
+            {
+                publicKey: "029fab3cb2f5e248ae7cbb4de646741da4d73c493b2a03ab5c71507fb2c0dcca92",
+                passphrase:
+                    "album pony urban cheap small blade cannon silent run reveal luxury glad predict excess fire beauty hollow reward solar egg exclude leaf sight degree",
+            },
+            {
+                publicKey: "03629f9dbf7f1e91cefa845126189816ceae357bdd1f41bd14787318a7d5b55d48",
+                passphrase:
+                    "hen slogan retire boss upset blame rocket slender area arch broom bring elder few milk bounce execute page evoke once inmate pear marine deliver",
+            },
+            {
+                publicKey: "027941d2059f89a26d89e87d3385e261a0ede1234aaeaa487012b69d6b67962dc5",
+                passphrase:
+                    "top visa use bacon sun infant shrimp eye bridge fantasy chair sadness stable simple salad canoe raw hill target connect avoid promote spider category",
+            },
+        ],
+        fee: "500000000",
+    },
     validatorRegistration: {
         validatorPublicKey:
             "a08058db53e2665c84a40f5152e76dd2b652125a6079130d4c315e728bcf4dd1dfb44ac26e82302331d61977d3141118",
