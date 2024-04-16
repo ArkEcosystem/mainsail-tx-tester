@@ -1,4 +1,4 @@
-import crypto from "mainsail-network-config/testnet/mainsail/crypto.json" with { type: "json" }
+import crypto from "mainsail-network-config/testnet/mainsail/crypto.json" with { type: "json" };
 
 const config = {
     senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
@@ -38,6 +38,15 @@ const config = {
                 amount: "200000000",
             },
         ],
+    },
+    multiSignatureRegistration: {
+        min: 2,
+        participants: [
+            "album pony urban cheap small blade cannon silent run reveal luxury glad predict excess fire beauty hollow reward solar egg exclude leaf sight degree",
+            "hen slogan retire boss upset blame rocket slender area arch broom bring elder few milk bounce execute page evoke once inmate pear marine deliver",
+            "top visa use bacon sun infant shrimp eye bridge fantasy chair sadness stable simple salad canoe raw hill target connect avoid promote spider category",
+        ],
+        fee: "500000000",
     },
     validatorRegistration: {
         validatorPublicKey:

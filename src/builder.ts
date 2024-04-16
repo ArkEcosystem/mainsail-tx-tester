@@ -1,15 +1,18 @@
+import * as Client from "./client.js";
+
 import { Contracts, Identifiers } from "@mainsail/contracts";
+
+import { Application } from "@mainsail/kernel";
+import { Config } from "./types.js";
+import { MultiPaymentBuilder } from "@mainsail/crypto-transaction-multi-payment";
+import { MultiSignatureBuilder } from "@mainsail/crypto-transaction-multi-signature-registration";
 import { TransferBuilder } from "@mainsail/crypto-transaction-transfer";
-import { VoteBuilder } from "@mainsail/crypto-transaction-vote";
 import { UsernameRegistrationBuilder } from "@mainsail/crypto-transaction-username-registration";
 import { UsernameResignationBuilder } from "@mainsail/crypto-transaction-username-resignation";
-import { MultiPaymentBuilder } from "@mainsail/crypto-transaction-multi-payment";
 import { ValidatorRegistrationBuilder } from "@mainsail/crypto-transaction-validator-registration";
 import { ValidatorResignationBuilder } from "@mainsail/crypto-transaction-validator-resignation";
-import * as Client from "./client.js";
-import { Config } from "./types.js";
+import { VoteBuilder } from "@mainsail/crypto-transaction-vote";
 import { getApplication } from "./boot.js";
-import { Application } from "@mainsail/kernel";
 
 const getWalletNonce = async (app: Application, config: Config): Promise<number> => {
     const { peer, senderPassphrase } = config.cli;
@@ -23,6 +26,43 @@ const getWalletNonce = async (app: Application, config: Config): Promise<number>
     console.log(`>> using wallet: ${walletAddress} nonce: ${walletNonce}`);
 
     return walletNonce;
+};
+
+export const makeMultisignatureRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
+    const { cli } = config;
+    const { multiSignatureRegistration, senderPassphrase } = cli;
+
+    const app = await getApplication(config);
+
+    const walletNonce = await getWalletNonce(app, config);
+
+    const { publicKeyFactory } = makeIdentityFactories(app);
+
+    const multisignatureAsset = {
+        min: multiSignatureRegistration.min,
+        publicKeys: await Promise.all(
+            multiSignatureRegistration.participants.map(
+                async (participant) => await publicKeyFactory.fromMnemonic(participant),
+            ),
+        ),
+    };
+
+    const transaction = await app
+        .resolve(MultiSignatureBuilder)
+        .fee(multiSignatureRegistration.fee)
+        .nonce((walletNonce + 1).toFixed(0))
+        .senderPublicKey(await publicKeyFactory.fromMnemonic(senderPassphrase))
+        .multiSignatureAsset(multisignatureAsset);
+
+    // Sign with each participant
+    for (const [index, participant] of multiSignatureRegistration.participants.entries()) {
+        await transaction.multiSign(participant, index);
+    }
+
+    // Sign with the sender
+    const signed = await transaction.sign(senderPassphrase);
+
+    return signed.build();
 };
 
 export const makeTransfer = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
