@@ -1,7 +1,8 @@
 import crypto from "mainsail-network-config/testnet/mainsail/crypto.json" with { type: "json" };
 
 const config = {
-    senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
+    senderPassphrase:
+        "stem source victory dentist mule pluck struggle board ripple pitch trigger market couch give point life toilet rent desk curtain cancel basket disorder youth", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     peer: {
         apiUrl: "https://dwallets.mainsailhq.com",
         apiTxPoolUrl: "https://dwallets.mainsailhq.com/tx",
@@ -42,9 +43,8 @@ const config = {
     multiSignatureRegistration: {
         min: 2,
         participants: [
-            "album pony urban cheap small blade cannon silent run reveal luxury glad predict excess fire beauty hollow reward solar egg exclude leaf sight degree",
-            "hen slogan retire boss upset blame rocket slender area arch broom bring elder few milk bounce execute page evoke once inmate pear marine deliver",
-            "top visa use bacon sun infant shrimp eye bridge fantasy chair sadness stable simple salad canoe raw hill target connect avoid promote spider category",
+            "kick liberty bachelor purchase trouble melody bullet journey member museum game taxi outside forest enrich cute mom assume west warfare truth practice merit organ",
+            "vanish limit journey office bridge argue toddler carpet enlist latin marine shallow summer shallow menu sudden express push black ostrich innocent under try best",
         ],
         fee: "500000000",
     },

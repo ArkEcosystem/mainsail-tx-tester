@@ -43,6 +43,16 @@ yarn wallet
 yarn wallet "custom mnemonic"
 ```
 
+Generate validator **Private**- and **Public Key**:
+
+```bash
+yarn validator
+```
+
+```bash
+yarn validator "custom mnemonic"
+```
+
 ## PNPM
 
 ### Installation
@@ -74,6 +84,16 @@ pnpm run wallet
 
 ```bash
 pnpm run wallet "custom mnemonic"
+```
+
+Generate validator **Private**- and **Public Key**:
+
+```bash
+pnpm run validator
+```
+
+```bash
+pnpm run validator "custom mnemonic"
 ```
 
 ## Configuration
