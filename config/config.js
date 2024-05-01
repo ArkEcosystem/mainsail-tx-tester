@@ -1,14 +1,14 @@
-import crypto from "mainsail-network-config/testnet/mainsail/crypto.json" with { type: "json" };
+import crypto from "mainsail-network-config/evmnet/mainsail/crypto.json" with { type: "json" };
 
 const config = {
     senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     peer: {
         apiUrl: "https://dwallets.mainsailhq.com",
-        apiTxPoolUrl: "https://dwallets.mainsailhq.com/tx",
+        apiTxPoolUrl: "http://localhost:4007",
     },
     crypto: crypto,
     transfer: {
-        recipientId: "DNvqMC1YBF76AoT1emyqVGHyfwNw31RCws",
+        recipientId: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
         fee: "10000000",
         amount: "1",
         vendorField: "",
@@ -30,11 +30,11 @@ const config = {
         vendorField: "",
         payments: [
             {
-                recipientId: "DNvqMC1YBF76AoT1emyqVGHyfwNw31RCws",
+                recipientId: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
                 amount: "100000000",
             },
             {
-                recipientId: "DCFP8KogR2Jq34JuH6SdUpHjMPzLm3hpaC",
+                recipientId: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
                 amount: "200000000",
             },
         ],
@@ -56,6 +56,10 @@ const config = {
     validatorResignation: {
         fee: "2500000000",
     },
+    evmCall: {
+        payload: "",
+        fee: "2500000000"
+    },
     plugins: [
         {
             package: "@mainsail/validation",
@@ -70,16 +74,13 @@ const config = {
             package: "@mainsail/crypto-hash-bcrypto",
         },
         {
-            __comment__: "replace as needed for ARK network compat",
-            package: "@mainsail/crypto-signature-schnorr-secp256k1",
+            package: "@mainsail/crypto-signature-schnorr",
         },
         {
-            __comment__: "replace as needed for ARK network compat",
             package: "@mainsail/crypto-key-pair-ecdsa",
         },
         {
-            __comment__: "replace as needed for ARK network compat",
-            package: "@mainsail/crypto-address-base58",
+            package: "@mainsail/crypto-address-keccak256",
         },
         {
             package: "@mainsail/crypto-consensus-bls12-381",
@@ -122,6 +123,9 @@ const config = {
         },
         {
             package: "@mainsail/crypto-transaction-vote",
+        },
+        {
+            package: "@mainsail/crypto-transaction-evm-call",
         },
     ],
 };

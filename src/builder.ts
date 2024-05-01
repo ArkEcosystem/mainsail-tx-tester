@@ -11,6 +11,7 @@ import { UsernameRegistrationBuilder } from "@mainsail/crypto-transaction-userna
 import { UsernameResignationBuilder } from "@mainsail/crypto-transaction-username-resignation";
 import { ValidatorRegistrationBuilder } from "@mainsail/crypto-transaction-validator-registration";
 import { ValidatorResignationBuilder } from "@mainsail/crypto-transaction-validator-resignation";
+import { EvmCallBuilder } from "@mainsail/crypto-transaction-evm-call";
 import { VoteBuilder } from "@mainsail/crypto-transaction-vote";
 import { getApplication } from "./boot.js";
 
@@ -200,6 +201,30 @@ export const makeValidatorResignation = async (config: Config): Promise<Contract
         .fee(validatorResignation.fee)
         .nonce((walletNonce + 1).toFixed(0))
         .sign(senderPassphrase);
+
+    return signed.build();
+};
+
+export const makeEvmCall = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
+    const { cli } = config;
+    const { evmCall, senderPassphrase } = cli;
+
+    const app = await getApplication(config);
+
+    const walletNonce = await getWalletNonce(app, config);
+
+    let builder = app
+        .resolve(EvmCallBuilder)
+        .fee(evmCall.fee)
+        .payload(
+            "a9059cbb0000000000000000000000000e5d25461f58939e725df3379c8ff7eb86973fd00000000000000000000000000000000000000000000000000de0b6b3a7640000",
+        )
+        .gasLimit(1_000_000)
+        .recipientId("0xD3D80a3Df661414a76aAd7738a136A8d7aAa1666")
+        .nonce((walletNonce + 1).toFixed(0))
+        .vendorField(evmCall.vendorField);
+
+    const signed = await builder.sign(senderPassphrase);
 
     return signed.build();
 };

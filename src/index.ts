@@ -87,6 +87,7 @@ const transactions = {
     6: "ValidatorRegistration",
     7: "ValidatorResignation",
     8: "MultiSignatureRegistration",
+    9: "EvmCall",
 };
 
 const help = () => {
@@ -114,6 +115,8 @@ const makeTx = async (txType: number, config: Config): Promise<Contracts.Crypto.
             return await Builder.makeValidatorResignation(config);
         case 8:
             return await Builder.makeMultisignatureRegistration(config);
+        case 9:
+            return await Builder.makeEvmCall(config);
         default:
             throw new Error("Invalid TX type");
     }
