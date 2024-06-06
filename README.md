@@ -8,8 +8,6 @@ Ensure that you have a working `python` binary in your PATH as this script compi
 
 To resolve it, make sure `python` is available on your system. One way to easily manage this is by using a Python version manager such as [`pyenv`](https://github.com/pyenv/pyenv).
 
-Also ensure that you are on `Node v21` or the `import ... with` construction will not work.
-
 ## Yarn
 
 ### Installation
