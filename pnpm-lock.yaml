@@ -119,6 +119,9 @@ importers:
       '@mainsail/crypto-transaction':
         specifier: link:~/mainsail/packages/crypto-transaction
         version: link:../mainsail/packages/crypto-transaction
+      '@mainsail/crypto-transaction-evm-call':
+        specifier: link:~/mainsail/packages/crypto-transaction-evm-call
+        version: link:../mainsail/packages/crypto-transaction-evm-call
       '@mainsail/crypto-transaction-multi-payment':
         specifier: link:~/mainsail/packages/crypto-transaction-multi-payment
         version: link:../mainsail/packages/crypto-transaction-multi-payment

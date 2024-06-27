@@ -58,6 +58,7 @@
         "@mainsail/crypto-transaction-username-resignation": "link:~/mainsail/packages/crypto-transaction-username-resignation",
         "@mainsail/crypto-transaction-validator-registration": "link:~/mainsail/packages/crypto-transaction-validator-registration",
         "@mainsail/crypto-transaction-validator-resignation": "link:~/mainsail/packages/crypto-transaction-validator-resignation",
+        "@mainsail/crypto-transaction-evm-call": "link:~/mainsail/packages/crypto-transaction-evm-call",
         "@mainsail/crypto-transaction-vote": "link:~/mainsail/packages/crypto-transaction-vote",
         "@mainsail/crypto-validation": "link:~/mainsail/packages/crypto-validation",
         "@mainsail/crypto-wif": "link:~/mainsail/packages/crypto-wif",
