@@ -58,7 +58,7 @@ const config = {
     },
     evmCall: {
         payload: "",
-        fee: "2500000000"
+        fee: "2500000000",
     },
     plugins: [
         {
