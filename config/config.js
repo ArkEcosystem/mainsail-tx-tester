@@ -1,10 +1,12 @@
-import crypto from "mainsail-network-config/evmnet/mainsail/crypto.json" with { type: "json" };
+import crypto from "@mainsail/core/bin/config/testnet/core/crypto.json" with { type: "json" };
 
 const config = {
-    senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
+    senderPassphrase:
+        "stereo blush grow chicken nose extend vanish photo world famous theme mansion sting first clog pool crowd hospital junk drink window knee because success",
+    // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     peer: {
-        apiUrl: "https://dwallets.mainsailhq.com",
-        apiTxPoolUrl: "http://localhost:4007",
+        apiUrl: "http://192.168.50.206:4006",
+        apiTxPoolUrl: "http://192.168.50.206:4007",
     },
     crypto: crypto,
     transfer: {
