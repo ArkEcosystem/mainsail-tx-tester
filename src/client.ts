@@ -24,7 +24,7 @@ export const getHeight = async (peer: Peer): Promise<number> => {
 
 export const postTransaction = async (peer: Peer, transaction: string): Promise<void> => {
     try {
-        const response = await http.post(`${peer.apiTxPoolUrl}/api/transaction-pool`, {
+        const response = await http.post(`${peer.apiTxPoolUrl}/api/transactions`, {
             headers: { "Content-Type": "application/json" },
             body: {
                 transactions: [transaction] as any,
