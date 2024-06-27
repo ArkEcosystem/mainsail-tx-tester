@@ -7,6 +7,7 @@ const config = {
     peer: {
         apiUrl: "http://192.168.50.206:4006",
         apiTxPoolUrl: "http://192.168.50.206:4007",
+        apiEvmUrl: "http://192.168.50.206:4008",
     },
     crypto: crypto,
     transfer: {
@@ -61,6 +62,10 @@ const config = {
     evmCall: {
         payload: "",
         fee: "2500000000",
+    },
+    evmView: {
+        contractId: "0x67389bF73C6a1E995Ac35A5b9e1Ab753740214e4",
+        data: "0x70a08231000000000000000000000000bd6f65c58a46427af4b257cbe231d0ed69ed5508",
     },
     plugins: [
         {

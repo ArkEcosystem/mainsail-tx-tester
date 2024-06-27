@@ -3,7 +3,7 @@ import * as Client from "./client.js";
 import { Contracts, Identifiers } from "@mainsail/contracts";
 
 import { Application } from "@mainsail/kernel";
-import { Config } from "./types.js";
+import { Config, EthViewParameters } from "./types.js";
 import { MultiPaymentBuilder } from "@mainsail/crypto-transaction-multi-payment";
 import { MultiSignatureBuilder } from "@mainsail/crypto-transaction-multi-signature-registration";
 import { TransferBuilder } from "@mainsail/crypto-transaction-transfer";
@@ -227,6 +227,21 @@ export const makeEvmCall = async (config: Config): Promise<Contracts.Crypto.Tran
     const signed = await builder.sign(senderPassphrase);
 
     return signed.build();
+};
+
+export const makeEvmView = async (config: Config): Promise<EthViewParameters> => {
+    const { cli } = config;
+    const {  senderPassphrase, evmView } = cli;
+
+    const app = await getApplication(config);
+    const { addressFactory } = makeIdentityFactories(app);
+
+
+    return {
+        from: await addressFactory.fromMnemonic(senderPassphrase),
+        to: evmView.contractId,
+        data: evmView.data,
+    }
 };
 
 export const makeIdentityFactories = (

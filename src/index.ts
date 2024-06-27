@@ -64,6 +64,16 @@ const main = async () => {
         }
     } else {
         txType = parseInt(process.argv[2]);
+
+        if(txType === 10) {
+            console.log(">> Calling EvmView");
+
+            const result = await Client.postEthView(peer, await Builder.makeEvmView(config));
+            console.log(result);
+
+            return;
+        }
+
         tx = await makeTx(txType, config);
     }
 
@@ -88,6 +98,7 @@ const transactions = {
     7: "ValidatorResignation",
     8: "MultiSignatureRegistration",
     9: "EvmCall",
+    10: "EvmView",
 };
 
 const help = () => {
