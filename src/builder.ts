@@ -230,20 +230,26 @@ export const makeEvmCall = async (config: Config): Promise<Contracts.Crypto.Tran
     return signed.build();
 };
 
-export const makeEvmView = async (config: Config): Promise<EthViewParameters> => {
+export const makeEvmView = async (config: Config, functionIndex: number): Promise<EthViewParameters> => {
     const { cli } = config;
     const { senderPassphrase, evmView } = cli;
 
     const app = await getApplication(config);
     const { addressFactory } = makeIdentityFactories(app);
 
+    const func = evmView.functions[functionIndex];
+
     const data = encodeFunctionData({
         abi: evmView.abi,
-        functionName: evmView.functionName,
-        args: evmView.args,
+        functionName: func.functionName,
+        args: func.args,
     });
 
-    console.log(`>> encoded data: ${data}`);
+    console.log(``);
+    console.log(`>> Contract: ${evmView.contractId}`);
+    console.log(`   Function: ${func.functionName}`);
+    console.log(`   Args:     ${func.args.join(", ")}`);
+    console.log(`   Encoded:  ${data}`);
 
     return {
         from: await addressFactory.fromMnemonic(senderPassphrase),
@@ -252,17 +258,21 @@ export const makeEvmView = async (config: Config): Promise<EthViewParameters> =>
     };
 };
 
-export const decodeEvmViewResult = (config: Config, data: string): void => {
+export const decodeEvmViewResult = (config: Config, functionIndex: number, data: string): void => {
     const { cli } = config;
     const { evmView } = cli;
 
+    const func = evmView.functions[functionIndex];
+
     const result = decodeFunctionResult({
         abi: evmView.abi,
-        functionName: evmView.functionName,
+        functionName: func.functionName,
         data,
     });
 
-    console.log(`>> decoded result: ${result}`);
+    console.log(``);
+    console.log(`>> Result:   ${data}`);
+    console.log(`   Decoded:  ${result}`);
 };
 
 export const makeIdentityFactories = (

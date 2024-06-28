@@ -64,14 +64,12 @@ const main = async () => {
         }
     } else {
         txType = parseInt(process.argv[2]);
+        const functionIndex = parseInt(process.argv[3]) || 0;
 
         if (txType === 10) {
-            console.log(">> Calling EvmView");
+            const result = await Client.postEthView(peer, await Builder.makeEvmView(config, functionIndex));
 
-            const result = await Client.postEthView(peer, await Builder.makeEvmView(config));
-            console.log(result);
-
-            Builder.decodeEvmViewResult(config, result.result);
+            Builder.decodeEvmViewResult(config, functionIndex, result.result);
 
             return;
         }

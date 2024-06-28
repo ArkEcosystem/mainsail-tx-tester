@@ -66,10 +66,33 @@ const config = {
     },
     evmView: {
         abi,
-        functionName: "balanceOf",
-        args: ["0x2E3DC3fc744F2522239AFf79a3d292B2787ddBf8"],
+        functions: [
+            {
+                functionName: "balanceOf",
+                args: ["0x2E3DC3fc744F2522239AFf79a3d292B2787ddBf8"],
+            },
+            {
+                functionName: "allowance",
+                args: ["0x2E3DC3fc744F2522239AFf79a3d292B2787ddBf8", "0x27FA7CaFFaAE77dDb9AB232FDBDa56D5e5Af2393"],
+            },
+            {
+                functionName: "totalSupply",
+                args: [],
+            },
+            {
+                functionName: "name",
+                args: [],
+            },
+            {
+                functionName: "symbol",
+                args: [],
+            },
+            {
+                functionName: "decimals",
+                args: [],
+            },
+        ],
         contractId: "0x67389bF73C6a1E995Ac35A5b9e1Ab753740214e4",
-        data: "0x70a08231000000000000000000000000bd6f65c58a46427af4b257cbe231d0ed69ed5508",
     },
     plugins: [
         {
