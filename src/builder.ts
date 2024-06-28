@@ -206,6 +206,28 @@ export const makeValidatorResignation = async (config: Config): Promise<Contract
     return signed.build();
 };
 
+export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
+    const { cli } = config;
+    const { evmDeploy, senderPassphrase } = cli;
+
+    const app = await getApplication(config);
+
+    const walletNonce = await getWalletNonce(app, config);
+
+    let builder = app
+        .resolve(EvmCallBuilder)
+        .fee(evmDeploy.fee)
+        .payload(evmDeploy.data.slice(2))
+        .gasLimit(1_000_000)
+        // .recipientId(evmCall.contractId)
+        .nonce((walletNonce + 1).toString())
+        .vendorField(evmDeploy.vendorField);
+
+    const signed = await builder.sign(senderPassphrase);
+
+    return signed.build();
+};
+
 export const makeEvmCall = async (config: Config, functionIndex: number): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
     const { evmCall, senderPassphrase } = cli;

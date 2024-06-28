@@ -1,12 +1,15 @@
 import crypto from "@mainsail/core/bin/config/testnet/core/crypto.json" with { type: "json" };
 import abi from "./erc20.json" with { type: "json" };
+import contract from "./contract.json" with { type: "json" };
 
 const config = {
-    senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
+    senderPassphrase:
+        "stereo blush grow chicken nose extend vanish photo world famous theme mansion sting first clog pool crowd hospital junk drink window knee because success",
+    // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     peer: {
-        apiUrl: "https://dwallets.mainsailhq.com",
-        apiTxPoolUrl: "https://dwallets.mainsailhq.com/tx",
-        apiEvmUrl: "https://dwallets.mainsailhq.com/evm",
+        apiUrl: "http://192.168.50.206:4006",
+        apiTxPoolUrl: "http://192.168.50.206:4007",
+        apiEvmUrl: "http://192.168.50.206:4008",
     },
     crypto: crypto,
     transfer: {
@@ -57,6 +60,11 @@ const config = {
     },
     validatorResignation: {
         fee: "2500000000",
+    },
+    evmDeploy: {
+        data: contract.bytecode,
+        fee: "1000",
+        vendorField: "",
     },
     evmCall: {
         abi,
