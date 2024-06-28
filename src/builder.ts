@@ -1,6 +1,7 @@
 import * as Client from "./client.js";
 
 import { Contracts, Identifiers } from "@mainsail/contracts";
+import { encodeFunctionData } from "viem";
 
 import { Application } from "@mainsail/kernel";
 import { Config, EthViewParameters } from "./types.js";
@@ -231,17 +232,24 @@ export const makeEvmCall = async (config: Config): Promise<Contracts.Crypto.Tran
 
 export const makeEvmView = async (config: Config): Promise<EthViewParameters> => {
     const { cli } = config;
-    const {  senderPassphrase, evmView } = cli;
+    const { senderPassphrase, evmView } = cli;
 
     const app = await getApplication(config);
     const { addressFactory } = makeIdentityFactories(app);
 
+    const data = encodeFunctionData({
+        abi: evmView.abi,
+        functionName: evmView.functionName,
+        args: evmView.args,
+    });
+
+    console.log(`>> encoded data: ${data}`);
 
     return {
         from: await addressFactory.fromMnemonic(senderPassphrase),
         to: evmView.contractId,
-        data: evmView.data,
-    }
+        data: data,
+    };
 };
 
 export const makeIdentityFactories = (

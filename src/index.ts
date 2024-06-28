@@ -65,7 +65,7 @@ const main = async () => {
     } else {
         txType = parseInt(process.argv[2]);
 
-        if(txType === 10) {
+        if (txType === 10) {
             console.log(">> Calling EvmView");
 
             const result = await Client.postEthView(peer, await Builder.makeEvmView(config));

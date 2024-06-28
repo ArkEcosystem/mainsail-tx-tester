@@ -1,4 +1,5 @@
 import crypto from "@mainsail/core/bin/config/testnet/core/crypto.json" with { type: "json" };
+import abi from "./erc20.json" with { type: "json" };
 
 const config = {
     senderPassphrase:
@@ -64,6 +65,9 @@ const config = {
         fee: "2500000000",
     },
     evmView: {
+        abi,
+        functionName: "balanceOf",
+        args: ["0x2E3DC3fc744F2522239AFf79a3d292B2787ddBf8"],
         contractId: "0x67389bF73C6a1E995Ac35A5b9e1Ab753740214e4",
         data: "0x70a08231000000000000000000000000bd6f65c58a46427af4b257cbe231d0ed69ed5508",
     },
