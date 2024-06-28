@@ -64,7 +64,17 @@ const main = async () => {
         }
     } else {
         txType = parseInt(process.argv[2]);
-        tx = await makeTx(txType, config);
+        const functionIndex = parseInt(process.argv[3]) || 0;
+
+        if (txType === 10) {
+            const result = await Client.postEthView(peer, await Builder.makeEvmView(config, functionIndex));
+
+            Builder.decodeEvmViewResult(config, functionIndex, result.result);
+
+            return;
+        }
+
+        tx = await makeTx(txType, config, functionIndex);
     }
 
     try {
@@ -87,6 +97,8 @@ const transactions = {
     6: "ValidatorRegistration",
     7: "ValidatorResignation",
     8: "MultiSignatureRegistration",
+    9: "EvmCall",
+    10: "EvmView",
 };
 
 const help = () => {
@@ -96,7 +108,11 @@ const help = () => {
     }
 };
 
-const makeTx = async (txType: number, config: Config): Promise<Contracts.Crypto.Transaction> => {
+const makeTx = async (
+    txType: number,
+    config: Config,
+    functionIndex: number = 0,
+): Promise<Contracts.Crypto.Transaction> => {
     switch (txType) {
         case 1:
             return await Builder.makeTransfer(config);
@@ -114,6 +130,8 @@ const makeTx = async (txType: number, config: Config): Promise<Contracts.Crypto.
             return await Builder.makeValidatorResignation(config);
         case 8:
             return await Builder.makeMultisignatureRegistration(config);
+        case 9:
+            return await Builder.makeEvmCall(config, functionIndex);
         default:
             throw new Error("Invalid TX type");
     }

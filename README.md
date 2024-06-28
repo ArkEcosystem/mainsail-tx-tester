@@ -8,7 +8,7 @@ Ensure that you have a working `python` binary in your PATH as this script compi
 
 To resolve it, make sure `python` is available on your system. One way to easily manage this is by using a Python version manager such as [`pyenv`](https://github.com/pyenv/pyenv).
 
-## Yarn
+<!-- ## Yarn
 
 ### Installation
 
@@ -49,6 +49,39 @@ yarn validator
 
 ```bash
 yarn validator "custom mnemonic"
+``` -->
+
+## Requirements
+
+Ensure Mainsail repos is installed on the same parent directory and is build from `evm` branch.
+
+Layout:
+
+```
+some_dir/
+   mainsail/
+   mainsail-tx-tester/
+```
+
+**Checkout additional package that are required to build Mainsail. [Link](https://docs.ihost.org/docs/mainsail/installation/source)**
+
+Commands:
+
+```bash
+// Setup mainsail
+git clone https://github.com/ArkEcosystem/mainsail.git
+cd mainsail
+git checkout evm
+pnpm run setup
+
+
+// Setup mainsail-tx-tester
+cd ..
+git clone https://github.com/ArkEcosystem/mainsail-tx-tester.git
+cd mainsail-tx-tester
+git checkout evm
+pnpm i
+pnpm run build
 ```
 
 ## PNPM
@@ -71,7 +104,7 @@ pnpm run start
 Send TX:
 
 ```bash
-pnpm run start <TX number>
+pnpm run start <TX number> <EVM function index (optional)>
 ```
 
 Generate wallets **Mnemonic**, **Address** and **Public Key**:

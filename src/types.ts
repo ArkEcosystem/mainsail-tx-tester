@@ -20,3 +20,9 @@ export type Transfer = {
     amount: string;
     vendorField: string;
 };
+
+export type EthViewParameters = {
+    from: string;
+    to: string;
+    data: string;
+};

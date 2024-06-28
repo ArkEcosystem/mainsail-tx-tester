@@ -1,5 +1,5 @@
 import { http } from "@mainsail/utils";
-import { Peer } from "./types.js";
+import { Peer, EthViewParameters } from "./types.js";
 
 export const getWalletNonce = async (peer: Peer, address: string): Promise<number> => {
     try {
@@ -40,5 +40,30 @@ export const postTransaction = async (peer: Peer, transaction: string): Promise<
         }
     } catch (err) {
         console.error(`Cannot post transaction: ${err.message}`);
+    }
+};
+
+export const postEthView = async (peer: Peer, viewParameters: EthViewParameters): Promise<{ result: string }> => {
+    try {
+        const response = await http.post(`${peer.apiEvmUrl}/api/`, {
+            headers: { "Content-Type": "application/json" },
+            body: {
+                jsonrpc: "2.0",
+                method: "eth_call",
+                params: [viewParameters, "latest"],
+                id: null,
+            },
+        });
+
+        if (response.statusCode !== 200) {
+            console.log(JSON.stringify(response.data));
+
+            return response.data;
+        } else {
+            return response.data;
+        }
+    } catch (err) {
+        console.error(`Cannot post ethView: ${err.message}`);
+        throw err;
     }
 };

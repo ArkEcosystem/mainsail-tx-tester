@@ -1,14 +1,16 @@
-import crypto from "mainsail-network-config/testnet/mainsail/crypto.json" assert { type: "json" };
+import crypto from "@mainsail/core/bin/config/testnet/core/crypto.json" with { type: "json" };
+import abi from "./erc20.json" with { type: "json" };
 
 const config = {
     senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     peer: {
         apiUrl: "https://dwallets.mainsailhq.com",
         apiTxPoolUrl: "https://dwallets.mainsailhq.com/tx",
+        apiEvmUrl: "https://dwallets.mainsailhq.com/evm",
     },
     crypto: crypto,
     transfer: {
-        recipientId: "DNvqMC1YBF76AoT1emyqVGHyfwNw31RCws",
+        recipientId: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
         fee: "10000000",
         amount: "1",
         vendorField: "",
@@ -30,11 +32,11 @@ const config = {
         vendorField: "",
         payments: [
             {
-                recipientId: "DNvqMC1YBF76AoT1emyqVGHyfwNw31RCws",
+                recipientId: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
                 amount: "100000000",
             },
             {
-                recipientId: "DCFP8KogR2Jq34JuH6SdUpHjMPzLm3hpaC",
+                recipientId: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
                 amount: "200000000",
             },
         ],
@@ -56,6 +58,48 @@ const config = {
     validatorResignation: {
         fee: "2500000000",
     },
+    evmCall: {
+        abi,
+        fee: "1000",
+        vendorField: "",
+        contractId: "0x67389bF73C6a1E995Ac35A5b9e1Ab753740214e4",
+        functions: [
+            {
+                functionName: "transfer",
+                args: ["0x27FA7CaFFaAE77dDb9AB232FDBDa56D5e5Af2393", "100000000000000000"],
+            },
+        ],
+    },
+    evmView: {
+        abi,
+        contractId: "0x67389bF73C6a1E995Ac35A5b9e1Ab753740214e4",
+        functions: [
+            {
+                functionName: "balanceOf",
+                args: ["0x2E3DC3fc744F2522239AFf79a3d292B2787ddBf8"],
+            },
+            {
+                functionName: "allowance",
+                args: ["0x2E3DC3fc744F2522239AFf79a3d292B2787ddBf8", "0x27FA7CaFFaAE77dDb9AB232FDBDa56D5e5Af2393"],
+            },
+            {
+                functionName: "totalSupply",
+                args: [],
+            },
+            {
+                functionName: "name",
+                args: [],
+            },
+            {
+                functionName: "symbol",
+                args: [],
+            },
+            {
+                functionName: "decimals",
+                args: [],
+            },
+        ],
+    },
     plugins: [
         {
             package: "@mainsail/validation",
@@ -70,16 +114,13 @@ const config = {
             package: "@mainsail/crypto-hash-bcrypto",
         },
         {
-            __comment__: "replace as needed for ARK network compat",
-            package: "@mainsail/crypto-signature-schnorr-secp256k1",
+            package: "@mainsail/crypto-signature-schnorr",
         },
         {
-            __comment__: "replace as needed for ARK network compat",
             package: "@mainsail/crypto-key-pair-ecdsa",
         },
         {
-            __comment__: "replace as needed for ARK network compat",
-            package: "@mainsail/crypto-address-base58",
+            package: "@mainsail/crypto-address-keccak256",
         },
         {
             package: "@mainsail/crypto-consensus-bls12-381",
@@ -122,6 +163,9 @@ const config = {
         },
         {
             package: "@mainsail/crypto-transaction-vote",
+        },
+        {
+            package: "@mainsail/crypto-transaction-evm-call",
         },
     ],
 };

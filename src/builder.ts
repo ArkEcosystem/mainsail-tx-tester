@@ -1,9 +1,10 @@
 import * as Client from "./client.js";
 
 import { Contracts, Identifiers } from "@mainsail/contracts";
+import { encodeFunctionData, decodeFunctionResult } from "viem";
 
 import { Application } from "@mainsail/kernel";
-import { Config } from "./types.js";
+import { Config, EthViewParameters } from "./types.js";
 import { MultiPaymentBuilder } from "@mainsail/crypto-transaction-multi-payment";
 import { MultiSignatureBuilder } from "@mainsail/crypto-transaction-multi-signature-registration";
 import { TransferBuilder } from "@mainsail/crypto-transaction-transfer";
@@ -11,6 +12,7 @@ import { UsernameRegistrationBuilder } from "@mainsail/crypto-transaction-userna
 import { UsernameResignationBuilder } from "@mainsail/crypto-transaction-username-resignation";
 import { ValidatorRegistrationBuilder } from "@mainsail/crypto-transaction-validator-registration";
 import { ValidatorResignationBuilder } from "@mainsail/crypto-transaction-validator-resignation";
+import { EvmCallBuilder } from "@mainsail/crypto-transaction-evm-call";
 import { VoteBuilder } from "@mainsail/crypto-transaction-vote";
 import { getApplication } from "./boot.js";
 
@@ -202,6 +204,86 @@ export const makeValidatorResignation = async (config: Config): Promise<Contract
         .sign(senderPassphrase);
 
     return signed.build();
+};
+
+export const makeEvmCall = async (config: Config, functionIndex: number): Promise<Contracts.Crypto.Transaction> => {
+    const { cli } = config;
+    const { evmCall, senderPassphrase } = cli;
+
+    const app = await getApplication(config);
+
+    const walletNonce = await getWalletNonce(app, config);
+
+    const func = evmCall.functions[functionIndex];
+
+    const data = encodeFunctionData({
+        abi: evmCall.abi,
+        functionName: func.functionName,
+        args: func.args,
+    });
+
+    console.log(`>> Contract: ${evmCall.contractId}`);
+    console.log(`   Function: ${func.functionName}`);
+    console.log(`   Args:     ${func.args.join(", ")}`);
+    console.log(`   Encoded:  ${data}`);
+
+    let builder = app
+        .resolve(EvmCallBuilder)
+        .fee(evmCall.fee)
+        .payload(data.slice(2))
+        .gasLimit(1_000_000)
+        .recipientId(evmCall.contractId)
+        .nonce((walletNonce + 1).toString())
+        .vendorField(evmCall.vendorField);
+
+    const signed = await builder.sign(senderPassphrase);
+
+    return signed.build();
+};
+
+export const makeEvmView = async (config: Config, functionIndex: number): Promise<EthViewParameters> => {
+    const { cli } = config;
+    const { senderPassphrase, evmView } = cli;
+
+    const app = await getApplication(config);
+    const { addressFactory } = makeIdentityFactories(app);
+
+    const func = evmView.functions[functionIndex];
+
+    const data = encodeFunctionData({
+        abi: evmView.abi,
+        functionName: func.functionName,
+        args: func.args,
+    });
+
+    console.log(``);
+    console.log(`>> Contract: ${evmView.contractId}`);
+    console.log(`   Function: ${func.functionName}`);
+    console.log(`   Args:     ${func.args.join(", ")}`);
+    console.log(`   Encoded:  ${data}`);
+
+    return {
+        from: await addressFactory.fromMnemonic(senderPassphrase),
+        to: evmView.contractId,
+        data: data,
+    };
+};
+
+export const decodeEvmViewResult = (config: Config, functionIndex: number, data: string): void => {
+    const { cli } = config;
+    const { evmView } = cli;
+
+    const func = evmView.functions[functionIndex];
+
+    const result = decodeFunctionResult({
+        abi: evmView.abi,
+        functionName: func.functionName,
+        data,
+    });
+
+    console.log(``);
+    console.log(`>> Result:   ${data}`);
+    console.log(`   Decoded:  ${result}`);
 };
 
 export const makeIdentityFactories = (
