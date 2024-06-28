@@ -214,15 +214,24 @@ export const makeEvmCall = async (config: Config): Promise<Contracts.Crypto.Tran
 
     const walletNonce = await getWalletNonce(app, config);
 
+    const data = encodeFunctionData({
+        abi: evmCall.abi,
+        functionName: evmCall.functionName,
+        args: evmCall.args,
+    });
+
+    console.log(`>> Contract: ${evmCall.contractId}`);
+    console.log(`   Function: ${evmCall.functionName}`);
+    console.log(`   Args:     ${evmCall.args.join(", ")}`);
+    console.log(`   Encoded:  ${data}`);
+
     let builder = app
         .resolve(EvmCallBuilder)
         .fee(evmCall.fee)
-        .payload(
-            "a9059cbb0000000000000000000000000e5d25461f58939e725df3379c8ff7eb86973fd00000000000000000000000000000000000000000000000000de0b6b3a7640000",
-        )
+        .payload(data.slice(2))
         .gasLimit(1_000_000)
-        .recipientId("0xD3D80a3Df661414a76aAd7738a136A8d7aAa1666")
-        .nonce((walletNonce + 1).toFixed(0))
+        .recipientId(evmCall.contractId)
+        .nonce((walletNonce + 1).toString())
         .vendorField(evmCall.vendorField);
 
     const signed = await builder.sign(senderPassphrase);
