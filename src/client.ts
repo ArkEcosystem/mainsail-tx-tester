@@ -43,20 +43,16 @@ export const postTransaction = async (peer: Peer, transaction: string): Promise<
     }
 };
 
-export const postEthView = async (peer: Peer, viewParameters: EthViewParameters): Promise<void> => {
+export const postEthView = async (peer: Peer, viewParameters: EthViewParameters): Promise<{ result: string }> => {
     try {
         const response = await http.post(`${peer.apiEvmUrl}/api/`, {
             headers: { "Content-Type": "application/json" },
             body: {
-                jsonrpc:"2.0",
-                method:"eth_call",
-                params:
-                    [
-                        viewParameters, 
-                        "latest"
-                    ],
-                id: null
-            }
+                jsonrpc: "2.0",
+                method: "eth_call",
+                params: [viewParameters, "latest"],
+                id: null,
+            },
         });
 
         if (response.statusCode !== 200) {
@@ -68,5 +64,6 @@ export const postEthView = async (peer: Peer, viewParameters: EthViewParameters)
         }
     } catch (err) {
         console.error(`Cannot post ethView: ${err.message}`);
+        throw err;
     }
 };

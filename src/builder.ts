@@ -1,7 +1,7 @@
 import * as Client from "./client.js";
 
 import { Contracts, Identifiers } from "@mainsail/contracts";
-import { encodeFunctionData } from "viem";
+import { encodeFunctionData, decodeFunctionResult } from "viem";
 
 import { Application } from "@mainsail/kernel";
 import { Config, EthViewParameters } from "./types.js";
@@ -250,6 +250,19 @@ export const makeEvmView = async (config: Config): Promise<EthViewParameters> =>
         to: evmView.contractId,
         data: data,
     };
+};
+
+export const decodeEvmViewResult = (config: Config, data: string): void => {
+    const { cli } = config;
+    const { evmView } = cli;
+
+    const result = decodeFunctionResult({
+        abi: evmView.abi,
+        functionName: evmView.functionName,
+        data,
+    });
+
+    console.log(`>> decoded result: ${result}`);
 };
 
 export const makeIdentityFactories = (

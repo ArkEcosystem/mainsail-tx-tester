@@ -71,6 +71,8 @@ const main = async () => {
             const result = await Client.postEthView(peer, await Builder.makeEvmView(config));
             console.log(result);
 
+            Builder.decodeEvmViewResult(config, result.result);
+
             return;
         }
 
