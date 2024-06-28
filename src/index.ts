@@ -74,7 +74,7 @@ const main = async () => {
             return;
         }
 
-        tx = await makeTx(txType, config);
+        tx = await makeTx(txType, config, functionIndex);
     }
 
     try {
@@ -108,7 +108,11 @@ const help = () => {
     }
 };
 
-const makeTx = async (txType: number, config: Config): Promise<Contracts.Crypto.Transaction> => {
+const makeTx = async (
+    txType: number,
+    config: Config,
+    functionIndex: number = 0,
+): Promise<Contracts.Crypto.Transaction> => {
     switch (txType) {
         case 1:
             return await Builder.makeTransfer(config);
@@ -127,7 +131,7 @@ const makeTx = async (txType: number, config: Config): Promise<Contracts.Crypto.
         case 8:
             return await Builder.makeMultisignatureRegistration(config);
         case 9:
-            return await Builder.makeEvmCall(config);
+            return await Builder.makeEvmCall(config, functionIndex);
         default:
             throw new Error("Invalid TX type");
     }

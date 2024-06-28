@@ -206,7 +206,7 @@ export const makeValidatorResignation = async (config: Config): Promise<Contract
     return signed.build();
 };
 
-export const makeEvmCall = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
+export const makeEvmCall = async (config: Config, functionIndex: number): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
     const { evmCall, senderPassphrase } = cli;
 
@@ -214,15 +214,17 @@ export const makeEvmCall = async (config: Config): Promise<Contracts.Crypto.Tran
 
     const walletNonce = await getWalletNonce(app, config);
 
+    const func = evmCall.functions[functionIndex];
+
     const data = encodeFunctionData({
         abi: evmCall.abi,
-        functionName: evmCall.functionName,
-        args: evmCall.args,
+        functionName: func.functionName,
+        args: func.args,
     });
 
     console.log(`>> Contract: ${evmCall.contractId}`);
-    console.log(`   Function: ${evmCall.functionName}`);
-    console.log(`   Args:     ${evmCall.args.join(", ")}`);
+    console.log(`   Function: ${func.functionName}`);
+    console.log(`   Args:     ${func.args.join(", ")}`);
     console.log(`   Encoded:  ${data}`);
 
     let builder = app

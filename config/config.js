@@ -65,8 +65,12 @@ const config = {
         fee: "1000",
         vendorField: "",
         contractId: "0x67389bF73C6a1E995Ac35A5b9e1Ab753740214e4",
-        functionName: "transfer",
-        args: ["0x27FA7CaFFaAE77dDb9AB232FDBDa56D5e5Af2393", "100000000000000000"],
+        functions: [
+            {
+                functionName: "transfer",
+                args: ["0x27FA7CaFFaAE77dDb9AB232FDBDa56D5e5Af2393", "100000000000000000"],
+            },
+        ],
     },
     evmView: {
         abi,
