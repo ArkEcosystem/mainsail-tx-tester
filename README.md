@@ -104,7 +104,7 @@ pnpm run start
 Send TX:
 
 ```bash
-pnpm run start <TX number>
+pnpm run start <TX number> <EVM function index (optional)>
 ```
 
 Generate wallets **Mnemonic**, **Address** and **Public Key**:
