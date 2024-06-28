@@ -51,6 +51,7 @@
         "@mainsail/crypto-signature-schnorr": "link:~/mainsail/packages/crypto-signature-schnorr",
         "@mainsail/crypto-signature-schnorr-legacy": "link:~/mainsail/packages/crypto-signature-schnorr-legacy",
         "@mainsail/crypto-transaction": "link:~/mainsail/packages/crypto-transaction",
+        "@mainsail/crypto-transaction-evm-call": "link:~/mainsail/packages/crypto-transaction-evm-call",
         "@mainsail/crypto-transaction-multi-payment": "link:~/mainsail/packages/crypto-transaction-multi-payment",
         "@mainsail/crypto-transaction-multi-signature-registration": "link:~/mainsail/packages/crypto-transaction-multi-signature-registration",
         "@mainsail/crypto-transaction-transfer": "link:~/mainsail/packages/crypto-transaction-transfer",
@@ -58,7 +59,6 @@
         "@mainsail/crypto-transaction-username-resignation": "link:~/mainsail/packages/crypto-transaction-username-resignation",
         "@mainsail/crypto-transaction-validator-registration": "link:~/mainsail/packages/crypto-transaction-validator-registration",
         "@mainsail/crypto-transaction-validator-resignation": "link:~/mainsail/packages/crypto-transaction-validator-resignation",
-        "@mainsail/crypto-transaction-evm-call": "link:~/mainsail/packages/crypto-transaction-evm-call",
         "@mainsail/crypto-transaction-vote": "link:~/mainsail/packages/crypto-transaction-vote",
         "@mainsail/crypto-validation": "link:~/mainsail/packages/crypto-validation",
         "@mainsail/crypto-wif": "link:~/mainsail/packages/crypto-wif",
@@ -86,10 +86,11 @@
         "@mainsail/validator-set-static": "link:~/mainsail/packages/validator-set-static",
         "@mainsail/validator-set-vote-weighted": "link:~/mainsail/packages/validator-set-vote-weighted",
         "@mainsail/webhooks": "link:~/mainsail/packages/webhooks",
-        "mainsail-network-config": "https://github.com/ArkEcosystem/mainsail-network-config",
         "bip39": "3.1.0",
         "fs-extra": "^9.0.1",
-        "reflect-metadata": "^0.1.13"
+        "mainsail-network-config": "https://github.com/ArkEcosystem/mainsail-network-config",
+        "reflect-metadata": "^0.1.13",
+        "viem": "^2.16.3"
     },
     "devDependencies": {
         "@types/eslint": "^8.44.9",
