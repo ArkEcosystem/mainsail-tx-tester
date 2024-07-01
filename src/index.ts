@@ -66,7 +66,7 @@ const main = async () => {
         txType = parseInt(process.argv[2]);
         const functionIndex = parseInt(process.argv[3]) || 0;
 
-        if (txType === 10) {
+        if (txType === 11) {
             const result = await Client.postEthView(peer, await Builder.makeEvmView(config, functionIndex));
 
             Builder.decodeEvmViewResult(config, functionIndex, result.result);
@@ -97,8 +97,9 @@ const transactions = {
     6: "ValidatorRegistration",
     7: "ValidatorResignation",
     8: "MultiSignatureRegistration",
-    9: "EvmCall",
-    10: "EvmView",
+    9: "EvmDeploy",
+    10: "EvmCall",
+    11: "EvmView",
 };
 
 const help = () => {
@@ -131,6 +132,8 @@ const makeTx = async (
         case 8:
             return await Builder.makeMultisignatureRegistration(config);
         case 9:
+            return await Builder.makeEvmDeploy(config);
+        case 10:
             return await Builder.makeEvmCall(config, functionIndex);
         default:
             throw new Error("Invalid TX type");

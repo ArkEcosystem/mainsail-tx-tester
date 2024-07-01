@@ -1,5 +1,5 @@
 import crypto from "@mainsail/core/bin/config/testnet/core/crypto.json" with { type: "json" };
-import abi from "./erc20.json" with { type: "json" };
+import contract from "./contract.json" with { type: "json" };
 
 const config = {
     senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
@@ -58,8 +58,13 @@ const config = {
     validatorResignation: {
         fee: "2500000000",
     },
+    evmDeploy: {
+        data: contract.bytecode,
+        fee: "1000",
+        vendorField: "",
+    },
     evmCall: {
-        abi,
+        abi: contract.abi,
         fee: "1000",
         vendorField: "",
         contractId: "0x67389bF73C6a1E995Ac35A5b9e1Ab753740214e4",
@@ -71,7 +76,7 @@ const config = {
         ],
     },
     evmView: {
-        abi,
+        abi: contract.abi,
         contractId: "0x67389bF73C6a1E995Ac35A5b9e1Ab753740214e4",
         functions: [
             {
