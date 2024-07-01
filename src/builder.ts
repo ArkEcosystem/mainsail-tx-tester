@@ -219,7 +219,6 @@ export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Tr
         .fee(evmDeploy.fee)
         .payload(evmDeploy.data.slice(2))
         .gasLimit(1_000_000)
-        // .recipientId(evmCall.contractId)
         .nonce((walletNonce + 1).toString())
         .vendorField(evmDeploy.vendorField);
 
