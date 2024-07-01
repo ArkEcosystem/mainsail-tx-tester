@@ -227,7 +227,11 @@ export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Tr
     return signed.build();
 };
 
-export const makeEvmCall = async (config: Config, functionIndex: number): Promise<Contracts.Crypto.Transaction> => {
+export const makeEvmCall = async (
+    config: Config,
+    functionIndex: number,
+    args?: string[],
+): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
     const { evmCall, senderPassphrase } = cli;
 
@@ -237,15 +241,17 @@ export const makeEvmCall = async (config: Config, functionIndex: number): Promis
 
     const func = evmCall.functions[functionIndex];
 
+    const usedArgs = args || func.args;
+
     const data = encodeFunctionData({
         abi: evmCall.abi,
         functionName: func.functionName,
-        args: func.args,
+        args: usedArgs,
     });
 
     console.log(`>> Contract: ${evmCall.contractId}`);
     console.log(`   Function: ${func.functionName}`);
-    console.log(`   Args:     ${func.args.join(", ")}`);
+    console.log(`   Args:     ${usedArgs.join(", ")}`);
     console.log(`   Encoded:  ${data}`);
 
     let builder = app

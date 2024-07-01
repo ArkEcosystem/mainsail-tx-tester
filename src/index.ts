@@ -29,38 +29,43 @@ const main = async () => {
         const amount = args[2];
 
         // node dist/index.js transfer "recipients" "amount"
-        if (action !== "transfer" || !recipients || !recipients.length || !amount) {
-            throw new Error("action must be 'transfer' followed by the recipients and amount");
+        if (!["transfer", "contract"].includes(action) || !recipients || !recipients.length || !amount) {
+            throw new Error("action must be 'transfer | contract' followed by the recipients and amount");
         }
 
-        if (recipients.length === 1) {
-            txType = 1;
-            tx = await Builder.makeTransfer({
-                ...config,
-                cli: {
-                    ...config.cli,
-                    transfer: {
-                        ...config.cli.transfer,
-                        amount,
-                        recipientId: recipients[0],
-                    },
-                },
-            });
+        if (action === "contract") {
+            txType = 9;
+            tx = await Builder.makeEvmCall(config, 0, [recipients[0], amount]);
         } else {
-            txType = 5;
-            tx = await Builder.makeMultiPayment({
-                ...config,
-                cli: {
-                    ...config.cli,
-                    multiPayment: {
-                        ...config.cli.multiPayment,
-                        payments: recipients.map((recipientId) => ({
+            if (recipients.length === 1) {
+                txType = 1;
+                tx = await Builder.makeTransfer({
+                    ...config,
+                    cli: {
+                        ...config.cli,
+                        transfer: {
+                            ...config.cli.transfer,
                             amount,
-                            recipientId,
-                        })),
+                            recipientId: recipients[0],
+                        },
                     },
-                },
-            });
+                });
+            } else {
+                txType = 5;
+                tx = await Builder.makeMultiPayment({
+                    ...config,
+                    cli: {
+                        ...config.cli,
+                        multiPayment: {
+                            ...config.cli.multiPayment,
+                            payments: recipients.map((recipientId) => ({
+                                amount,
+                                recipientId,
+                            })),
+                        },
+                    },
+                });
+            }
         }
     } else {
         txType = parseInt(process.argv[2]);
