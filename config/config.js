@@ -3,13 +3,11 @@ import abi from "./erc20.json" with { type: "json" };
 import contract from "./contract.json" with { type: "json" };
 
 const config = {
-    senderPassphrase:
-        "stereo blush grow chicken nose extend vanish photo world famous theme mansion sting first clog pool crowd hospital junk drink window knee because success",
-    // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
+    senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     peer: {
-        apiUrl: "http://192.168.50.206:4006",
-        apiTxPoolUrl: "http://192.168.50.206:4007",
-        apiEvmUrl: "http://192.168.50.206:4008",
+        apiUrl: "https://dwallets.mainsailhq.com",
+        apiTxPoolUrl: "https://dwallets.mainsailhq.com/tx",
+        apiEvmUrl: "https://dwallets.mainsailhq.com/evm",
     },
     crypto: crypto,
     transfer: {
