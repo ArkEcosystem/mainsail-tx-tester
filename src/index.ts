@@ -23,10 +23,11 @@ const main = async () => {
     let txType: number;
 
     // "transfer" "abc" "1" -- used by faucet
-    if (args.length === 3) {
+    if (args.length >= 3) {
         const action = args[0];
         const recipients = args[1].split(","); // comma-separated
         const amount = args[2];
+        const functionIndex = args[3] !== undefined ? +args[3] : 0;
 
         // node dist/index.js transfer "recipients" "amount"
         if (!["transfer", "contract"].includes(action) || !recipients || !recipients.length || !amount) {
@@ -34,8 +35,11 @@ const main = async () => {
         }
 
         if (action === "contract") {
-            txType = 9;
-            tx = await Builder.makeEvmCall(config, 0, [recipients[0], amount]);
+            txType = 10;
+            tx = await Builder.makeEvmCall(config, functionIndex, [
+                functionIndex === 0 ? recipients[0] : recipients,
+                functionIndex === 0 ? amount : new Array(recipients.length).fill(amount),
+            ]);
         } else {
             if (recipients.length === 1) {
                 txType = 1;

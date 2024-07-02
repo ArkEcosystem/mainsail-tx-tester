@@ -218,7 +218,7 @@ export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Tr
         .resolve(EvmCallBuilder)
         .fee(evmDeploy.fee)
         .payload(evmDeploy.data.slice(2))
-        .gasLimit(1_000_000)
+        .gasLimit(2_000_000)
         .nonce((walletNonce + 1).toString())
         .vendorField(evmDeploy.vendorField);
 
@@ -230,7 +230,7 @@ export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Tr
 export const makeEvmCall = async (
     config: Config,
     functionIndex: number,
-    args?: string[],
+    args?: any[],
 ): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
     const { evmCall, senderPassphrase } = cli;
