@@ -60,12 +60,12 @@ const config = {
     },
     evmDeploy: {
         data: contract.bytecode,
-        fee: "1000",
+        fee: "5",
         vendorField: "",
     },
     evmCall: {
         abi: contract.abi,
-        fee: "1000",
+        fee: "5",
         vendorField: "",
         contractId: "0x67389bF73C6a1E995Ac35A5b9e1Ab753740214e4",
         functions: [
