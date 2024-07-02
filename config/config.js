@@ -73,6 +73,10 @@ const config = {
                 functionName: "transfer",
                 args: ["0x27FA7CaFFaAE77dDb9AB232FDBDa56D5e5Af2393", "100000000000000000"],
             },
+            {
+                functionName: "batchTransfer",
+                args: [["0x27FA7CaFFaAE77dDb9AB232FDBDa56D5e5Af2393","0x27FA7CaFFaAE77dDb9AB232FDBDa56D5e5Af2393"], ["100000000000000000","200000000000000000"]],
+            },            
         ],
     },
     evmView: {
