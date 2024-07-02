@@ -230,7 +230,7 @@ export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Tr
 export const makeEvmCall = async (
     config: Config,
     functionIndex: number,
-    args?: string[],
+    args?: any[],
 ): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
     const { evmCall, senderPassphrase } = cli;
