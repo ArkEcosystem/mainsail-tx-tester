@@ -88,7 +88,7 @@
         "@mainsail/webhooks": "link:../mainsail/packages/webhooks",
         "bip39": "3.1.0",
         "fs-extra": "^9.0.1",
-        "mainsail-network-config": "https://github.com/ArkEcosystem/mainsail-network-config",
+        "mainsail-network-config": "https://github.com/ArkEcosystem/mainsail-network-config#evm",
         "reflect-metadata": "^0.1.13",
         "viem": "^2.16.3"
     },
