@@ -4,9 +4,9 @@ import contract from "./contract.json" with { type: "json" };
 const config = {
     senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     peer: {
-        apiUrl: "https://dwallets.mainsailhq.com",
-        apiTxPoolUrl: "https://dwallets.mainsailhq.com/tx",
-        apiEvmUrl: "https://dwallets.mainsailhq.com/evm",
+        apiUrl: "https://dwallets-evm.mainsailhq.com",
+        apiTxPoolUrl: "https://dwallets-evm.mainsailhq.com/tx",
+        apiEvmUrl: "https://dwallets-evm.mainsailhq.com/evm",
     },
     crypto: crypto,
     transfer: {
@@ -75,8 +75,11 @@ const config = {
             },
             {
                 functionName: "batchTransfer",
-                args: [["0x27FA7CaFFaAE77dDb9AB232FDBDa56D5e5Af2393","0x27FA7CaFFaAE77dDb9AB232FDBDa56D5e5Af2393"], ["100000000000000000","200000000000000000"]],
-            },            
+                args: [
+                    ["0x27FA7CaFFaAE77dDb9AB232FDBDa56D5e5Af2393", "0x27FA7CaFFaAE77dDb9AB232FDBDa56D5e5Af2393"],
+                    ["100000000000000000", "200000000000000000"],
+                ],
+            },
         ],
     },
     evmView: {

@@ -231,8 +231,8 @@ importers:
         specifier: ^9.0.1
         version: 9.1.0
       mainsail-network-config:
-        specifier: https://github.com/ArkEcosystem/mainsail-network-config
-        version: https://codeload.github.com/ArkEcosystem/mainsail-network-config/tar.gz/2bcaaeae3ffb05fe3c72557d3164831d1bb2c917
+        specifier: https://github.com/ArkEcosystem/mainsail-network-config#evm
+        version: mainsail-network-config#evm@https://codeload.github.com/ArkEcosystem/mainsail-network-config/tar.gz/bc49a6f2e7a1f2f80f9f413c3c0d342a6fce8d03
       reflect-metadata:
         specifier: ^0.1.13
         version: 0.1.14
@@ -1009,8 +1009,8 @@ packages:
   magic-string@0.30.10:
     resolution: {integrity: sha512-iIRwTIf0QKV3UAnYK4PU8uiEc4SRh5jX0mwpIwETPpHdhVM4f53RSwS/vXvN1JhGX+Cs7B8qIq3d6AH49O5fAQ==}
 
-  mainsail-network-config@https://codeload.github.com/ArkEcosystem/mainsail-network-config/tar.gz/2bcaaeae3ffb05fe3c72557d3164831d1bb2c917:
-    resolution: {tarball: https://codeload.github.com/ArkEcosystem/mainsail-network-config/tar.gz/2bcaaeae3ffb05fe3c72557d3164831d1bb2c917}
+  mainsail-network-config#evm@https://codeload.github.com/ArkEcosystem/mainsail-network-config/tar.gz/bc49a6f2e7a1f2f80f9f413c3c0d342a6fce8d03:
+    resolution: {tarball: https://codeload.github.com/ArkEcosystem/mainsail-network-config/tar.gz/bc49a6f2e7a1f2f80f9f413c3c0d342a6fce8d03}
     version: 0.0.0
 
   map-obj@1.0.1:
@@ -2155,7 +2155,7 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  mainsail-network-config@https://codeload.github.com/ArkEcosystem/mainsail-network-config/tar.gz/2bcaaeae3ffb05fe3c72557d3164831d1bb2c917: {}
+  mainsail-network-config#evm@https://codeload.github.com/ArkEcosystem/mainsail-network-config/tar.gz/bc49a6f2e7a1f2f80f9f413c3c0d342a6fce8d03: {}
 
   map-obj@1.0.1: {}
 
