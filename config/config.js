@@ -67,7 +67,7 @@ const config = {
         abi: contract.abi,
         fee: "5",
         vendorField: "",
-        contractId: "0x67389bF73C6a1E995Ac35A5b9e1Ab753740214e4",
+        contractId: "0xfAcdC93a03a5ecAb6a2148a72C277F69aa2f37C9",
         functions: [
             {
                 functionName: "transfer",
@@ -84,11 +84,11 @@ const config = {
     },
     evmView: {
         abi: contract.abi,
-        contractId: "0x67389bF73C6a1E995Ac35A5b9e1Ab753740214e4",
+        contractId: "0xfAcdC93a03a5ecAb6a2148a72C277F69aa2f37C9",
         functions: [
             {
                 functionName: "balanceOf",
-                args: ["0x2E3DC3fc744F2522239AFf79a3d292B2787ddBf8"],
+                args: ["0x12361f0Bd5f95C3Ea8BF34af48F5484b811B5CCe"],
             },
             {
                 functionName: "allowance",
