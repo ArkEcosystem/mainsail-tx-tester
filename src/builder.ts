@@ -302,11 +302,16 @@ export const decodeEvmViewResult = (config: Config, functionIndex: number, data:
 
     const func = evmView.functions[functionIndex];
 
-    const result = decodeFunctionResult({
-        abi: evmView.abi,
-        functionName: func.functionName,
-        data,
-    });
+    let result;
+    try {
+        result = decodeFunctionResult({
+            abi: evmView.abi,
+            functionName: func.functionName,
+            data,
+        });
+    } catch (ex) {
+        result = ex.message;
+    }
 
     console.log(``);
     console.log(`>> Result:   ${data}`);
