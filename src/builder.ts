@@ -326,6 +326,8 @@ export const makeIdentityFactories = (
     privateKeyFactory: Contracts.Crypto.PrivateKeyFactory;
     consensusPublicKeyFactory: Contracts.Crypto.PublicKeyFactory;
     consensusPrivateKeyFactory: Contracts.Crypto.PrivateKeyFactory;
+    signatureFactory: Contracts.Crypto.Signature;
+    keyPairFactory: Contracts.Crypto.KeyPairFactory;
 } => {
     return {
         addressFactory: app.getTagged<Contracts.Crypto.AddressFactory>(
@@ -356,6 +358,18 @@ export const makeIdentityFactories = (
             Identifiers.Cryptography.Identity.PrivateKey.Factory,
             "type",
             "consensus",
+        ),
+
+        signatureFactory: app.getTagged<Contracts.Crypto.Signature>(
+            Identifiers.Cryptography.Signature.Instance,
+            "type",
+            "consensus",
+        ),
+
+        keyPairFactory: app.getTagged<Contracts.Crypto.KeyPairFactory>(
+            Identifiers.Cryptography.Identity.KeyPair.Factory,
+            "type",
+            "wallet",
         ),
     };
 };
