@@ -14,18 +14,24 @@ const main = async () => {
         addressFactory,
         consensusPrivateKeyFactory,
         consensusPublicKeyFactory,
+        wifFactory,
     } = makeIdentityFactories(app);
 
     console.log("Mnemonic: ", mnemonic);
     console.log();
 
-    console.log("Validator Public Key: ", await consensusPublicKeyFactory.fromMnemonic(mnemonic));
-    console.log("Validator Private Key: ", await consensusPrivateKeyFactory.fromMnemonic(mnemonic));
-    console.log();
+    try {
+        console.log("Validator Public Key: ", await consensusPublicKeyFactory.fromMnemonic(mnemonic));
+        console.log("Validator Private Key: ", await consensusPrivateKeyFactory.fromMnemonic(mnemonic));
+        console.log();
+    } catch (error) {
+        //
+    }
 
     console.log("Public Key: ", await publicKeyFactory.fromMnemonic(mnemonic));
     console.log("Private Key: ", await privateKeyFactory.fromMnemonic(mnemonic));
     console.log("Address: ", await addressFactory.fromMnemonic(mnemonic));
+    console.log("WIF: ", await wifFactory.fromMnemonic(mnemonic));
 };
 
 main();
