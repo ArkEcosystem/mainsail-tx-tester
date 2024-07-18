@@ -20,6 +20,7 @@ const main = async () => {
     console.log("Mnemonic: ", mnemonic);
     console.log();
 
+    // try/catch here as concensus factories cannot handle non-standard mnemonics
     try {
         console.log("Validator Public Key: ", await consensusPublicKeyFactory.fromMnemonic(mnemonic));
         console.log("Validator Private Key: ", await consensusPrivateKeyFactory.fromMnemonic(mnemonic));
