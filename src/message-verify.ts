@@ -18,8 +18,9 @@ const main = async () => {
         signatureFactory,
     } = makeIdentityFactories(app);
 
-    const check = await signatureFactory.verify(Buffer.from(signature, "hex"), crypto.createHash('sha256').update(message).digest(), Buffer.from(publicKey));
-    console.log(check);
+    const isValidSignature = await signatureFactory.verify(Buffer.from(signature, "hex"), crypto.createHash('sha256').update(message).digest(), Buffer.from(publicKey, "hex"));
+
+    console.log('Message verified: ' + isValidSignature);
 };
 
 main();
