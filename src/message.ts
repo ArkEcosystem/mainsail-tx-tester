@@ -4,26 +4,27 @@ import { makeIdentityFactories } from "./builder.js";
 import { generateMnemonic } from "bip39";
 
 const main = async () => {
-    const mnemonic = process.argv.length === 3 ? process.argv[2] : generateMnemonic(256);
+    const mnemonic = process.argv.length >= 3 ? process.argv[2] : generateMnemonic(256);
+    const message = process.argv.length === 4 ? process.argv[3] : "Hello World";
 
     const app = await getApplication(loadConfig());
 
     const {
-        keyPairFactory,
+        privateKeyFactory,
+        publicKeyFactory,
         signatureFactory,
     } = makeIdentityFactories(app);
     
-    const keyPair = (await keyPairFactory.fromMnemonic(mnemonic))
-    const signature = await signatureFactory.sign(Buffer.from("Hello World"), Buffer.from(keyPair.privateKey, "hex"));
+    const privateKey = (await privateKeyFactory.fromMnemonic(mnemonic))
+    const publicKey = (await publicKeyFactory.fromMnemonic(mnemonic))
+    const signature = await signatureFactory.sign(Buffer.from(message), Buffer.from(privateKey, "hex"));
 
-    console.log("Signature: ", signature);
-
-    console.log();
     console.log("Mnemonic: ", mnemonic);
+    console.log("Public Key: ", publicKey);
     console.log();
 
-    console.log("Public Key: ", keyPair.publicKey);
-    console.log("Private Key: ", keyPair.privateKey);
+    console.log("Message: ", message);
+    console.log("Signature: ", signature);
 };
 
 main();
