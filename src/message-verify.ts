@@ -1,5 +1,4 @@
 import crypto  from "crypto";
-// import { generateMnemonic } from "bip39";
 import { getApplication } from "./boot.js";
 import { loadConfig } from "./loader.js";
 import { makeIdentityFactories } from "./builder.js";
