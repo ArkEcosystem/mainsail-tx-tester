@@ -1,10 +1,11 @@
 import * as Client from "./client.js";
 
+import { Config, EthViewParameters } from "./types.js";
 import { Contracts, Identifiers } from "@mainsail/contracts";
-import { encodeFunctionData, decodeFunctionResult } from "viem";
+import { decodeFunctionResult, encodeFunctionData } from "viem";
 
 import { Application } from "@mainsail/kernel";
-import { Config, EthViewParameters } from "./types.js";
+import { EvmCallBuilder } from "@mainsail/crypto-transaction-evm-call";
 import { MultiPaymentBuilder } from "@mainsail/crypto-transaction-multi-payment";
 import { MultiSignatureBuilder } from "@mainsail/crypto-transaction-multi-signature-registration";
 import { TransferBuilder } from "@mainsail/crypto-transaction-transfer";
@@ -12,7 +13,6 @@ import { UsernameRegistrationBuilder } from "@mainsail/crypto-transaction-userna
 import { UsernameResignationBuilder } from "@mainsail/crypto-transaction-username-resignation";
 import { ValidatorRegistrationBuilder } from "@mainsail/crypto-transaction-validator-registration";
 import { ValidatorResignationBuilder } from "@mainsail/crypto-transaction-validator-resignation";
-import { EvmCallBuilder } from "@mainsail/crypto-transaction-evm-call";
 import { VoteBuilder } from "@mainsail/crypto-transaction-vote";
 import { getApplication } from "./boot.js";
 
@@ -23,7 +23,10 @@ const getWalletNonce = async (app: Application, config: Config): Promise<number>
 
     const walletAddress = await addressFactory.fromMnemonic(senderPassphrase);
 
-    const walletNonce = await Client.getWalletNonce(peer, walletAddress);
+    let walletNonce = 0;
+    try {
+        walletNonce = await Client.getWalletNonce(peer, walletAddress);
+    } catch (e) {}
 
     console.log(`>> using wallet: ${walletAddress} nonce: ${walletNonce}`);
 
@@ -326,6 +329,7 @@ export const makeIdentityFactories = (
     privateKeyFactory: Contracts.Crypto.PrivateKeyFactory;
     consensusPublicKeyFactory: Contracts.Crypto.PublicKeyFactory;
     consensusPrivateKeyFactory: Contracts.Crypto.PrivateKeyFactory;
+    signatureFactory: Contracts.Crypto.Signature;
     wifFactory: Contracts.Crypto.WIFFactory;
 } => {
     return {
@@ -357,6 +361,12 @@ export const makeIdentityFactories = (
             Identifiers.Cryptography.Identity.PrivateKey.Factory,
             "type",
             "consensus",
+        ),
+
+        signatureFactory: app.getTagged<Contracts.Crypto.Signature>(
+            Identifiers.Cryptography.Signature.Instance,
+            "type",
+            "wallet",
         ),
 
         wifFactory: app.getTagged<Contracts.Crypto.WIFFactory>(
