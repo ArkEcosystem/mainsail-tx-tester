@@ -4,20 +4,23 @@ import { loadConfig } from "./loader.js";
 import { makeIdentityFactories } from "./builder.js";
 
 const main = async () => {
+    const config = loadConfig();
 
-    const [message, publicKey, signature] = process.argv.slice(2);
+    console.log('Message: ', config.cli.message.message);
+    console.log('Public Key: ', config.cli.message.publicKey);
+    console.log('Signature: ', config.cli.message.signature);
 
-    console.log('Message: ', message);
-    console.log('Public Key: ', publicKey);
-    console.log('Signature: ', signature);
-
-    const app = await getApplication(loadConfig());
+    const app = await getApplication(config);
 
     const {
         signatureFactory,
     } = makeIdentityFactories(app);
 
-    const isValidSignature = await signatureFactory.verify(Buffer.from(signature, "hex"), crypto.createHash('sha256').update(message).digest(), Buffer.from(publicKey, "hex"));
+    const isValidSignature = await signatureFactory.verify(
+        Buffer.from(config.cli.message.signature, "hex"),
+        crypto.createHash('sha256').update(config.cli.message.message).digest(),
+        Buffer.from(config.cli.message.publicKey, "hex")
+    );
 
     console.log('Message verified: ' + isValidSignature);
 };
