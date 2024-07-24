@@ -23,7 +23,10 @@ const getWalletNonce = async (app: Application, config: Config): Promise<number>
 
     const walletAddress = await addressFactory.fromMnemonic(senderPassphrase);
 
-    const walletNonce = await Client.getWalletNonce(peer, walletAddress);
+    let walletNonce = 0;
+    try {
+        walletNonce = await Client.getWalletNonce(peer, walletAddress);
+    } catch (e) {}
 
     console.log(`>> using wallet: ${walletAddress} nonce: ${walletNonce}`);
 
