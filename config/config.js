@@ -10,10 +10,9 @@ const config = {
     },
     crypto: crypto,
     transfer: {
-        recipientId: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
-        fee: "10000000",
-        amount: "1",
-        vendorField: "",
+        recipientAddress: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
+        gasPrice: "5",
+        value: "100000000",
     },
     vote: {
         voteAsset: "03f25455408f9a7e6c6a056b121e68fbda98f3511d22e9ef27b0ebaf1ef9e4eabc",

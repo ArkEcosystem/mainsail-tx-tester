@@ -6,14 +6,6 @@ import { decodeFunctionResult, encodeFunctionData } from "viem";
 
 import { Application } from "@mainsail/kernel";
 import { EvmCallBuilder } from "@mainsail/crypto-transaction-evm-call";
-import { MultiPaymentBuilder } from "@mainsail/crypto-transaction-multi-payment";
-import { MultiSignatureBuilder } from "@mainsail/crypto-transaction-multi-signature-registration";
-import { TransferBuilder } from "@mainsail/crypto-transaction-transfer";
-import { UsernameRegistrationBuilder } from "@mainsail/crypto-transaction-username-registration";
-import { UsernameResignationBuilder } from "@mainsail/crypto-transaction-username-resignation";
-import { ValidatorRegistrationBuilder } from "@mainsail/crypto-transaction-validator-registration";
-import { ValidatorResignationBuilder } from "@mainsail/crypto-transaction-validator-resignation";
-import { VoteBuilder } from "@mainsail/crypto-transaction-vote";
 import { getApplication } from "./boot.js";
 
 const getWalletNonce = async (app: Application, config: Config): Promise<number> => {
@@ -33,45 +25,8 @@ const getWalletNonce = async (app: Application, config: Config): Promise<number>
     return walletNonce;
 };
 
-export const makeMultisignatureRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-    const { cli } = config;
-    const { multiSignatureRegistration, senderPassphrase } = cli;
-
-    const app = await getApplication(config);
-
-    const walletNonce = await getWalletNonce(app, config);
-
-    const { publicKeyFactory } = makeIdentityFactories(app);
-
-    const multisignatureAsset = {
-        min: multiSignatureRegistration.min,
-        publicKeys: await Promise.all(
-            multiSignatureRegistration.participants.map(
-                async (participant) => await publicKeyFactory.fromMnemonic(participant),
-            ),
-        ),
-    };
-
-    const transaction = await app
-        .resolve(MultiSignatureBuilder)
-        .fee(multiSignatureRegistration.fee)
-        .nonce((walletNonce + 1).toFixed(0))
-        .senderPublicKey(await publicKeyFactory.fromMnemonic(senderPassphrase))
-        .multiSignatureAsset(multisignatureAsset);
-
-    // Sign with each participant
-    for (const [index, participant] of multiSignatureRegistration.participants.entries()) {
-        await transaction.multiSign(participant, index);
-    }
-
-    // Sign with the sender
-    const signed = await transaction.sign(senderPassphrase);
-
-    return signed.build();
-};
-
 export const makeTransfer = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-    const { cli } = config;
+    const { cli, crypto } = config;
     const { transfer, senderPassphrase } = cli;
 
     const app = await getApplication(config);
@@ -79,135 +34,137 @@ export const makeTransfer = async (config: Config): Promise<Contracts.Crypto.Tra
     const walletNonce = await getWalletNonce(app, config);
 
     const signed = await app
-        .resolve(TransferBuilder)
-        .fee(transfer.fee)
-        .nonce((walletNonce + 1).toFixed(0))
-        .recipientId(transfer.recipientId)
-        .amount(transfer.amount)
-        .vendorField(transfer.vendorField)
+        .resolve(EvmCallBuilder)
+        .fee(transfer.gasPrice)
+        .network(crypto.network.pubKeyHash)
+        .gasLimit(21000)
+        .nonce(walletNonce.toFixed(0))
+        .recipientId(transfer.recipientAddress)
+        .amount(transfer.value)
+        .payload("")
         .sign(senderPassphrase);
 
     return signed.build();
 };
 
-export const makeVote = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-    const { cli } = config;
-    const { vote, senderPassphrase } = cli;
+// export const makeVote = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
+//     const { cli } = config;
+//     const { vote, senderPassphrase } = cli;
 
-    const app = await getApplication(config);
+//     const app = await getApplication(config);
 
-    const walletNonce = await getWalletNonce(app, config);
+//     const walletNonce = await getWalletNonce(app, config);
 
-    let builder = app
-        .resolve(VoteBuilder)
-        .fee(vote.fee)
-        .nonce((walletNonce + 1).toFixed(0));
+//     let builder = app
+//         .resolve(VoteBuilder)
+//         .fee(vote.fee)
+//         .nonce((walletNonce + 1).toFixed(0));
 
-    if (vote.voteAsset) {
-        builder = builder.votesAsset([vote.voteAsset]);
-    }
+//     if (vote.voteAsset) {
+//         builder = builder.votesAsset([vote.voteAsset]);
+//     }
 
-    if (vote.unvoteAsset) {
-        builder = builder.unvotesAsset([vote.unvoteAsset]);
-    }
+//     if (vote.unvoteAsset) {
+//         builder = builder.unvotesAsset([vote.unvoteAsset]);
+//     }
 
-    const signed = await builder.sign(senderPassphrase);
+//     const signed = await builder.sign(senderPassphrase);
 
-    return signed.build();
-};
+//     return signed.build();
+// };
 
-export const makeUsernameRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-    const { cli } = config;
-    const { userNameRegistration, senderPassphrase } = cli;
+// export const makeUsernameRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
+//     const { cli } = config;
+//     const { userNameRegistration, senderPassphrase } = cli;
 
-    const app = await getApplication(config);
+//     const app = await getApplication(config);
 
-    const walletNonce = await getWalletNonce(app, config);
+//     const walletNonce = await getWalletNonce(app, config);
 
-    const signed = await app
-        .resolve(UsernameRegistrationBuilder)
-        .fee(userNameRegistration.fee)
-        .nonce((walletNonce + 1).toFixed(0))
-        .usernameAsset(userNameRegistration.username)
-        .sign(senderPassphrase);
+//     const signed = await app
+//         .resolve(UsernameRegistrationBuilder)
+//         .fee(userNameRegistration.fee)
+//         .nonce((walletNonce + 1).toFixed(0))
+//         .usernameAsset(userNameRegistration.username)
+//         .sign(senderPassphrase);
 
-    return signed.build();
-};
+//     return signed.build();
+// };
 
-export const makeUsernameResignation = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-    const { cli } = config;
-    const { userNameResignation, senderPassphrase } = cli;
+// export const makeUsernameResignation = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
+//     const { cli } = config;
+//     const { userNameResignation, senderPassphrase } = cli;
 
-    const app = await getApplication(config);
+//     const app = await getApplication(config);
 
-    const walletNonce = await getWalletNonce(app, config);
+//     const walletNonce = await getWalletNonce(app, config);
 
-    const signed = await app
-        .resolve(UsernameResignationBuilder)
-        .fee(userNameResignation.fee)
-        .nonce((walletNonce + 1).toFixed(0))
-        .sign(senderPassphrase);
+//     const signed = await app
+//         .resolve(UsernameResignationBuilder)
+//         .fee(userNameResignation.fee)
+//         .nonce((walletNonce + 1).toFixed(0))
+//         .sign(senderPassphrase);
 
-    return signed.build();
-};
+//     return signed.build();
+// };
 
-export const makeMultiPayment = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-    const { cli } = config;
-    const { multiPayment, senderPassphrase } = cli;
+// export const makeMultiPayment = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
+//     const { cli } = config;
+//     const { multiPayment, senderPassphrase } = cli;
 
-    const app = await getApplication(config);
+//     const app = await getApplication(config);
 
-    const walletNonce = await getWalletNonce(app, config);
+//     const walletNonce = await getWalletNonce(app, config);
 
-    let builder = app
-        .resolve(MultiPaymentBuilder)
-        .fee(multiPayment.fee)
-        .nonce((walletNonce + 1).toFixed(0))
-        .vendorField(multiPayment.vendorField);
+//     let builder = app
+//         .resolve(MultiPaymentBuilder)
+//         .fee(multiPayment.fee)
+//         .nonce((walletNonce + 1).toFixed(0))
+//         .vendorField(multiPayment.vendorField);
 
-    for (const { amount, recipientId } of multiPayment.payments) {
-        builder = builder.addPayment(recipientId, amount);
-    }
+//     for (const { amount, recipientId } of multiPayment.payments) {
+//         builder = builder.addPayment(recipientId, amount);
+//     }
 
-    const signed = await builder.sign(senderPassphrase);
+//     const signed = await builder.sign(senderPassphrase);
 
-    return signed.build();
-};
+//     return signed.build();
+// };
 
-export const makeValidatorRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-    const { cli } = config;
-    const { validatorRegistration, senderPassphrase } = cli;
+// export const makeValidatorRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
+//     const { cli } = config;
+//     const { validatorRegistration, senderPassphrase } = cli;
 
-    const app = await getApplication(config);
+//     const app = await getApplication(config);
 
-    const walletNonce = await getWalletNonce(app, config);
+//     const walletNonce = await getWalletNonce(app, config);
 
-    const signed = await app
-        .resolve(ValidatorRegistrationBuilder)
-        .fee(validatorRegistration.fee)
-        .nonce((walletNonce + 1).toFixed(0))
-        .publicKeyAsset(validatorRegistration.validatorPublicKey)
-        .sign(senderPassphrase);
+//     const signed = await app
+//         .resolve(ValidatorRegistrationBuilder)
+//         .fee(validatorRegistration.fee)
+//         .nonce((walletNonce + 1).toFixed(0))
+//         .publicKeyAsset(validatorRegistration.validatorPublicKey)
+//         .sign(senderPassphrase);
 
-    return signed.build();
-};
+//     return signed.build();
+// };
 
-export const makeValidatorResignation = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-    const { cli } = config;
-    const { validatorResignation, senderPassphrase } = cli;
+// export const makeValidatorResignation = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
+//     const { cli } = config;
+//     const { validatorResignation, senderPassphrase } = cli;
 
-    const app = await getApplication(config);
+//     const app = await getApplication(config);
 
-    const walletNonce = await getWalletNonce(app, config);
+//     const walletNonce = await getWalletNonce(app, config);
 
-    const signed = await app
-        .resolve(ValidatorResignationBuilder)
-        .fee(validatorResignation.fee)
-        .nonce((walletNonce + 1).toFixed(0))
-        .sign(senderPassphrase);
+//     const signed = await app
+//         .resolve(ValidatorResignationBuilder)
+//         .fee(validatorResignation.fee)
+//         .nonce((walletNonce + 1).toFixed(0))
+//         .sign(senderPassphrase);
 
-    return signed.build();
-};
+//     return signed.build();
+// };
 
 export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
