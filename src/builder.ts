@@ -142,7 +142,7 @@ export const makeValidatorResignation = async (config: Config): Promise<Contract
 
 //     const signed = await app
 //         .resolve(UsernameRegistrationBuilder)
-//         .fee(userNameRegistration.fee)
+//         .fee(userNameRegistration.gasPrice)
 //         .nonce((walletNonce + 1).toFixed(0))
 //         .usernameAsset(userNameRegistration.username)
 //         .sign(senderPassphrase);
@@ -160,7 +160,7 @@ export const makeValidatorResignation = async (config: Config): Promise<Contract
 
 //     const signed = await app
 //         .resolve(UsernameResignationBuilder)
-//         .fee(userNameResignation.fee)
+//         .fee(userNameResignation.gasPrice)
 //         .nonce((walletNonce + 1).toFixed(0))
 //         .sign(senderPassphrase);
 
@@ -177,7 +177,7 @@ export const makeValidatorResignation = async (config: Config): Promise<Contract
 
 //     let builder = app
 //         .resolve(MultiPaymentBuilder)
-//         .fee(multiPayment.fee)
+//         .fee(multiPayment.gasPrice)
 //         .nonce((walletNonce + 1).toFixed(0))
 //         .vendorField(multiPayment.vendorField);
 
@@ -200,7 +200,7 @@ export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Tr
 
     let builder = app
         .resolve(EvmCallBuilder)
-        .fee(evmDeploy.fee)
+        .fee(evmDeploy.gasPrice)
         .payload(evmDeploy.data.slice(2))
         .gasLimit(2_000_000)
         .nonce((walletNonce + 1).toString())
@@ -240,7 +240,7 @@ export const makeEvmCall = async (
 
     let builder = app
         .resolve(EvmCallBuilder)
-        .fee(evmCall.fee)
+        .fee(evmCall.gasPrice)
         .payload(data.slice(2))
         .gasLimit(1_000_000)
         .recipientId(evmCall.contractId)

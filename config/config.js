@@ -60,14 +60,14 @@ const config = {
     },
     evmDeploy: {
         data: contract.bytecode,
-        fee: "5",
+        gasPrice: "5",
         vendorField: "",
     },
     evmCall: {
         abi: contract.abi,
-        fee: "5",
+        gasPrice: "5",
         vendorField: "",
-        contractId: "0xfAcdC93a03a5ecAb6a2148a72C277F69aa2f37C9",
+        contractId: "0xE536720791A7DaDBeBdBCD8c8546fb0791a11901",
         functions: [
             {
                 functionName: "transfer",
@@ -84,7 +84,7 @@ const config = {
     },
     evmView: {
         abi: contract.abi,
-        contractId: "0xfAcdC93a03a5ecAb6a2148a72C277F69aa2f37C9",
+        contractId: "0xE536720791A7DaDBeBdBCD8c8546fb0791a11901",
         functions: [
             {
                 functionName: "balanceOf",
