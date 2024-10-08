@@ -100,12 +100,12 @@ const main = async () => {
 const transactions = {
     1: "Transfer",
     2: "Vote",
-    3: "UsernameRegistration",
-    4: "UsernameResignation",
-    5: "MultiPayment",
-    6: "ValidatorRegistration",
-    7: "ValidatorResignation",
-    8: "MultiSignatureRegistration",
+    3: "ValidatorRegistration",
+    // 3: "UsernameRegistration",
+    // 4: "UsernameResignation",
+    // 5: "MultiPayment",
+    // 7: "ValidatorResignation",
+    // 8: "MultiSignatureRegistration",
     9: "EvmDeploy",
     10: "EvmCall",
     11: "EvmView",
@@ -128,6 +128,8 @@ const makeTx = async (
             return await Builder.makeTransfer(config);
         case 2:
             return await Builder.makeVote(config);
+        case 3:
+            return await Builder.makeValidatorRegistration(config);
         // case 3:
         //     return await Builder.makeUsernameRegistration(config);
         // case 4:
@@ -135,8 +137,6 @@ const makeTx = async (
         // case 5:
         //     return await Builder.makeMultiPayment(config);
         // case 6:
-        //     return await Builder.makeValidatorRegistration(config);
-        // case 7:
         //     return await Builder.makeValidatorResignation(config);
         // case 8:
         //     return await Builder.makeMultisignatureRegistration(config);

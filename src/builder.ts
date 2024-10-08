@@ -78,6 +78,33 @@ export const makeVote = async (config: Config): Promise<Contracts.Crypto.Transac
     return signed.build();
 };
 
+export const makeValidatorRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
+    const { cli, crypto } = config;
+    const { wellKnownContracts, validatorRegistration, senderPassphrase } = cli;
+
+    const app = await getApplication(config);
+
+    const walletNonce = await getWalletNonce(app, config);
+
+    const data = encodeFunctionData({
+        abi: ConsensusAbi.abi,
+        functionName: "registerValidator",
+        args: [`0x${validatorRegistration.validatorPublicKey}`],
+    });
+
+    const signed = await app
+        .resolve(EvmCallBuilder)
+        .fee(validatorRegistration.gasPrice)
+        .network(crypto.network.pubKeyHash)
+        .gasLimit(500_000)
+        .nonce(walletNonce.toFixed(0))
+        .recipientId(wellKnownContracts.consensus)
+        .payload(data.slice(2))
+        .sign(senderPassphrase);
+
+    return signed.build();
+};
+
 // export const makeUsernameRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
 //     const { cli } = config;
 //     const { userNameRegistration, senderPassphrase } = cli;
@@ -132,24 +159,6 @@ export const makeVote = async (config: Config): Promise<Contracts.Crypto.Transac
 //     }
 
 //     const signed = await builder.sign(senderPassphrase);
-
-//     return signed.build();
-// };
-
-// export const makeValidatorRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-//     const { cli } = config;
-//     const { validatorRegistration, senderPassphrase } = cli;
-
-//     const app = await getApplication(config);
-
-//     const walletNonce = await getWalletNonce(app, config);
-
-//     const signed = await app
-//         .resolve(ValidatorRegistrationBuilder)
-//         .fee(validatorRegistration.fee)
-//         .nonce((walletNonce + 1).toFixed(0))
-//         .publicKeyAsset(validatorRegistration.validatorPublicKey)
-//         .sign(senderPassphrase);
 
 //     return signed.build();
 // };
