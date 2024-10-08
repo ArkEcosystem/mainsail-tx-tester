@@ -151,37 +151,7 @@ const config = {
             package: "@mainsail/serializer",
         },
         {
-            package: "@mainsail/fees",
-        },
-        {
-            package: "@mainsail/fees-static",
-        },
-        {
             package: "@mainsail/crypto-transaction",
-        },
-        {
-            package: "@mainsail/crypto-transaction-username-registration",
-        },
-        {
-            package: "@mainsail/crypto-transaction-username-resignation",
-        },
-        {
-            package: "@mainsail/crypto-transaction-validator-registration",
-        },
-        {
-            package: "@mainsail/crypto-transaction-validator-resignation",
-        },
-        {
-            package: "@mainsail/crypto-transaction-multi-payment",
-        },
-        {
-            package: "@mainsail/crypto-transaction-multi-signature-registration",
-        },
-        {
-            package: "@mainsail/crypto-transaction-transfer",
-        },
-        {
-            package: "@mainsail/crypto-transaction-vote",
         },
         {
             package: "@mainsail/crypto-transaction-evm-call",
