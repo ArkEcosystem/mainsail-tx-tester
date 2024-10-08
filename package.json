@@ -51,6 +51,7 @@
         "@mainsail/crypto-wif": "link:../mainsail/packages/crypto-wif",
         "@mainsail/crypto-worker": "link:../mainsail/packages/crypto-worker",
         "@mainsail/database": "link:../mainsail/packages/database",
+        "@mainsail/evm-contracts": "link:../mainsail/packages/evm-contracts",
         "@mainsail/kernel": "link:../mainsail/packages/kernel",
         "@mainsail/logger-pino": "link:../mainsail/packages/logger-pino",
         "@mainsail/logger-winston": "link:../mainsail/packages/logger-winston",

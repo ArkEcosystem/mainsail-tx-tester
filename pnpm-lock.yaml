@@ -113,6 +113,9 @@ importers:
       '@mainsail/database':
         specifier: link:../mainsail/packages/database
         version: link:../mainsail/packages/database
+      '@mainsail/evm-contracts':
+        specifier: link:../mainsail/packages/evm-contracts
+        version: link:../mainsail/packages/evm-contracts
       '@mainsail/kernel':
         specifier: link:../mainsail/packages/kernel
         version: link:../mainsail/packages/kernel
