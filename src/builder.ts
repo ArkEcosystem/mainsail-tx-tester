@@ -5,6 +5,7 @@ import { Contracts, Identifiers } from "@mainsail/contracts";
 import { decodeFunctionResult, encodeFunctionData } from "viem";
 
 import { Application } from "@mainsail/kernel";
+import { ConsensusAbi } from "@mainsail/evm-contracts";
 import { EvmCallBuilder } from "@mainsail/crypto-transaction-evm-call";
 import { getApplication } from "./boot.js";
 
@@ -47,31 +48,35 @@ export const makeTransfer = async (config: Config): Promise<Contracts.Crypto.Tra
     return signed.build();
 };
 
-// export const makeVote = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-//     const { cli } = config;
-//     const { vote, senderPassphrase } = cli;
+export const makeVote = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
+    const { cli, crypto } = config;
+    const { wellKnownContracts, vote, senderPassphrase } = cli;
 
-//     const app = await getApplication(config);
+    const app = await getApplication(config);
 
-//     const walletNonce = await getWalletNonce(app, config);
+    const walletNonce = await getWalletNonce(app, config);
 
-//     let builder = app
-//         .resolve(VoteBuilder)
-//         .fee(vote.fee)
-//         .nonce((walletNonce + 1).toFixed(0));
+    const data = encodeFunctionData({
+        abi: ConsensusAbi.abi,
+        functionName: "vote",
+        args: [vote.voteAddress],
+    });
 
-//     if (vote.voteAsset) {
-//         builder = builder.votesAsset([vote.voteAsset]);
-//     }
+    let builder = app
+        .resolve(EvmCallBuilder)
+        .fee(vote.gasPrice)
+        .network(crypto.network.pubKeyHash)
+        .gasLimit(200_000)
+        .nonce(walletNonce.toFixed(0))
+        .recipientId(wellKnownContracts.consensus)
+        .payload(data.slice(2));
 
-//     if (vote.unvoteAsset) {
-//         builder = builder.unvotesAsset([vote.unvoteAsset]);
-//     }
+    // TODO: unvote
 
-//     const signed = await builder.sign(senderPassphrase);
+    const signed = await builder.sign(senderPassphrase);
 
-//     return signed.build();
-// };
+    return signed.build();
+};
 
 // export const makeUsernameRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
 //     const { cli } = config;

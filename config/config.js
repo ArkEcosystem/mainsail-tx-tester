@@ -9,54 +9,48 @@ const config = {
         apiEvmUrl: "https://dwallets-evm.mainsailhq.com/evm",
     },
     crypto: crypto,
+    wellKnownContracts: {
+        consensus: "0x522B3294E6d06aA25Ad0f1B8891242E335D3B459",
+    },
     transfer: {
         recipientAddress: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
         gasPrice: "5",
         value: "100000000",
     },
     vote: {
-        voteAsset: "03f25455408f9a7e6c6a056b121e68fbda98f3511d22e9ef27b0ebaf1ef9e4eabc",
+        voteAddress: "0x512F366D524157BcF734546eB29a6d687B762255",
         unvoteAsset: "",
-        fee: "100000000",
+        gasPrice: "5",
     },
-    userNameRegistration: {
-        username: "simple_tx_tester",
-        fee: "2500000000",
-    },
-    userNameResignation: {
-        fee: "2500000000",
-    },
-    multiPayment: {
-        fee: "10000000",
-        vendorField: "",
-        payments: [
-            {
-                recipientId: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
-                amount: "100000000",
-            },
-            {
-                recipientId: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
-                amount: "200000000",
-            },
-        ],
-    },
-    multiSignatureRegistration: {
-        min: 2,
-        participants: [
-            "album pony urban cheap small blade cannon silent run reveal luxury glad predict excess fire beauty hollow reward solar egg exclude leaf sight degree",
-            "hen slogan retire boss upset blame rocket slender area arch broom bring elder few milk bounce execute page evoke once inmate pear marine deliver",
-            "top visa use bacon sun infant shrimp eye bridge fantasy chair sadness stable simple salad canoe raw hill target connect avoid promote spider category",
-        ],
-        fee: "500000000",
-    },
-    validatorRegistration: {
-        validatorPublicKey:
-            "a08058db53e2665c84a40f5152e76dd2b652125a6079130d4c315e728bcf4dd1dfb44ac26e82302331d61977d3141118",
-        fee: "2500000000",
-    },
-    validatorResignation: {
-        fee: "2500000000",
-    },
+    // userNameRegistration: {
+    //     username: "simple_tx_tester",
+    //     fee: "2500000000",
+    // },
+    // userNameResignation: {
+    //     fee: "2500000000",
+    // },
+    // multiPayment: {
+    //     fee: "10000000",
+    //     vendorField: "",
+    //     payments: [
+    //         {
+    //             recipientId: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
+    //             amount: "100000000",
+    //         },
+    //         {
+    //             recipientId: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
+    //             amount: "200000000",
+    //         },
+    //     ],
+    // },
+    // validatorRegistration: {
+    //     validatorPublicKey:
+    //         "a08058db53e2665c84a40f5152e76dd2b652125a6079130d4c315e728bcf4dd1dfb44ac26e82302331d61977d3141118",
+    //     fee: "2500000000",
+    // },
+    // validatorResignation: {
+    //     fee: "2500000000",
+    // },
     // Replace as needed
     message: {
         publicKey: "037a62215a2adb6ea17c079262c76e3aa35293b0a575608174505de12de9181110",

@@ -126,8 +126,8 @@ const makeTx = async (
     switch (txType) {
         case 1:
             return await Builder.makeTransfer(config);
-        // case 2:
-        //     return await Builder.makeVote(config);
+        case 2:
+            return await Builder.makeVote(config);
         // case 3:
         //     return await Builder.makeUsernameRegistration(config);
         // case 4:
