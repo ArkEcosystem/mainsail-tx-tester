@@ -26,7 +26,10 @@ const config = {
         validatorPublicKey:
             "a08058db53e2665c84a40f5152e76dd2b652125a6079130d4c315e728bcf4dd1dfb44ac26e82302331d61977d3141118",
         gasPrice: "5",
-    },    
+    },
+    validatorResignation: {
+        gasPrice: "5",
+    }, 
     // userNameRegistration: {
     //     username: "simple_tx_tester",
     //     fee: "2500000000",
@@ -47,9 +50,6 @@ const config = {
     //             amount: "200000000",
     //         },
     //     ],
-    // },
-    // validatorResignation: {
-    //     fee: "2500000000",
     // },
     // Replace as needed
     message: {

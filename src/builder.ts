@@ -105,6 +105,33 @@ export const makeValidatorRegistration = async (config: Config): Promise<Contrac
     return signed.build();
 };
 
+export const makeValidatorResignation = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
+    const { cli, crypto } = config;
+    const { wellKnownContracts, validatorResignation, senderPassphrase } = cli;
+
+    const app = await getApplication(config);
+
+    const walletNonce = await getWalletNonce(app, config);
+
+    const data = encodeFunctionData({
+        abi: ConsensusAbi.abi,
+        functionName: "deregisterValidator",
+        args: [],
+    });
+
+    const signed = await app
+        .resolve(EvmCallBuilder)
+        .fee(validatorResignation.gasPrice)
+        .network(crypto.network.pubKeyHash)
+        .gasLimit(150_000)
+        .nonce(walletNonce.toFixed(0))
+        .recipientId(wellKnownContracts.consensus)
+        .payload(data.slice(2))
+        .sign(senderPassphrase);
+
+    return signed.build();
+};
+
 // export const makeUsernameRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
 //     const { cli } = config;
 //     const { userNameRegistration, senderPassphrase } = cli;
@@ -159,23 +186,6 @@ export const makeValidatorRegistration = async (config: Config): Promise<Contrac
 //     }
 
 //     const signed = await builder.sign(senderPassphrase);
-
-//     return signed.build();
-// };
-
-// export const makeValidatorResignation = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-//     const { cli } = config;
-//     const { validatorResignation, senderPassphrase } = cli;
-
-//     const app = await getApplication(config);
-
-//     const walletNonce = await getWalletNonce(app, config);
-
-//     const signed = await app
-//         .resolve(ValidatorResignationBuilder)
-//         .fee(validatorResignation.fee)
-//         .nonce((walletNonce + 1).toFixed(0))
-//         .sign(senderPassphrase);
 
 //     return signed.build();
 // };

@@ -101,10 +101,10 @@ const transactions = {
     1: "Transfer",
     2: "Vote",
     3: "ValidatorRegistration",
+    4: "ValidatorResignation",
     // 3: "UsernameRegistration",
     // 4: "UsernameResignation",
     // 5: "MultiPayment",
-    // 7: "ValidatorResignation",
     // 8: "MultiSignatureRegistration",
     9: "EvmDeploy",
     10: "EvmCall",
@@ -130,14 +130,14 @@ const makeTx = async (
             return await Builder.makeVote(config);
         case 3:
             return await Builder.makeValidatorRegistration(config);
+        case 4:
+            return await Builder.makeValidatorResignation(config);
         // case 3:
         //     return await Builder.makeUsernameRegistration(config);
         // case 4:
         //     return await Builder.makeUsernameResignation(config);
         // case 5:
         //     return await Builder.makeMultiPayment(config);
-        // case 6:
-        //     return await Builder.makeValidatorResignation(config);
         // case 8:
         //     return await Builder.makeMultisignatureRegistration(config);
         case 9:
