@@ -9,55 +9,48 @@ const config = {
         apiEvmUrl: "https://dwallets-evm.mainsailhq.com/evm",
     },
     crypto: crypto,
+    wellKnownContracts: {
+        consensus: "0x522B3294E6d06aA25Ad0f1B8891242E335D3B459",
+    },
     transfer: {
-        recipientId: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
-        fee: "10000000",
-        amount: "1",
-        vendorField: "",
+        recipientAddress: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
+        gasPrice: "5",
+        value: "100000000",
     },
     vote: {
-        voteAsset: "03f25455408f9a7e6c6a056b121e68fbda98f3511d22e9ef27b0ebaf1ef9e4eabc",
+        voteAddress: "0x512F366D524157BcF734546eB29a6d687B762255",
         unvoteAsset: "",
-        fee: "100000000",
-    },
-    userNameRegistration: {
-        username: "simple_tx_tester",
-        fee: "2500000000",
-    },
-    userNameResignation: {
-        fee: "2500000000",
-    },
-    multiPayment: {
-        fee: "10000000",
-        vendorField: "",
-        payments: [
-            {
-                recipientId: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
-                amount: "100000000",
-            },
-            {
-                recipientId: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
-                amount: "200000000",
-            },
-        ],
-    },
-    multiSignatureRegistration: {
-        min: 2,
-        participants: [
-            "album pony urban cheap small blade cannon silent run reveal luxury glad predict excess fire beauty hollow reward solar egg exclude leaf sight degree",
-            "hen slogan retire boss upset blame rocket slender area arch broom bring elder few milk bounce execute page evoke once inmate pear marine deliver",
-            "top visa use bacon sun infant shrimp eye bridge fantasy chair sadness stable simple salad canoe raw hill target connect avoid promote spider category",
-        ],
-        fee: "500000000",
+        gasPrice: "5",
     },
     validatorRegistration: {
         validatorPublicKey:
             "a08058db53e2665c84a40f5152e76dd2b652125a6079130d4c315e728bcf4dd1dfb44ac26e82302331d61977d3141118",
-        fee: "2500000000",
+        gasPrice: "5",
     },
     validatorResignation: {
-        fee: "2500000000",
-    },
+        gasPrice: "5",
+    }, 
+    // userNameRegistration: {
+    //     username: "simple_tx_tester",
+    //     fee: "2500000000",
+    // },
+    // userNameResignation: {
+    //     fee: "2500000000",
+    // },
+    // multiPayment: {
+    //     fee: "10000000",
+    //     vendorField: "",
+    //     payments: [
+    //         {
+    //             recipientId: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
+    //             amount: "100000000",
+    //         },
+    //         {
+    //             recipientId: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
+    //             amount: "200000000",
+    //         },
+    //     ],
+    // },
     // Replace as needed
     message: {
         publicKey: "037a62215a2adb6ea17c079262c76e3aa35293b0a575608174505de12de9181110",
@@ -67,14 +60,14 @@ const config = {
     },
     evmDeploy: {
         data: contract.bytecode,
-        fee: "5",
+        gasPrice: "5",
         vendorField: "",
     },
     evmCall: {
         abi: contract.abi,
-        fee: "5",
+        gasPrice: "5",
         vendorField: "",
-        contractId: "0xfAcdC93a03a5ecAb6a2148a72C277F69aa2f37C9",
+        contractId: "0xE536720791A7DaDBeBdBCD8c8546fb0791a11901",
         functions: [
             {
                 functionName: "transfer",
@@ -91,7 +84,7 @@ const config = {
     },
     evmView: {
         abi: contract.abi,
-        contractId: "0xfAcdC93a03a5ecAb6a2148a72C277F69aa2f37C9",
+        contractId: "0xE536720791A7DaDBeBdBCD8c8546fb0791a11901",
         functions: [
             {
                 functionName: "balanceOf",
@@ -151,37 +144,7 @@ const config = {
             package: "@mainsail/serializer",
         },
         {
-            package: "@mainsail/fees",
-        },
-        {
-            package: "@mainsail/fees-static",
-        },
-        {
             package: "@mainsail/crypto-transaction",
-        },
-        {
-            package: "@mainsail/crypto-transaction-username-registration",
-        },
-        {
-            package: "@mainsail/crypto-transaction-username-resignation",
-        },
-        {
-            package: "@mainsail/crypto-transaction-validator-registration",
-        },
-        {
-            package: "@mainsail/crypto-transaction-validator-resignation",
-        },
-        {
-            package: "@mainsail/crypto-transaction-multi-payment",
-        },
-        {
-            package: "@mainsail/crypto-transaction-multi-signature-registration",
-        },
-        {
-            package: "@mainsail/crypto-transaction-transfer",
-        },
-        {
-            package: "@mainsail/crypto-transaction-vote",
         },
         {
             package: "@mainsail/crypto-transaction-evm-call",

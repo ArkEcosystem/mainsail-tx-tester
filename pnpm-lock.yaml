@@ -53,18 +53,9 @@ importers:
       '@mainsail/crypto-address-base58':
         specifier: link:../mainsail/packages/crypto-address-base58
         version: link:../mainsail/packages/crypto-address-base58
-      '@mainsail/crypto-address-bech32':
-        specifier: link:../mainsail/packages/crypto-address-bech32
-        version: link:../mainsail/packages/crypto-address-bech32
-      '@mainsail/crypto-address-bech32m':
-        specifier: link:../mainsail/packages/crypto-address-bech32m
-        version: link:../mainsail/packages/crypto-address-bech32m
       '@mainsail/crypto-address-keccak256':
         specifier: link:../mainsail/packages/crypto-address-keccak256
         version: link:../mainsail/packages/crypto-address-keccak256
-      '@mainsail/crypto-address-ss58':
-        specifier: link:../mainsail/packages/crypto-address-ss58
-        version: link:../mainsail/packages/crypto-address-ss58
       '@mainsail/crypto-block':
         specifier: link:../mainsail/packages/crypto-block
         version: link:../mainsail/packages/crypto-block
@@ -80,12 +71,6 @@ importers:
       '@mainsail/crypto-hash-bcrypto':
         specifier: link:../mainsail/packages/crypto-hash-bcrypto
         version: link:../mainsail/packages/crypto-hash-bcrypto
-      '@mainsail/crypto-hash-noble':
-        specifier: link:../mainsail/packages/crypto-hash-noble
-        version: link:../mainsail/packages/crypto-hash-noble
-      '@mainsail/crypto-hash-wasm':
-        specifier: link:../mainsail/packages/crypto-hash-wasm
-        version: link:../mainsail/packages/crypto-hash-wasm
       '@mainsail/crypto-key-pair-bls12-381':
         specifier: link:../mainsail/packages/crypto-key-pair-bls12-381
         version: link:../mainsail/packages/crypto-key-pair-bls12-381
@@ -107,45 +92,15 @@ importers:
       '@mainsail/crypto-signature-ecdsa':
         specifier: link:../mainsail/packages/crypto-signature-ecdsa
         version: link:../mainsail/packages/crypto-signature-ecdsa
-      '@mainsail/crypto-signature-ed25519':
-        specifier: link:../mainsail/packages/crypto-signature-ed25519
-        version: link:../mainsail/packages/crypto-signature-ed25519
       '@mainsail/crypto-signature-schnorr':
         specifier: link:../mainsail/packages/crypto-signature-schnorr
         version: link:../mainsail/packages/crypto-signature-schnorr
-      '@mainsail/crypto-signature-schnorr-legacy':
-        specifier: link:../mainsail/packages/crypto-signature-schnorr-legacy
-        version: link:../mainsail/packages/crypto-signature-schnorr-legacy
       '@mainsail/crypto-transaction':
         specifier: link:../mainsail/packages/crypto-transaction
         version: link:../mainsail/packages/crypto-transaction
       '@mainsail/crypto-transaction-evm-call':
         specifier: link:../mainsail/packages/crypto-transaction-evm-call
         version: link:../mainsail/packages/crypto-transaction-evm-call
-      '@mainsail/crypto-transaction-multi-payment':
-        specifier: link:../mainsail/packages/crypto-transaction-multi-payment
-        version: link:../mainsail/packages/crypto-transaction-multi-payment
-      '@mainsail/crypto-transaction-multi-signature-registration':
-        specifier: link:../mainsail/packages/crypto-transaction-multi-signature-registration
-        version: link:../mainsail/packages/crypto-transaction-multi-signature-registration
-      '@mainsail/crypto-transaction-transfer':
-        specifier: link:../mainsail/packages/crypto-transaction-transfer
-        version: link:../mainsail/packages/crypto-transaction-transfer
-      '@mainsail/crypto-transaction-username-registration':
-        specifier: link:../mainsail/packages/crypto-transaction-username-registration
-        version: link:../mainsail/packages/crypto-transaction-username-registration
-      '@mainsail/crypto-transaction-username-resignation':
-        specifier: link:../mainsail/packages/crypto-transaction-username-resignation
-        version: link:../mainsail/packages/crypto-transaction-username-resignation
-      '@mainsail/crypto-transaction-validator-registration':
-        specifier: link:../mainsail/packages/crypto-transaction-validator-registration
-        version: link:../mainsail/packages/crypto-transaction-validator-registration
-      '@mainsail/crypto-transaction-validator-resignation':
-        specifier: link:../mainsail/packages/crypto-transaction-validator-resignation
-        version: link:../mainsail/packages/crypto-transaction-validator-resignation
-      '@mainsail/crypto-transaction-vote':
-        specifier: link:../mainsail/packages/crypto-transaction-vote
-        version: link:../mainsail/packages/crypto-transaction-vote
       '@mainsail/crypto-validation':
         specifier: link:../mainsail/packages/crypto-validation
         version: link:../mainsail/packages/crypto-validation
@@ -158,18 +113,9 @@ importers:
       '@mainsail/database':
         specifier: link:../mainsail/packages/database
         version: link:../mainsail/packages/database
-      '@mainsail/fees':
-        specifier: link:../mainsail/packages/fees
-        version: link:../mainsail/packages/fees
-      '@mainsail/fees-burn':
-        specifier: link:../mainsail/packages/fees-burn
-        version: link:../mainsail/packages/fees-burn
-      '@mainsail/fees-managed':
-        specifier: link:../mainsail/packages/fees-managed
-        version: link:../mainsail/packages/fees-managed
-      '@mainsail/fees-static':
-        specifier: link:../mainsail/packages/fees-static
-        version: link:../mainsail/packages/fees-static
+      '@mainsail/evm-contracts':
+        specifier: link:../mainsail/packages/evm-contracts
+        version: link:../mainsail/packages/evm-contracts
       '@mainsail/kernel':
         specifier: link:../mainsail/packages/kernel
         version: link:../mainsail/packages/kernel
@@ -215,12 +161,6 @@ importers:
       '@mainsail/validator':
         specifier: link:../mainsail/packages/validator
         version: link:../mainsail/packages/validator
-      '@mainsail/validator-set-static':
-        specifier: link:../mainsail/packages/validator-set-static
-        version: link:../mainsail/packages/validator-set-static
-      '@mainsail/validator-set-vote-weighted':
-        specifier: link:../mainsail/packages/validator-set-vote-weighted
-        version: link:../mainsail/packages/validator-set-vote-weighted
       '@mainsail/webhooks':
         specifier: link:../mainsail/packages/webhooks
         version: link:../mainsail/packages/webhooks

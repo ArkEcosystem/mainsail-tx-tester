@@ -15,10 +15,9 @@ export type ValidatorConfig = {
 };
 
 export type Transfer = {
-    recipientId: string;
-    fee: string;
-    amount: string;
-    vendorField: string;
+    recipientAddress: string;
+    gasPrice: string;
+    value: string;
 };
 
 export type EthViewParameters = {
