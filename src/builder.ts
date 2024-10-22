@@ -36,12 +36,12 @@ export const makeTransfer = async (config: Config): Promise<Contracts.Crypto.Tra
 
     const signed = await app
         .resolve(EvmCallBuilder)
-        .fee(transfer.gasPrice)
+        .gasPrice(transfer.gasPrice)
         .network(crypto.network.pubKeyHash)
         .gasLimit(21000)
         .nonce(walletNonce.toFixed(0))
-        .recipientId(transfer.recipientAddress)
-        .amount(transfer.value)
+        .recipientAddress(transfer.recipientAddress)
+        .value(transfer.value)
         .payload("")
         .sign(senderPassphrase);
 
@@ -64,11 +64,11 @@ export const makeVote = async (config: Config): Promise<Contracts.Crypto.Transac
 
     let builder = app
         .resolve(EvmCallBuilder)
-        .fee(vote.gasPrice)
+        .gasPrice(vote.gasPrice)
         .network(crypto.network.pubKeyHash)
         .gasLimit(200_000)
         .nonce(walletNonce.toFixed(0))
-        .recipientId(wellKnownContracts.consensus)
+        .recipientAddress(wellKnownContracts.consensus)
         .payload(data.slice(2));
 
     // TODO: unvote
@@ -94,11 +94,11 @@ export const makeValidatorRegistration = async (config: Config): Promise<Contrac
 
     const signed = await app
         .resolve(EvmCallBuilder)
-        .fee(validatorRegistration.gasPrice)
+        .gasPrice(validatorRegistration.gasPrice)
         .network(crypto.network.pubKeyHash)
         .gasLimit(500_000)
         .nonce(walletNonce.toFixed(0))
-        .recipientId(wellKnownContracts.consensus)
+        .recipientAddress(wellKnownContracts.consensus)
         .payload(data.slice(2))
         .sign(senderPassphrase);
 
@@ -121,11 +121,11 @@ export const makeValidatorResignation = async (config: Config): Promise<Contract
 
     const signed = await app
         .resolve(EvmCallBuilder)
-        .fee(validatorResignation.gasPrice)
+        .gasPrice(validatorResignation.gasPrice)
         .network(crypto.network.pubKeyHash)
         .gasLimit(150_000)
         .nonce(walletNonce.toFixed(0))
-        .recipientId(wellKnownContracts.consensus)
+        .recipientAddress(wellKnownContracts.consensus)
         .payload(data.slice(2))
         .sign(senderPassphrase);
 
@@ -200,7 +200,7 @@ export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Tr
 
     let builder = app
         .resolve(EvmCallBuilder)
-        .fee(evmDeploy.gasPrice)
+        .gasPrice(evmDeploy.gasPrice)
         .payload(evmDeploy.data.slice(2))
         .gasLimit(2_000_000)
         .nonce((walletNonce + 1).toString())
@@ -240,11 +240,11 @@ export const makeEvmCall = async (
 
     let builder = app
         .resolve(EvmCallBuilder)
-        .fee(evmCall.gasPrice)
+        .gasPrice(evmCall.gasPrice)
         .payload(data.slice(2))
         .gasLimit(1_000_000)
-        .recipientId(evmCall.contractId)
-        .nonce((walletNonce + 1).toString())
+        .recipientAddress(evmCall.contractId)
+        .nonce(walletNonce.toString())
         .vendorField(evmCall.vendorField);
 
     const signed = await builder.sign(senderPassphrase);

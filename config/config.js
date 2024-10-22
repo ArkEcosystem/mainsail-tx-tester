@@ -126,7 +126,7 @@ const config = {
             package: "@mainsail/crypto-hash-bcrypto",
         },
         {
-            package: "@mainsail/crypto-signature-schnorr",
+            package: "@mainsail/crypto-signature-ecdsa",
         },
         {
             package: "@mainsail/crypto-key-pair-ecdsa",
