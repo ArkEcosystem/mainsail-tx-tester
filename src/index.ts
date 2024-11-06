@@ -78,7 +78,7 @@ const main = async () => {
         if (txType === 11) {
             const result = await Client.postEthView(peer, await Builder.makeEvmView(config, functionIndex));
 
-            Builder.decodeEvmViewResult(config, functionIndex, result.result);
+            Builder.decodeEvmViewResult(config, functionIndex, result);
 
             return;
         }

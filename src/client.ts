@@ -1,6 +1,20 @@
 import { http } from "@mainsail/utils";
 import { Peer, EthViewParameters } from "./types.js";
 
+const parseJSONRPCResult = <T>(method: string, response: any): T => {
+    if (response.statusCode !== 200) {
+        const error = `Error on ${method}. Status code is ${response.statusCode}`;
+        console.error(error);
+        throw new Error(error);
+    } else if (response.data.error) {
+        const error = `Error on ${method}. Error code: ${response.data.error.code}, message: ${response.data.error.message}`;
+        console.error(error);
+        throw new Error(error);
+    }
+
+    return response.data.result;
+};
+
 export const getWalletNonce = async (peer: Peer, address: string): Promise<number> => {
     const method = "eth_getTransactionCount";
 
@@ -42,20 +56,6 @@ export const getHeight = async (peer: Peer): Promise<number> => {
     }
 };
 
-const parseJSONRPCResult = <T>(method: string, response: any): T => {
-    if (response.statusCode !== 200) {
-        const error = `Error on ${method}. Status code is ${response.statusCode}`;
-        console.error(error);
-        throw new Error(error);
-    } else if (response.data.error) {
-        const error = `Error on ${method}. Error code: ${response.data.error.code}, message: ${response.data.error.message}`;
-        console.error(error);
-        throw new Error(error);
-    }
-
-    return response.data.result;
-};
-
 export const postTransaction = async (peer: Peer, transaction: string): Promise<void> => {
     try {
         const response = await http.post(`${peer.apiTxPoolUrl}/api/transactions`, {
@@ -77,7 +77,8 @@ export const postTransaction = async (peer: Peer, transaction: string): Promise<
     }
 };
 
-export const postEthView = async (peer: Peer, viewParameters: EthViewParameters): Promise<{ result: string }> => {
+export const postEthView = async (peer: Peer, viewParameters: EthViewParameters): Promise<string> => {
+    const method = "eth_call";
     try {
         const response = await http.post(`${peer.apiEvmUrl}/api/`, {
             headers: { "Content-Type": "application/json" },
@@ -89,15 +90,9 @@ export const postEthView = async (peer: Peer, viewParameters: EthViewParameters)
             },
         });
 
-        if (response.statusCode !== 200) {
-            console.log(JSON.stringify(response.data));
-
-            return response.data;
-        } else {
-            return response.data;
-        }
+        return parseJSONRPCResult<string>(method, response);
     } catch (err) {
-        console.error(`Cannot post ethView: ${err.message}`);
+        console.error(`Error on ${method}. ${err.message}`);
         throw err;
     }
 };
