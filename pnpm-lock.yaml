@@ -77,12 +77,6 @@ importers:
       '@mainsail/crypto-key-pair-ecdsa':
         specifier: link:../mainsail/packages/crypto-key-pair-ecdsa
         version: link:../mainsail/packages/crypto-key-pair-ecdsa
-      '@mainsail/crypto-key-pair-ed25519':
-        specifier: link:../mainsail/packages/crypto-key-pair-ed25519
-        version: link:../mainsail/packages/crypto-key-pair-ed25519
-      '@mainsail/crypto-key-pair-schnorr':
-        specifier: link:../mainsail/packages/crypto-key-pair-schnorr
-        version: link:../mainsail/packages/crypto-key-pair-schnorr
       '@mainsail/crypto-messages':
         specifier: link:../mainsail/packages/crypto-messages
         version: link:../mainsail/packages/crypto-messages
@@ -92,9 +86,6 @@ importers:
       '@mainsail/crypto-signature-ecdsa':
         specifier: link:../mainsail/packages/crypto-signature-ecdsa
         version: link:../mainsail/packages/crypto-signature-ecdsa
-      '@mainsail/crypto-signature-schnorr':
-        specifier: link:../mainsail/packages/crypto-signature-schnorr
-        version: link:../mainsail/packages/crypto-signature-schnorr
       '@mainsail/crypto-transaction':
         specifier: link:../mainsail/packages/crypto-transaction
         version: link:../mainsail/packages/crypto-transaction

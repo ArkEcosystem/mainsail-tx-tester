@@ -4,7 +4,6 @@ import contract from "./contract.json" with { type: "json" };
 const config = {
     senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     peer: {
-        apiUrl: "https://dwallets-evm.mainsailhq.com",
         apiTxPoolUrl: "https://dwallets-evm.mainsailhq.com/tx",
         apiEvmUrl: "https://dwallets-evm.mainsailhq.com/evm",
     },
@@ -29,7 +28,7 @@ const config = {
     },
     validatorResignation: {
         gasPrice: "5",
-    }, 
+    },
     // userNameRegistration: {
     //     username: "simple_tx_tester",
     //     fee: "2500000000",
@@ -126,7 +125,7 @@ const config = {
             package: "@mainsail/crypto-hash-bcrypto",
         },
         {
-            package: "@mainsail/crypto-signature-schnorr",
+            package: "@mainsail/crypto-signature-ecdsa",
         },
         {
             package: "@mainsail/crypto-key-pair-ecdsa",
