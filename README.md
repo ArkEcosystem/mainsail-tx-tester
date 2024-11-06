@@ -53,8 +53,6 @@ yarn validator "custom mnemonic"
 
 ## Setup
 
-Commands:
-
 ```bash
 git clone https://github.com/ArkEcosystem/mainsail-tx-tester.git
 cd mainsail-tx-tester
