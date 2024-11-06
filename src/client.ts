@@ -15,45 +15,35 @@ const parseJSONRPCResult = <T>(method: string, response: any): T => {
     return response.data.result;
 };
 
-export const getWalletNonce = async (peer: Peer, address: string): Promise<number> => {
-    const method = "eth_getTransactionCount";
-
+const JSONRPCCall = async <T>(peer: Peer, method: string, params: any[]): Promise<T> => {
     try {
         const response = await http.post(`${peer.apiEvmUrl}/api/`, {
             headers: { "Content-Type": "application/json" },
             body: {
                 jsonrpc: "2.0",
                 method,
-                params: [address, "latest"],
+                params,
                 id: null,
             },
         });
 
-        return parseInt(parseJSONRPCResult<string>(method, response));
+        return parseJSONRPCResult<T>(method, response);
     } catch (err) {
         console.error(`Error on ${method}. ${err.message}`);
         throw err;
     }
 };
 
-export const getHeight = async (peer: Peer): Promise<number> => {
-    const method = "eth_blockNumber";
-    try {
-        const response = await http.post(`${peer.apiEvmUrl}/api/`, {
-            headers: { "Content-Type": "application/json" },
-            body: {
-                jsonrpc: "2.0",
-                method,
-                params: [],
-                id: null,
-            },
-        });
+export const getWalletNonce = async (peer: Peer, address: string): Promise<number> => {
+    return parseInt(await JSONRPCCall<string>(peer, "eth_getTransactionCount", [address, "latest"]));
+};
 
-        return parseInt(parseJSONRPCResult<string>(method, response));
-    } catch (err) {
-        console.error(`Error on ${method}. ${err.message}`);
-        throw err;
-    }
+export const getHeight = async (peer: Peer): Promise<number> => {
+    return parseInt(await JSONRPCCall<string>(peer, "eth_blockNumber", []));
+};
+
+export const postEthView = async (peer: Peer, viewParameters: EthViewParameters): Promise<string> => {
+    return JSONRPCCall<string>(peer, "eth_call", [viewParameters, "latest"]);
 };
 
 export const postTransaction = async (peer: Peer, transaction: string): Promise<void> => {
@@ -74,25 +64,5 @@ export const postTransaction = async (peer: Peer, transaction: string): Promise<
         }
     } catch (err) {
         console.error(`Cannot post transaction: ${err.message}`);
-    }
-};
-
-export const postEthView = async (peer: Peer, viewParameters: EthViewParameters): Promise<string> => {
-    const method = "eth_call";
-    try {
-        const response = await http.post(`${peer.apiEvmUrl}/api/`, {
-            headers: { "Content-Type": "application/json" },
-            body: {
-                jsonrpc: "2.0",
-                method: "eth_call",
-                params: [viewParameters, "latest"],
-                id: null,
-            },
-        });
-
-        return parseJSONRPCResult<string>(method, response);
-    } catch (err) {
-        console.error(`Error on ${method}. ${err.message}`);
-        throw err;
     }
 };
