@@ -2,12 +2,22 @@ import { http } from "@mainsail/utils";
 import { Peer, EthViewParameters } from "./types.js";
 
 export const getWalletNonce = async (peer: Peer, address: string): Promise<number> => {
+    const method = "eth_getTransactionCount";
+
     try {
-        const response = await http.get(`${peer.apiUrl}/api/wallets/${address}`);
-        const nonce = response.data.nonce ?? response.data.data.nonce ?? "0";
-        return parseInt(nonce);
+        const response = await http.post(`${peer.apiEvmUrl}/api/`, {
+            headers: { "Content-Type": "application/json" },
+            body: {
+                jsonrpc: "2.0",
+                method,
+                params: [address, "latest"],
+                id: null,
+            },
+        });
+
+        return parseInt(parseJSONRPCResult<string>(method, response));
     } catch (err) {
-        console.error(`Cannot find wallet by address ${address}: ${err.message}`);
+        console.error(`Error on ${method}. ${err.message}`);
         throw err;
     }
 };
