@@ -51,32 +51,11 @@ yarn validator
 yarn validator "custom mnemonic"
 ``` -->
 
-## Requirements
-
-Ensure Mainsail repos is installed on the same parent directory and is build from `evm` branch.
-
-Layout:
-
-```
-some_dir/
-   mainsail/
-   mainsail-tx-tester/
-```
-
-**Checkout additional package that are required to build Mainsail. [Link](https://docs.ihost.org/docs/mainsail/installation/source)**
+## Setup
 
 Commands:
 
 ```bash
-// Setup mainsail
-git clone https://github.com/ArkEcosystem/mainsail.git
-cd mainsail
-git checkout evm
-pnpm run setup
-
-
-// Setup mainsail-tx-tester
-cd ..
 git clone https://github.com/ArkEcosystem/mainsail-tx-tester.git
 cd mainsail-tx-tester
 git checkout evm
