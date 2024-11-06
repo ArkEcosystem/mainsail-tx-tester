@@ -13,13 +13,37 @@ export const getWalletNonce = async (peer: Peer, address: string): Promise<numbe
 };
 
 export const getHeight = async (peer: Peer): Promise<number> => {
+    const method = "eth_blockNumber";
     try {
-        const response = await http.get(`${peer.apiUrl}/api/blockchain`);
-        return parseInt(response.data.data.block.height);
+        const response = await http.post(`${peer.apiEvmUrl}/api/`, {
+            headers: { "Content-Type": "application/json" },
+            body: {
+                jsonrpc: "2.0",
+                method,
+                params: [],
+                id: null,
+            },
+        });
+
+        return parseInt(parseJSONRPCResult<string>(method, response));
     } catch (err) {
-        console.error(`Cannot get height: ${err.message}`);
+        console.error(`Error on ${method}. ${err.message}`);
         throw err;
     }
+};
+
+const parseJSONRPCResult = <T>(method: string, response: any): T => {
+    if (response.statusCode !== 200) {
+        const error = `Error on ${method}. Status code is ${response.statusCode}`;
+        console.error(error);
+        throw new Error(error);
+    } else if (response.data.error) {
+        const error = `Error on ${method}. Error code: ${response.data.error.code}, message: ${response.data.error.message}`;
+        console.error(error);
+        throw new Error(error);
+    }
+
+    return response.data.result;
 };
 
 export const postTransaction = async (peer: Peer, transaction: string): Promise<void> => {
