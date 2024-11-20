@@ -17,8 +17,10 @@ const config = {
         value: "100000000",
     },
     vote: {
-        voteAddress: "0x512F366D524157BcF734546eB29a6d687B762255",
-        unvoteAsset: "",
+        voteAddress:
+            // "0x512F366D524157BcF734546eB29a6d687B762255", // not a validator
+            "0xfEAf2f24ba1205e9255d015DFaD8463c70D9A466", // genesis validator
+        isUnvote: true,
         gasPrice: "5",
     },
     validatorRegistration: {
