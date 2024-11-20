@@ -56,10 +56,11 @@ export const makeVote = async (config: Config): Promise<Contracts.Crypto.Transac
 
     const walletNonce = await getWalletNonce(app, config);
 
+    // Vote or unvote depending on config
     const data = encodeFunctionData({
         abi: ConsensusAbi.abi,
-        functionName: "vote",
-        args: [vote.voteAddress],
+        functionName: vote.isUnvote ? "unvote" : "vote",
+        args: vote.isUnvote ? [] : [vote.voteAddress],
     });
 
     let builder = app
@@ -70,8 +71,6 @@ export const makeVote = async (config: Config): Promise<Contracts.Crypto.Transac
         .nonce(walletNonce.toFixed(0))
         .recipientAddress(wellKnownContracts.consensus)
         .payload(data.slice(2));
-
-    // TODO: unvote
 
     const signed = await builder.sign(senderPassphrase);
 
@@ -94,7 +93,7 @@ export const makeValidatorRegistration = async (config: Config): Promise<Contrac
 
     const signed = await app
         .resolve(EvmCallBuilder)
-        .gasPrice(validatorRegistration.gasPrice)
+        .gasLimit(validatorRegistration.gasPrice)
         .network(crypto.network.pubKeyHash)
         .gasLimit(500_000)
         .nonce(walletNonce.toFixed(0))
@@ -115,7 +114,7 @@ export const makeValidatorResignation = async (config: Config): Promise<Contract
 
     const data = encodeFunctionData({
         abi: ConsensusAbi.abi,
-        functionName: "deregisterValidator",
+        functionName: "resignValidator",
         args: [],
     });
 
@@ -203,7 +202,7 @@ export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Tr
         .gasPrice(evmDeploy.gasPrice)
         .payload(evmDeploy.data.slice(2))
         .gasLimit(2_000_000)
-        .nonce((walletNonce + 1).toString())
+        .nonce(walletNonce.toString())
         .vendorField(evmDeploy.vendorField);
 
     const signed = await builder.sign(senderPassphrase);
