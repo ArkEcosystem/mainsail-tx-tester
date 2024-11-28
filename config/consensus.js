@@ -26,7 +26,7 @@ export const consensus = {
         },
         {
             functionName: "getValidator",
-            args: ["0x535B3D7A252fa034Ed71F0C53ec0C6F784cB64E1"],
+            args: ["0x8233F6Df6449D7655f4643D2E752DC8D2283fAd5"],
         },
         {
             functionName: "getVotesCount",

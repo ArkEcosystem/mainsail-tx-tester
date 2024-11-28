@@ -7,9 +7,7 @@ export class Contract {
         private config: Config,
         private name: string,
         private contractData: ContractData,
-    ) {
-        console.log("Contract constructor");
-    }
+    ) {}
 
     async list() {
         this.#logContract();

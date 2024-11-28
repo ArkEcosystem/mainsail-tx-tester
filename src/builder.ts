@@ -154,7 +154,8 @@ export const decodeEvmViewResult = (config: Config, contractData: ContractData, 
     }
 
     console.log(`Result:   ${data}`);
-    console.log(`Decoded:  ${result}`);
+    console.log(`Decoded:`);
+    console.log(`${JSON.stringify(result, (_, v) => (typeof v === "bigint" ? v.toString() : v), "  ")}`);
 };
 
 export const makeIdentityFactories = (

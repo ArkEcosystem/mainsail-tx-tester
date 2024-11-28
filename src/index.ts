@@ -82,6 +82,7 @@ const main = async () => {
     // }
 
     const txType = parseInt(process.argv[2]);
+    const txIndex = process.argv.length > 3 ? parseInt(process.argv[3]) : undefined;
 
     // console.log(config);
 
@@ -92,8 +93,12 @@ const main = async () => {
             break;
         case 3:
             const contract = new Contract(config, "Consensus", config.cli.contracts.consensus);
-            contract.list();
-            await contract.view(0);
+
+            if (txIndex === undefined) {
+                contract.list();
+            } else {
+                await contract.view(txIndex);
+            }
             break;
         default:
             help();
