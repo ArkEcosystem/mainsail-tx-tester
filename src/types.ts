@@ -1,5 +1,6 @@
 import { Contracts } from "@mainsail/contracts";
 import cli from "../config/config.js";
+import { Abi } from "viem";
 
 export type Peer = typeof cli.peer;
 
@@ -26,8 +27,8 @@ export type EthViewParameters = {
     data: string;
 };
 
-export type Contract = {
-    abi: object;
+export type ContractData = {
+    abi: Abi;
     contractId: string;
     views: { functionName: string; args: any[] }[];
 };

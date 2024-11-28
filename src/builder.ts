@@ -1,6 +1,6 @@
 import * as Client from "./client.js";
 
-import { Config, EthViewParameters } from "./types.js";
+import { Config, EthViewParameters, ContractData } from "./types.js";
 import { Contracts, Identifiers } from "@mainsail/contracts";
 import { decodeFunctionResult, encodeFunctionData } from "viem";
 
@@ -109,26 +109,28 @@ export const makeEvmCall = async (
     return signed.build();
 };
 
-export const makeEvmView = async (config: Config, functionIndex: number): Promise<EthViewParameters> => {
+export const makeEvmView = async (
+    config: Config,
+    contractData: ContractData,
+    index: number,
+): Promise<EthViewParameters> => {
     const { cli } = config;
     const { senderPassphrase, evmView } = cli;
 
     const app = await getApplication(config);
     const { addressFactory } = makeIdentityFactories(app);
 
-    const func = evmView.functions[functionIndex];
+    const func = contractData.views[index];
 
     const data = encodeFunctionData({
-        abi: evmView.abi,
+        abi: contractData.abi,
         functionName: func.functionName,
         args: func.args,
     });
 
-    console.log(``);
-    console.log(`>> Contract: ${evmView.contractId}`);
-    console.log(`   Function: ${func.functionName}`);
-    console.log(`   Args:     ${func.args.join(", ")}`);
-    console.log(`   Encoded:  ${data}`);
+    console.log(`Function: ${func.functionName}`);
+    console.log(`Args:     ${func.args.join(", ")}`);
+    console.log(`Encoded:  ${data}`);
 
     return {
         from: await addressFactory.fromMnemonic(senderPassphrase),

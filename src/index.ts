@@ -1,8 +1,9 @@
 import * as Builder from "./builder.js";
 import * as Client from "./client.js";
 import * as Loader from "./loader.js";
+import { Contract } from "./contract.js";
 
-import { Config, Contract } from "./types.js";
+import { Config } from "./types.js";
 import { Contracts } from "@mainsail/contracts";
 
 const main = async () => {
@@ -90,7 +91,9 @@ const main = async () => {
         case 2:
             break;
         case 3:
-            list("Consensus", config.cli.contracts.consensus);
+            const contract = new Contract(config, "Consensus", config.cli.contracts.consensus);
+            contract.list();
+            await contract.view(0);
             break;
         default:
             help();
@@ -137,21 +140,6 @@ const makeTx = async (
             return await Builder.makeEvmCall(config, functionIndex);
         default:
             throw new Error("Invalid TX type");
-    }
-};
-
-// @ts-ignore
-const list = async (name: string, contract: Contract) => {
-    let i = 0;
-
-    console.log("-".repeat(46));
-    console.log(`Contract: ${name}`);
-    console.log(`Id: ${contract.contractId}`);
-    console.log("-".repeat(46));
-
-    console.log("Views:");
-    for (let view of contract.views) {
-        console.log(`${i++} - ${view.functionName}`);
     }
 };
 
