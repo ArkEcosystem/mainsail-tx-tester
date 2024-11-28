@@ -25,3 +25,9 @@ export type EthViewParameters = {
     to: string;
     data: string;
 };
+
+export type Contract = {
+    abi: object;
+    contractId: string;
+    views: { functionName: string; args: any[] }[];
+};
