@@ -84,8 +84,6 @@ const main = async () => {
     const txType = parseInt(process.argv[2]);
     const txIndex = process.argv.length > 3 ? parseInt(process.argv[3]) : undefined;
 
-    // console.log(config);
-
     switch (txType) {
         case 1:
             break;
@@ -97,7 +95,7 @@ const main = async () => {
             if (txIndex === undefined) {
                 contract.list();
             } else {
-                await contract.view(txIndex);
+                await contract.interact(txIndex);
             }
             break;
         default:

@@ -11,15 +11,34 @@ export class Contract {
 
     async list() {
         this.#logContract();
-        console.log("Views:");
+        console.log("Transactions:");
+        this.#logLine();
 
         let i = 0;
+        for (let transaction of this.contractData.transactions) {
+            console.log(`${i++} - ${transaction.functionName}`);
+        }
+
+        this.#logLine();
+        console.log("Views:");
+        this.#logLine();
+
         for (let view of this.contractData.views) {
             console.log(`${i++} - ${view.functionName}`);
         }
     }
 
-    async view(viewIndex: number) {
+    async interact(transactionIndex: number) {
+        if (transactionIndex < this.contractData.transactions.length) {
+            // await this.#transaction(transactionIndex);
+        } else if (transactionIndex < this.contractData.transactions.length + this.contractData.views.length) {
+            await this.#view(transactionIndex - this.contractData.transactions.length);
+        } else {
+            throw new Error("Invalid index");
+        }
+    }
+
+    async #view(viewIndex: number) {
         this.#logContract();
         const view = await Builder.makeEvmView(this.config, this.contractData, viewIndex);
         const result = await Client.postEthView(this.config.cli.peer, view);
