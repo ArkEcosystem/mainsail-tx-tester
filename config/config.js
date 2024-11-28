@@ -1,11 +1,16 @@
 import crypto from "@mainsail/core/bin/config/testnet/core/crypto.json" with { type: "json" };
 import contract from "./contract.json" with { type: "json" };
+import { consensus } from "./consensus.js";
 
 const config = {
-    senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
+    senderPassphrase:
+        "bullet mean oxygen possible quiz body range ozone quantum elevator inspire cute inject work estate century must this defy siren aisle rich churn explain", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     peer: {
-        apiTxPoolUrl: "https://127.0.0.1:4007",
-        apiEvmUrl: "https://127.0.0.1:4008",
+        apiTxPoolUrl: "http://127.0.0.1:4007",
+        apiEvmUrl: "http://127.0.0.1:4008",
+    },
+    contracts: {
+        consensus,
     },
     crypto: crypto,
     wellKnownContracts: {
@@ -19,9 +24,7 @@ const config = {
         value: "100000000",
     },
     vote: {
-        voteAddress:
-            // "0x512F366D524157BcF734546eB29a6d687B762255", // not a validator
-            "0xfEAf2f24ba1205e9255d015DFaD8463c70D9A466", // genesis validator
+        voteAddress: "0xfEAf2f24ba1205e9255d015DFaD8463c70D9A466", // genesis validator
         isUnvote: true,
         gasPrice: "5",
     },
