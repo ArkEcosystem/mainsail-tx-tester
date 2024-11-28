@@ -115,7 +115,7 @@ export const makeEvmView = async (
     index: number,
 ): Promise<EthViewParameters> => {
     const { cli } = config;
-    const { senderPassphrase, evmView } = cli;
+    const { senderPassphrase } = cli;
 
     const app = await getApplication(config);
     const { addressFactory } = makeIdentityFactories(app);
@@ -134,21 +134,18 @@ export const makeEvmView = async (
 
     return {
         from: await addressFactory.fromMnemonic(senderPassphrase),
-        to: evmView.contractId,
+        to: contractData.contractId,
         data: data,
     };
 };
 
-export const decodeEvmViewResult = (config: Config, functionIndex: number, data: string): void => {
-    const { cli } = config;
-    const { evmView } = cli;
-
-    const func = evmView.functions[functionIndex];
+export const decodeEvmViewResult = (config: Config, contractData: ContractData, index: number, data: any): void => {
+    const func = contractData.views[index];
 
     let result;
     try {
         result = decodeFunctionResult({
-            abi: evmView.abi,
+            abi: contractData.abi,
             functionName: func.functionName,
             data,
         });
@@ -156,9 +153,8 @@ export const decodeEvmViewResult = (config: Config, functionIndex: number, data:
         result = ex.message;
     }
 
-    console.log(``);
-    console.log(`>> Result:   ${data}`);
-    console.log(`   Decoded:  ${result}`);
+    console.log(`Result:   ${data}`);
+    console.log(`Decoded:  ${result}`);
 };
 
 export const makeIdentityFactories = (

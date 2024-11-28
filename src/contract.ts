@@ -1,5 +1,6 @@
 import { ContractData, Config } from "./types.js";
 import * as Builder from "./builder.js";
+import * as Client from "./client.js";
 
 export class Contract {
     constructor(
@@ -22,15 +23,21 @@ export class Contract {
 
     async view(viewIndex: number) {
         this.#logContract();
-        const viewParameters = await Builder.makeEvmView(this.config, this.contractData, viewIndex);
-
-        console.log(`View parameters: ${JSON.stringify(viewParameters)}`);
+        const view = await Builder.makeEvmView(this.config, this.contractData, viewIndex);
+        const result = await Client.postEthView(this.config.cli.peer, view);
+        this.#logLine();
+        Builder.decodeEvmViewResult(this.config, this.contractData, viewIndex, result);
+        this.#logLine();
     }
 
     #logContract() {
-        console.log("-".repeat(46));
+        this.#logLine();
         console.log(`Contract: ${this.name}`);
         console.log(`Id: ${this.contractData.contractId}`);
+        this.#logLine();
+    }
+
+    #logLine() {
         console.log("-".repeat(46));
     }
 }
