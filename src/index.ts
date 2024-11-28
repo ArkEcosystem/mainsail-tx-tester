@@ -3,7 +3,7 @@ import * as Client from "./client.js";
 import * as Loader from "./loader.js";
 import { Contract } from "./contract.js";
 
-import { Config } from "./types.js";
+import { Config, ContractData } from "./types.js";
 import { Contracts } from "@mainsail/contracts";
 
 const main = async () => {
@@ -82,7 +82,6 @@ const main = async () => {
     // }
 
     const txType = parseInt(process.argv[2]);
-    const txIndex = process.argv.length > 3 ? parseInt(process.argv[3]) : undefined;
 
     switch (txType) {
         case 1:
@@ -90,13 +89,7 @@ const main = async () => {
         case 2:
             break;
         case 3:
-            const contract = new Contract(config, "Consensus", config.cli.contracts.consensus);
-
-            if (txIndex === undefined) {
-                contract.list();
-            } else {
-                await contract.interact(txIndex);
-            }
+            await handleContract(config, "Consensus", config.cli.contracts.consensus);
             break;
         default:
             help();
@@ -108,23 +101,23 @@ const transactions = {
     1: "Transfer",
     2: "Deploy",
     3: "Consensus",
-    // 1: "Transfer",
-    // 2: "Vote",
-    // 3: "ValidatorRegistration",
-    // 4: "ValidatorResignation",
-    // // 3: "UsernameRegistration",
-    // // 4: "UsernameResignation",
-    // // 5: "MultiPayment",
-    // // 8: "MultiSignatureRegistration",
-    // 9: "EvmDeploy",
-    // 10: "EvmCall",
-    // 11: "EvmView",
 };
 
 const help = () => {
     console.log("Please provide TX number in arguments:");
     for (let key in transactions) {
         console.log(`${key} - ${transactions[key]}`);
+    }
+};
+
+const handleContract = async (config: Config, name: string, contractData: ContractData) => {
+    const txIndex = process.argv.length > 3 ? parseInt(process.argv[3]) : undefined;
+
+    const contract = new Contract(config, name, contractData);
+    if (txIndex === undefined) {
+        contract.list();
+    } else {
+        await contract.interact(txIndex);
     }
 };
 
