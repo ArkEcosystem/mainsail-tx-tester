@@ -4,12 +4,14 @@ import contract from "./contract.json" with { type: "json" };
 const config = {
     senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     peer: {
-        apiTxPoolUrl: "https://dwallets-evm.mainsailhq.com/tx",
-        apiEvmUrl: "https://dwallets-evm.mainsailhq.com/evm",
+        apiTxPoolUrl: "https://127.0.0.1:4007",
+        apiEvmUrl: "https://127.0.0.1:4008",
     },
     crypto: crypto,
     wellKnownContracts: {
-        consensus: "0x522B3294E6d06aA25Ad0f1B8891242E335D3B459",
+        consensus: "0x535B3D7A252fa034Ed71F0C53ec0C6F784cB64E1",
+        usernames: "0x2c1DE3b4Dbb4aDebEbB5dcECAe825bE2a9fc6eb6",
+        multiPayment: "0x83769BeEB7e5405ef0B7dc3C66C43E3a51A6d27f",
     },
     transfer: {
         recipientAddress: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
