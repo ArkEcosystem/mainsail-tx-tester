@@ -101,6 +101,7 @@ export const makeEvmCall = async (
         .payload(data.slice(2))
         .gasLimit(1_000_000)
         .recipientAddress(contractData.contractId)
+        .value(func.amount ? func.amount.toString() : "0")
         .nonce(walletNonce.toString());
 
     const signed = await builder.sign(senderPassphrase);

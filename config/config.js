@@ -2,6 +2,7 @@ import crypto from "@mainsail/core/bin/config/testnet/core/crypto.json" with { t
 import contract from "./contract.json" with { type: "json" };
 import { consensus } from "./consensus.js";
 import { usernames } from "./usernames.js";
+import { multiPayment } from "./multipayment.js";
 
 const config = {
     senderPassphrase:
@@ -13,6 +14,7 @@ const config = {
     contracts: {
         consensus,
         usernames,
+        multiPayment,
     },
     gasPrice: "5",
     crypto: crypto,
