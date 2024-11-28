@@ -30,12 +30,22 @@ export class Contract {
 
     async interact(transactionIndex: number) {
         if (transactionIndex < this.contractData.transactions.length) {
-            // await this.#transaction(transactionIndex);
+            await this.#transaction(transactionIndex);
         } else if (transactionIndex < this.contractData.transactions.length + this.contractData.views.length) {
             await this.#view(transactionIndex - this.contractData.transactions.length);
         } else {
             throw new Error("Invalid index");
         }
+    }
+
+    async #transaction(transactionIndex: number) {
+        this.#logContract();
+        const transaction = await Builder.makeEvmCall(this.config, this.contractData, transactionIndex);
+        const result = await Client.postTransaction(this.config.cli.peer, transaction.serialized.toString("hex"));
+        this.#logLine();
+        console.log("Transaction sent: ", transaction.id);
+        console.log("Response: ", result);
+        this.#logLine();
     }
 
     async #view(viewIndex: number) {

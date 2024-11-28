@@ -139,8 +139,6 @@ const makeTx = async (
             return await Builder.makeTransfer(config);
         case 9:
             return await Builder.makeEvmDeploy(config);
-        case 10:
-            return await Builder.makeEvmCall(config, functionIndex);
         default:
             throw new Error("Invalid TX type");
     }

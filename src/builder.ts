@@ -70,39 +70,38 @@ export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Tr
 
 export const makeEvmCall = async (
     config: Config,
+    contractData: ContractData,
     functionIndex: number,
     args?: any[],
 ): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
-    const { evmCall, senderPassphrase } = cli;
+    const { senderPassphrase } = cli;
 
     const app = await getApplication(config);
 
     const walletNonce = await getWalletNonce(app, config);
 
-    const func = evmCall.functions[functionIndex];
+    const func = contractData.transactions[functionIndex];
 
     const usedArgs = args || func.args;
 
     const data = encodeFunctionData({
-        abi: evmCall.abi,
+        abi: contractData.abi,
         functionName: func.functionName,
         args: usedArgs,
     });
 
-    console.log(`>> Contract: ${evmCall.contractId}`);
-    console.log(`   Function: ${func.functionName}`);
-    console.log(`   Args:     ${usedArgs.join(", ")}`);
-    console.log(`   Encoded:  ${data}`);
+    console.log(`Function: ${func.functionName}`);
+    console.log(`Args:     ${usedArgs.join(", ")}`);
+    console.log(`Encoded:  ${data}`);
 
     let builder = app
         .resolve(EvmCallBuilder)
-        .gasPrice(evmCall.gasPrice)
+        .gasPrice(cli.gasPrice)
         .payload(data.slice(2))
         .gasLimit(1_000_000)
-        .recipientAddress(evmCall.contractId)
-        .nonce(walletNonce.toString())
-        .vendorField(evmCall.vendorField);
+        .recipientAddress(contractData.contractId)
+        .nonce(walletNonce.toString());
 
     const signed = await builder.sign(senderPassphrase);
 

@@ -12,6 +12,7 @@ const config = {
     contracts: {
         consensus,
     },
+    gasPrice: "5",
     crypto: crypto,
     wellKnownContracts: {
         consensus: "0x535B3D7A252fa034Ed71F0C53ec0C6F784cB64E1",
