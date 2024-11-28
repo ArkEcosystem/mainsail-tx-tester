@@ -91,6 +91,9 @@ const main = async () => {
         case 3:
             await handleContract(config, "Consensus", config.cli.contracts.consensus);
             break;
+        case 4:
+            await handleContract(config, "Usernames", config.cli.contracts.usernames);
+            break;
         default:
             help();
             break;
@@ -101,6 +104,7 @@ const transactions = {
     1: "Transfer",
     2: "Deploy",
     3: "Consensus",
+    4: "Usernames",
 };
 
 const help = () => {
