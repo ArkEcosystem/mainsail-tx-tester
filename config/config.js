@@ -14,12 +14,10 @@ const config = {
     gasPrice: "5",
     transfer: {
         recipientAddress: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
-        gasPrice: "5",
         value: "100000000",
     },
     evmDeploy: {
         data: DARK20.bytecode,
-        gasPrice: "5",
         vendorField: "",
     },
     contracts: {

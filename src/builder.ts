@@ -39,7 +39,7 @@ export const makeTransfer = async (
 
     const signed = await app
         .resolve(EvmCallBuilder)
-        .gasPrice(transfer.gasPrice)
+        .gasPrice(cli.gasPrice)
         .network(crypto.network.pubKeyHash)
         .gasLimit(21000)
         .nonce(walletNonce.toFixed(0))
@@ -61,7 +61,7 @@ export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Tr
 
     let builder = app
         .resolve(EvmCallBuilder)
-        .gasPrice(evmDeploy.gasPrice)
+        .gasPrice(cli.gasPrice)
         .payload(evmDeploy.data.slice(2))
         .gasLimit(2_000_000)
         .nonce(walletNonce.toString())
