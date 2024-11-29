@@ -1,9 +1,9 @@
 import * as Builder from "./builder.js";
 import * as Client from "./client.js";
 import * as Loader from "./loader.js";
+import { Contract } from "./contract.js";
 
-import { Config } from "./types.js";
-import { Contracts } from "@mainsail/contracts";
+import { Config, ContractData } from "./types.js";
 
 const main = async () => {
     if (process.argv.length < 3) {
@@ -17,98 +17,50 @@ const main = async () => {
     const latestHeight = await Client.getHeight(peer);
     console.log(`>> latest height: ${latestHeight}`);
 
-    const args = process.argv.slice(2);
+    const txType = parseInt(process.argv[2]);
 
-    let tx: Contracts.Crypto.Transaction;
-    let txType: number;
+    switch (txType) {
+        case 1: {
+            const recipient = process.argv.length > 3 ? process.argv[3] : undefined;
+            const amount = process.argv.length > 4 ? process.argv[4] : undefined;
 
-    // "transfer" "abc" "1" -- used by faucet
-    if (args.length >= 3) {
-        const action = args[0];
-        const recipients = args[1].split(","); // comma-separated
-        const amount = args[2];
-        const functionIndex = args[3] !== undefined ? +args[3] : 0;
+            const tx = await await Builder.makeTransfer(config, recipient, amount);
+            const result = await Client.postTransaction(peer, tx.serialized.toString("hex"));
+            console.log(`>> sent Transfer ${tx.id} to ${peer.apiTxPoolUrl}`);
 
-        // node dist/index.js transfer "recipients" "amount"
-        if (!["transfer", "contract"].includes(action) || !recipients || !recipients.length || !amount) {
-            throw new Error("action must be 'transfer | contract' followed by the recipients and amount");
+            console.log(result);
+
+            break;
         }
+        case 2: {
+            const tx = await Builder.makeEvmDeploy(config);
+            const result = await Client.postTransaction(peer, tx.serialized.toString("hex"));
+            console.log(`>> sent Deploy ${tx.id} to ${peer.apiTxPoolUrl}`);
 
-        if (action === "contract") {
-            txType = 10;
-            tx = await Builder.makeEvmCall(config, functionIndex, [
-                functionIndex === 0 ? recipients[0] : recipients,
-                functionIndex === 0 ? amount : new Array(recipients.length).fill(amount),
-            ]);
-        } else {
-            // if (recipients.length === 1) {
-            txType = 1;
-            tx = await Builder.makeTransfer({
-                ...config,
-                cli: {
-                    ...config.cli,
-                    transfer: {
-                        ...config.cli.transfer,
-                        amount,
-                        recipientId: recipients[0],
-                    },
-                },
-            });
-            // } else {
-            //     txType = 5;
-            //     tx = await Builder.makeMultiPayment({
-            //         ...config,
-            //         cli: {
-            //             ...config.cli,
-            //             multiPayment: {
-            //                 ...config.cli.multiPayment,
-            //                 payments: recipients.map((recipientId) => ({
-            //                     amount,
-            //                     recipientId,
-            //                 })),
-            //             },
-            //         },
-            //     });
-            // }
+            console.log(result);
+            break;
         }
-    } else {
-        txType = parseInt(process.argv[2]);
-        const functionIndex = parseInt(process.argv[3]) || 0;
-
-        if (txType === 11) {
-            const result = await Client.postEthView(peer, await Builder.makeEvmView(config, functionIndex));
-
-            Builder.decodeEvmViewResult(config, functionIndex, result);
-
-            return;
-        }
-
-        tx = await makeTx(txType, config, functionIndex);
-    }
-
-    try {
-        const result = await Client.postTransaction(peer, tx.serialized.toString("hex"));
-        console.log(`>> sent ${transactions[txType]} ${tx.id} to ${peer.apiTxPoolUrl}`);
-
-        console.log(result);
-    } catch (ex) {
-        console.log(ex.message);
-        console.log(`>> failed to send tx ${tx.id} to ${peer.ip}`);
+        case 3:
+            await handleContract(config, "Consensus", config.cli.contracts.consensus);
+            break;
+        case 4:
+            await handleContract(config, "MultiPayment", config.cli.contracts.multiPayment);
+            break;
+        case 5:
+            await handleContract(config, "Usernames", config.cli.contracts.usernames);
+            break;
+        default:
+            help();
+            break;
     }
 };
 
 const transactions = {
     1: "Transfer",
-    2: "Vote",
-    3: "ValidatorRegistration",
-    4: "ValidatorResignation",
-    // 3: "UsernameRegistration",
-    // 4: "UsernameResignation",
-    // 5: "MultiPayment",
-    // 8: "MultiSignatureRegistration",
-    9: "EvmDeploy",
-    10: "EvmCall",
-    11: "EvmView",
+    2: "Deploy",
+    3: "Consensus",
+    4: "MultiPayment",
+    5: "Usernames",
 };
 
 const help = () => {
@@ -118,34 +70,16 @@ const help = () => {
     }
 };
 
-const makeTx = async (
-    txType: number,
-    config: Config,
-    functionIndex: number = 0,
-): Promise<Contracts.Crypto.Transaction> => {
-    switch (txType) {
-        case 1:
-            return await Builder.makeTransfer(config);
-        case 2:
-            return await Builder.makeVote(config);
-        case 3:
-            return await Builder.makeValidatorRegistration(config);
-        case 4:
-            return await Builder.makeValidatorResignation(config);
-        // case 3:
-        //     return await Builder.makeUsernameRegistration(config);
-        // case 4:
-        //     return await Builder.makeUsernameResignation(config);
-        // case 5:
-        //     return await Builder.makeMultiPayment(config);
-        // case 8:
-        //     return await Builder.makeMultisignatureRegistration(config);
-        case 9:
-            return await Builder.makeEvmDeploy(config);
-        case 10:
-            return await Builder.makeEvmCall(config, functionIndex);
-        default:
-            throw new Error("Invalid TX type");
+const handleContract = async (config: Config, name: string, contractData: ContractData) => {
+    const txIndex = process.argv.length > 3 ? parseInt(process.argv[3]) : undefined;
+    const args = process.argv.length > 4 ? JSON.parse(process.argv[4]) : undefined;
+    const amount = process.argv.length > 5 ? process.argv[5] : undefined;
+
+    const contract = new Contract(config, name, contractData);
+    if (txIndex === undefined) {
+        contract.list();
+    } else {
+        await contract.interact(txIndex, args, amount);
     }
 };
 

@@ -6,10 +6,47 @@ import { Config } from "./types.js";
 export const getApplication = async (config: Config): Promise<Application> => {
     const app = new Application(new Container());
 
-    const plugins = config.cli.plugins;
+    const plugins = [
+        {
+            package: "@mainsail/validation",
+        },
+        {
+            package: "@mainsail/crypto-config",
+        },
+        {
+            package: "@mainsail/crypto-validation",
+        },
+        {
+            package: "@mainsail/crypto-hash-bcrypto",
+        },
+        {
+            package: "@mainsail/crypto-signature-ecdsa",
+        },
+        {
+            package: "@mainsail/crypto-key-pair-ecdsa",
+        },
+        {
+            package: "@mainsail/crypto-address-keccak256",
+        },
+        {
+            package: "@mainsail/crypto-consensus-bls12-381",
+        },
+        {
+            package: "@mainsail/crypto-wif",
+        },
+        {
+            package: "@mainsail/serializer",
+        },
+        {
+            package: "@mainsail/crypto-transaction",
+        },
+        {
+            package: "@mainsail/crypto-transaction-evm-call",
+        },
+    ];
+
     for (const plugin of plugins) {
-        const packageModule = plugin.package;
-        const { ServiceProvider } = await import(packageModule);
+        const { ServiceProvider } = await import(plugin.package);
         const serviceProvider: Providers.ServiceProvider = app.resolve(ServiceProvider);
         await serviceProvider.register();
     }

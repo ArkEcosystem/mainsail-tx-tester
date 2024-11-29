@@ -1,11 +1,10 @@
 import * as Client from "./client.js";
 
-import { Config, EthViewParameters } from "./types.js";
+import { Config, EthViewParameters, ContractData } from "./types.js";
 import { Contracts, Identifiers } from "@mainsail/contracts";
 import { decodeFunctionResult, encodeFunctionData } from "viem";
 
 import { Application } from "@mainsail/kernel";
-import { ConsensusAbi } from "@mainsail/evm-contracts";
 import { EvmCallBuilder } from "@mainsail/crypto-transaction-evm-call";
 import { getApplication } from "./boot.js";
 
@@ -26,7 +25,11 @@ const getWalletNonce = async (app: Application, config: Config): Promise<number>
     return walletNonce;
 };
 
-export const makeTransfer = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
+export const makeTransfer = async (
+    config: Config,
+    recipient?: string,
+    amount?: string,
+): Promise<Contracts.Crypto.Transaction> => {
     const { cli, crypto } = config;
     const { transfer, senderPassphrase } = cli;
 
@@ -36,158 +39,17 @@ export const makeTransfer = async (config: Config): Promise<Contracts.Crypto.Tra
 
     const signed = await app
         .resolve(EvmCallBuilder)
-        .gasPrice(transfer.gasPrice)
+        .gasPrice(cli.gasPrice)
         .network(crypto.network.pubKeyHash)
         .gasLimit(21000)
         .nonce(walletNonce.toFixed(0))
-        .recipientAddress(transfer.recipientAddress)
-        .value(transfer.value)
+        .recipientAddress(recipient ? recipient : transfer.recipientAddress)
+        .value(amount ? amount : transfer.value)
         .payload("")
         .sign(senderPassphrase);
 
     return signed.build();
 };
-
-export const makeVote = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-    const { cli, crypto } = config;
-    const { wellKnownContracts, vote, senderPassphrase } = cli;
-
-    const app = await getApplication(config);
-
-    const walletNonce = await getWalletNonce(app, config);
-
-    // Vote or unvote depending on config
-    const data = encodeFunctionData({
-        abi: ConsensusAbi.abi,
-        functionName: vote.isUnvote ? "unvote" : "vote",
-        args: vote.isUnvote ? [] : [vote.voteAddress],
-    });
-
-    let builder = app
-        .resolve(EvmCallBuilder)
-        .gasPrice(vote.gasPrice)
-        .network(crypto.network.pubKeyHash)
-        .gasLimit(200_000)
-        .nonce(walletNonce.toFixed(0))
-        .recipientAddress(wellKnownContracts.consensus)
-        .payload(data.slice(2));
-
-    const signed = await builder.sign(senderPassphrase);
-
-    return signed.build();
-};
-
-export const makeValidatorRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-    const { cli, crypto } = config;
-    const { wellKnownContracts, validatorRegistration, senderPassphrase } = cli;
-
-    const app = await getApplication(config);
-
-    const walletNonce = await getWalletNonce(app, config);
-
-    const data = encodeFunctionData({
-        abi: ConsensusAbi.abi,
-        functionName: "registerValidator",
-        args: [`0x${validatorRegistration.validatorPublicKey}`],
-    });
-
-    const signed = await app
-        .resolve(EvmCallBuilder)
-        .gasLimit(validatorRegistration.gasPrice)
-        .network(crypto.network.pubKeyHash)
-        .gasLimit(500_000)
-        .nonce(walletNonce.toFixed(0))
-        .recipientAddress(wellKnownContracts.consensus)
-        .payload(data.slice(2))
-        .sign(senderPassphrase);
-
-    return signed.build();
-};
-
-export const makeValidatorResignation = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-    const { cli, crypto } = config;
-    const { wellKnownContracts, validatorResignation, senderPassphrase } = cli;
-
-    const app = await getApplication(config);
-
-    const walletNonce = await getWalletNonce(app, config);
-
-    const data = encodeFunctionData({
-        abi: ConsensusAbi.abi,
-        functionName: "resignValidator",
-        args: [],
-    });
-
-    const signed = await app
-        .resolve(EvmCallBuilder)
-        .gasPrice(validatorResignation.gasPrice)
-        .network(crypto.network.pubKeyHash)
-        .gasLimit(150_000)
-        .nonce(walletNonce.toFixed(0))
-        .recipientAddress(wellKnownContracts.consensus)
-        .payload(data.slice(2))
-        .sign(senderPassphrase);
-
-    return signed.build();
-};
-
-// export const makeUsernameRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-//     const { cli } = config;
-//     const { userNameRegistration, senderPassphrase } = cli;
-
-//     const app = await getApplication(config);
-
-//     const walletNonce = await getWalletNonce(app, config);
-
-//     const signed = await app
-//         .resolve(UsernameRegistrationBuilder)
-//         .fee(userNameRegistration.gasPrice)
-//         .nonce((walletNonce + 1).toFixed(0))
-//         .usernameAsset(userNameRegistration.username)
-//         .sign(senderPassphrase);
-
-//     return signed.build();
-// };
-
-// export const makeUsernameResignation = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-//     const { cli } = config;
-//     const { userNameResignation, senderPassphrase } = cli;
-
-//     const app = await getApplication(config);
-
-//     const walletNonce = await getWalletNonce(app, config);
-
-//     const signed = await app
-//         .resolve(UsernameResignationBuilder)
-//         .fee(userNameResignation.gasPrice)
-//         .nonce((walletNonce + 1).toFixed(0))
-//         .sign(senderPassphrase);
-
-//     return signed.build();
-// };
-
-// export const makeMultiPayment = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-//     const { cli } = config;
-//     const { multiPayment, senderPassphrase } = cli;
-
-//     const app = await getApplication(config);
-
-//     const walletNonce = await getWalletNonce(app, config);
-
-//     let builder = app
-//         .resolve(MultiPaymentBuilder)
-//         .fee(multiPayment.gasPrice)
-//         .nonce((walletNonce + 1).toFixed(0))
-//         .vendorField(multiPayment.vendorField);
-
-//     for (const { amount, recipientId } of multiPayment.payments) {
-//         builder = builder.addPayment(recipientId, amount);
-//     }
-
-//     const signed = await builder.sign(senderPassphrase);
-
-//     return signed.build();
-// };
 
 export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
@@ -199,7 +61,7 @@ export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Tr
 
     let builder = app
         .resolve(EvmCallBuilder)
-        .gasPrice(evmDeploy.gasPrice)
+        .gasPrice(cli.gasPrice)
         .payload(evmDeploy.data.slice(2))
         .gasLimit(2_000_000)
         .nonce(walletNonce.toString())
@@ -212,83 +74,86 @@ export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Tr
 
 export const makeEvmCall = async (
     config: Config,
+    contractData: ContractData,
     functionIndex: number,
     args?: any[],
+    amount?: string,
 ): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
-    const { evmCall, senderPassphrase } = cli;
+    const { senderPassphrase } = cli;
 
     const app = await getApplication(config);
 
     const walletNonce = await getWalletNonce(app, config);
 
-    const func = evmCall.functions[functionIndex];
+    const func = contractData.transactions[functionIndex];
 
     const usedArgs = args || func.args;
+    if (!amount) {
+        amount = func.amount ? func.amount.toString() : "0";
+    }
 
     const data = encodeFunctionData({
-        abi: evmCall.abi,
+        abi: contractData.abi,
         functionName: func.functionName,
         args: usedArgs,
     });
 
-    console.log(`>> Contract: ${evmCall.contractId}`);
-    console.log(`   Function: ${func.functionName}`);
-    console.log(`   Args:     ${usedArgs.join(", ")}`);
-    console.log(`   Encoded:  ${data}`);
+    console.log(`Function: ${func.functionName}`);
+    console.log(`Args:     ${usedArgs.join(", ")}`);
+    console.log(`Encoded:  ${data}`);
 
     let builder = app
         .resolve(EvmCallBuilder)
-        .gasPrice(evmCall.gasPrice)
+        .gasPrice(cli.gasPrice)
         .payload(data.slice(2))
         .gasLimit(1_000_000)
-        .recipientAddress(evmCall.contractId)
-        .nonce(walletNonce.toString())
-        .vendorField(evmCall.vendorField);
+        .recipientAddress(contractData.contractId)
+        .value(amount)
+        .nonce(walletNonce.toString());
 
     const signed = await builder.sign(senderPassphrase);
 
     return signed.build();
 };
 
-export const makeEvmView = async (config: Config, functionIndex: number): Promise<EthViewParameters> => {
+export const makeEvmView = async (
+    config: Config,
+    contractData: ContractData,
+    index: number,
+): Promise<EthViewParameters> => {
     const { cli } = config;
-    const { senderPassphrase, evmView } = cli;
+    const { senderPassphrase } = cli;
 
     const app = await getApplication(config);
     const { addressFactory } = makeIdentityFactories(app);
 
-    const func = evmView.functions[functionIndex];
+    const func = contractData.views[index];
 
     const data = encodeFunctionData({
-        abi: evmView.abi,
+        abi: contractData.abi,
         functionName: func.functionName,
         args: func.args,
     });
 
-    console.log(``);
-    console.log(`>> Contract: ${evmView.contractId}`);
-    console.log(`   Function: ${func.functionName}`);
-    console.log(`   Args:     ${func.args.join(", ")}`);
-    console.log(`   Encoded:  ${data}`);
+    console.log(`Function: ${func.functionName}`);
+    console.log(`Args:     ${func.args.join(", ")}`);
+    console.log(`Encoded:  ${data}`);
 
     return {
         from: await addressFactory.fromMnemonic(senderPassphrase),
-        to: evmView.contractId,
+        to: contractData.contractId,
         data: data,
     };
 };
 
-export const decodeEvmViewResult = (config: Config, functionIndex: number, data: string): void => {
-    const { cli } = config;
-    const { evmView } = cli;
-
-    const func = evmView.functions[functionIndex];
+export const decodeEvmViewResult = (config: Config, contractData: ContractData, index: number, data: any): void => {
+    const func = contractData.views[index];
 
     let result;
     try {
         result = decodeFunctionResult({
-            abi: evmView.abi,
+            abi: contractData.abi,
             functionName: func.functionName,
             data,
         });
@@ -296,9 +161,9 @@ export const decodeEvmViewResult = (config: Config, functionIndex: number, data:
         result = ex.message;
     }
 
-    console.log(``);
-    console.log(`>> Result:   ${data}`);
-    console.log(`   Decoded:  ${result}`);
+    console.log(`Result:   ${data}`);
+    console.log(`Decoded:`);
+    console.log(`${JSON.stringify(result, (_, v) => (typeof v === "bigint" ? v.toString() : v), "  ")}`);
 };
 
 export const makeIdentityFactories = (
