@@ -1,5 +1,5 @@
 import crypto from "@mainsail/core/bin/config/testnet/core/crypto.json" with { type: "json" };
-import contract from "./contract.json" with { type: "json" };
+import DARK20 from "./DARK20.json" with { type: "json" };
 import { consensus } from "./consensus.js";
 import { usernames } from "./usernames.js";
 import { multiPayment } from "./multipayment.js";
@@ -18,7 +18,7 @@ const config = {
         value: "100000000",
     },
     evmDeploy: {
-        data: contract.bytecode,
+        data: DARK20.bytecode,
         gasPrice: "5",
         vendorField: "",
     },

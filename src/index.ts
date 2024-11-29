@@ -81,13 +81,27 @@ const main = async () => {
     //     console.log(`>> failed to send tx ${tx.id} to ${peer.ip}`);
     // }
 
+    // Later
     const txType = parseInt(process.argv[2]);
 
     switch (txType) {
-        case 1:
+        case 1: {
+            const tx = await await Builder.makeTransfer(config);
+            const result = await Client.postTransaction(peer, tx.serialized.toString("hex"));
+            console.log(`>> sent Transfer ${tx.id} to ${peer.apiTxPoolUrl}`);
+
+            console.log(result);
+
             break;
-        case 2:
+        }
+        case 2: {
+            const tx = await Builder.makeEvmDeploy(config);
+            const result = await Client.postTransaction(peer, tx.serialized.toString("hex"));
+            console.log(`>> sent Deploy ${tx.id} to ${peer.apiTxPoolUrl}`);
+
+            console.log(result);
             break;
+        }
         case 3:
             await handleContract(config, "Consensus", config.cli.contracts.consensus);
             break;
