@@ -86,7 +86,10 @@ const main = async () => {
 
     switch (txType) {
         case 1: {
-            const tx = await await Builder.makeTransfer(config);
+            const recipient = process.argv.length > 3 ? process.argv[3] : undefined;
+            const amount = process.argv.length > 4 ? process.argv[4] : undefined;
+
+            const tx = await await Builder.makeTransfer(config, recipient, amount);
             const result = await Client.postTransaction(peer, tx.serialized.toString("hex"));
             console.log(`>> sent Transfer ${tx.id} to ${peer.apiTxPoolUrl}`);
 

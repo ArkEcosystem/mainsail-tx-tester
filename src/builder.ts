@@ -25,7 +25,11 @@ const getWalletNonce = async (app: Application, config: Config): Promise<number>
     return walletNonce;
 };
 
-export const makeTransfer = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
+export const makeTransfer = async (
+    config: Config,
+    recipient?: string,
+    amount?: string,
+): Promise<Contracts.Crypto.Transaction> => {
     const { cli, crypto } = config;
     const { transfer, senderPassphrase } = cli;
 
@@ -39,8 +43,8 @@ export const makeTransfer = async (config: Config): Promise<Contracts.Crypto.Tra
         .network(crypto.network.pubKeyHash)
         .gasLimit(21000)
         .nonce(walletNonce.toFixed(0))
-        .recipientAddress(transfer.recipientAddress)
-        .value(transfer.value)
+        .recipientAddress(recipient ? recipient : transfer.recipientAddress)
+        .value(amount ? amount : transfer.value)
         .payload("")
         .sign(senderPassphrase);
 
