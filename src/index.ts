@@ -72,12 +72,14 @@ const help = () => {
 
 const handleContract = async (config: Config, name: string, contractData: ContractData) => {
     const txIndex = process.argv.length > 3 ? parseInt(process.argv[3]) : undefined;
+    const args = process.argv.length > 4 ? JSON.parse(process.argv[4]) : undefined;
+    const amount = process.argv.length > 5 ? process.argv[5] : undefined;
 
     const contract = new Contract(config, name, contractData);
     if (txIndex === undefined) {
         contract.list();
     } else {
-        await contract.interact(txIndex);
+        await contract.interact(txIndex, args, amount);
     }
 };
 

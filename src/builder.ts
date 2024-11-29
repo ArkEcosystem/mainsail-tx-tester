@@ -77,6 +77,7 @@ export const makeEvmCall = async (
     contractData: ContractData,
     functionIndex: number,
     args?: any[],
+    amount?: string,
 ): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
     const { senderPassphrase } = cli;
@@ -88,6 +89,9 @@ export const makeEvmCall = async (
     const func = contractData.transactions[functionIndex];
 
     const usedArgs = args || func.args;
+    if (!amount) {
+        amount = func.amount ? func.amount.toString() : "0";
+    }
 
     const data = encodeFunctionData({
         abi: contractData.abi,
@@ -105,7 +109,7 @@ export const makeEvmCall = async (
         .payload(data.slice(2))
         .gasLimit(1_000_000)
         .recipientAddress(contractData.contractId)
-        .value(func.amount ? func.amount.toString() : "0")
+        .value(amount)
         .nonce(walletNonce.toString());
 
     const signed = await builder.sign(senderPassphrase);

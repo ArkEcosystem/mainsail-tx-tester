@@ -28,9 +28,9 @@ export class Contract {
         }
     }
 
-    async interact(transactionIndex: number) {
+    async interact(transactionIndex: number, args?: any, amount?: string) {
         if (transactionIndex < this.contractData.transactions.length) {
-            await this.#transaction(transactionIndex);
+            await this.#transaction(transactionIndex, args, amount);
         } else if (transactionIndex < this.contractData.transactions.length + this.contractData.views.length) {
             await this.#view(transactionIndex - this.contractData.transactions.length);
         } else {
@@ -38,9 +38,9 @@ export class Contract {
         }
     }
 
-    async #transaction(transactionIndex: number) {
+    async #transaction(transactionIndex: number, args?: any, amount?: string) {
         this.#logContract();
-        const transaction = await Builder.makeEvmCall(this.config, this.contractData, transactionIndex);
+        const transaction = await Builder.makeEvmCall(this.config, this.contractData, transactionIndex, args, amount);
         const result = await Client.postTransaction(this.config.cli.peer, transaction.serialized.toString("hex"));
         this.#logLine();
         console.log("Transaction sent: ", transaction.id);
