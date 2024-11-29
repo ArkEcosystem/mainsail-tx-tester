@@ -78,10 +78,22 @@ Show help:
 pnpm run start
 ```
 
-Send TX:
+Send transfer:
 
 ```bash
-pnpm run start <TX number> <EVM function index (optional)>
+pnpm run start 1 <address (optional)> <amount (optional)>
+```
+
+Deploy contract:
+
+```bash
+pnpm run start 2
+```
+
+Interact with contract:
+
+```bash
+pnpm run start <contract_id> <function_id> <address (optional)> <amount (optional)>
 ```
 
 Generate wallets **Mnemonic**, **Address** and **Public Key**:
