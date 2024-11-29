@@ -28,44 +28,6 @@ const config = {
         multiPayment,
     },
     crypto: crypto,
-    plugins: [
-        {
-            package: "@mainsail/validation",
-        },
-        {
-            package: "@mainsail/crypto-config",
-        },
-        {
-            package: "@mainsail/crypto-validation",
-        },
-        {
-            package: "@mainsail/crypto-hash-bcrypto",
-        },
-        {
-            package: "@mainsail/crypto-signature-ecdsa",
-        },
-        {
-            package: "@mainsail/crypto-key-pair-ecdsa",
-        },
-        {
-            package: "@mainsail/crypto-address-keccak256",
-        },
-        {
-            package: "@mainsail/crypto-consensus-bls12-381",
-        },
-        {
-            package: "@mainsail/crypto-wif",
-        },
-        {
-            package: "@mainsail/serializer",
-        },
-        {
-            package: "@mainsail/crypto-transaction",
-        },
-        {
-            package: "@mainsail/crypto-transaction-evm-call",
-        },
-    ],
 };
 
 export default config;
