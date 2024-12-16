@@ -16,6 +16,12 @@ const main = async () => {
     }
 
     const txType = parseInt(process.argv[2]);
+    const contracts: ContractData[] = Object.values(config.cli.contracts);
+
+    if (txType >= contracts.length + 3) {
+        help(config);
+        return;
+    }
 
     switch (txType) {
         case 1: {
@@ -45,13 +51,7 @@ const main = async () => {
             break;
         }
         default: {
-            const contracts: ContractData[] = Object.values(config.cli.contracts);
-
-            if (txType < contracts.length + 3) {
-                await handleContract(config, contracts[txType - 3]);
-            } else {
-                help(config);
-            }
+            await handleContract(config, contracts[txType - 3]);
             break;
         }
     }
