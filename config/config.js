@@ -26,6 +26,12 @@ const config = {
         multiPayment,
         dark20,
     },
+    message: {
+        publicKey: "037a62215a2adb6ea17c079262c76e3aa35293b0a575608174505de12de9181110",
+        message: "Hello World",
+        signature:
+            "20dc527c2d85e3b790359d64276b8931e89647d628ab57be99bb7dabfae28932c8a44b7c3fc805b67678b25beed1d481c3df663c17cf9ddc4f5485211fc4baed",
+    },
     crypto: crypto,
 };
 

@@ -1,16 +1,15 @@
 import crypto from "crypto";
-import { getApplication } from "./boot.js";
+import { makeApplication } from "./boot.js";
 import { loadConfig } from "./loader.js";
 import { makeIdentityFactories } from "./builder.js";
 
 const main = async () => {
     const config = loadConfig();
+    const app = await makeApplication(config);
 
     console.log("Message: ", config.cli.message.message);
     console.log("Public Key: ", config.cli.message.publicKey);
     console.log("Signature: ", config.cli.message.signature);
-
-    const app = getApplication();
 
     const { signatureFactory } = makeIdentityFactories(app);
 

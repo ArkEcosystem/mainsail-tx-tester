@@ -1,12 +1,11 @@
 import crypto from "crypto";
-import { getApplication } from "./boot.js";
+import { makeApplication } from "./boot.js";
 import { loadConfig } from "./loader.js";
 import { makeIdentityFactories } from "./builder.js";
 
 const main = async () => {
     const config = loadConfig();
-
-    const app = getApplication();
+    const app = await makeApplication(config);
 
     const { privateKeyFactory, publicKeyFactory, signatureFactory } = makeIdentityFactories(app);
 
