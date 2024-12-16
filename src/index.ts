@@ -40,17 +40,14 @@ const main = async () => {
             console.log(result);
             break;
         }
-        case 3:
-            await handleContract(config, "Consensus", config.cli.contracts.consensus);
-            break;
-        case 4:
-            await handleContract(config, "MultiPayment", config.cli.contracts.multiPayment);
-            break;
-        case 5:
-            await handleContract(config, "Usernames", config.cli.contracts.usernames);
-            break;
         default: {
-            help(config);
+            const contracts: ContractData[] = Object.values(config.cli.contracts);
+
+            if (txType < contracts.length + 2) {
+                await handleContract(config, contracts[txType - 3]);
+            } else {
+                help(config);
+            }
             break;
         }
     }
@@ -63,19 +60,18 @@ const help = (config: Config) => {
     console.log("2 - Deploy");
 
     const contracts: ContractData[] = Object.values(config.cli.contracts);
-
     let index = 3;
     for (let contract of contracts) {
         console.log(`${index++} - ${contract.name}`);
     }
 };
 
-const handleContract = async (config: Config, name: string, contractData: ContractData) => {
+const handleContract = async (config: Config, contractData: ContractData) => {
     const txIndex = process.argv.length > 3 ? parseInt(process.argv[3]) : undefined;
     const args = process.argv.length > 4 ? JSON.parse(process.argv[4]) : undefined;
     const amount = process.argv.length > 5 ? process.argv[5] : undefined;
 
-    const contract = new Contract(config, name, contractData);
+    const contract = new Contract(config, contractData);
     if (txIndex === undefined) {
         contract.list();
     } else {
