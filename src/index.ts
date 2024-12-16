@@ -14,9 +14,6 @@ const main = async () => {
         return;
     }
 
-    const latestHeight = await Client.getHeight(peer);
-    console.log(`>> latest height: ${latestHeight}`);
-
     const txType = parseInt(process.argv[2]);
 
     switch (txType) {
