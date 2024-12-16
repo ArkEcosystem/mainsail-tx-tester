@@ -20,7 +20,7 @@ const getWalletNonce = async (app: Application, config: Config): Promise<number>
         walletNonce = await Client.getWalletNonce(peer, walletAddress);
     } catch (e) {}
 
-    console.log(`>> using wallet: ${walletAddress} nonce: ${walletNonce}`);
+    console.log(`Using wallet: ${walletAddress} nonce: ${walletNonce}`);
 
     return walletNonce;
 };
