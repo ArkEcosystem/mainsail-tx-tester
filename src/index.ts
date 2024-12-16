@@ -9,7 +9,7 @@ import { makeApplication } from "./boot.js";
 import { AppIdentifiers } from "./identifiers.js";
 import { getArgs } from "./utils.js";
 
-const main = async (customArgs?: string[]) => {
+export const main = async (customArgs?: string[]) => {
     const config = Loader.loadConfig();
     const app = await makeApplication(config);
 
@@ -23,7 +23,7 @@ const main = async (customArgs?: string[]) => {
     }
 
     if (flags["nonce"]) {
-        app.bind(AppIdentifiers.WalletNonce).toConstantValue(parseInt(flags["nonce"]));
+        app.rebind(AppIdentifiers.WalletNonce).toConstantValue(parseInt(flags["nonce"]));
     }
 
     const txType = parseInt(args[0]);
