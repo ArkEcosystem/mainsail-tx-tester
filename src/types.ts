@@ -34,3 +34,8 @@ export type ContractData = {
     transactions: { functionName: string; args: any[]; amount?: number }[];
     views: { functionName: string; args: any[] }[];
 };
+
+export type ArgsAndFlags = {
+    args: string[];
+    flags: Record<string, string>;
+};

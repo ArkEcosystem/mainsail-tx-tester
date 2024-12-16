@@ -7,22 +7,15 @@ import { Config, ContractData } from "./types.js";
 import { getContractAddress } from "viem";
 import { makeApplication } from "./boot.js";
 import { AppIdentifiers } from "./identifiers.js";
+import { getArgs } from "./utils.js";
 
-const main = async () => {
+const main = async (customArgs?: string[]) => {
     const config = Loader.loadConfig();
     const app = await makeApplication(config);
 
     const peer = config.cli.peer;
 
-    const allArgs = process.argv.slice(2);
-    const args = allArgs.filter((arg) => !arg.startsWith("--"));
-    const flags = {};
-    allArgs
-        .filter((arg) => arg.startsWith("--"))
-        .forEach((arg) => {
-            const [key, value] = arg.slice(2).split("=");
-            flags[key] = value;
-        });
+    const { args, flags } = getArgs(customArgs);
 
     if (args.length < 1) {
         help(config);
