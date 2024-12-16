@@ -6,13 +6,13 @@ import { Contract } from "./contract.js";
 import { Config, ContractData } from "./types.js";
 
 const main = async () => {
-    if (process.argv.length < 3) {
-        help();
-        return;
-    }
-
     const config = Loader.loadConfig();
     const peer = config.cli.peer;
+
+    if (process.argv.length < 3) {
+        help(config);
+        return;
+    }
 
     const latestHeight = await Client.getHeight(peer);
     console.log(`>> latest height: ${latestHeight}`);
@@ -49,24 +49,24 @@ const main = async () => {
         case 5:
             await handleContract(config, "Usernames", config.cli.contracts.usernames);
             break;
-        default:
-            help();
+        default: {
+            help(config);
             break;
+        }
     }
 };
 
-const transactions = {
-    1: "Transfer",
-    2: "Deploy",
-    3: "Consensus",
-    4: "MultiPayment",
-    5: "Usernames",
-};
-
-const help = () => {
+const help = (config: Config) => {
     console.log("Please provide TX number in arguments:");
-    for (let key in transactions) {
-        console.log(`${key} - ${transactions[key]}`);
+
+    console.log("1 - Transfer");
+    console.log("2 - Deploy");
+
+    const contracts: ContractData[] = Object.values(config.cli.contracts);
+
+    let index = 3;
+    for (let contract of contracts) {
+        console.log(`${index++} - ${contract.name}`);
     }
 };
 
