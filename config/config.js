@@ -1,5 +1,5 @@
 import crypto from "@mainsail/core/bin/config/testnet/core/crypto.json" with { type: "json" };
-import DARK20 from "./DARK20.json" with { type: "json" };
+import DARK20 from "./builds/DARK20.json" with { type: "json" };
 import { consensus } from "./contracts/consensus.js";
 import { usernames } from "./contracts/usernames.js";
 import { multiPayment } from "./contracts/multipayment.js";
