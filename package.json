@@ -9,6 +9,7 @@
         "message-verify": "node dist/actions/message-verify.js",
         "wallet": "node dist/actions/wallet-data.js",
         "validator": "node dist/actions/validator-data.js",
+        "get-nonce": "node dist/actions/get-nonce.js",
         "build": "del dist && tsc",
         "build:watch": "del dist && tsc -w",
         "debug": "node --inspect-brk dist/index.js",
