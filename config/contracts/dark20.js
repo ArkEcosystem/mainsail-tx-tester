@@ -2,7 +2,7 @@ import DARK20 from "../builds/DARK20.json" with { type: "json" };
 
 export const dark20 = {
     abi: DARK20.abi,
-    name: "DRK20",
+    name: "DARK20",
     contractId: "",
     transactions: [
         {

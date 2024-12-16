@@ -2,9 +2,24 @@ import { Container } from "@mainsail/container";
 import { Identifiers, Contracts } from "@mainsail/contracts";
 import { Application, Providers } from "@mainsail/kernel";
 import { Config } from "./types.js";
+import { AppIdentifiers } from "./identifiers.js";
 
-export const getApplication = async (config: Config): Promise<Application> => {
-    const app = new Application(new Container());
+let app: Application | undefined = undefined;
+
+export const getApplication = (): Application => {
+    if (!app) {
+        throw new Error("Application not initialized");
+    }
+
+    return app;
+};
+
+export const makeApplication = async (config: Config): Promise<Application> => {
+    if (app) {
+        return app;
+    }
+
+    app = new Application(new Container());
 
     const plugins = [
         {
@@ -52,6 +67,9 @@ export const getApplication = async (config: Config): Promise<Application> => {
     }
 
     app.get<Contracts.Crypto.Configuration>(Identifiers.Cryptography.Configuration).setConfig(config.crypto);
+
+    // APP
+    app.bind(AppIdentifiers.WalletPassphrase).toConstantValue(config.cli.senderPassphrase);
 
     return app;
 };

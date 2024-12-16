@@ -5,22 +5,40 @@ import { Contract } from "./contract.js";
 
 import { Config, ContractData } from "./types.js";
 import { getContractAddress } from "viem";
+import { makeApplication } from "./boot.js";
+import { AppIdentifiers } from "./identifiers.js";
+import { getArgs } from "./utils.js";
 
-const main = async () => {
+export const main = async (customArgs?: string[]) => {
     const config = Loader.loadConfig();
+    const app = await makeApplication(config);
+
     const peer = config.cli.peer;
 
-    if (process.argv.length < 3) {
+    const { args, flags } = getArgs(customArgs);
+
+    if (args.length < 1) {
         help(config);
         return;
     }
 
-    const txType = parseInt(process.argv[2]);
+    if (flags["nonce"]) {
+        app.rebind(AppIdentifiers.WalletNonce).toConstantValue(parseInt(flags["nonce"]));
+    }
+
+    const txType = parseInt(args[0]);
+
+    const contracts: ContractData[] = Object.values(config.cli.contracts);
+
+    if (txType >= contracts.length + 3) {
+        help(config);
+        return;
+    }
 
     switch (txType) {
         case 1: {
-            const recipient = process.argv.length > 3 ? process.argv[3] : undefined;
-            const amount = process.argv.length > 4 ? process.argv[4] : undefined;
+            const recipient = args.length > 1 ? args[1] : undefined;
+            const amount = args.length > 2 ? args[2] : undefined;
 
             const tx = await await Builder.makeTransfer(config, recipient, amount);
             const result = await Client.postTransaction(peer, tx.serialized.toString("hex"));
@@ -45,13 +63,7 @@ const main = async () => {
             break;
         }
         default: {
-            const contracts: ContractData[] = Object.values(config.cli.contracts);
-
-            if (txType < contracts.length + 3) {
-                await handleContract(config, contracts[txType - 3]);
-            } else {
-                help(config);
-            }
+            await handleContract(args, config, contracts[txType - 3]);
             break;
         }
     }
@@ -70,17 +82,19 @@ const help = (config: Config) => {
     }
 };
 
-const handleContract = async (config: Config, contractData: ContractData) => {
-    const txIndex = process.argv.length > 3 ? parseInt(process.argv[3]) : undefined;
-    const args = process.argv.length > 4 ? JSON.parse(process.argv[4]) : undefined;
-    const amount = process.argv.length > 5 ? process.argv[5] : undefined;
+const handleContract = async (args: string[], config: Config, contractData: ContractData) => {
+    const txIndex = args.length > 1 ? parseInt(args[1]) : undefined;
+    const txArgs = args.length > 2 ? JSON.parse(args[2]) : undefined;
+    const amount = args.length > 3 ? args[3] : undefined;
 
     const contract = new Contract(config, contractData);
     if (txIndex === undefined) {
         contract.list();
     } else {
-        await contract.interact(txIndex, args, amount);
+        await contract.interact(txIndex, txArgs, amount);
     }
 };
 
-main();
+if (import.meta.url === `file://${process.argv[1]}`) {
+    main();
+}

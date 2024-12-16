@@ -1,12 +1,12 @@
-import { getApplication } from "./boot.js";
-import { loadConfig } from "./loader.js";
-import { makeIdentityFactories } from "./builder.js";
+import { makeApplication } from "../boot.js";
+import { loadConfig } from "../loader.js";
+import { makeIdentityFactories } from "../builder.js";
 import { generateMnemonic } from "bip39";
 
 const main = async () => {
     const mnemonic = process.argv.length === 3 ? process.argv[2] : generateMnemonic(256);
 
-    const app = await getApplication(loadConfig());
+    const app = await makeApplication(loadConfig());
 
     const {
         publicKeyFactory,
@@ -20,7 +20,7 @@ const main = async () => {
     console.log("Mnemonic: ", mnemonic);
     console.log();
 
-    // try/catch here as concensus factories cannot handle non-standard mnemonics
+    // try/catch here as consensus factories cannot handle non-standard mnemonics
     try {
         console.log("Validator Public Key: ", await consensusPublicKeyFactory.fromMnemonic(mnemonic));
         console.log("Validator Private Key: ", await consensusPrivateKeyFactory.fromMnemonic(mnemonic));
@@ -35,4 +35,6 @@ const main = async () => {
     console.log("WIF: ", await wifFactory.fromMnemonic(mnemonic));
 };
 
-main();
+if (import.meta.url === `file://${process.argv[1]}`) {
+    main();
+}

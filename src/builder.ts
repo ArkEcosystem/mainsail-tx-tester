@@ -7,13 +7,18 @@ import { decodeFunctionResult, encodeFunctionData } from "viem";
 import { Application } from "@mainsail/kernel";
 import { EvmCallBuilder } from "@mainsail/crypto-transaction-evm-call";
 import { getApplication } from "./boot.js";
+import { AppIdentifiers } from "./identifiers.js";
 
 const getWalletNonce = async (app: Application, config: Config): Promise<number> => {
-    const { peer, senderPassphrase } = config.cli;
+    const { peer } = config.cli;
 
     const { addressFactory } = makeIdentityFactories(app);
 
-    const walletAddress = await addressFactory.fromMnemonic(senderPassphrase);
+    const walletAddress = await addressFactory.fromMnemonic(app.get(AppIdentifiers.WalletPassphrase));
+
+    if (app.isBound(AppIdentifiers.WalletNonce)) {
+        return app.get<number>(AppIdentifiers.WalletNonce);
+    }
 
     let walletNonce = 0;
     try {
@@ -31,9 +36,9 @@ export const makeTransfer = async (
     amount?: string,
 ): Promise<Contracts.Crypto.Transaction> => {
     const { cli, crypto } = config;
-    const { transfer, senderPassphrase } = cli;
+    const { transfer } = cli;
 
-    const app = await getApplication(config);
+    const app = getApplication();
 
     const walletNonce = await getWalletNonce(app, config);
 
@@ -46,16 +51,16 @@ export const makeTransfer = async (
         .recipientAddress(recipient ? recipient : transfer.recipientAddress)
         .value(amount ? amount : transfer.value)
         .payload("")
-        .sign(senderPassphrase);
+        .sign(app.get(AppIdentifiers.WalletPassphrase));
 
     return signed.build();
 };
 
 export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
-    const { evmDeploy, senderPassphrase } = cli;
+    const { evmDeploy } = cli;
 
-    const app = await getApplication(config);
+    const app = getApplication();
 
     const walletNonce = await getWalletNonce(app, config);
 
@@ -67,7 +72,7 @@ export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Tr
         .nonce(walletNonce.toString())
         .vendorField(evmDeploy.vendorField);
 
-    const signed = await builder.sign(senderPassphrase);
+    const signed = await builder.sign(app.get(AppIdentifiers.WalletPassphrase));
 
     return signed.build();
 };
@@ -80,9 +85,8 @@ export const makeEvmCall = async (
     amount?: string,
 ): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
-    const { senderPassphrase } = cli;
 
-    const app = await getApplication(config);
+    const app = getApplication();
 
     const walletNonce = await getWalletNonce(app, config);
 
@@ -112,7 +116,7 @@ export const makeEvmCall = async (
         .value(amount)
         .nonce(walletNonce.toString());
 
-    const signed = await builder.sign(senderPassphrase);
+    const signed = await builder.sign(app.get(AppIdentifiers.WalletPassphrase));
 
     return signed.build();
 };
@@ -122,10 +126,7 @@ export const makeEvmView = async (
     contractData: ContractData,
     index: number,
 ): Promise<EthViewParameters> => {
-    const { cli } = config;
-    const { senderPassphrase } = cli;
-
-    const app = await getApplication(config);
+    const app = getApplication();
     const { addressFactory } = makeIdentityFactories(app);
 
     const func = contractData.views[index];
@@ -141,7 +142,7 @@ export const makeEvmView = async (
     console.log(`Encoded:  ${data}`);
 
     return {
-        from: await addressFactory.fromMnemonic(senderPassphrase),
+        from: await addressFactory.fromMnemonic(app.get(AppIdentifiers.WalletPassphrase)),
         to: contractData.contractId,
         data: data,
     };
