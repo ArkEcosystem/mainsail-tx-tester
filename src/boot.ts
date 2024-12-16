@@ -2,6 +2,7 @@ import { Container } from "@mainsail/container";
 import { Identifiers, Contracts } from "@mainsail/contracts";
 import { Application, Providers } from "@mainsail/kernel";
 import { Config } from "./types.js";
+import { AppIdentifiers } from "./identifiers.js";
 
 let app: Application | undefined = undefined;
 
@@ -62,6 +63,9 @@ export const makeApplication = async (config: Config): Promise<Application> => {
     }
 
     app.get<Contracts.Crypto.Configuration>(Identifiers.Cryptography.Configuration).setConfig(config.crypto);
+
+    // APP
+    app.bind(AppIdentifiers.WalletPassphrase).toConstantValue(config.cli.senderPassphrase);
 
     return app;
 };
