@@ -5,7 +5,6 @@ import * as Client from "./client.js";
 export class Contract {
     constructor(
         private config: Config,
-        private name: string,
         private contractData: ContractData,
     ) {}
 
@@ -59,7 +58,7 @@ export class Contract {
 
     #logContract() {
         this.#logLine();
-        console.log(`Contract: ${this.name}`);
+        console.log(`Contract: ${this.contractData.name}`);
         console.log(`Id: ${this.contractData.contractId}`);
         this.#logLine();
     }
