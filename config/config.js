@@ -3,6 +3,7 @@ import DARK20 from "./builds/DARK20.json" with { type: "json" };
 import { consensus } from "./contracts/consensus.js";
 import { usernames } from "./contracts/usernames.js";
 import { multiPayment } from "./contracts/multipayment.js";
+import { dark20 } from "./contracts/dark20.js";
 
 const config = {
     senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
@@ -23,6 +24,7 @@ const config = {
         consensus,
         usernames,
         multiPayment,
+        dark20,
     },
     crypto: crypto,
 };
