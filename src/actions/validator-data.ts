@@ -14,4 +14,6 @@ const main = async () => {
     console.log("Validator Private Key: ", await consensusPrivateKeyFactory.fromMnemonic(mnemonic));
 };
 
-main();
+if (import.meta.url === `file://${process.argv[1]}`) {
+    main();
+}

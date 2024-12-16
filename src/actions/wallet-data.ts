@@ -35,4 +35,6 @@ const main = async () => {
     console.log("WIF: ", await wifFactory.fromMnemonic(mnemonic));
 };
 
-main();
+if (import.meta.url === `file://${process.argv[1]}`) {
+    main();
+}

@@ -15,6 +15,10 @@ export const getApplication = (): Application => {
 };
 
 export const makeApplication = async (config: Config): Promise<Application> => {
+    if (app) {
+        return app;
+    }
+
     app = new Application(new Container());
 
     const plugins = [

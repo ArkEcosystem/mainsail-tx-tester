@@ -95,4 +95,6 @@ const handleContract = async (args: string[], config: Config, contractData: Cont
     }
 };
 
-main();
+if (import.meta.url === `file://${process.argv[1]}`) {
+    main();
+}

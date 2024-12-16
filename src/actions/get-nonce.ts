@@ -5,7 +5,7 @@ import { getArgs } from "../utils.js";
 
 import * as Client from "../client.js";
 
-const main = async (customArgs?: string[]) => {
+export const main = async (customArgs?: string[]) => {
     const config = loadConfig();
 
     const { args } = getArgs(customArgs);
@@ -29,4 +29,6 @@ const main = async (customArgs?: string[]) => {
     return walletNonce;
 };
 
-main();
+if (import.meta.url === `file://${process.argv[1]}`) {
+    main();
+}
