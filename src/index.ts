@@ -5,9 +5,12 @@ import { Contract } from "./contract.js";
 
 import { Config, ContractData } from "./types.js";
 import { getContractAddress } from "viem";
+import { makeApplication } from "./boot.js";
 
 const main = async () => {
     const config = Loader.loadConfig();
+    await makeApplication(config);
+
     const peer = config.cli.peer;
 
     if (process.argv.length < 3) {
@@ -16,6 +19,7 @@ const main = async () => {
     }
 
     const txType = parseInt(process.argv[2]);
+
     const contracts: ContractData[] = Object.values(config.cli.contracts);
 
     if (txType >= contracts.length + 3) {

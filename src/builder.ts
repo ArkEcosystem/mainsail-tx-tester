@@ -33,7 +33,7 @@ export const makeTransfer = async (
     const { cli, crypto } = config;
     const { transfer, senderPassphrase } = cli;
 
-    const app = await getApplication(config);
+    const app = getApplication();
 
     const walletNonce = await getWalletNonce(app, config);
 
@@ -55,7 +55,7 @@ export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Tr
     const { cli } = config;
     const { evmDeploy, senderPassphrase } = cli;
 
-    const app = await getApplication(config);
+    const app = getApplication();
 
     const walletNonce = await getWalletNonce(app, config);
 
@@ -82,7 +82,7 @@ export const makeEvmCall = async (
     const { cli } = config;
     const { senderPassphrase } = cli;
 
-    const app = await getApplication(config);
+    const app = getApplication();
 
     const walletNonce = await getWalletNonce(app, config);
 
@@ -125,7 +125,7 @@ export const makeEvmView = async (
     const { cli } = config;
     const { senderPassphrase } = cli;
 
-    const app = await getApplication(config);
+    const app = getApplication();
     const { addressFactory } = makeIdentityFactories(app);
 
     const func = contractData.views[index];

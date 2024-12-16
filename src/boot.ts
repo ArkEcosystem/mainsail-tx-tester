@@ -3,8 +3,18 @@ import { Identifiers, Contracts } from "@mainsail/contracts";
 import { Application, Providers } from "@mainsail/kernel";
 import { Config } from "./types.js";
 
-export const getApplication = async (config: Config): Promise<Application> => {
-    const app = new Application(new Container());
+let app: Application | undefined = undefined;
+
+export const getApplication = (): Application => {
+    if (!app) {
+        throw new Error("Application not initialized");
+    }
+
+    return app;
+};
+
+export const makeApplication = async (config: Config): Promise<Application> => {
+    app = new Application(new Container());
 
     const plugins = [
         {
