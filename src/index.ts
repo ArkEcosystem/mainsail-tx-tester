@@ -6,10 +6,11 @@ import { Contract } from "./contract.js";
 import { Config, ContractData } from "./types.js";
 import { getContractAddress } from "viem";
 import { makeApplication } from "./boot.js";
+import { AppIdentifiers } from "./identifiers.js";
 
 const main = async () => {
     const config = Loader.loadConfig();
-    await makeApplication(config);
+    const app = await makeApplication(config);
 
     const peer = config.cli.peer;
 
@@ -26,6 +27,10 @@ const main = async () => {
     if (args.length < 1) {
         help(config);
         return;
+    }
+
+    if (flags["nonce"]) {
+        app.bind(AppIdentifiers.WalletNonce).toConstantValue(parseInt(flags["nonce"]));
     }
 
     const txType = parseInt(args[0]);
