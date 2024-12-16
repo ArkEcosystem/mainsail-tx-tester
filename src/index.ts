@@ -47,7 +47,7 @@ const main = async () => {
         default: {
             const contracts: ContractData[] = Object.values(config.cli.contracts);
 
-            if (txType < contracts.length + 2) {
+            if (txType < contracts.length + 3) {
                 await handleContract(config, contracts[txType - 3]);
             } else {
                 help(config);
