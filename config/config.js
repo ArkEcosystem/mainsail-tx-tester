@@ -4,6 +4,7 @@ import { consensus } from "./contracts/consensus.js";
 import { usernames } from "./contracts/usernames.js";
 import { multiPayment } from "./contracts/multipayment.js";
 import { dark20 } from "./contracts/dark20.js";
+import { revert } from "./contracts/revert.js";
 
 const config = {
     senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
@@ -25,6 +26,7 @@ const config = {
         usernames,
         multiPayment,
         dark20,
+        revert,
     },
     message: {
         publicKey: "037a62215a2adb6ea17c079262c76e3aa35293b0a575608174505de12de9181110",
