@@ -35,7 +35,7 @@ export const makeTransfer = async (
     recipient?: string,
     amount?: string,
 ): Promise<Contracts.Crypto.Transaction> => {
-    const { cli, crypto } = config;
+    const { cli } = config;
     const { transfer } = cli;
 
     const app = getApplication();
@@ -45,7 +45,6 @@ export const makeTransfer = async (
     const signed = await app
         .resolve(EvmCallBuilder)
         .gasPrice(cli.gasPrice)
-        .network(crypto.network.pubKeyHash)
         .gasLimit(21000)
         .nonce(walletNonce.toFixed(0))
         .recipientAddress(recipient ? recipient : transfer.recipientAddress)
