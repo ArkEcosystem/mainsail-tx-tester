@@ -1,15 +1,15 @@
 import * as Client from "./client.js";
 
-import { Config, EthViewParameters, ContractData } from "./types.js";
+import { Config, ContractData, EthViewParameters } from "./types.js";
 import { Contracts, Identifiers } from "@mainsail/contracts";
 import { decodeFunctionResult, encodeFunctionData } from "viem";
 
+import { AppIdentifiers } from "./identifiers.js";
 import { Application } from "@mainsail/kernel";
 import { EvmCallBuilder } from "@mainsail/crypto-transaction-evm-call";
 import { getApplication } from "./boot.js";
-import { AppIdentifiers } from "./identifiers.js";
 
-const getWalletNonce = async (app: Application, config: Config): Promise<number> => {
+export const getWalletNonce = async (app: Application, config: Config): Promise<number> => {
     const { peer } = config.cli;
 
     const { addressFactory } = makeIdentityFactories(app);
