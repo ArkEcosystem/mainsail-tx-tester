@@ -12,7 +12,7 @@ const config = {
         apiTxPoolUrl: "https://dwallets-evm.mainsailhq.com/tx",
         apiEvmUrl: "https://dwallets-evm.mainsailhq.com/evm",
     },
-    gasPrice: "5",
+    gasPrice: "5000000000",
     transfer: {
         recipientAddress: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
         value: "100000000",
