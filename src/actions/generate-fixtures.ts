@@ -97,7 +97,7 @@ const getTransactionData = (builtTransaction: object) => {
     };
 }
 
-const generateTransaction = async (mnemonic: string, fixtureName: string, config: object) => {
+const generateTransfer = async (mnemonic: string, fixtureName: string, config: object) => {
     const app = getApplication();
 
     const transaction = app
@@ -120,7 +120,7 @@ const generateTransaction = async (mnemonic: string, fixtureName: string, config
     console.log(`Transfer data written to data/${fixtureName}.json`);
 };
 
-const generateContract = async (mnemonic: string, fixtureName: string, config: object) => {
+const generateTransaction = async (mnemonic: string, fixtureName: string, config: object) => {
     const contract = config['contract'];
     const args = contract['args'];
     const functionName = contract['functionName'];
@@ -155,12 +155,12 @@ const generateTransactions = async (mnemonic: string) => {
         const fixture = fixtureConfig[fixtureName];
 
         if ('contract' in fixture) {
-            await generateContract(mnemonic, fixtureName, fixture);
+            await generateTransaction(mnemonic, fixtureName, fixture);
 
             continue;
         }
 
-        await generateTransaction(mnemonic, fixtureName, fixture);
+        await generateTransfer(mnemonic, fixtureName, fixture);
     }
 }
 
