@@ -139,7 +139,7 @@ const generateTransaction = async (mnemonic: string, fixtureName: string, config
         .gasLimit(config["gasLimit"] || 21000)
         .nonce(config["nonce"] || "1")
         .payload(data.slice(2))
-        .recipientAddress(contract['data'].contractId)
+        .recipientAddress(config['recipientAddress'] || contract['data'].contractId)
         .value(config['value'] || "0");
 
     const signed = await builder.sign(mnemonic);
