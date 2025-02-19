@@ -1,6 +1,7 @@
 import { consensus } from "./contracts/consensus.js";
 import { usernames } from "./contracts/usernames.js";
 import { multiPayment } from "./contracts/multipayment.js";
+import { tokenTransfer } from "./contracts/tokentransfer.js";
 
 const fixtureConfig = {
     "transfer": {
@@ -83,6 +84,15 @@ const fixtureConfig = {
             functionName: "pay",
             args: [[], []],
         },
+        gasLimit: 200000,
+    },
+    "evm-sign": {
+        contract: {
+            data: tokenTransfer,
+            functionName: "transfer",
+            args: ["0x27fa7caffaae77ddb9ab232fdbda56d5e5af2393", "100"],
+        },
+        recipientAddress: "0xe536720791a7dadbebdbcd8c8546fb0791a11901",
         gasLimit: 200000,
     },
 };
