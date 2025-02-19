@@ -5,6 +5,7 @@ import { usernames } from "./contracts/usernames.js";
 import { multiPayment } from "./contracts/multipayment.js";
 import { dark20 } from "./contracts/dark20.js";
 import { revert } from "./contracts/revert.js";
+import { tokenTransfer } from "./contracts/tokentransfer.js";
 
 const config = {
     senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
@@ -27,6 +28,7 @@ const config = {
         multiPayment,
         dark20,
         revert,
+        tokenTransfer,
     },
     message: {
         publicKey: "037a62215a2adb6ea17c079262c76e3aa35293b0a575608174505de12de9181110",
