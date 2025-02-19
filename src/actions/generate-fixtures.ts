@@ -147,7 +147,7 @@ const generateTransaction = async (mnemonic: string, fixtureName: string, config
     const builtTransaction = await signed.build();
 
     await writeFixtureToFile(`${fixtureName}.json`, getTransactionData(builtTransaction));
-    console.log(`Transfer data written to data/${fixtureName}.json`);
+    console.log(`Transaction data written to data/${fixtureName}.json`);
 };
 
 const generateTransactions = async (mnemonic: string) => {
