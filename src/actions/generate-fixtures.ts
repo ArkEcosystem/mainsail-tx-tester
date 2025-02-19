@@ -5,6 +5,8 @@ import { join } from "path";
 import { loadConfig } from "../loader.js";
 import { makeIdentityFactories } from "../builder.js";
 import { writeFileSync } from "fs";
+import fixtureConfig from "../../config/fixtures.js";
+import { encodeFunctionData } from "viem";
 
 interface Identity {
     data: {
@@ -18,28 +20,9 @@ interface Identity {
     passphrase: string;
 }
 
-interface TransferData {
-    data: {
-        network: number;
-        nonce: string;
-        gasPrice: number;
-        gasLimit: number;
-        recipientAddress: string;
-        value: string;
-        data: string;
-        v: number;
-        r: string;
-        s: string;
-        senderPublicKey: string;
-        senderAddress: string;
-        id: string;
-    };
-    serialized: string;
-}
+////////
 
-/////
-
-const writeToJson = async (filename: string, data: any) => {
+const writeFixtureToFile = async (filename: string, data: any) => {
     const dataDir = join(process.cwd(), "data");
     try {
         writeFileSync(join(dataDir, filename), JSON.stringify(data, null, 2));
@@ -54,9 +37,6 @@ const writeToJson = async (filename: string, data: any) => {
     }
 };
 
-const writeIdentityToJson = (identity: Identity) => writeToJson("identity.json", identity);
-const writeTransferToJson = (transfer: TransferData) => writeToJson("transfer.json", transfer);
-
 ////////
 
 const main = async () => {
@@ -66,8 +46,8 @@ const main = async () => {
 
     await makeApplication(loadConfig());
 
-    generateIdentity(mnemonic);
-    generateTransfers(mnemonic);
+    await generateIdentity(mnemonic);
+    await generateTransactions(mnemonic);
 };
 
 const generateIdentity = async (mnemonic: string) => {
@@ -100,41 +80,89 @@ const generateIdentity = async (mnemonic: string) => {
         //
     }
 
-    // Write identity to JSON file
-    await writeIdentityToJson(identity);
+    await writeFixtureToFile("identity.json", identity);
     console.log("\nIdentity data written to data/identity.json");
 };
 
-const generateTransfers = async (mnemonic: string) => {
-    const app = getApplication();
-
-    const signed = await app
-        .resolve(EvmCallBuilder)
-        .gasPrice(5000000000)
-        .gasLimit(21000)
-        .nonce("1")
-        .recipientAddress("0x6F0182a0cc707b055322CcF6d4CB6a5Aff1aEb22")
-        .value("100000000")
-        .payload("")
-        .sign(mnemonic);
-
-    const builtTransaction = await signed.build();
-
-    const transferData = {
+const getTransactionData = (builtTransaction: object) => {
+    return {
         data: Object.fromEntries(
-            Object.entries(builtTransaction.data).map(([key, value]) => [
+            Object.entries(builtTransaction['data']).map(([key, value]) => [
                 key,
                 // Convert BigNumber objects to strings, keep other values as is
                 value && typeof value === "object" && "toString" in value ? value.toString() : value,
             ]),
         ),
-        serialized: builtTransaction.serialized.toString("hex"),
+        serialized: builtTransaction['serialized'].toString("hex"),
     };
+}
 
-    // @ts-ignore
-    await writeTransferToJson(transferData);
-    console.log("Transfer data written to data/transfer.json");
+const generateTransaction = async (mnemonic: string, fixtureName: string, config: object) => {
+    const app = getApplication();
+
+    const transaction = app
+        .resolve(EvmCallBuilder)
+        .gasPrice(config["gasPrice"] || 5000000000)
+        .gasLimit(config["gasLimit"] || 21000)
+        .nonce(config["nonce"] || "1")
+        .value(config["value"] || "0")
+        .payload("");
+
+    if (config["recipientAddress"]) {
+        transaction.recipientAddress(config["recipientAddress"]);
+    }
+
+    const signed = await transaction.sign(mnemonic);
+
+    const builtTransaction = await signed.build();
+
+    await writeFixtureToFile(`${fixtureName}.json`, getTransactionData(builtTransaction));
+    console.log(`Transfer data written to data/${fixtureName}.json`);
 };
+
+const generateContract = async (mnemonic: string, fixtureName: string, config: object) => {
+    const contract = config['contract'];
+    const args = contract['args'];
+    const functionName = contract['functionName'];
+
+    const app = getApplication();
+
+    const data = encodeFunctionData({
+        abi: contract['data'].abi,
+        functionName,
+        args,
+    });
+
+    let builder = app
+        .resolve(EvmCallBuilder)
+        .gasPrice(config["gasPrice"] || 5000000000)
+        .gasLimit(config["gasLimit"] || 21000)
+        .nonce(config["nonce"] || "1")
+        .payload(data.slice(2))
+        .recipientAddress(contract['data'].contractId)
+        .value(config['value'] || "0");
+
+    const signed = await builder.sign(mnemonic);
+
+    const builtTransaction = await signed.build();
+
+    await writeFixtureToFile(`${fixtureName}.json`, getTransactionData(builtTransaction));
+    console.log(`Transfer data written to data/${fixtureName}.json`);
+};
+
+const generateTransactions = async (mnemonic: string) => {
+    for (const fixtureName of Object.keys(fixtureConfig)) {
+        const fixture = fixtureConfig[fixtureName];
+
+        if ('contract' in fixture) {
+            await generateContract(mnemonic, fixtureName, fixture);
+
+            continue;
+        }
+
+        await generateTransaction(mnemonic, fixtureName, fixture);
+    }
+}
 
 if (import.meta.url === `file://${process.argv[1]}`) {
     main().catch(console.error);
