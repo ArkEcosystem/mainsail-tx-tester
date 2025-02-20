@@ -116,6 +116,12 @@ pnpm run validator
 pnpm run validator "custom mnemonic"
 ```
 
+Generate fixtures
+
+```bash
+pnpm run fixtures
+```
+
 ## Configuration
 
 Look into `/config/config.js` file.

@@ -1,12 +1,12 @@
 import { getApplication, makeApplication } from "../boot.js";
 
 import { EvmCallBuilder } from "@mainsail/crypto-transaction-evm-call";
+import { encodeFunctionData } from "viem";
+import fixtureConfig from "../../config/fixtures.js";
 import { join } from "path";
 import { loadConfig } from "../loader.js";
 import { makeIdentityFactories } from "../builder.js";
 import { writeFileSync } from "fs";
-import fixtureConfig from "../../config/fixtures.js";
-import { encodeFunctionData } from "viem";
 
 interface Identity {
     data: {
@@ -19,8 +19,6 @@ interface Identity {
     };
     passphrase: string;
 }
-
-////////
 
 const writeFixtureToFile = async (filename: string, data: any) => {
     const dataDir = join(process.cwd(), "data");
@@ -36,8 +34,6 @@ const writeFixtureToFile = async (filename: string, data: any) => {
         }
     }
 };
-
-////////
 
 const main = async () => {
     const DEFAULT_MNEMONIC =
@@ -87,15 +83,15 @@ const generateIdentity = async (mnemonic: string) => {
 const getTransactionData = (builtTransaction: object) => {
     return {
         data: Object.fromEntries(
-            Object.entries(builtTransaction['data']).map(([key, value]) => [
+            Object.entries(builtTransaction["data"]).map(([key, value]) => [
                 key,
                 // Convert BigNumber objects to strings, keep other values as is
                 value && typeof value === "object" && "toString" in value ? value.toString() : value,
             ]),
         ),
-        serialized: builtTransaction['serialized'].toString("hex"),
+        serialized: builtTransaction["serialized"].toString("hex"),
     };
-}
+};
 
 const generateTransfer = async (mnemonic: string, fixtureName: string, config: object) => {
     const app = getApplication();
@@ -121,14 +117,14 @@ const generateTransfer = async (mnemonic: string, fixtureName: string, config: o
 };
 
 const generateTransaction = async (mnemonic: string, fixtureName: string, config: object) => {
-    const contract = config['contract'];
-    const args = contract['args'];
-    const functionName = contract['functionName'];
+    const contract = config["contract"];
+    const args = contract["args"];
+    const functionName = contract["functionName"];
 
     const app = getApplication();
 
     const data = encodeFunctionData({
-        abi: contract['data'].abi,
+        abi: contract["data"].abi,
         functionName,
         args,
     });
@@ -139,8 +135,8 @@ const generateTransaction = async (mnemonic: string, fixtureName: string, config
         .gasLimit(config["gasLimit"] || 21000)
         .nonce(config["nonce"] || "1")
         .payload(data.slice(2))
-        .recipientAddress(config['recipientAddress'] || contract['data'].contractId)
-        .value(config['value'] || "0");
+        .recipientAddress(config["recipientAddress"] || contract["data"].contractId)
+        .value(config["value"] || "0");
 
     const signed = await builder.sign(mnemonic);
 
@@ -154,7 +150,7 @@ const generateTransactions = async (mnemonic: string) => {
     for (const fixtureName of Object.keys(fixtureConfig)) {
         const fixture = fixtureConfig[fixtureName];
 
-        if ('contract' in fixture) {
+        if ("contract" in fixture) {
             await generateTransaction(mnemonic, fixtureName, fixture);
 
             continue;
@@ -162,7 +158,7 @@ const generateTransactions = async (mnemonic: string) => {
 
         await generateTransfer(mnemonic, fixtureName, fixture);
     }
-}
+};
 
 if (import.meta.url === `file://${process.argv[1]}`) {
     main().catch(console.error);
