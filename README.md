@@ -8,49 +8,6 @@ Ensure that you have a working `python` binary in your PATH as this script compi
 
 To resolve it, make sure `python` is available on your system. One way to easily manage this is by using a Python version manager such as [`pyenv`](https://github.com/pyenv/pyenv).
 
-<!-- ## Yarn
-
-### Installation
-
-```bash
-yarn
-yarn build
-```
-
-### Usage
-
-Show help:
-
-```bash
-yarn start
-```
-
-Send TX:
-
-```bash
-yarn start <TX number>
-```
-
-Generate wallets **Mnemonic**, **Address** and **Public Key**:
-
-```bash
-yarn wallet
-```
-
-```bash
-yarn wallet "custom mnemonic"
-```
-
-Generate validator **Private**- and **Public Key**:
-
-```bash
-yarn validator
-```
-
-```bash
-yarn validator "custom mnemonic"
-``` -->
-
 ## Setup
 
 ```bash
@@ -115,6 +72,14 @@ pnpm run validator
 ```bash
 pnpm run validator "custom mnemonic"
 ```
+
+Generate fixtures
+
+```bash
+pnpm run fixtures
+```
+
+Fixtures can be configured in `config/fixtures.js`. They defaults are used for generating fixtures for our test suites.
 
 ## Configuration
 
