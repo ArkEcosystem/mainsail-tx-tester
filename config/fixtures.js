@@ -1,10 +1,12 @@
 import { consensus } from "./contracts/consensus.js";
-import { usernames } from "./contracts/usernames.js";
 import { multiPayment } from "./contracts/multipayment.js";
 import { tokenTransfer } from "./contracts/tokentransfer.js";
+import { usernames } from "./contracts/usernames.js";
 
 const fixtureConfig = {
-    "transfer": {
+    passphrase:
+        "found lobster oblige describe ready addict body brave live vacuum display salute lizard combine gift resemble race senior quality reunion proud tell adjust angle",
+    transfer: {
         recipientAddress: "0x6F0182a0cc707b055322CcF6d4CB6a5Aff1aEb22",
         value: "100000000",
     },
@@ -15,7 +17,7 @@ const fixtureConfig = {
         recipientAddress: "0x6F0182a0cc707b055322CcF6d4CB6a5Aff1aEb22",
         value: "10000000000000000000",
     },
-    "vote": {
+    vote: {
         contract: {
             data: consensus,
             functionName: "vote",
@@ -23,7 +25,7 @@ const fixtureConfig = {
         },
         gasLimit: 200000,
     },
-    "unvote": {
+    unvote: {
         contract: {
             data: consensus,
             functionName: "unvote",
@@ -34,7 +36,9 @@ const fixtureConfig = {
         contract: {
             data: consensus,
             functionName: "registerValidator",
-            args: ["0x30954f46d6097a1d314e900e66e11e0dad0a57cd03e04ec99f0dedd1c765dcb11e6d7fa02e22cf40f9ee23d9cc1c0624"],
+            args: [
+                "0x30954f46d6097a1d314e900e66e11e0dad0a57cd03e04ec99f0dedd1c765dcb11e6d7fa02e22cf40f9ee23d9cc1c0624",
+            ],
         },
         gasLimit: 200000,
     },
@@ -60,11 +64,14 @@ const fixtureConfig = {
         },
         gasLimit: 200000,
     },
-    "multipayment": {
+    multipayment: {
         contract: {
             data: multiPayment,
             functionName: "pay",
-            args: [["0x6F0182a0cc707b055322CcF6d4CB6a5Aff1aEb22", "0xc3bbe9b1cee1ff85ad72b87414b0e9b7f2366763"], ["100000", "200000"]],
+            args: [
+                ["0x6F0182a0cc707b055322CcF6d4CB6a5Aff1aEb22", "0xc3bbe9b1cee1ff85ad72b87414b0e9b7f2366763"],
+                ["100000", "200000"],
+            ],
         },
         gasLimit: 200000,
         value: "300000",

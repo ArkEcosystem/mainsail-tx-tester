@@ -36,8 +36,7 @@ const writeFixtureToFile = async (filename: string, data: any) => {
 };
 
 const main = async () => {
-    const DEFAULT_MNEMONIC =
-        "found lobster oblige describe ready addict body brave live vacuum display salute lizard combine gift resemble race senior quality reunion proud tell adjust angle";
+    const DEFAULT_MNEMONIC = fixtureConfig["passphrase"];
     const mnemonic = process.argv.length === 3 ? process.argv[2] : DEFAULT_MNEMONIC;
 
     await makeApplication(loadConfig());
@@ -150,7 +149,7 @@ const generateTransactions = async (mnemonic: string) => {
     for (const fixtureName of Object.keys(fixtureConfig)) {
         const fixture = fixtureConfig[fixtureName];
 
-        if ("contract" in fixture) {
+        if (fixture && typeof fixture === "object" && "contract" in fixture) {
             await generateTransaction(mnemonic, fixtureName, fixture);
 
             continue;
