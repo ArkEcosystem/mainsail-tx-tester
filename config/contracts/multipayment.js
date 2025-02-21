@@ -3,7 +3,7 @@ import { MultiPaymentAbi } from "@mainsail/evm-contracts";
 export const multiPayment = {
     abi: MultiPaymentAbi.abi,
     name: "MultiPayment",
-    contractId: "0x83769BeEB7e5405ef0B7dc3C66C43E3a51A6d27f",
+    contractId: "0x00EFd0D4639191C49908A7BddbB9A11A994A8527",
     transactions: [
         {
             functionName: "pay",
