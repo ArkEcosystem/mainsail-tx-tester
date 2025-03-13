@@ -1,7 +1,7 @@
-import { makeApplication } from "../boot.js";
+import { keccak256 } from "viem";
 import { loadConfig } from "../loader.js";
+import { makeApplication } from "../boot.js";
 import { makeIdentityFactories } from "../builder.js";
-import { keccak256 } from "ethers";
 
 const main = async () => {
     const config = loadConfig();
@@ -19,7 +19,7 @@ const main = async () => {
             s: config.cli.message.signature.slice(64, 128),
             v: parseInt(config.cli.message.signature.slice(128), 16),
         },
-        Buffer.from(keccak256(Buffer.from(config.cli.message.message)).slice(2), "hex"),
+        Buffer.from(keccak256(Buffer.from(config.cli.message.message)), "hex"),
         Buffer.from(config.cli.message.publicKey, "hex"),
     );
 

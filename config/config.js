@@ -32,9 +32,9 @@ const config = {
     },
     message: {
         publicKey: "0243333347c8cbf4e3cbc7a96964181d02a2b0c854faa2fef86b4b8d92afcf473d",
-        message: "Hello World",
+        message: "Hello, world!",
         signature:
-            "3c2a3259b9ef6d6b8ebd5a363a8403d3d6871c83a2ab1525a579a5918c945d77069c9e9993860a522a3887ba98e342991c392ac768506d50ab8c7c2c2c442e961c",
+            "fcf3fdeb37b1944b544595a2c31113b4229c6972b56719b28d0891355c74a801320a121d3f376c77aa1c77f75c8f86f3aadc0569e4f02607e0e3a3590785b68a1b",
     },
     crypto: crypto,
 };

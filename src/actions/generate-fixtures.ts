@@ -1,7 +1,7 @@
+import { encodeFunctionData, keccak256 } from "viem";
 import { getApplication, makeApplication } from "../boot.js";
 
 import { EvmCallBuilder } from "@mainsail/crypto-transaction-evm-call";
-import { encodeFunctionData } from "viem";
 import fixtureConfig from "../../config/fixtures.js";
 import { join } from "path";
 import { loadConfig } from "../loader.js";
@@ -43,6 +43,7 @@ const main = async () => {
 
     await generateIdentity(mnemonic);
     await generateTransactions(mnemonic);
+    await generateMessageSign(mnemonic);
 };
 
 const generateIdentity = async (mnemonic: string) => {
@@ -157,6 +158,26 @@ const generateTransactions = async (mnemonic: string) => {
 
         await generateTransfer(mnemonic, fixtureName, fixture);
     }
+};
+
+const generateMessageSign = async (mnemonic: string) => {
+    const app = getApplication();
+
+    const { privateKeyFactory, publicKeyFactory, signatureFactory } = makeIdentityFactories(app);
+
+    const message = "Hello, world!";
+    const privateKey = await privateKeyFactory.fromMnemonic(mnemonic);
+    const publicKey = await publicKeyFactory.fromMnemonic(mnemonic);
+    const signature = await signatureFactory.signRecoverable(
+        Buffer.from(keccak256(Buffer.from(message)), "hex"),
+        Buffer.from(privateKey, "hex"),
+    );
+
+    await writeFixtureToFile("message-sign.json", {
+        message,
+        publicKey,
+        signature: signature.r + signature.s + signature.v.toString(16),
+    });
 };
 
 if (import.meta.url === `file://${process.argv[1]}`) {

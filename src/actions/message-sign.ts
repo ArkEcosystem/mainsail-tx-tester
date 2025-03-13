@@ -1,7 +1,7 @@
-import { makeApplication } from "../boot.js";
+import { keccak256 } from "viem";
 import { loadConfig } from "../loader.js";
+import { makeApplication } from "../boot.js";
 import { makeIdentityFactories } from "../builder.js";
-import { keccak256 } from "ethers";
 
 const main = async () => {
     const config = loadConfig();
@@ -12,7 +12,7 @@ const main = async () => {
     const privateKey = await privateKeyFactory.fromMnemonic(config.cli.senderPassphrase);
     const publicKey = await publicKeyFactory.fromMnemonic(config.cli.senderPassphrase);
     const signature = await signatureFactory.signRecoverable(
-        Buffer.from(keccak256("0x" + Buffer.from(config.cli.message.message).toString("hex")).slice(2), "hex"),
+        Buffer.from(keccak256(Buffer.from(config.cli.message.message)), "hex"),
         Buffer.from(privateKey, "hex"),
     );
 
