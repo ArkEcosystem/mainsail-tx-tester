@@ -1,6 +1,7 @@
-import crypto from "crypto";
-import { makeApplication } from "../boot.js";
+import { keccak256, toHex } from "viem";
+
 import { loadConfig } from "../loader.js";
+import { makeApplication } from "../boot.js";
 import { makeIdentityFactories } from "../builder.js";
 
 const main = async () => {
@@ -11,8 +12,8 @@ const main = async () => {
 
     const privateKey = await privateKeyFactory.fromMnemonic(config.cli.senderPassphrase);
     const publicKey = await publicKeyFactory.fromMnemonic(config.cli.senderPassphrase);
-    const signature = await signatureFactory.sign(
-        crypto.createHash("sha256").update(config.cli.message.message).digest(),
+    const signature = await signatureFactory.signRecoverable(
+        Buffer.from(keccak256(toHex(config.cli.message.message)).slice(2), "hex"),
         Buffer.from(privateKey, "hex"),
     );
 
@@ -21,7 +22,7 @@ const main = async () => {
     console.log();
 
     console.log("Message: ", config.cli.message.message);
-    console.log("Signature: ", signature);
+    console.log("Signature: ", signature.r + signature.s + signature.v.toString(16));
 };
 
 if (import.meta.url === `file://${process.argv[1]}`) {

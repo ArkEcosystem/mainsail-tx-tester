@@ -1,6 +1,7 @@
-import crypto from "crypto";
-import { makeApplication } from "../boot.js";
+import { keccak256, toHex } from "viem";
+
 import { loadConfig } from "../loader.js";
+import { makeApplication } from "../boot.js";
 import { makeIdentityFactories } from "../builder.js";
 
 const main = async () => {
@@ -13,9 +14,13 @@ const main = async () => {
 
     const { signatureFactory } = makeIdentityFactories(app);
 
-    const isValidSignature = await signatureFactory.verify(
-        Buffer.from(config.cli.message.signature, "hex"),
-        crypto.createHash("sha256").update(config.cli.message.message).digest(),
+    const isValidSignature = await signatureFactory.verifyRecoverable(
+        {
+            r: config.cli.message.signature.slice(0, 64),
+            s: config.cli.message.signature.slice(64, 128),
+            v: parseInt(config.cli.message.signature.slice(128), 16),
+        },
+        Buffer.from(keccak256(toHex(config.cli.message.message)).slice(2), "hex"),
         Buffer.from(config.cli.message.publicKey, "hex"),
     );
 

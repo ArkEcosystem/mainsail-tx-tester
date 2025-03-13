@@ -1703,8 +1703,8 @@ packages:
     resolution: {integrity: sha512-kPHNTnhVWiWU6AVo6CAeTjXEK24SpCXyZvwG9ROFjT0Vlux0EOhWKBAeC+45iDj80QNJTYaT1SDEmeunT0vDNw==}
     engines: {node: '>=14.0.0'}
 
-  ethers@6.13.4:
-    resolution: {integrity: sha512-21YtnZVg4/zKkCQPjrDj38B1r4nQvTZLopUGMLQ1ePU2zV/joCfDC3t3iKQjWRzjjjbzR+mdAIoikeBRNkdllA==}
+  ethers@6.13.5:
+    resolution: {integrity: sha512-+knKNieu5EKRThQJWwqaJ10a6HE9sSehGeqWN65//wE7j47ZpFhKAnHB/JJFibwwg61I/koxaPsXbXpD/skNOQ==}
     engines: {node: '>=14.0.0'}
 
   event-target-shim@5.0.1:
@@ -3560,9 +3560,6 @@ packages:
   tslib@2.4.0:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
 
-  tslib@2.6.3:
-    resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
-
   tslib@2.7.0:
     resolution: {integrity: sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA==}
 
@@ -4406,7 +4403,7 @@ snapshots:
       '@mainsail/evm-contracts': 0.0.1-evm.14
       '@mainsail/kernel': 0.0.1-evm.14
       '@mainsail/utils': 0.0.1-evm.14
-      ethers: 6.13.4
+      ethers: 6.13.5
       joi: 17.12.2
     transitivePeerDependencies:
       - '@google-cloud/spanner'
@@ -4534,7 +4531,7 @@ snapshots:
       bip39: 3.1.0
       dayjs: 1.11.10
       envfile: 7.1.0
-      ethers: 6.13.4
+      ethers: 6.13.5
       fs-extra: 11.2.0
       tmp: 0.2.3
     transitivePeerDependencies:
@@ -4710,7 +4707,7 @@ snapshots:
       '@mainsail/contracts': 0.0.1-evm.14
       '@mainsail/kernel': 0.0.1-evm.14
       '@mainsail/utils': 0.0.1-evm.14
-      ethers: 6.13.4
+      ethers: 6.13.5
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -4962,7 +4959,7 @@ snapshots:
       '@mainsail/evm-contracts': 0.0.1-evm.14
       '@mainsail/kernel': 0.0.1-evm.14
       '@mainsail/utils': 0.0.1-evm.14
-      ethers: 6.13.4
+      ethers: 6.13.5
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -5174,7 +5171,7 @@ snapshots:
       '@mainsail/snapshot-legacy-exporter': 0.0.1-evm.14
       '@mainsail/utils': 0.0.1-evm.14
       bip39: 3.1.0
-      ethers: 6.13.4
+      ethers: 6.13.5
     transitivePeerDependencies:
       - '@google-cloud/spanner'
       - '@sap/hana-client'
@@ -5260,7 +5257,7 @@ snapshots:
     dependencies:
       '@hapi/bourne': 3.0.0
       deepmerge: 4.3.1
-      ethers: 6.13.4
+      ethers: 6.13.5
       fast-copy: 3.0.2
       fast-deep-equal: 3.1.3
       fast-sort: 3.4.1
@@ -6404,7 +6401,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  ethers@6.13.4:
+  ethers@6.13.5:
     dependencies:
       '@adraffy/ens-normalize': 1.10.1
       '@noble/curves': 1.2.0
@@ -8278,7 +8275,7 @@ snapshots:
   synckit@0.8.8:
     dependencies:
       '@pkgr/core': 0.1.1
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   systeminformation@5.23.5:
     optional: true
@@ -8358,8 +8355,6 @@ snapshots:
   tslib@1.9.3: {}
 
   tslib@2.4.0: {}
-
-  tslib@2.6.3: {}
 
   tslib@2.7.0: {}
 
