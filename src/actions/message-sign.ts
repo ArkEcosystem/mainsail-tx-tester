@@ -1,7 +1,7 @@
-import crypto from "crypto";
 import { makeApplication } from "../boot.js";
 import { loadConfig } from "../loader.js";
 import { makeIdentityFactories } from "../builder.js";
+import { keccak256 } from "ethers";
 
 const main = async () => {
     const config = loadConfig();
@@ -11,8 +11,8 @@ const main = async () => {
 
     const privateKey = await privateKeyFactory.fromMnemonic(config.cli.senderPassphrase);
     const publicKey = await publicKeyFactory.fromMnemonic(config.cli.senderPassphrase);
-    const signature = await signatureFactory.sign(
-        crypto.createHash("sha256").update(config.cli.message.message).digest(),
+    const signature = await signatureFactory.signRecoverable(
+        Buffer.from(keccak256("0x" + Buffer.from(config.cli.message.message).toString("hex")).slice(2), "hex"),
         Buffer.from(privateKey, "hex"),
     );
 
@@ -21,7 +21,7 @@ const main = async () => {
     console.log();
 
     console.log("Message: ", config.cli.message.message);
-    console.log("Signature: ", signature);
+    console.log("Signature: ", signature.r + signature.s + signature.v.toString(16));
 };
 
 if (import.meta.url === `file://${process.argv[1]}`) {
