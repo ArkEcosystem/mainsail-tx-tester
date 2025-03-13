@@ -34,7 +34,7 @@ const config = {
         publicKey: "0243333347c8cbf4e3cbc7a96964181d02a2b0c854faa2fef86b4b8d92afcf473d",
         message: "Hello, world!",
         signature:
-            "fcf3fdeb37b1944b544595a2c31113b4229c6972b56719b28d0891355c74a801320a121d3f376c77aa1c77f75c8f86f3aadc0569e4f02607e0e3a3590785b68a1b",
+            "0e2e53409be748834cac44052817ecef569b429a0492aa6bbc0d934eb71a09547e77aeef33d45669bbcba0498149f0e2b637fe8905186e08a5410c6f2b013bb41b",
     },
     crypto: crypto,
 };

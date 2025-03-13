@@ -1,4 +1,4 @@
-import { encodeFunctionData, keccak256 } from "viem";
+import { encodeFunctionData, keccak256, toHex } from "viem";
 import { getApplication, makeApplication } from "../boot.js";
 
 import { EvmCallBuilder } from "@mainsail/crypto-transaction-evm-call";
@@ -169,7 +169,7 @@ const generateMessageSign = async (mnemonic: string) => {
     const privateKey = await privateKeyFactory.fromMnemonic(mnemonic);
     const publicKey = await publicKeyFactory.fromMnemonic(mnemonic);
     const signature = await signatureFactory.signRecoverable(
-        Buffer.from(keccak256(Buffer.from(message)), "hex"),
+        Buffer.from(keccak256(toHex(message)).slice(2), "hex"),
         Buffer.from(privateKey, "hex"),
     );
 
