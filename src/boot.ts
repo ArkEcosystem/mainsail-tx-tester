@@ -61,9 +61,16 @@ export const makeApplication = async (config: Config): Promise<Application> => {
     ];
 
     for (const plugin of plugins) {
-        const { ServiceProvider } = await import(plugin.package);
-        const serviceProvider: Providers.ServiceProvider = app.resolve(ServiceProvider);
-        await serviceProvider.register();
+        try {
+            const { ServiceProvider } = await import(plugin.package);
+            const serviceProvider: Providers.ServiceProvider = app.resolve(ServiceProvider);
+            await serviceProvider.register();
+        } catch (error) {
+            if (plugin.package !== "@mainsail/crypto-config") {
+                console.log(`Failed to register plugin ${plugin.package}`);
+                throw error;
+            }
+        }
     }
 
     app.get<Contracts.Crypto.Configuration>(Identifiers.Cryptography.Configuration).setConfig(config.crypto);
