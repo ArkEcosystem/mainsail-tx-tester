@@ -9,61 +9,61 @@ importers:
   .:
     dependencies:
       '@mainsail/container':
-        specifier: 0.0.1-evm.18
+        specifier: ^0.0.1-evm.18
         version: 0.0.1-evm.18
       '@mainsail/contracts':
-        specifier: 0.0.1-evm.18
+        specifier: ^0.0.1-evm.18
         version: 0.0.1-evm.18
       '@mainsail/core':
-        specifier: 0.0.1-evm.18
+        specifier: ^0.0.1-evm.18
         version: 0.0.1-evm.18(better-sqlite3@11.8.1)(encoding@0.1.13)(pm2@5.4.3)(reflect-metadata@0.1.14)
       '@mainsail/crypto-address-keccak256':
-        specifier: 0.0.1-evm.18
+        specifier: ^0.0.1-evm.18
         version: 0.0.1-evm.18
       '@mainsail/crypto-config':
-        specifier: 0.0.1-evm.18
+        specifier: ^0.0.1-evm.18
         version: 0.0.1-evm.18
       '@mainsail/crypto-consensus-bls12-381':
-        specifier: 0.0.1-evm.18
+        specifier: ^0.0.1-evm.18
         version: 0.0.1-evm.18(encoding@0.1.13)
       '@mainsail/crypto-hash-bcrypto':
-        specifier: 0.0.1-evm.18
+        specifier: ^0.0.1-evm.18
         version: 0.0.1-evm.18
       '@mainsail/crypto-key-pair-ecdsa':
-        specifier: 0.0.1-evm.18
+        specifier: ^0.0.1-evm.18
         version: 0.0.1-evm.18
       '@mainsail/crypto-signature-ecdsa':
-        specifier: 0.0.1-evm.18
+        specifier: ^0.0.1-evm.18
         version: 0.0.1-evm.18
       '@mainsail/crypto-transaction':
-        specifier: 0.0.1-evm.18
+        specifier: ^0.0.1-evm.18
         version: 0.0.1-evm.18
       '@mainsail/crypto-transaction-evm-call':
-        specifier: 0.0.1-evm.18
+        specifier: ^0.0.1-evm.18
         version: 0.0.1-evm.18
       '@mainsail/crypto-validation':
-        specifier: 0.0.1-evm.18
+        specifier: ^0.0.1-evm.18
         version: 0.0.1-evm.18
       '@mainsail/crypto-wif':
-        specifier: 0.0.1-evm.18
+        specifier: ^0.0.1-evm.18
         version: 0.0.1-evm.18
       '@mainsail/evm-contracts':
-        specifier: 0.0.1-evm.18
+        specifier: ^0.0.1-evm.18
         version: 0.0.1-evm.18
       '@mainsail/kernel':
-        specifier: 0.0.1-evm.18
+        specifier: ^0.0.1-evm.18
         version: 0.0.1-evm.18
       '@mainsail/serializer':
-        specifier: 0.0.1-evm.18
+        specifier: ^0.0.1-evm.18
         version: 0.0.1-evm.18
       '@mainsail/transactions':
-        specifier: 0.0.1-evm.18
+        specifier: ^0.0.1-evm.18
         version: 0.0.1-evm.18
       '@mainsail/utils':
-        specifier: 0.0.1-evm.18
+        specifier: ^0.0.1-evm.18
         version: 0.0.1-evm.18
       '@mainsail/validation':
-        specifier: 0.0.1-evm.18
+        specifier: ^0.0.1-evm.18
         version: 0.0.1-evm.18
       bip39:
         specifier: 3.1.0
