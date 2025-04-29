@@ -42,7 +42,7 @@ export const main = async (customArgs?: string[]) => {
 
             const tx = await await Builder.makeTransfer(config, recipient, amount);
             const result = await Client.postTransaction(peer, tx.serialized.toString("hex"));
-            console.log(`Sent transfer with id: ${tx.id} \n`);
+            console.log(`Sent transfer with id: ${tx.hash} \n`);
 
             console.log(result);
 
@@ -51,10 +51,10 @@ export const main = async (customArgs?: string[]) => {
         case 2: {
             const tx = await Builder.makeEvmDeploy(config);
             const result = await Client.postTransaction(peer, tx.serialized.toString("hex"));
-            console.log(`Sent deploy with id: ${tx.id}`);
+            console.log(`Sent deploy with id: ${tx.hash}`);
             console.log(
                 `Deployed contract address: ${getContractAddress({
-                    from: tx.data.senderAddress as any,
+                    from: tx.data.from as any,
                     nonce: tx.data.nonce.toBigInt(),
                 })}\n`,
             );
