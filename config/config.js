@@ -1,4 +1,4 @@
-import crypto from "@mainsail/core/bin/config/testnet/core/crypto.json" with { type: "json" };
+import crypto from "@mainsail/core/bin/config/devnet/core/crypto.json" with { type: "json" };
 import DARK20 from "./builds/DARK20.json" with { type: "json" };
 import { consensus } from "./contracts/consensus.js";
 import { usernames } from "./contracts/usernames.js";
@@ -8,15 +8,15 @@ import { revert } from "./contracts/revert.js";
 import { tokenTransfer } from "./contracts/tokentransfer.js";
 
 const config = {
-    senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
+    senderPassphrase: "term square spirit oval chunk thing embody iron asthma boy radar sort oil leader creek goat lottery midnight myth afford trend dwarf average stool", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     peer: {
-        apiTxPoolUrl: "https://dwallets-evm.mainsailhq.com/tx",
-        apiEvmUrl: "https://dwallets-evm.mainsailhq.com/evm",
+        apiTxPoolUrl: "http://localhost:4007",
+        apiEvmUrl: "http://localhost:4008",
     },
     gasPrice: "5000000000",
     transfer: {
-        recipientAddress: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
-        value: "100000000",
+        recipientAddress: "0xC870aF84F11e0d43c8a29C041F23a8E85a2Ce4ff",
+        value: "350000000000000000000",
     },
     evmDeploy: {
         data: DARK20.bytecode,
