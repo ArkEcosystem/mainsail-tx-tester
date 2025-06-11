@@ -104,6 +104,7 @@ export const makeEvmCall = async (
 
     console.log(`Function: ${func.functionName}`);
     console.log(`Args:     ${usedArgs.join(", ")}`);
+    console.log(`Amount:     ${amount}`);
     console.log(`Encoded:  ${data}`);
 
     let builder = app
