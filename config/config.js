@@ -1,4 +1,5 @@
-import crypto from "@mainsail/core/bin/config/devnet/core/crypto.json" with { type: "json" };
+// import crypto from "@mainsail/core/bin/config/devnet/core/crypto.json" with { type: "json" };
+import crypto from "mainsail-network-config/testnet/mainsail/crypto.json" with { type: "json" };
 import DARK20 from "./builds/DARK20.json" with { type: "json" };
 import { consensus } from "./contracts/consensus.js";
 import { usernames } from "./contracts/usernames.js";
@@ -15,8 +16,8 @@ const config = {
     },
     gasPrice: "5000000000",
     transfer: {
-        recipientAddress: "0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A",
-        value: "100000000",
+        recipientAddress: "0xC870aF84F11e0d43c8a29C041F23a8E85a2Ce4ff",
+        value: "350000000000000000000",
     },
     evmDeploy: {
         data: DARK20.bytecode,

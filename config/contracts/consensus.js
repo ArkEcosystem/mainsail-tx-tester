@@ -7,11 +7,12 @@ export const consensus = {
     transactions: [
         {
             functionName: "registerValidator",
-            args: ["0".repeat(48)],
+            amount: "250000000000000000000",
+            args: [`0x${"0".repeat(96)}`],
         },
         {
             functionName: "updateValidator",
-            args: ["0".repeat(48)],
+            args: [`0x${"1".repeat(96)}`],
         },
         {
             functionName: "resignValidator",
