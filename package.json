@@ -39,7 +39,7 @@
         "@mainsail/validation": "0.0.1-evm.19",
         "bip39": "3.1.0",
         "fs-extra": "^9.0.1",
-        "mainsail-network-config": "https://github.com/ArkEcosystem/mainsail-network-config#evm",
+        "mainsail-network-config": "https://github.com/ArkEcosystem/mainsail-network-config",
         "reflect-metadata": "^0.1.13",
         "viem": "^2.16.3"
     },
