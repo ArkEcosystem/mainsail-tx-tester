@@ -68,8 +68,7 @@ export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Tr
         .gasPrice(cli.gasPrice)
         .payload(evmDeploy.data.slice(2))
         .gasLimit(2_000_000)
-        .nonce(walletNonce.toString())
-        .vendorField(evmDeploy.vendorField);
+        .nonce(walletNonce.toString());
 
     const signed = await builder.sign(app.get(AppIdentifiers.WalletPassphrase));
 

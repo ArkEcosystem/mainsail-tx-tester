@@ -8,10 +8,10 @@ import { revert } from "./contracts/revert.js";
 import { tokenTransfer } from "./contracts/tokentransfer.js";
 
 const config = {
-    senderPassphrase: "term square spirit oval chunk thing embody iron asthma boy radar sort oil leader creek goat lottery midnight myth afford trend dwarf average stool", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
+    senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     peer: {
-        apiTxPoolUrl: "http://localhost:4007",
-        apiEvmUrl: "http://localhost:4008",
+        apiTxPoolUrl: "https://dwallets-evm.mainsailhq.com/tx",
+        apiEvmUrl: "https://dwallets-evm.mainsailhq.com/evm",
     },
     gasPrice: "5000000000",
     transfer: {
