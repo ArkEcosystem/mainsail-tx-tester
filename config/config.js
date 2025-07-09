@@ -1,5 +1,5 @@
-// import crypto from "@mainsail/core/bin/config/devnet/core/crypto.json" with { type: "json" };
-import crypto from "mainsail-network-config/testnet/mainsail/crypto.json" with { type: "json" };
+import crypto from "@mainsail/core/bin/config/devnet/core/crypto.json" with { type: "json" };
+// import crypto from "mainsail-network-config/testnet/mainsail/crypto.json" with { type: "json" };
 import DARK20 from "./builds/DARK20.json" with { type: "json" };
 import { consensus } from "./contracts/consensus.js";
 import { usernames } from "./contracts/usernames.js";
@@ -9,10 +9,10 @@ import { revert } from "./contracts/revert.js";
 import { tokenTransfer } from "./contracts/tokentransfer.js";
 
 const config = {
-    senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
+    senderPassphrase: "jungle lounge guitar problem mistake file shell banana switch cram hurt machine artist island comfort mirror maple spice twin sunny giant ahead course lunar", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     peer: {
-        apiTxPoolUrl: "https://dwallets-evm.mainsailhq.com/tx",
-        apiEvmUrl: "https://dwallets-evm.mainsailhq.com/evm",
+        apiTxPoolUrl: "http://127.0.0.1:4007",
+        apiEvmUrl: "http://127.0.0.1:4008",
     },
     gasPrice: "5000000000",
     transfer: {
