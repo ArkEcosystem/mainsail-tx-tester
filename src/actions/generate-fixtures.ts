@@ -176,7 +176,7 @@ const generateMessageSign = async (mnemonic: string) => {
     await writeFixtureToFile("message-sign.json", {
         message,
         publicKey,
-        signature: signature.r + signature.s + signature.v.toString(16),
+        signature: signature.r + signature.s + signature.v.toString(16).padStart(2, "0"),
     });
 };
 
