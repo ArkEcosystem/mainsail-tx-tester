@@ -42,15 +42,16 @@ export const makeTransfer = async (
 
     const walletNonce = await getWalletNonce(app, config);
 
-    const signed = await app
+    let builder = app
         .resolve(EvmCallBuilder)
         .gasPrice(cli.gasPrice)
         .gasLimit(21000)
         .nonce(walletNonce.toFixed(0))
         .recipientAddress(recipient ? recipient : transfer.recipientAddress)
         .value(amount ? amount : transfer.value)
-        .payload("")
-        .sign(app.get(AppIdentifiers.WalletPassphrase));
+        .payload("");
+
+    const signed = await signTransaction(app, builder, cli);
 
     return signed.build();
 };
@@ -70,7 +71,7 @@ export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Tr
         .gasLimit(2_000_000)
         .nonce(walletNonce.toString());
 
-    const signed = await builder.sign(app.get(AppIdentifiers.WalletPassphrase));
+    const signed = await signTransaction(app, builder, cli);
 
     return signed.build();
 };
@@ -115,7 +116,7 @@ export const makeEvmCall = async (
         .value(amount)
         .nonce(walletNonce.toString());
 
-    const signed = await builder.sign(app.get(AppIdentifiers.WalletPassphrase));
+    const signed = await signTransaction(app, builder, cli);
 
     return signed.build();
 };
@@ -220,4 +221,21 @@ export const makeIdentityFactories = (
             "wallet",
         ),
     };
+};
+
+const signTransaction = async <
+    T extends { sign: (passphrase: string) => Promise<T>; legacySecondSign: (passphrase: string) => Promise<T> },
+>(
+    app: Contracts.Kernel.Application,
+    builder: T,
+    cli: any,
+): Promise<T> => {
+    let signed = await builder.sign(app.get(AppIdentifiers.WalletPassphrase));
+
+    // if second passphrase is set, sign again
+    if (cli.secondSenderPassphrase && cli.secondSenderPassphrase !== "") {
+        signed = await signed.legacySecondSign(cli.secondSenderPassphrase);
+    }
+
+    return signed;
 };

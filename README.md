@@ -79,7 +79,7 @@ Generate fixtures
 pnpm run fixtures
 ```
 
-Fixtures can be configured in `config/fixtures.js`. They defaults are used for generating fixtures for our test suites.
+Fixtures can be configured in `config/fixtures.js`. They defaults are used for generating fixtures for our test suites. For fixtures with a second signature, please first set `senderSecondPassphrase` before generating the fixtures.
 
 ## Configuration
 
@@ -89,7 +89,7 @@ Provide correct **peer** data that have enabled Public API and Transaction Pool 
 
 Default configuration is using testnet from [Mainsail Network Config](https://github.com/ArkEcosystem/mainsail-network-config/tree/main/testnet/mainsail). Use correct **plugins** and **crypto** that is used in the `app.json` and `crypto.json` on the target network.
 
-Adjust `senderPassphrase` and transaction data (recipientId, fee, amount) before sending TX.
+Adjust `senderPassphrase` and transaction data (recipientId, fee, amount) before sending TX. If you want to use an address with a second signature registered, make sure to set `senderSecondPassphrase` in addition!
 
 ## Note
 
