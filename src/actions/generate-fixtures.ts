@@ -38,15 +38,16 @@ const writeFixtureToFile = async (filename: string, data: any) => {
 const main = async () => {
     const DEFAULT_MNEMONIC = fixtureConfig["passphrase"];
     const mnemonic = process.argv.length === 3 ? process.argv[2] : DEFAULT_MNEMONIC;
+    const secondMnemonic = fixtureConfig["secondPassphrase"] || undefined;
 
     await makeApplication(loadConfig());
 
-    await generateIdentity(mnemonic);
-    await generateTransactions(mnemonic);
+    await generateIdentity(mnemonic, secondMnemonic);
+    await generateTransactions(mnemonic, secondMnemonic);
     await generateMessageSign(mnemonic);
 };
 
-const generateIdentity = async (mnemonic: string) => {
+const generateIdentity = async (mnemonic: string, secondMnemonic?: string) => {
     const app = getApplication();
 
     const {
@@ -66,6 +67,7 @@ const generateIdentity = async (mnemonic: string) => {
             wif: await wifFactory.fromMnemonic(mnemonic),
         },
         passphrase: mnemonic,
+        ...(secondMnemonic ? { secondPassphrase: secondMnemonic } : {}),
     };
 
     // try/catch here as consensus factories cannot handle non-standard mnemonics
@@ -93,7 +95,7 @@ const getTransactionData = (builtTransaction: object) => {
     };
 };
 
-const generateTransfer = async (mnemonic: string, fixtureName: string, config: object) => {
+const generateTransfer = async (mnemonic: string, fixtureName: string, config: object, secondMnemonic?: string) => {
     const app = getApplication();
 
     const transaction = app
@@ -108,7 +110,7 @@ const generateTransfer = async (mnemonic: string, fixtureName: string, config: o
         transaction.recipientAddress(config["recipientAddress"]);
     }
 
-    const signed = await transaction.sign(mnemonic);
+    const signed = await signTransaction(transaction, mnemonic, secondMnemonic);
 
     const builtTransaction = await signed.build();
 
@@ -116,7 +118,7 @@ const generateTransfer = async (mnemonic: string, fixtureName: string, config: o
     console.log(`Transfer data written to data/${fixtureName}.json`);
 };
 
-const generateTransaction = async (mnemonic: string, fixtureName: string, config: object) => {
+const generateTransaction = async (mnemonic: string, fixtureName: string, config: object, secondMnemonic?: string) => {
     const contract = config["contract"];
     const args = contract["args"];
     const functionName = contract["functionName"];
@@ -138,7 +140,7 @@ const generateTransaction = async (mnemonic: string, fixtureName: string, config
         .recipientAddress(config["recipientAddress"] || contract["data"].contractId)
         .value(config["value"] || "0");
 
-    const signed = await builder.sign(mnemonic);
+    const signed = await signTransaction(builder, mnemonic, secondMnemonic);
 
     const builtTransaction = await signed.build();
 
@@ -146,17 +148,17 @@ const generateTransaction = async (mnemonic: string, fixtureName: string, config
     console.log(`Transaction data written to data/${fixtureName}.json`);
 };
 
-const generateTransactions = async (mnemonic: string) => {
+const generateTransactions = async (mnemonic: string, secondMnemonic?: string) => {
     for (const fixtureName of Object.keys(fixtureConfig)) {
         const fixture = fixtureConfig[fixtureName];
 
         if (fixture && typeof fixture === "object" && "contract" in fixture) {
-            await generateTransaction(mnemonic, fixtureName, fixture);
+            await generateTransaction(mnemonic, fixtureName, fixture, secondMnemonic);
 
             continue;
         }
 
-        await generateTransfer(mnemonic, fixtureName, fixture);
+        await generateTransfer(mnemonic, fixtureName, fixture, secondMnemonic);
     }
 };
 
@@ -183,3 +185,20 @@ const generateMessageSign = async (mnemonic: string) => {
 if (import.meta.url === `file://${process.argv[1]}`) {
     main().catch(console.error);
 }
+
+const signTransaction = async <
+    T extends { sign: (passphrase: string) => Promise<T>; legacySecondSign: (passphrase: string) => Promise<T> },
+>(
+    builder: T,
+    mnemonic: string,
+    secondMnemonic?: string,
+): Promise<T> => {
+    let signed = await builder.sign(mnemonic);
+
+    // if second passphrase is set, sign again
+    if (secondMnemonic && secondMnemonic !== "") {
+        signed = await signed.legacySecondSign(secondMnemonic);
+    }
+
+    return signed;
+};

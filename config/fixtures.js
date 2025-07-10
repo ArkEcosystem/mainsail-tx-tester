@@ -6,6 +6,7 @@ import { usernames } from "./contracts/usernames.js";
 const fixtureConfig = {
     passphrase:
         "found lobster oblige describe ready addict body brave live vacuum display salute lizard combine gift resemble race senior quality reunion proud tell adjust angle",
+    secondPassphrase: "",
     transfer: {
         recipientAddress: "0x6F0182a0cc707b055322CcF6d4CB6a5Aff1aEb22",
         value: "100000000",
