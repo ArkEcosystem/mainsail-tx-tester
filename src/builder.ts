@@ -233,8 +233,8 @@ const signTransaction = async <
     let signed = await builder.sign(app.get(AppIdentifiers.WalletPassphrase));
 
     // if second passphrase is set, sign again
-    if (cli.secondPassphrase && cli.secondPassphrase !== "") {
-        signed = await signed.legacySecondSign(cli.secondPassphrase);
+    if (cli.secondSenderPassphrase && cli.secondSenderPassphrase !== "") {
+        signed = await signed.legacySecondSign(cli.secondSenderPassphrase);
     }
 
     return signed;
