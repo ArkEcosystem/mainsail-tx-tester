@@ -148,10 +148,15 @@ const generateTransaction = async (mnemonic: string, fixtureName: string, config
     console.log(`Transaction data written to data/${fixtureName}.json`);
 };
 
-const generateTransactions = async (mnemonic: string, secondMnemonic?: string) => {
+const generateTransactions = async (mnemonic: string, defaultSecondMnemonic?: string) => {
     for (const fixtureName of Object.keys(fixtureConfig)) {
         const fixture = fixtureConfig[fixtureName];
 
+        if (! fixture || typeof fixture !== "object") {
+            continue;
+        }
+
+        const secondMnemonic = fixture["secondPassphrase"] || defaultSecondMnemonic;
         if (fixture && typeof fixture === "object" && "contract" in fixture) {
             await generateTransaction(mnemonic, fixtureName, fixture, secondMnemonic);
 

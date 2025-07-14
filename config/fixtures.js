@@ -18,6 +18,11 @@ const fixtureConfig = {
         recipientAddress: "0x6F0182a0cc707b055322CcF6d4CB6a5Aff1aEb22",
         value: "10000000000000000000",
     },
+    "transfer-legacy-second-signature": {
+        recipientAddress: "0x6F0182a0cc707b055322CcF6d4CB6a5Aff1aEb22",
+        value: "100000000",
+        secondPassphrase: "gold favorite math anchor detect march purpose such sausage crucial reform novel connect misery update episode invite salute barely garbage exclude winner visa cruise"
+    },
     vote: {
         contract: {
             data: consensus,
