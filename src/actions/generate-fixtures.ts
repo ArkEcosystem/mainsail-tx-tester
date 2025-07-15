@@ -22,13 +22,22 @@ interface Identity {
 
 const writeFixtureToFile = async (filename: string, data: any) => {
     const dataDir = join(process.cwd(), "data");
+
+    if (data['data'] && typeof data['data']['gasPrice'] !== 'undefined') {
+        data['data']['gasPrice'] = data['data']['gasPrice'].toString();
+    }
+
+    if (data['data'] && typeof data['data']['gasLimit'] !== 'undefined') {
+        data['data']['gasLimit'] = data['data']['gasLimit'].toString();
+    }
+
     try {
-        writeFileSync(join(dataDir, filename), JSON.stringify(data, null, 2));
+        writeFileSync(join(dataDir, filename), JSON.stringify(data, null, 4));
     } catch (error) {
         if ((error as NodeJS.ErrnoException).code === "ENOENT") {
             const { mkdirSync } = await import("fs");
             mkdirSync(dataDir, { recursive: true });
-            writeFileSync(join(dataDir, filename), JSON.stringify(data, null, 2));
+            writeFileSync(join(dataDir, filename), JSON.stringify(data, null, 4));
         } else {
             throw error;
         }
