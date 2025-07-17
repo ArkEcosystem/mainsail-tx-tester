@@ -1,4 +1,4 @@
-import { encodeFunctionData, keccak256, toHex } from "viem";
+import { encodeFunctionData } from "viem";
 import { SigningKey, hashMessage } from "ethers";
 import { getApplication, makeApplication } from "../boot.js";
 
@@ -175,7 +175,7 @@ const generateTransactions = async (mnemonic: string, secondMnemonic?: string) =
 const generateMessageSign = async (mnemonic: string) => {
     const app = getApplication();
 
-    const { privateKeyFactory, publicKeyFactory, signatureFactory } = makeIdentityFactories(app);
+    const { privateKeyFactory, publicKeyFactory } = makeIdentityFactories(app);
 
     const message = "Hello, world!";
     const privateKey = await privateKeyFactory.fromMnemonic(mnemonic);
