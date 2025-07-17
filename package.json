@@ -38,6 +38,7 @@
         "@mainsail/utils": "0.0.1-evm.24",
         "@mainsail/validation": "0.0.1-evm.24",
         "bip39": "3.1.0",
+        "ethers": "^6.15.0",
         "fs-extra": "^9.0.1",
         "mainsail-network-config": "https://github.com/ArkEcosystem/mainsail-network-config#main",
         "reflect-metadata": "^0.1.13",
