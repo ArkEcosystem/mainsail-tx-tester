@@ -42,6 +42,7 @@ const fixtureConfig = {
             ],
         },
         gasLimit: 200000,
+        value: "250000000000000000000"
     },
     "validator-resignation": {
         contract: {
