@@ -8,47 +8,14 @@ Ensure that you have a working `python` binary in your PATH as this script compi
 
 To resolve it, make sure `python` is available on your system. One way to easily manage this is by using a Python version manager such as [`pyenv`](https://github.com/pyenv/pyenv).
 
-## Yarn
-
-### Installation
+## Setup
 
 ```bash
-yarn
-yarn build
-```
-
-### Usage
-
-Show help:
-
-```bash
-yarn start
-```
-
-Send TX:
-
-```bash
-yarn start <TX number>
-```
-
-Generate wallets **Mnemonic**, **Address** and **Public Key**:
-
-```bash
-yarn wallet
-```
-
-```bash
-yarn wallet "custom mnemonic"
-```
-
-Generate validator **Private**- and **Public Key**:
-
-```bash
-yarn validator
-```
-
-```bash
-yarn validator "custom mnemonic"
+git clone https://github.com/ArkEcosystem/mainsail-tx-tester.git
+cd mainsail-tx-tester
+git checkout evm
+pnpm i
+pnpm run build
 ```
 
 ## PNPM
@@ -68,10 +35,22 @@ Show help:
 pnpm run start
 ```
 
-Send TX:
+Send transfer:
 
 ```bash
-pnpm run start <TX number>
+pnpm run start 1 <address (optional)> <amount (optional)>
+```
+
+Deploy contract:
+
+```bash
+pnpm run start 2
+```
+
+Interact with contract:
+
+```bash
+pnpm run start <contract_id> <function_id> <address (optional)> <amount (optional)>
 ```
 
 Generate wallets **Mnemonic**, **Address** and **Public Key**:
@@ -94,6 +73,14 @@ pnpm run validator
 pnpm run validator "custom mnemonic"
 ```
 
+Generate fixtures
+
+```bash
+pnpm run fixtures
+```
+
+Fixtures can be configured in `config/fixtures.js`. They defaults are used for generating fixtures for our test suites. For fixtures with a second signature, please first set `senderSecondPassphrase` before generating the fixtures.
+
 ## Configuration
 
 Look into `/config/config.js` file.
@@ -102,7 +89,7 @@ Provide correct **peer** data that have enabled Public API and Transaction Pool 
 
 Default configuration is using testnet from [Mainsail Network Config](https://github.com/ArkEcosystem/mainsail-network-config/tree/main/testnet/mainsail). Use correct **plugins** and **crypto** that is used in the `app.json` and `crypto.json` on the target network.
 
-Adjust `senderPassphrase` and transaction data (recipientId, fee, amount) before sending TX.
+Adjust `senderPassphrase` and transaction data (recipientId, fee, amount) before sending TX. If you want to use an address with a second signature registered, make sure to set `senderSecondPassphrase` in addition!
 
 ## Note
 

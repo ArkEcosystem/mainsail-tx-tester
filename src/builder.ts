@@ -1,207 +1,170 @@
 import * as Client from "./client.js";
 
+import { Config, ContractData, EthViewParameters } from "./types.js";
 import { Contracts, Identifiers } from "@mainsail/contracts";
+import { decodeFunctionResult, encodeFunctionData } from "viem";
 
+import { AppIdentifiers } from "./identifiers.js";
 import { Application } from "@mainsail/kernel";
-import { Config } from "./types.js";
-import { MultiPaymentBuilder } from "@mainsail/crypto-transaction-multi-payment";
-import { MultiSignatureBuilder } from "@mainsail/crypto-transaction-multi-signature-registration";
-import { TransferBuilder } from "@mainsail/crypto-transaction-transfer";
-import { UsernameRegistrationBuilder } from "@mainsail/crypto-transaction-username-registration";
-import { UsernameResignationBuilder } from "@mainsail/crypto-transaction-username-resignation";
-import { ValidatorRegistrationBuilder } from "@mainsail/crypto-transaction-validator-registration";
-import { ValidatorResignationBuilder } from "@mainsail/crypto-transaction-validator-resignation";
-import { VoteBuilder } from "@mainsail/crypto-transaction-vote";
+import { EvmCallBuilder } from "@mainsail/crypto-transaction-evm-call";
 import { getApplication } from "./boot.js";
 
-const getWalletNonce = async (app: Application, config: Config): Promise<number> => {
-    const { peer, senderPassphrase } = config.cli;
+export const getWalletNonce = async (app: Application, config: Config): Promise<number> => {
+    const { peer } = config.cli;
 
     const { addressFactory } = makeIdentityFactories(app);
 
-    const walletAddress = await addressFactory.fromMnemonic(senderPassphrase);
+    const walletAddress = await addressFactory.fromMnemonic(app.get(AppIdentifiers.WalletPassphrase));
 
-    const walletNonce = await Client.getWalletNonce(peer, walletAddress);
+    if (app.isBound(AppIdentifiers.WalletNonce)) {
+        return app.get<number>(AppIdentifiers.WalletNonce);
+    }
 
-    console.log(`>> using wallet: ${walletAddress} nonce: ${walletNonce}`);
+    let walletNonce = 0;
+    try {
+        walletNonce = await Client.getWalletNonce(peer, walletAddress);
+    } catch (e) {}
+
+    console.log(`Using wallet: ${walletAddress} nonce: ${walletNonce}`);
 
     return walletNonce;
 };
 
-export const makeMultisignatureRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
+export const makeTransfer = async (
+    config: Config,
+    recipient?: string,
+    amount?: string,
+): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
-    const { multiSignatureRegistration, senderPassphrase } = cli;
+    const { transfer } = cli;
 
-    const app = await getApplication(config);
+    const app = getApplication();
 
     const walletNonce = await getWalletNonce(app, config);
 
-    const { publicKeyFactory } = makeIdentityFactories(app);
+    let builder = app
+        .resolve(EvmCallBuilder)
+        .gasPrice(cli.gasPrice)
+        .gasLimit(21000)
+        .nonce(walletNonce.toFixed(0))
+        .recipientAddress(recipient ? recipient : transfer.recipientAddress)
+        .value(amount ? amount : transfer.value)
+        .payload("");
 
-    const multisignatureAsset = {
-        min: multiSignatureRegistration.min,
-        publicKeys: await Promise.all(
-            multiSignatureRegistration.participants.map(
-                async (participant) => await publicKeyFactory.fromMnemonic(participant),
-            ),
-        ),
+    const signed = await signTransaction(app, builder, cli);
+
+    return signed.build();
+};
+
+export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
+    const { cli } = config;
+    const { evmDeploy } = cli;
+
+    const app = getApplication();
+
+    const walletNonce = await getWalletNonce(app, config);
+
+    let builder = app
+        .resolve(EvmCallBuilder)
+        .gasPrice(cli.gasPrice)
+        .payload(evmDeploy.data.slice(2))
+        .gasLimit(2_000_000)
+        .nonce(walletNonce.toString());
+
+    const signed = await signTransaction(app, builder, cli);
+
+    return signed.build();
+};
+
+export const makeEvmCall = async (
+    config: Config,
+    contractData: ContractData,
+    functionIndex: number,
+    args?: any[],
+    amount?: string,
+): Promise<Contracts.Crypto.Transaction> => {
+    const { cli } = config;
+
+    const app = getApplication();
+
+    const walletNonce = await getWalletNonce(app, config);
+
+    const func = contractData.transactions[functionIndex];
+
+    const usedArgs = args || func.args;
+    if (!amount) {
+        amount = func.amount ? func.amount.toString() : "0";
+    }
+
+    const data = encodeFunctionData({
+        abi: contractData.abi,
+        functionName: func.functionName,
+        args: usedArgs,
+    });
+
+    console.log(`Function: ${func.functionName}`);
+    console.log(`Args:     ${usedArgs.join(", ")}`);
+    console.log(`Amount:     ${amount}`);
+    console.log(`Encoded:  ${data}`);
+
+    let builder = app
+        .resolve(EvmCallBuilder)
+        .gasPrice(cli.gasPrice)
+        .payload(data.slice(2))
+        .gasLimit(1_000_000)
+        .recipientAddress(contractData.contractId)
+        .value(amount)
+        .nonce(walletNonce.toString());
+
+    const signed = await signTransaction(app, builder, cli);
+
+    return signed.build();
+};
+
+export const makeEvmView = async (
+    config: Config,
+    contractData: ContractData,
+    index: number,
+): Promise<EthViewParameters> => {
+    const app = getApplication();
+    const { addressFactory } = makeIdentityFactories(app);
+
+    const func = contractData.views[index];
+
+    const data = encodeFunctionData({
+        abi: contractData.abi,
+        functionName: func.functionName,
+        args: func.args,
+    });
+
+    console.log(`Function: ${func.functionName}`);
+    console.log(`Args:     ${func.args.join(", ")}`);
+    console.log(`Encoded:  ${data}`);
+
+    return {
+        from: await addressFactory.fromMnemonic(app.get(AppIdentifiers.WalletPassphrase)),
+        to: contractData.contractId,
+        data: data,
     };
+};
 
-    const transaction = await app
-        .resolve(MultiSignatureBuilder)
-        .fee(multiSignatureRegistration.fee)
-        .nonce((walletNonce + 1).toFixed(0))
-        .senderPublicKey(await publicKeyFactory.fromMnemonic(senderPassphrase))
-        .multiSignatureAsset(multisignatureAsset);
+export const decodeEvmViewResult = (config: Config, contractData: ContractData, index: number, data: any): void => {
+    const func = contractData.views[index];
 
-    // Sign with each participant
-    for (const [index, participant] of multiSignatureRegistration.participants.entries()) {
-        await transaction.multiSign(participant, index);
+    let result;
+    try {
+        result = decodeFunctionResult({
+            abi: contractData.abi,
+            functionName: func.functionName,
+            data,
+        });
+    } catch (ex) {
+        result = ex.message;
     }
 
-    // Sign with the sender
-    const signed = await transaction.sign(senderPassphrase);
-
-    return signed.build();
-};
-
-export const makeTransfer = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-    const { cli } = config;
-    const { transfer, senderPassphrase } = cli;
-
-    const app = await getApplication(config);
-
-    const walletNonce = await getWalletNonce(app, config);
-
-    const signed = await app
-        .resolve(TransferBuilder)
-        .fee(transfer.fee)
-        .nonce((walletNonce + 1).toFixed(0))
-        .recipientId(transfer.recipientId)
-        .amount(transfer.amount)
-        .vendorField(transfer.vendorField)
-        .sign(senderPassphrase);
-
-    return signed.build();
-};
-
-export const makeVote = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-    const { cli } = config;
-    const { vote, senderPassphrase } = cli;
-
-    const app = await getApplication(config);
-
-    const walletNonce = await getWalletNonce(app, config);
-
-    let builder = app
-        .resolve(VoteBuilder)
-        .fee(vote.fee)
-        .nonce((walletNonce + 1).toFixed(0));
-
-    if (vote.voteAsset) {
-        builder = builder.votesAsset([vote.voteAsset]);
-    }
-
-    if (vote.unvoteAsset) {
-        builder = builder.unvotesAsset([vote.unvoteAsset]);
-    }
-
-    const signed = await builder.sign(senderPassphrase);
-
-    return signed.build();
-};
-
-export const makeUsernameRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-    const { cli } = config;
-    const { userNameRegistration, senderPassphrase } = cli;
-
-    const app = await getApplication(config);
-
-    const walletNonce = await getWalletNonce(app, config);
-
-    const signed = await app
-        .resolve(UsernameRegistrationBuilder)
-        .fee(userNameRegistration.fee)
-        .nonce((walletNonce + 1).toFixed(0))
-        .usernameAsset(userNameRegistration.username)
-        .sign(senderPassphrase);
-
-    return signed.build();
-};
-
-export const makeUsernameResignation = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-    const { cli } = config;
-    const { userNameResignation, senderPassphrase } = cli;
-
-    const app = await getApplication(config);
-
-    const walletNonce = await getWalletNonce(app, config);
-
-    const signed = await app
-        .resolve(UsernameResignationBuilder)
-        .fee(userNameResignation.fee)
-        .nonce((walletNonce + 1).toFixed(0))
-        .sign(senderPassphrase);
-
-    return signed.build();
-};
-
-export const makeMultiPayment = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-    const { cli } = config;
-    const { multiPayment, senderPassphrase } = cli;
-
-    const app = await getApplication(config);
-
-    const walletNonce = await getWalletNonce(app, config);
-
-    let builder = app
-        .resolve(MultiPaymentBuilder)
-        .fee(multiPayment.fee)
-        .nonce((walletNonce + 1).toFixed(0))
-        .vendorField(multiPayment.vendorField);
-
-    for (const { amount, recipientId } of multiPayment.payments) {
-        builder = builder.addPayment(recipientId, amount);
-    }
-
-    const signed = await builder.sign(senderPassphrase);
-
-    return signed.build();
-};
-
-export const makeValidatorRegistration = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-    const { cli } = config;
-    const { validatorRegistration, senderPassphrase } = cli;
-
-    const app = await getApplication(config);
-
-    const walletNonce = await getWalletNonce(app, config);
-
-    const signed = await app
-        .resolve(ValidatorRegistrationBuilder)
-        .fee(validatorRegistration.fee)
-        .nonce((walletNonce + 1).toFixed(0))
-        .publicKeyAsset(validatorRegistration.validatorPublicKey)
-        .sign(senderPassphrase);
-
-    return signed.build();
-};
-
-export const makeValidatorResignation = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
-    const { cli } = config;
-    const { validatorResignation, senderPassphrase } = cli;
-
-    const app = await getApplication(config);
-
-    const walletNonce = await getWalletNonce(app, config);
-
-    const signed = await app
-        .resolve(ValidatorResignationBuilder)
-        .fee(validatorResignation.fee)
-        .nonce((walletNonce + 1).toFixed(0))
-        .sign(senderPassphrase);
-
-    return signed.build();
+    console.log(`Result:   ${data}`);
+    console.log(`Decoded:`);
+    console.log(`${JSON.stringify(result, (_, v) => (typeof v === "bigint" ? v.toString() : v), "  ")}`);
 };
 
 export const makeIdentityFactories = (
@@ -212,6 +175,8 @@ export const makeIdentityFactories = (
     privateKeyFactory: Contracts.Crypto.PrivateKeyFactory;
     consensusPublicKeyFactory: Contracts.Crypto.PublicKeyFactory;
     consensusPrivateKeyFactory: Contracts.Crypto.PrivateKeyFactory;
+    signatureFactory: Contracts.Crypto.Signature;
+    wifFactory: Contracts.Crypto.WIFFactory;
 } => {
     return {
         addressFactory: app.getTagged<Contracts.Crypto.AddressFactory>(
@@ -243,5 +208,34 @@ export const makeIdentityFactories = (
             "type",
             "consensus",
         ),
+
+        signatureFactory: app.getTagged<Contracts.Crypto.Signature>(
+            Identifiers.Cryptography.Signature.Instance,
+            "type",
+            "wallet",
+        ),
+
+        wifFactory: app.getTagged<Contracts.Crypto.WIFFactory>(
+            Identifiers.Cryptography.Identity.Wif.Factory,
+            "type",
+            "wallet",
+        ),
     };
+};
+
+const signTransaction = async <
+    T extends { sign: (passphrase: string) => Promise<T>; legacySecondSign: (passphrase: string) => Promise<T> },
+>(
+    app: Contracts.Kernel.Application,
+    builder: T,
+    cli: any,
+): Promise<T> => {
+    let signed = await builder.sign(app.get(AppIdentifiers.WalletPassphrase));
+
+    // if second passphrase is set, sign again
+    if (cli.secondSenderPassphrase && cli.secondSenderPassphrase !== "") {
+        signed = await signed.legacySecondSign(cli.secondSenderPassphrase);
+    }
+
+    return signed;
 };

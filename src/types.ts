@@ -1,5 +1,6 @@
 import { Contracts } from "@mainsail/contracts";
 import cli from "../config/config.js";
+import { Abi } from "viem";
 
 export type Peer = typeof cli.peer;
 
@@ -15,8 +16,26 @@ export type ValidatorConfig = {
 };
 
 export type Transfer = {
-    recipientId: string;
-    fee: string;
-    amount: string;
-    vendorField: string;
+    recipientAddress: string;
+    gasPrice: string;
+    value: string;
+};
+
+export type EthViewParameters = {
+    from: string;
+    to: string;
+    data: string;
+};
+
+export type ContractData = {
+    abi: Abi;
+    name: string;
+    contractId: string;
+    transactions: { functionName: string; args: any[]; amount?: number }[];
+    views: { functionName: string; args: any[] }[];
+};
+
+export type ArgsAndFlags = {
+    args: string[];
+    flags: Record<string, string>;
 };
