@@ -1,4 +1,5 @@
-import { encodeFunctionData, keccak256, toHex } from "viem";
+import { encodeFunctionData } from "viem";
+import { SigningKey, hashMessage } from "ethers";
 import { getApplication, makeApplication } from "../boot.js";
 
 import { EvmCallBuilder } from "@mainsail/crypto-transaction-evm-call";
@@ -179,20 +180,17 @@ const generateTransactions = async (mnemonic: string, defaultSecondMnemonic?: st
 const generateMessageSign = async (mnemonic: string) => {
     const app = getApplication();
 
-    const { privateKeyFactory, publicKeyFactory, signatureFactory } = makeIdentityFactories(app);
+    const { privateKeyFactory, publicKeyFactory } = makeIdentityFactories(app);
 
     const message = "Hello, world!";
     const privateKey = await privateKeyFactory.fromMnemonic(mnemonic);
     const publicKey = await publicKeyFactory.fromMnemonic(mnemonic);
-    const signature = await signatureFactory.signRecoverable(
-        Buffer.from(keccak256(toHex(message)).slice(2), "hex"),
-        Buffer.from(privateKey, "hex"),
-    );
+    const signature = new SigningKey(`0x${privateKey}`).sign(hashMessage(message))
 
     await writeFixtureToFile("message-sign.json", {
         message,
         publicKey,
-        signature: signature.r + signature.s + signature.v.toString(16).padStart(2, "0"),
+        signature: signature.serialized
     });
 };
 
