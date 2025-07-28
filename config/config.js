@@ -12,8 +12,8 @@ const config = {
     senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     senderSecondPassphrase: "", // REPLACE senderSecondPassphrase WITH THE SECOND PASSPHRASE OF YOUR WALLET if you have one
     peer: {
-        apiTxPoolUrl: "https://dwallets-evm.mainsailhq.com/tx",
-        apiEvmUrl: "https://dwallets-evm.mainsailhq.com/evm",
+        apiTxPoolUrl: "https://testnet.mainsailhq.com/tx",
+        apiEvmUrl: "https://testnet.mainsailhq.com/rpc",
     },
     gasPrice: "5000000000",
     transfer: {
