@@ -13,7 +13,6 @@ To resolve it, make sure `python` is available on your system. One way to easily
 ```bash
 git clone https://github.com/ArkEcosystem/mainsail-tx-tester.git
 cd mainsail-tx-tester
-git checkout evm
 pnpm i
 pnpm run build
 ```
