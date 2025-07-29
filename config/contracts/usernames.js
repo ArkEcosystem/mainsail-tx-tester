@@ -31,7 +31,7 @@ export const usernames = {
         },
         {
             functionName: "getUsername",
-            args: ["0x8233F6Df6449D7655f4643D2E752DC8D2283fAd5"],
+            args: ["0x9f99156fCfD4fBb2EB547c479B2f59F2ABaA871a"],
         },
         {
             functionName: "isUsernameRegistered",
@@ -43,7 +43,7 @@ export const usernames = {
         },
         {
             functionName: "getUsernames",
-            args: [["0x535B3D7A252fa034Ed71F0C53ec0C6F784cB64E1"]],
+            args: [["0x9f99156fCfD4fBb2EB547c479B2f59F2ABaA871a"]],
         },
     ],
 };
