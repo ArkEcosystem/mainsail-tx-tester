@@ -9,7 +9,7 @@ import { revert } from "./contracts/revert.js";
 import { tokenTransfer } from "./contracts/tokentransfer.js";
 
 const config = {
-    senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
+    senderPassphrase: "qaa", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     senderSecondPassphrase: "", // REPLACE senderSecondPassphrase WITH THE SECOND PASSPHRASE OF YOUR WALLET if you have one
     peer: {
         apiTxPoolUrl: "https://testnet.mainsailhq.com/tx",
