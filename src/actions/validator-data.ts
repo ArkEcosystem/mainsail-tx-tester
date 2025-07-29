@@ -9,6 +9,9 @@ const main = async () => {
     const app = await makeApplication(loadConfig());
 
     const { consensusPrivateKeyFactory, consensusPublicKeyFactory } = makeIdentityFactories(app);
+    
+    console.log("Mnemonic: ", mnemonic);
+    console.log();
 
     console.log("Validator Public Key: ", await consensusPublicKeyFactory.fromMnemonic(mnemonic));
     console.log("Validator Private Key: ", await consensusPrivateKeyFactory.fromMnemonic(mnemonic));
