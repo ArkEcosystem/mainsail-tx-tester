@@ -13,10 +13,6 @@ export const usernames = {
             functionName: "resignUsername",
             args: [],
         },
-        {
-            functionName: "vote",
-            args: ["0x8233F6Df6449D7655f4643D2E752DC8D2283fAd5"],
-        },
 
         // Only for Mainsail internals
         // {
