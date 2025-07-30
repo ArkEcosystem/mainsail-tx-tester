@@ -9,62 +9,62 @@ importers:
   .:
     dependencies:
       '@mainsail/container':
-        specifier: 0.0.1-rc.1
-        version: 0.0.1-rc.1
+        specifier: 0.0.1-rc.2
+        version: 0.0.1-rc.2
       '@mainsail/contracts':
-        specifier: 0.0.1-rc.1
-        version: 0.0.1-rc.1
+        specifier: 0.0.1-rc.2
+        version: 0.0.1-rc.2
       '@mainsail/core':
-        specifier: 0.0.1-rc.1
-        version: 0.0.1-rc.1(better-sqlite3@11.8.1)(encoding@0.1.13)(pm2@5.4.3)(reflect-metadata@0.1.14)
+        specifier: 0.0.1-rc.2
+        version: 0.0.1-rc.2(better-sqlite3@11.8.1)(encoding@0.1.13)(pm2@5.4.3)(reflect-metadata@0.1.14)
       '@mainsail/crypto-address-keccak256':
-        specifier: 0.0.1-rc.1
-        version: 0.0.1-rc.1
+        specifier: 0.0.1-rc.2
+        version: 0.0.1-rc.2
       '@mainsail/crypto-config':
-        specifier: 0.0.1-rc.1
-        version: 0.0.1-rc.1
+        specifier: 0.0.1-rc.2
+        version: 0.0.1-rc.2
       '@mainsail/crypto-consensus-bls12-381':
-        specifier: 0.0.1-rc.1
-        version: 0.0.1-rc.1(encoding@0.1.13)
+        specifier: 0.0.1-rc.2
+        version: 0.0.1-rc.2(encoding@0.1.13)
       '@mainsail/crypto-hash-bcrypto':
-        specifier: 0.0.1-rc.1
-        version: 0.0.1-rc.1
+        specifier: 0.0.1-rc.2
+        version: 0.0.1-rc.2
       '@mainsail/crypto-key-pair-ecdsa':
-        specifier: 0.0.1-rc.1
-        version: 0.0.1-rc.1
+        specifier: 0.0.1-rc.2
+        version: 0.0.1-rc.2
       '@mainsail/crypto-signature-ecdsa':
-        specifier: 0.0.1-rc.1
-        version: 0.0.1-rc.1
+        specifier: 0.0.1-rc.2
+        version: 0.0.1-rc.2
       '@mainsail/crypto-transaction':
-        specifier: 0.0.1-rc.1
-        version: 0.0.1-rc.1
+        specifier: 0.0.1-rc.2
+        version: 0.0.1-rc.2
       '@mainsail/crypto-transaction-evm-call':
-        specifier: 0.0.1-rc.1
-        version: 0.0.1-rc.1
+        specifier: 0.0.1-rc.2
+        version: 0.0.1-rc.2
       '@mainsail/crypto-validation':
-        specifier: 0.0.1-rc.1
-        version: 0.0.1-rc.1
+        specifier: 0.0.1-rc.2
+        version: 0.0.1-rc.2
       '@mainsail/crypto-wif':
-        specifier: 0.0.1-rc.1
-        version: 0.0.1-rc.1
+        specifier: 0.0.1-rc.2
+        version: 0.0.1-rc.2
       '@mainsail/evm-contracts':
-        specifier: 0.0.1-rc.1
-        version: 0.0.1-rc.1
+        specifier: 0.0.1-rc.2
+        version: 0.0.1-rc.2
       '@mainsail/kernel':
-        specifier: 0.0.1-rc.1
-        version: 0.0.1-rc.1
+        specifier: 0.0.1-rc.2
+        version: 0.0.1-rc.2
       '@mainsail/serializer':
-        specifier: 0.0.1-rc.1
-        version: 0.0.1-rc.1
+        specifier: 0.0.1-rc.2
+        version: 0.0.1-rc.2
       '@mainsail/transactions':
-        specifier: 0.0.1-rc.1
-        version: 0.0.1-rc.1
+        specifier: 0.0.1-rc.2
+        version: 0.0.1-rc.2
       '@mainsail/utils':
-        specifier: 0.0.1-rc.1
-        version: 0.0.1-rc.1
+        specifier: 0.0.1-rc.2
+        version: 0.0.1-rc.2
       '@mainsail/validation':
-        specifier: 0.0.1-rc.1
-        version: 0.0.1-rc.1
+        specifier: 0.0.1-rc.2
+        version: 0.0.1-rc.2
       bip39:
         specifier: 3.1.0
         version: 3.1.0
@@ -75,8 +75,8 @@ importers:
         specifier: ^9.0.1
         version: 9.1.0
       mainsail-network-config:
-        specifier: https://github.com/ArkEcosystem/mainsail-network-config#main
-        version: mainsail-network-config#main@https://codeload.github.com/ArkEcosystem/mainsail-network-config/tar.gz/0a6c43e5cdfbe293e7f612bbc62ea893a5c0b6ef
+        specifier: https://github.com/ArkEcosystem/mainsail-network-config#7479c6d1a3c9dea62a510a6d74ed4df28eb3e08a
+        version: mainsail-network-config#7479c6d1a3c9dea62a510a6d74ed4df28eb3e08a@https://codeload.github.com/ArkEcosystem/mainsail-network-config/tar.gz/7479c6d1a3c9dea62a510a6d74ed4df28eb3e08a
       reflect-metadata:
         specifier: ^0.1.13
         version: 0.1.14
@@ -411,271 +411,271 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@mainsail/api-common@0.0.1-rc.1':
-    resolution: {integrity: sha512-MMekVZtLBykaZZoxDFI/7IfkIkkC6L+nqESev+CdBOJPqicsT0JrsZKjI7QDTEE/EDUHk/ApdmeIpDSL5e8rAA==}
+  '@mainsail/api-common@0.0.1-rc.2':
+    resolution: {integrity: sha512-9O2ILU0hkpCgMfuWRgkjJc+4esqsCFtSi/ZUsOU9Aq13acwkwby9xcTXsCzD7mMhQvXbc0SmHIlm6dIbqR/RvA==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/api-database@0.0.1-rc.1':
-    resolution: {integrity: sha512-I4WiMZYP9bB5oGioyiz6IUMT7FncDcrIpBXfGAHlp+cP+RNcEr1OC7w3yy8K0Ta6lU3WsdFJQdNOYOFi8BC0KQ==}
+  '@mainsail/api-database@0.0.1-rc.2':
+    resolution: {integrity: sha512-WjwKUNt8ttMkxBOz0tcXtXOPUOshCRk/+LdQ4cGYfGVvrSYhGH+BX/Ddd2gbm47z8FX/eOEsW2L0d2hGBZSwhA==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/api-development@0.0.1-rc.1':
-    resolution: {integrity: sha512-EuREyiDqYXbetAlPU0qV8z21xoO5uBOXeCWBqVyNVjQc83llgVls3pNRf9oSmEO3VNp1XujQZZMt+8i5PMSJTQ==}
+  '@mainsail/api-development@0.0.1-rc.2':
+    resolution: {integrity: sha512-8o2Vipc0htL4YszDBtEmENV5I0zvak1cPdnJbMBU7LSyddfEo7/2or45H4o+BsAMknbUIhi4WPXbko4BwXpIGQ==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/api-evm@0.0.1-rc.1':
-    resolution: {integrity: sha512-901uh3ZcCol6Wf96arW+lI+nXvhlgdl0RwVsNX8MQAHFeeygC8w5X61jydoNUljVyMvnAAclCPa+SoF3Awkb8w==}
+  '@mainsail/api-evm@0.0.1-rc.2':
+    resolution: {integrity: sha512-ydwNYObWRRfKVz8y0RyYDFqi0kEKy1tUIEfoDFOqn1itpKuwHlrZjYArq9Cvk5oNwJvHAFywqjBmuqWC1WY/0Q==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/api-http@0.0.1-rc.1':
-    resolution: {integrity: sha512-WWxfQrnxw8Z2oAPM9uysGzbQgOakZ3Fdm9LWLzYKOMvocWtTyIrErZHbFGEx7mSBX5cM9nJMDzz2xizHAHWIGg==}
+  '@mainsail/api-http@0.0.1-rc.2':
+    resolution: {integrity: sha512-gzh3fEECOokkm1j0NV6tFPpOD4bOCnHa21lsu0aZ0wBCMDxxhQ1q6Y4NAHu5uLrDISL1AXzUU33lyqchlxNrug==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/api-sync@0.0.1-rc.1':
-    resolution: {integrity: sha512-WOWUyQX5sWEXpOmnw+fHYn8FVB2ldy/z+Z38gCnRBosTC96E0h57BektEHKYomz+fgylsSrg2q/Uj77GpSf0uA==}
+  '@mainsail/api-sync@0.0.1-rc.2':
+    resolution: {integrity: sha512-Z298fSguhsDoz4CXGbVsNCL7/DKTGioy1KYEMM3BT8A1Y03Ek6FokW/uSQ9QSROZGhVtXvCDzoeqDXqbUGwTTQ==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/api-transaction-pool@0.0.1-rc.1':
-    resolution: {integrity: sha512-cpfUuZl4cxPKqHXBgbCt65J4PBxh3+BuMfdvbqavRfFA9Go0o+5M6Y2E55+zsfbKl+6gzICvPgKHm4W7qIJpGg==}
+  '@mainsail/api-transaction-pool@0.0.1-rc.2':
+    resolution: {integrity: sha512-Jrxk4eQ6jA87//vdsA476lBnJmVtIW02ujiUmhqZZ7B8HPHjtq+KIAsLbCJoIu2jt4HDQddjq7yJ2C09BR0oyg==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/blockchain-utils@0.0.1-rc.1':
-    resolution: {integrity: sha512-QGJARH3OiYXXqdgtU+bsD0p/xo/XZF/tlhiFVUodrqXwhNaErMBW6KXLMgoiBvxF8s0LhaebDDC6m6/+VDbDcQ==}
+  '@mainsail/blockchain-utils@0.0.1-rc.2':
+    resolution: {integrity: sha512-VMUtdp/ioZh9bxDGeuXO3LGa9VJZwYOEe6bx+qTcaMcI3xKdeaZeJdK8u75zdP6Uul/Sk5aqjFgl9vH/2jI6lA==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/bootstrap@0.0.1-rc.1':
-    resolution: {integrity: sha512-8b2o8EVrUW39E86RUj7GYCbswzWOKYN6XYC8iUZkda7Yw9WIorivz3D2fjEVXWbgOO14m3bJ8e0V4CSJuPEOUw==}
+  '@mainsail/bootstrap@0.0.1-rc.2':
+    resolution: {integrity: sha512-NKY2Ayn0CMXGJrEFsjYpjaN1L+Bi32b5XfEbQLSUD+P5cmz6VaqTQLEqoYf9FHuFyZUc9c3s4zWlQFoW9v5jfQ==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/cli@0.0.1-rc.1':
-    resolution: {integrity: sha512-c9lvBiORuC66R9YGl3lRqCEY2Lz2D10rp+XsGilJprMqYvjX+00eXzSgGYrnvTZZr13BE1FYNR+6nlSUMJouYg==}
+  '@mainsail/cli@0.0.1-rc.2':
+    resolution: {integrity: sha512-GMi+D/SeCUMj0YfKCWX5qYnD5hZfRpe8itD2ViOfFNZoGG55JYQPq9BgsCxP4ex4/N9R+C9Y8E6JMfVENvjdeA==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/configuration-generator@0.0.1-rc.1':
-    resolution: {integrity: sha512-An4hpaKNmLcXGGctso+7cYnlfiozZRBLteaxT8SoUHwOimKBkcNlLh1hRr6dVTqJVaCGY7c/EauaXmCOO1o6Ow==}
+  '@mainsail/configuration-generator@0.0.1-rc.2':
+    resolution: {integrity: sha512-fyfCSglOyNA008XSimFhobM4ddABsnTB31wASB/9iE40BEWP7YvdHlDPo88hVqlEpdtOA/kB06sYRbG6yaUG8Q==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/consensus-storage@0.0.1-rc.1':
-    resolution: {integrity: sha512-mJnNiodcWq5Yf6DUFA1DCp0ilezpFNZzi8/T8QckPox8tqvnGK0DUY2JBEu1YB9R0pNR5+tRpE0+ghJK1xiTLQ==}
+  '@mainsail/consensus-storage@0.0.1-rc.2':
+    resolution: {integrity: sha512-WdQzAHOxDnQLLU26T7OmF0ykmr3QlMclwGaDG4VeY+eWBonyUTNkTc0JLyn4GeyroXB268khLmI169pIA8ning==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/consensus@0.0.1-rc.1':
-    resolution: {integrity: sha512-wwHeqdexJZxdcEqNCBu+7kcqQdpszmqG/3MbND3rkhwZq4fKFz5yQPo5u3/eK4ohHVugJbWXFdknHwYeuttKNQ==}
+  '@mainsail/consensus@0.0.1-rc.2':
+    resolution: {integrity: sha512-LvAGs1ZkRZLu5Obge8GKtfJeh2tFBM344z4DmNP0Q2A5ER/BXubXR1L1g9uKk7sGvCpNAHXrifekxfbWYQ2+pg==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/container@0.0.1-rc.1':
-    resolution: {integrity: sha512-F8JQBg3tERzFwia+VoYF8VZpdUWf+Ht/9rj/FusdLv5Ap353yL5sz2UUE//dMtZqIur1Dl+sz3/qh3hWptK7dA==}
+  '@mainsail/container@0.0.1-rc.2':
+    resolution: {integrity: sha512-wHsublJdoiaWQUvCCe3jo9KCCmFYnu3vxegPF27CkJUHrov/wnDLcfHql5TdjzWodVVGoMv7zUJEdL/yKgM0RQ==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/contracts@0.0.1-rc.1':
-    resolution: {integrity: sha512-cQ089j4Qt40mviN0coKlb+LraKW35OzNi90J/SAgeP0P3Th7jIqzGcESgMrdWNZ3UvD2c2UjGA7RglSCBDWDyw==}
+  '@mainsail/contracts@0.0.1-rc.2':
+    resolution: {integrity: sha512-kmacYDz5xm1A9md392jOlmhl5HE0cacyIHKFx2/FHBhV4sKgyHm2fxsbcWJezbrtP69CwI3iKDuv6QHhMUZEaA==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/core@0.0.1-rc.1':
-    resolution: {integrity: sha512-L3UrmgallWYnSDxMLOXuktCWPA2F9VgqVzIQyo5+g4KWUofQLzZh6CI3fl9tBoasWqTcmHiUIQ8SabfUMJKChg==}
+  '@mainsail/core@0.0.1-rc.2':
+    resolution: {integrity: sha512-veqQf34zwEsUGnnDAEDS1oHnxPzmJvqMiUxo6o7/fJyuw/rBtFkoXPwUoy6l/n4gzh5qTpg0kWbmLvykrJPhgA==}
     engines: {node: '>=20.x'}
     hasBin: true
     peerDependencies:
       pm2: ^6.0.8
 
-  '@mainsail/crypto-address-base58@0.0.1-rc.1':
-    resolution: {integrity: sha512-iW7u5nn121gCQaClB5MpbxZeSneVP+UdlDQ+mAJ9o7LZ+Q1AjgLGh5ZNXqEGqUY2ojm8qckTL4yXEzsJjOrnwA==}
+  '@mainsail/crypto-address-base58@0.0.1-rc.2':
+    resolution: {integrity: sha512-LbC7S6QQ9V8hYSqC8dPByiqlkTiXOngsEM5oli0VQbm34BW+f0Ox3E6RkMZSeROxslt0rIgRKtX9Wqae++ZteQ==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/crypto-address-keccak256@0.0.1-rc.1':
-    resolution: {integrity: sha512-AQl4y8CQic3RShpjxyZroLxOmC08PpKz8TK2UAp3yTgMTMzQexZv4yzViUkoXg25/z8elb8j8vIHzDdFHlm8nA==}
+  '@mainsail/crypto-address-keccak256@0.0.1-rc.2':
+    resolution: {integrity: sha512-oVgijWUPMqccKOa7eIlX4r5yqqri/UWTEiJe+cXXbMnt3iBIqRxOXdLjHZMb19+MgDtUP888ylO7DgpFblokJQ==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/crypto-block@0.0.1-rc.1':
-    resolution: {integrity: sha512-IkKtON/Gcp54nQ8nXhZiNJA0ZfUoPCg7iQlzN5j9Uwv5xyYpHmiGAFbgTOVcK6naI9RZDqZFYVbELBV+gfRsug==}
+  '@mainsail/crypto-block@0.0.1-rc.2':
+    resolution: {integrity: sha512-NFTSOc2CmUBAaiV25J/Q9HnOVR6ro2dh4PJUSqVvmAV6pMHJKDxOSM+nHEwN9MA/nfRfrFwhQSiigf1NdrHZmQ==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/crypto-commit@0.0.1-rc.1':
-    resolution: {integrity: sha512-RBazG6HWLZNGcKkXdSJu1o5VE/8txQWQPASBrzsKK91+lAnjW/ROPnAzutcogab2QPbwJ0esT9999S2IVcPKrQ==}
+  '@mainsail/crypto-commit@0.0.1-rc.2':
+    resolution: {integrity: sha512-Uy8nz0L+bOTkR2+84m5+mIQD4Lvk/au8H/8evqcxgq9c910Nvu6kAhuv6Qk1pnJeVKz4BqZBn4osMInQa2CY7w==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/crypto-config@0.0.1-rc.1':
-    resolution: {integrity: sha512-PkAOEAS6R9cCssV5+DMHn7AZkbffx8b2PEO1Qkhjqz30lw7b9JjdtwHZeKyJJp2At18BfNwBAxBX17boqcLOoA==}
+  '@mainsail/crypto-config@0.0.1-rc.2':
+    resolution: {integrity: sha512-lxk7+Y4rDonRVz/iEP8quARfMIw386CNq3HNwcjpCqv55ET/jzYUH/hMAQN46+8KTyhhTHwg5OmZ4K5iuNaAkw==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/crypto-consensus-bls12-381@0.0.1-rc.1':
-    resolution: {integrity: sha512-L3xTy7G/JPBKDQVUjLvP99wlJeL5jcfwcdp6CoHKq4oYiGLN1oxXUCSsSwOGEXYdnDHvOW8OfxEcvZDEkKGOPw==}
+  '@mainsail/crypto-consensus-bls12-381@0.0.1-rc.2':
+    resolution: {integrity: sha512-tRGZDC0sqHuNzs/C0vHfQUMTYLrPHuIKUwmtxc1mX9/81nV5vzQE+raee4R9ckFCnFD1Acj6nTEi1+B1Skq5sA==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/crypto-hash-bcrypto@0.0.1-rc.1':
-    resolution: {integrity: sha512-Q3G+CJB4fF3e/ZI7px0wj+RKlJFiaT13cGtt7XsXIyckVzvlZGgM8IuistGUQQVZlaVGTrez0U98zCkfbSPYow==}
+  '@mainsail/crypto-hash-bcrypto@0.0.1-rc.2':
+    resolution: {integrity: sha512-XIP+X30lYwrl4RK+VNEiLKqLiWr8uJ0auplQRaw9zQTI+4dJHSGnVhk7gpo6fwePyTAeTu9dfdFAN2rMs72qrw==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/crypto-key-pair-bls12-381@0.0.1-rc.1':
-    resolution: {integrity: sha512-D9jgfb2r2CW8TfdHCCFlAPQjtBkdwn6LpEN7O8rSbkHMoNLE3msza5YkIW6XTBkXybvdbqzUgBLDXA1yBCPAxw==}
+  '@mainsail/crypto-key-pair-bls12-381@0.0.1-rc.2':
+    resolution: {integrity: sha512-zC6kv+kuVWskLagQZeELi0iPfB9MBccXLxuN0rvRHLvPKaCJ5HiAZVvE6GvowHgm/s5Nn9yfWrG51yES45vWWQ==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/crypto-key-pair-ecdsa@0.0.1-rc.1':
-    resolution: {integrity: sha512-a9biAEQ8tZOKTIIGz6D57hjVhO8XHmr/zbLKVzajuTHEFE6VkbegXBQA14oYVnZgzm0+FF45OTZZ4nxgwm2zqg==}
+  '@mainsail/crypto-key-pair-ecdsa@0.0.1-rc.2':
+    resolution: {integrity: sha512-3Wg2KJBAVQYgT8xBwRNhQfgZXn4rmU2bjxNE/CRwW6pNXWrXH9fkJcwaENrT7DsfIM7CuaP1WlmzaamSBIu80g==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/crypto-key-pair-schnorr@0.0.1-rc.1':
-    resolution: {integrity: sha512-NE7hJxOYYuVTr77qcS0WgJBhw3p2Ap4XLvgyD7S/FVZdsPQmIYbKvJUIDr5VGLMe7onIZyv/3E6dJf+Lx+MUEA==}
+  '@mainsail/crypto-key-pair-schnorr@0.0.1-rc.2':
+    resolution: {integrity: sha512-G1rMH40f59WLawEYvD/1k41cuafX0lOSzMUYkdJFs+kj98BGFKBB/4F95ZKHI2cPDFJ8uRyXmGIeuYiQbBObhw==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/crypto-messages@0.0.1-rc.1':
-    resolution: {integrity: sha512-aVAA7D8j2kCD9/CKjLWtg4RBv6pwtmJ3XH9txMx7g+sEeQLS8w5Zn5hZ4ZVUVGG0xhDFry/J28XE7mFnwGf5Lg==}
+  '@mainsail/crypto-messages@0.0.1-rc.2':
+    resolution: {integrity: sha512-hNp6FHnOR1cfQZP0hbyfaOSoHKUXUbCxJpYQRINA73e/0siPrUyext/lK3Xj9zZHVXhOrO1k5+YPUhbZ+cXjdw==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/crypto-signature-bls12-381@0.0.1-rc.1':
-    resolution: {integrity: sha512-q+dNOE7yM02oBpBW2/y7xbTHPiJH5cb5ditMAz7Djpz0cCt2KisgjBujjyvCbLEkIl6vkX7mdeY1mxM1kHl1Og==}
+  '@mainsail/crypto-signature-bls12-381@0.0.1-rc.2':
+    resolution: {integrity: sha512-3SBFzuaeMs3wJQGSEAQZHzZUSJn/I8mmfGVnm3ZCWwswV1G0C22MROsY7yD+aBtdjbpvA4NZ5RLXhR99wdRSbg==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/crypto-signature-ecdsa@0.0.1-rc.1':
-    resolution: {integrity: sha512-uscxDxQeIbWSPiAqTS4FlXbmZeeXCp8gfs+2LMWo6jNPvAz4QZwIWhRpRXBV2LUExN04cbtVjH/cIyFr3pahuw==}
+  '@mainsail/crypto-signature-ecdsa@0.0.1-rc.2':
+    resolution: {integrity: sha512-GT6Gt2S45sUURBUJRx7GFkwiL+5j0BHtnLWlfnjheonOi6y0+iNRJ/BpeCHIHwHsJ0E7pDXw/PimvSr76n1OKQ==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/crypto-signature-schnorr@0.0.1-rc.1':
-    resolution: {integrity: sha512-SyLxN6t7LyMgyrwY32U3Q8mHyDcSgtoQ6nONP3qaWD5CL16+jsnZZEAEgM7zzJo8XQq4AesK7WDdUrP3FuW09g==}
+  '@mainsail/crypto-signature-schnorr@0.0.1-rc.2':
+    resolution: {integrity: sha512-h4eYQ9JN0D2YlfJzf3IZUzz5E8hT85T8o7YcsRjdXHbE4JBYRnzVENbL/jkA1SUprlgAF1hyURtQMJks39U/uA==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/crypto-transaction-evm-call@0.0.1-rc.1':
-    resolution: {integrity: sha512-JkVB31h0SkKegFKheaPcnEIf0eEjeju0TxmpFYAE5MvNcfnHd7oIjxJLFGMmicY6GQ68xcR1/5XwgSkEs1kFgA==}
+  '@mainsail/crypto-transaction-evm-call@0.0.1-rc.2':
+    resolution: {integrity: sha512-coTEGw1TozkjewGtooxs0TYYRRw6an7i3AF3SNfIVwf6k9QzBKg7DRnlExd7ncK+qZoIVzl/PMH/WsEpW8FZGw==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/crypto-transaction@0.0.1-rc.1':
-    resolution: {integrity: sha512-0GOIb/TYBBAxkrUp/TDzC7wWRy6o+VmEQnJvVx6aJCb4bkVmUpihn++ETwE5SR1J7+kcGNBvUdbNK+clGpYyjA==}
+  '@mainsail/crypto-transaction@0.0.1-rc.2':
+    resolution: {integrity: sha512-HEkokZNSWl7C2cFr+oyqpLSm5NKxh8uHtxYLbnG8dAiLwt+iSbvoVR6IEvtBAKRSbE2AAVMFsg5DF0WlUSQ0WA==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/crypto-validation@0.0.1-rc.1':
-    resolution: {integrity: sha512-8v0/oFSTOsHoVAm0EQ8iM8bmj2wSv17Ekcqdef8oGfueZs3fL6rJt5vARm1t0dxw2u7t2Yp1GoqKC+jLhkfv1Q==}
+  '@mainsail/crypto-validation@0.0.1-rc.2':
+    resolution: {integrity: sha512-BJoNlxUAZ91h/gkKL08bQIeHTmJEtIVTkHK/NLBdO7HkNheHnON8mUHxov5O6wPxzSSfSPJY3QEd/cQ9BAS3wg==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/crypto-wif@0.0.1-rc.1':
-    resolution: {integrity: sha512-SB/MEot+iIl4jM7vUar3qB6zylouTtxjGlHrXpxepilTT8n3jf8F8XdqdAp2CC74kHY9maestJyvCj0+QjXJKw==}
+  '@mainsail/crypto-wif@0.0.1-rc.2':
+    resolution: {integrity: sha512-9uaCcNxpHxI4W7SwB7l/6W2LJNEMoC4nPsm6mDfCtcuSOnGoCyQByF1JtKd5eiB2Fr+2bhLySYR1oAvX8ZpSGg==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/crypto-worker@0.0.1-rc.1':
-    resolution: {integrity: sha512-nHfAvBMcS+FPd1ozl09xQlOwgiveH4lLsLaBvz7X11GYnWQCJIOcrLIM28u1uW5zY2O04Y7MU826CAELfK8OBA==}
+  '@mainsail/crypto-worker@0.0.1-rc.2':
+    resolution: {integrity: sha512-UWZEFxCwa9rypmN77gvS6gQ4dgKXpcYElgw2lzKycduYqEiLK46Bixh1vIuSOb7x2cmLfUCH3M4d+Krbd09uNw==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/database@0.0.1-rc.1':
-    resolution: {integrity: sha512-yVXVeix6TvZ+Y4moLjXiNNzFZIbVHS4hxJQ+sHCDYN/CaxaB3NlrA1OTIRYpj1TcopTGVJsmwhvoD04Vocsi7A==}
+  '@mainsail/database@0.0.1-rc.2':
+    resolution: {integrity: sha512-g4vaAdivqHKDvzb8Efza9/QLkNUKARJyQwgyoR6Z7e4q22uE/XJfUKpd0vjPUJWc5CBkNoU9STxsgas0JrEEBw==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/evm-api-worker@0.0.1-rc.1':
-    resolution: {integrity: sha512-WDExXMJOJa16hTuL8ZqT6DMl/ESaFa4WcR/8PDNai2wN9pFarscI61eD+RkBcZWNkJrgSPs7WZ+HyjqcJ22ggA==}
+  '@mainsail/evm-api-worker@0.0.1-rc.2':
+    resolution: {integrity: sha512-GHIJBPA74lXF2Usszy1pwns5F6ZFHPsbOeeC7aFUhoPxew9HG3WRhRgIXa37QlI2VxA7cVs0EQWeul2KWbxT6w==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/evm-consensus@0.0.1-rc.1':
-    resolution: {integrity: sha512-HdgVIU5Nl385IMHv9B6RWqEfxk3BkYp+DPb/vVs7Af5DBrmD+so3i1IMcpalGrPMTAczVhtL231BMsAKX6ZMdw==}
+  '@mainsail/evm-consensus@0.0.1-rc.2':
+    resolution: {integrity: sha512-GNCuV6LutBbqyoAtXgpCEKB6l7OQblDYibUyhe+8e89d+jBK/NJ6+3WZiJvEflIk3y+ORUeWPKx8RJ8fLxm5Pg==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/evm-contracts@0.0.1-rc.1':
-    resolution: {integrity: sha512-Ni2v4RGKyM1FLBhD+iYO3h0eH7IoVfTmZT7V175sGL28AVnLHsV1PLghfdr8tkcSGdi2RRxNR5Gl4TxbRVKaKg==}
+  '@mainsail/evm-contracts@0.0.1-rc.2':
+    resolution: {integrity: sha512-/ST/txxLtV4Ux3HqvkGrLqgQ8lC6fEhh2W7VnPA5yi8UenUrhmA1ONiy2w7hYuKn3o+LVq95w6YhkRDr8rZNPw==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/evm-linux-arm64-gnu@0.0.1-rc.1':
-    resolution: {integrity: sha512-k0lUE2DjrV2U78C/joBN2R9qktAK5IxIQMPQcPkYHEmscns51V0Q8ENGD/ylBLQQrXxT7MQLmcXkBUofZfAzjw==}
+  '@mainsail/evm-linux-arm64-gnu@0.0.1-rc.2':
+    resolution: {integrity: sha512-c3JvlwT+qZDcr4redcIS/6dXV3r1uPIjKY509nUEdNODKRpZNJ9Qqi7qyczDHUAt6p0PHyiUgSkCaPk3hH4ugA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@mainsail/evm-linux-arm64-musl@0.0.1-rc.1':
-    resolution: {integrity: sha512-CChcARTgN3VNbn3IjtYYTZVLNOCuc8d7rAZbRHXg0AbwmY6Gg3pSlaxhg1Vxs8zRdE4luWjs/oi1PUN+tEJy3Q==}
+  '@mainsail/evm-linux-arm64-musl@0.0.1-rc.2':
+    resolution: {integrity: sha512-KBgfcMcCml6HvRs0ADJWeOgpvua0/efN7leKZXwxWx2nRwDmfqcut6KZtVD6VIezi6sOWhX0vMHeBar8C60FOw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@mainsail/evm-linux-x64-gnu@0.0.1-rc.1':
-    resolution: {integrity: sha512-SJ9TCujf3ljCfHKN3tQ9EFBKD2pMFChaVfzKHgYtzbQTlGAKXoepu260AxZML12zPgaTGy0L0/GQKRWmoncl/A==}
+  '@mainsail/evm-linux-x64-gnu@0.0.1-rc.2':
+    resolution: {integrity: sha512-nfyfCmVOojKDgGBFk56VDRa3c15iwkOxO7bdDjNY67ct6NisjN7jHBtY7vNJfW90DkuU4VPSUIa26+5ZJxQ+sA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@mainsail/evm-linux-x64-musl@0.0.1-rc.1':
-    resolution: {integrity: sha512-S73KHzIOfN1qrnC89bf6qVZIPUi5zor7ClQ+1/AEyDusqc1pZ4nBPBS4xSrpBrPHs73DMPlJjRfWZdEf0I81lw==}
+  '@mainsail/evm-linux-x64-musl@0.0.1-rc.2':
+    resolution: {integrity: sha512-XPIqwvhRUHmSB5AN/cyQX26X9jwCAtTdv5jP4B2c2UyYERx4YEr1A0LwvIlUiGUm2JBMjhN7Q8lv9l4lyf2BSw==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@mainsail/evm-service@0.0.1-rc.1':
-    resolution: {integrity: sha512-aDXDNA2oKyQ1WKRGOpp/bKoz6RzabyJcCakKJgDF/yYKlGimnduGpQgz811gC3KxqG31CwHLKbJWD0znXtwQ2A==}
+  '@mainsail/evm-service@0.0.1-rc.2':
+    resolution: {integrity: sha512-uLRH1cfF9oUHdOT0p/gZtZaD0nIzLp/mlkySUCB/7mokvy7oCn99q8XdlYl3BD7MaY81LPCz21O6aSObhrGeSQ==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/evm-state@0.0.1-rc.1':
-    resolution: {integrity: sha512-DiNwaE/JqD9qMfsaG0Rtn3kqHgl3YgRd1K3mRmbOZA+eMATwjFJ+OXcb+TzbxTF9hno/NJ1C9yX7xOI5htZobg==}
+  '@mainsail/evm-state@0.0.1-rc.2':
+    resolution: {integrity: sha512-TnKellhoaNiCWC+00CTmDmME3jNqYP8Y5s5sVTgOeI6Ii/xsgSAW3CnYdoc1VAuSYxGXWy8cmqg1nAFcLV+P3Q==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/evm@0.0.1-rc.1':
-    resolution: {integrity: sha512-UUJ+JHh72LX6p53SlXRNgoNpKH/CNnvlUp00aDcL8Qde8MOPO4rJTca/2yvkvtNQ3LDhlUbiUi0kvcqJZ2liXg==}
+  '@mainsail/evm@0.0.1-rc.2':
+    resolution: {integrity: sha512-I3GrhjxoXB5ESkH/l7Ltc0ID3QACcaxO8fApMreisug0qiiR5EgRqfUocgB3e2Xay9PSs3u5ql4EY0Va8Vzi6g==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/kernel@0.0.1-rc.1':
-    resolution: {integrity: sha512-6Zca0OcMV+ZrOmhnvX+Z9nM/YOAQsjmoPvijKQ2bQPV81U0NhROP3NXUnENYgKXuVtakNAN8G1ECDAo5aFv/fQ==}
+  '@mainsail/kernel@0.0.1-rc.2':
+    resolution: {integrity: sha512-RH8ZMx0N+7PGTZSAJgLD8/Lhbz0vgKUfsEjuUJqMclwC/3JJ15zGo3CLZwnPY4BTziuGmj7karT9rIQRppcNcA==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/logger-pino@0.0.1-rc.1':
-    resolution: {integrity: sha512-ivAd/LHz2vIG9Ko1zThTdTty25YyHHqBUuvIEtSJ9tPOBxAwm3RfWCsyiuuKcJXbn1AH2R/UEHYX+5NBsPkUiQ==}
+  '@mainsail/logger-pino@0.0.1-rc.2':
+    resolution: {integrity: sha512-Yg9jdHrnKoiwj7+Ed7BlsSFHVxeo4VDpw61fElHOoloxVbonE/couoYOSTmZVVW8BCh3lMiidR6fxmS2AcrSXg==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/networking-dns@0.0.1-rc.1':
-    resolution: {integrity: sha512-x3Ntf8a0p4xwtCS3IdPkFgNr4H10NP1jMmZiMmpd3zpqOzVo0OeiYG8nDYQllNSsL0t5ebf3HJx9hU+B8SKRXw==}
+  '@mainsail/networking-dns@0.0.1-rc.2':
+    resolution: {integrity: sha512-0Aev/pli9xAyTv5TXDPBMusemYR9FUEWd4Cibjce88VjXIKcxNXRgwZPNPshhu3ww/TRidrbUJ45aAowmhn4mA==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/networking-ntp@0.0.1-rc.1':
-    resolution: {integrity: sha512-cdpkOdXrrM03iB4oYMby0wc0F/3gguxCgVnLKNPqAJXxgSloeM2s388M0vTJ7irHUssFK7THCllsZuFinZQaXg==}
+  '@mainsail/networking-ntp@0.0.1-rc.2':
+    resolution: {integrity: sha512-r+OaD2rJws9LrmwJ5mkc7kqb6KVGq3aZjr6cTca3jYt5NXC2Zoel062GXvJ/a4tBVy8iJw50Oe3ZTwIEkOHfWQ==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/p2p@0.0.1-rc.1':
-    resolution: {integrity: sha512-5TqwpeP/NesObcu4+YMqaf1re3jxi6Mi7YuBN11X+nXHCodHCtW6gnlVfiZwrkzHU7JqQ/ZYZwVIy33B8myfHg==}
+  '@mainsail/p2p@0.0.1-rc.2':
+    resolution: {integrity: sha512-85i580nJpkKWE2MwcKFyJ20xYsTQlvtSY7F9ohhVBf4WFXrDO26m3ry1rGbl+7aF5Oov3KH3YaZrlXaWMN1k8Q==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/processor@0.0.1-rc.1':
-    resolution: {integrity: sha512-ncyJs67HHpm6AQnausflryxwVW0Bg1yNUcpLFSIkhL5p1K4K2N814KrUnulldZLDmX4zvUO+j5sFKPV7DmdqoA==}
+  '@mainsail/processor@0.0.1-rc.2':
+    resolution: {integrity: sha512-amiSPPMVsoKA+eIEKiuZHFDzrF/BiXu8cvMmyI/3wUyqxdwA784we/FjtiQuMF7UEKsH+93RV2uR0Ev+MXOFHw==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/serializer@0.0.1-rc.1':
-    resolution: {integrity: sha512-W2RdWMkyrMGQMQukw2PVWoZlcR/QIt2J27NVrKHyzbJZWKOuMxUuCmJj4rywbLDvH4jGN6wj/gjkB7TD+5JEig==}
+  '@mainsail/serializer@0.0.1-rc.2':
+    resolution: {integrity: sha512-RyFej5ZfcOZjL7gBiMMrKaEUC/e8aIrkFnVEeKMwYGUdLDzI2PTWP3EysL2mtA4H3dJfWCZQl0Y1ErlpvyaoRg==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/snapshot-legacy-exporter@0.0.1-rc.1':
-    resolution: {integrity: sha512-S5EuDg6MJo6gzeLO//eCGRQi6UUn6O+SJ8Bc5Bl5SGPivxQxREntufAGXdW1h1vOdyNWoGmbScoi9kennOrjSw==}
+  '@mainsail/snapshot-legacy-exporter@0.0.1-rc.2':
+    resolution: {integrity: sha512-F1dE8Y1NRtcqVOVWzhaB1W7hOd2TPxosJApgSGhhYubp7d4VYxgDklu98mviPB0wqNxCEQEcFcOY9dTx7IL4mA==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/snapshot-legacy-importer@0.0.1-rc.1':
-    resolution: {integrity: sha512-6ANzgsOC8JZ7TLRsPunv2H6dt7pMTLWmAQMcFHV69eWMQmXf90xMOxEZ1oNTywCqROHPIOHHVxczppoBsKHM2w==}
+  '@mainsail/snapshot-legacy-importer@0.0.1-rc.2':
+    resolution: {integrity: sha512-5XIgTiIawX1FLF72odPKCOnMNBTsn2HRoBvX03AuoIPquTs1GRhVMsagjhzLZrdAcWqzk9qGk8Mk4t1w0k8AAw==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/state@0.0.1-rc.1':
-    resolution: {integrity: sha512-6p27yfTwaxmb8pi8h/iyHvkNWbu+ZFhcricN/kkym4XSJYsKwSdVyF0O9KjWO2MCtSScsD4Op+XJhgsnQNMKCw==}
+  '@mainsail/state@0.0.1-rc.2':
+    resolution: {integrity: sha512-rVrdS9uMHcKt2Pioh8H1DSQQZtX3oe1MgPaRVYdUqvqS8bSKUv5J4X81YIzjiDyS3D+ayMMm9+08H/GKsBQ8zw==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/transaction-pool-broadcaster@0.0.1-rc.1':
-    resolution: {integrity: sha512-fAjOn3psUMgrhQ+4ER+El2ogyCUhiDL/4m8lL8maRa6vNOU+4Ljc+dl9yqmfZzndyL7PtRQqoFr4ZFcJStxGnA==}
+  '@mainsail/transaction-pool-broadcaster@0.0.1-rc.2':
+    resolution: {integrity: sha512-9N8AlMZKWP+8Bdw1bXg6nicAXaKtMQKjE6UNEUK0SvY0yQsIR4nMjc2vtQbOS7z50PduiDm2zh/RLJ/vg6N0fg==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/transaction-pool-service@0.0.1-rc.1':
-    resolution: {integrity: sha512-LticXPJShiwoyAgHyMHGDKT5UtObRhsGmyypB4mfUbhkAVjezcfXJPGKzgekeeBrhfHFeZ+NYnJExfbV2OXY/g==}
+  '@mainsail/transaction-pool-service@0.0.1-rc.2':
+    resolution: {integrity: sha512-7im04y0BSEfSRs1WOvnCQKicWWI7+LbRxJEHNDnb5DJ/qqYxppeVHVIz4Tg5DNtMpzRxgs7M2++zPbpZerGxXQ==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/transaction-pool-worker@0.0.1-rc.1':
-    resolution: {integrity: sha512-VlJSvC+bLWKXYVZgZGWndCswCqutNb647HWkefIlNcvTQcgd84cZGYg6NehJ4pVd3uGrrVJzQ6Zo8wS21CxoeQ==}
+  '@mainsail/transaction-pool-worker@0.0.1-rc.2':
+    resolution: {integrity: sha512-IHYXAmTNfPZvSSsOlSyrJl7Atud4LEmC0icoTl/9d1Q5x7McpENTQFLPwFlIWJZE2RdvGWTnJWb42LdPgKk1kw==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/transactions@0.0.1-rc.1':
-    resolution: {integrity: sha512-4MBMFYoNF/fCr4rWXmgV+vxf6XVqIgA/Z3N4V7JEHYpZddBn3vnfTPA7qho2Ewa9OGuw8/MNqmhZNdWSJKIZCg==}
+  '@mainsail/transactions@0.0.1-rc.2':
+    resolution: {integrity: sha512-VzWBLFcfh9a62WfKcgayz2tL0fbSy67vZWGBYOqK8MBpJaMfbJbF7hRK/n9t4S9/lurRU6RQUXfX1ibX4OEuYw==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/utils@0.0.1-rc.1':
-    resolution: {integrity: sha512-lq3hqEM8nTpeoeXCsKTIiBdsFnKhAb0PvhO+qfxVayoB45uRO7OhOTm6oZCRnnFuEnUw+JXKOnmBVFaBpUueQw==}
+  '@mainsail/utils@0.0.1-rc.2':
+    resolution: {integrity: sha512-bIHlfyVqzmQ6grpNDlqDqSwsWYsD9h990TmNaDpQMmUuMe6UEPoJ+zPZV+3sLWg804Z0AajWwFBATAK4C+T0NQ==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/validation@0.0.1-rc.1':
-    resolution: {integrity: sha512-ROyrhVZNHMrnIvIZE1z2vRO55td9bVCHxNTdnGCTJ66b8VJU4sU/9HisP1m/bmIBWXJEsxjY7ESFapnbIHcHzg==}
+  '@mainsail/validation@0.0.1-rc.2':
+    resolution: {integrity: sha512-M/F+ZkbAt+ikeLl+j+YJX2dhGJ3JAI2n0MpvQZ7cYj4XknPFO+HQeQYGtHtnjV88k6ePPY3QkatXoLHDAvD90A==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/validator@0.0.1-rc.1':
-    resolution: {integrity: sha512-B1u9reWxvBNJSk0u5T5L6WbXJQP7xr0tiwOkrauNHTq4TUfMlFpXshphOoLLB3wCujH6ZH2qe2MhL7dpEYEpHQ==}
+  '@mainsail/validator@0.0.1-rc.2':
+    resolution: {integrity: sha512-n1Wr8WncL2684NqBK4+ORRf5RPGqCr6cYRbOq6eZMVQNCIVQ2U/dM3NxQEL8hYOFD44fC/cPipYHq33hj1eEIQ==}
     engines: {node: '>=20.x'}
 
-  '@mainsail/webhooks@0.0.1-rc.1':
-    resolution: {integrity: sha512-w5rsdSJ0i94a7cDBBBLEBZ7J0ZFfuhJ4IuCjg7jlOpJmddYEobXxy6T2f3YjKZwhxho+wq6e35F2jBugLRwisg==}
+  '@mainsail/webhooks@0.0.1-rc.2':
+    resolution: {integrity: sha512-WfJOCHT0xzxmTJtGJ8KxH+fW6TVV2wD1oyzWj3EkNNx40b/7ylvCibAP2H+uox1vpBDDhkUia3Tl7PtRuDcGIw==}
     engines: {node: '>=20.x'}
 
   '@msgpackr-extract/msgpackr-extract-darwin-arm64@3.0.3':
@@ -2589,8 +2589,8 @@ packages:
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
 
-  mainsail-network-config#main@https://codeload.github.com/ArkEcosystem/mainsail-network-config/tar.gz/0a6c43e5cdfbe293e7f612bbc62ea893a5c0b6ef:
-    resolution: {tarball: https://codeload.github.com/ArkEcosystem/mainsail-network-config/tar.gz/0a6c43e5cdfbe293e7f612bbc62ea893a5c0b6ef}
+  mainsail-network-config#7479c6d1a3c9dea62a510a6d74ed4df28eb3e08a@https://codeload.github.com/ArkEcosystem/mainsail-network-config/tar.gz/7479c6d1a3c9dea62a510a6d74ed4df28eb3e08a:
+    resolution: {tarball: https://codeload.github.com/ArkEcosystem/mainsail-network-config/tar.gz/7479c6d1a3c9dea62a510a6d74ed4df28eb3e08a}
     version: 0.0.0
 
   make-fetch-happen@9.1.0:
@@ -4386,16 +4386,16 @@ snapshots:
   '@lmdb/lmdb-win32-x64@3.2.6':
     optional: true
 
-  '@mainsail/api-common@0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)':
+  '@mainsail/api-common@0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)':
     dependencies:
       '@hapi/boom': 10.0.1
       '@hapi/hapi': 21.4.0
       '@hapi/hoek': 11.0.7
-      '@mainsail/api-database': 0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/api-database': 0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       ajv: 8.17.1
       joi: 17.13.3
       nanomatch: 1.2.13
@@ -4422,12 +4422,12 @@ snapshots:
       - typeorm-aurora-data-api-driver
       - utf-8-validate
 
-  '@mainsail/api-database@0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)':
+  '@mainsail/api-database@0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       dayjs: 1.11.13
       pg: 8.14.0
       typeorm: 0.3.21(better-sqlite3@11.8.1)(pg@8.14.0)(reflect-metadata@0.1.14)
@@ -4453,15 +4453,15 @@ snapshots:
       - typeorm-aurora-data-api-driver
       - utf-8-validate
 
-  '@mainsail/api-development@0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)':
+  '@mainsail/api-development@0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)':
     dependencies:
       '@hapi/boom': 10.0.1
       '@hapi/hapi': 21.4.0
-      '@mainsail/api-common': 0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/api-common': 0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       joi: 17.13.3
       pretty-ms: 9.2.0
       semver: 7.7.1
@@ -4487,15 +4487,15 @@ snapshots:
       - typeorm-aurora-data-api-driver
       - utf-8-validate
 
-  '@mainsail/api-evm@0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)':
+  '@mainsail/api-evm@0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)':
     dependencies:
       '@hapi/boom': 10.0.1
       '@hapi/hapi': 21.4.0
-      '@mainsail/api-common': 0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/api-common': 0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       ajv: 8.17.1
       dayjs: 1.11.13
       ethers: 6.13.5
@@ -4522,17 +4522,17 @@ snapshots:
       - typeorm-aurora-data-api-driver
       - utf-8-validate
 
-  '@mainsail/api-http@0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)':
+  '@mainsail/api-http@0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)':
     dependencies:
       '@hapi/boom': 10.0.1
       '@hapi/hapi': 21.4.0
-      '@mainsail/api-common': 0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
-      '@mainsail/api-database': 0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/evm-contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/api-common': 0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
+      '@mainsail/api-database': 0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/evm-contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       dayjs: 1.11.13
       joi: 17.13.3
     transitivePeerDependencies:
@@ -4557,15 +4557,15 @@ snapshots:
       - typeorm-aurora-data-api-driver
       - utf-8-validate
 
-  '@mainsail/api-sync@0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)':
+  '@mainsail/api-sync@0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)':
     dependencies:
-      '@mainsail/api-database': 0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/evm-consensus': 0.0.1-rc.1
-      '@mainsail/evm-contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/api-database': 0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/evm-consensus': 0.0.1-rc.2
+      '@mainsail/evm-contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       ethers: 6.13.5
       joi: 17.13.3
     transitivePeerDependencies:
@@ -4590,14 +4590,14 @@ snapshots:
       - typeorm-aurora-data-api-driver
       - utf-8-validate
 
-  '@mainsail/api-transaction-pool@0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)':
+  '@mainsail/api-transaction-pool@0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)':
     dependencies:
       '@hapi/boom': 10.0.1
       '@hapi/hapi': 21.4.0
-      '@mainsail/api-common': 0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
+      '@mainsail/api-common': 0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
       joi: 17.13.3
     transitivePeerDependencies:
       - '@google-cloud/spanner'
@@ -4621,33 +4621,33 @@ snapshots:
       - typeorm-aurora-data-api-driver
       - utf-8-validate
 
-  '@mainsail/blockchain-utils@0.0.1-rc.1':
+  '@mainsail/blockchain-utils@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/bootstrap@0.0.1-rc.1':
+  '@mainsail/bootstrap@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/cli@0.0.1-rc.1':
+  '@mainsail/cli@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       boxen: 8.0.1
       cli-table3: 0.6.5
       dayjs: 1.11.13
@@ -4676,33 +4676,33 @@ snapshots:
       - zen-observable
       - zenObservable
 
-  '@mainsail/configuration-generator@0.0.1-rc.1(better-sqlite3@11.8.1)(encoding@0.1.13)(reflect-metadata@0.1.14)':
+  '@mainsail/configuration-generator@0.0.1-rc.2(better-sqlite3@11.8.1)(encoding@0.1.13)(reflect-metadata@0.1.14)':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/crypto-address-base58': 0.0.1-rc.1
-      '@mainsail/crypto-address-keccak256': 0.0.1-rc.1
-      '@mainsail/crypto-block': 0.0.1-rc.1
-      '@mainsail/crypto-commit': 0.0.1-rc.1
-      '@mainsail/crypto-config': 0.0.1-rc.1
-      '@mainsail/crypto-consensus-bls12-381': 0.0.1-rc.1(encoding@0.1.13)
-      '@mainsail/crypto-hash-bcrypto': 0.0.1-rc.1
-      '@mainsail/crypto-key-pair-ecdsa': 0.0.1-rc.1
-      '@mainsail/crypto-messages': 0.0.1-rc.1
-      '@mainsail/crypto-signature-ecdsa': 0.0.1-rc.1
-      '@mainsail/crypto-transaction': 0.0.1-rc.1
-      '@mainsail/crypto-transaction-evm-call': 0.0.1-rc.1
-      '@mainsail/crypto-validation': 0.0.1-rc.1
-      '@mainsail/crypto-wif': 0.0.1-rc.1
-      '@mainsail/evm-consensus': 0.0.1-rc.1
-      '@mainsail/evm-contracts': 0.0.1-rc.1
-      '@mainsail/evm-service': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/serializer': 0.0.1-rc.1
-      '@mainsail/snapshot-legacy-exporter': 0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
-      '@mainsail/snapshot-legacy-importer': 0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
-      '@mainsail/utils': 0.0.1-rc.1
-      '@mainsail/validation': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/crypto-address-base58': 0.0.1-rc.2
+      '@mainsail/crypto-address-keccak256': 0.0.1-rc.2
+      '@mainsail/crypto-block': 0.0.1-rc.2
+      '@mainsail/crypto-commit': 0.0.1-rc.2
+      '@mainsail/crypto-config': 0.0.1-rc.2
+      '@mainsail/crypto-consensus-bls12-381': 0.0.1-rc.2(encoding@0.1.13)
+      '@mainsail/crypto-hash-bcrypto': 0.0.1-rc.2
+      '@mainsail/crypto-key-pair-ecdsa': 0.0.1-rc.2
+      '@mainsail/crypto-messages': 0.0.1-rc.2
+      '@mainsail/crypto-signature-ecdsa': 0.0.1-rc.2
+      '@mainsail/crypto-transaction': 0.0.1-rc.2
+      '@mainsail/crypto-transaction-evm-call': 0.0.1-rc.2
+      '@mainsail/crypto-validation': 0.0.1-rc.2
+      '@mainsail/crypto-wif': 0.0.1-rc.2
+      '@mainsail/evm-consensus': 0.0.1-rc.2
+      '@mainsail/evm-contracts': 0.0.1-rc.2
+      '@mainsail/evm-service': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/serializer': 0.0.1-rc.2
+      '@mainsail/snapshot-legacy-exporter': 0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
+      '@mainsail/snapshot-legacy-importer': 0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
+      '@mainsail/utils': 0.0.1-rc.2
+      '@mainsail/validation': 0.0.1-rc.2
       bip39: 3.1.0
       dayjs: 1.11.13
       envfile: 7.1.0
@@ -4733,39 +4733,40 @@ snapshots:
       - typeorm-aurora-data-api-driver
       - utf-8-validate
 
-  '@mainsail/consensus-storage@0.0.1-rc.1':
+  '@mainsail/consensus-storage@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       lmdb: 3.2.6
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/consensus@0.0.1-rc.1':
+  '@mainsail/consensus@0.0.1-rc.2':
     dependencies:
-      '@mainsail/blockchain-utils': 0.0.1-rc.1
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/blockchain-utils': 0.0.1-rc.2
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       dayjs: 1.11.13
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/container@0.0.1-rc.1':
+  '@mainsail/container@0.0.1-rc.2':
     dependencies:
       inversify: 7.5.1(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
 
-  '@mainsail/contracts@0.0.1-rc.1':
+  '@mainsail/contracts@0.0.1-rc.2':
     dependencies:
       '@hapi/hapi': 21.4.0
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/utils': 0.0.1-rc.2
       ajv: 8.17.1
       dayjs: 1.11.13
       inversify: 7.5.1(reflect-metadata@0.2.2)
@@ -4776,61 +4777,61 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@mainsail/core@0.0.1-rc.1(better-sqlite3@11.8.1)(encoding@0.1.13)(pm2@5.4.3)(reflect-metadata@0.1.14)':
+  '@mainsail/core@0.0.1-rc.2(better-sqlite3@11.8.1)(encoding@0.1.13)(pm2@5.4.3)(reflect-metadata@0.1.14)':
     dependencies:
       '@chainsafe/bls-keystore': 3.1.0
-      '@mainsail/api-common': 0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
-      '@mainsail/api-database': 0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
-      '@mainsail/api-development': 0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
-      '@mainsail/api-evm': 0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
-      '@mainsail/api-http': 0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
-      '@mainsail/api-sync': 0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
-      '@mainsail/api-transaction-pool': 0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
-      '@mainsail/blockchain-utils': 0.0.1-rc.1
-      '@mainsail/bootstrap': 0.0.1-rc.1
-      '@mainsail/cli': 0.0.1-rc.1
-      '@mainsail/configuration-generator': 0.0.1-rc.1(better-sqlite3@11.8.1)(encoding@0.1.13)(reflect-metadata@0.1.14)
-      '@mainsail/consensus': 0.0.1-rc.1
-      '@mainsail/consensus-storage': 0.0.1-rc.1
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/crypto-address-base58': 0.0.1-rc.1
-      '@mainsail/crypto-address-keccak256': 0.0.1-rc.1
-      '@mainsail/crypto-block': 0.0.1-rc.1
-      '@mainsail/crypto-commit': 0.0.1-rc.1
-      '@mainsail/crypto-config': 0.0.1-rc.1
-      '@mainsail/crypto-consensus-bls12-381': 0.0.1-rc.1(encoding@0.1.13)
-      '@mainsail/crypto-hash-bcrypto': 0.0.1-rc.1
-      '@mainsail/crypto-key-pair-bls12-381': 0.0.1-rc.1(encoding@0.1.13)
-      '@mainsail/crypto-key-pair-schnorr': 0.0.1-rc.1
-      '@mainsail/crypto-messages': 0.0.1-rc.1
-      '@mainsail/crypto-signature-schnorr': 0.0.1-rc.1
-      '@mainsail/crypto-transaction': 0.0.1-rc.1
-      '@mainsail/crypto-transaction-evm-call': 0.0.1-rc.1
-      '@mainsail/crypto-validation': 0.0.1-rc.1
-      '@mainsail/crypto-wif': 0.0.1-rc.1
-      '@mainsail/crypto-worker': 0.0.1-rc.1
-      '@mainsail/database': 0.0.1-rc.1
-      '@mainsail/evm-api-worker': 0.0.1-rc.1
-      '@mainsail/evm-consensus': 0.0.1-rc.1
-      '@mainsail/evm-contracts': 0.0.1-rc.1
-      '@mainsail/evm-service': 0.0.1-rc.1
-      '@mainsail/evm-state': 0.0.1-rc.1
-      '@mainsail/logger-pino': 0.0.1-rc.1
-      '@mainsail/networking-dns': 0.0.1-rc.1
-      '@mainsail/networking-ntp': 0.0.1-rc.1
-      '@mainsail/p2p': 0.0.1-rc.1
-      '@mainsail/processor': 0.0.1-rc.1
-      '@mainsail/serializer': 0.0.1-rc.1
-      '@mainsail/state': 0.0.1-rc.1
-      '@mainsail/transaction-pool-broadcaster': 0.0.1-rc.1
-      '@mainsail/transaction-pool-service': 0.0.1-rc.1
-      '@mainsail/transaction-pool-worker': 0.0.1-rc.1
-      '@mainsail/transactions': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
-      '@mainsail/validation': 0.0.1-rc.1
-      '@mainsail/validator': 0.0.1-rc.1
-      '@mainsail/webhooks': 0.0.1-rc.1
+      '@mainsail/api-common': 0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
+      '@mainsail/api-database': 0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
+      '@mainsail/api-development': 0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
+      '@mainsail/api-evm': 0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
+      '@mainsail/api-http': 0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
+      '@mainsail/api-sync': 0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
+      '@mainsail/api-transaction-pool': 0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
+      '@mainsail/blockchain-utils': 0.0.1-rc.2
+      '@mainsail/bootstrap': 0.0.1-rc.2
+      '@mainsail/cli': 0.0.1-rc.2
+      '@mainsail/configuration-generator': 0.0.1-rc.2(better-sqlite3@11.8.1)(encoding@0.1.13)(reflect-metadata@0.1.14)
+      '@mainsail/consensus': 0.0.1-rc.2
+      '@mainsail/consensus-storage': 0.0.1-rc.2
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/crypto-address-base58': 0.0.1-rc.2
+      '@mainsail/crypto-address-keccak256': 0.0.1-rc.2
+      '@mainsail/crypto-block': 0.0.1-rc.2
+      '@mainsail/crypto-commit': 0.0.1-rc.2
+      '@mainsail/crypto-config': 0.0.1-rc.2
+      '@mainsail/crypto-consensus-bls12-381': 0.0.1-rc.2(encoding@0.1.13)
+      '@mainsail/crypto-hash-bcrypto': 0.0.1-rc.2
+      '@mainsail/crypto-key-pair-bls12-381': 0.0.1-rc.2(encoding@0.1.13)
+      '@mainsail/crypto-key-pair-schnorr': 0.0.1-rc.2
+      '@mainsail/crypto-messages': 0.0.1-rc.2
+      '@mainsail/crypto-signature-schnorr': 0.0.1-rc.2
+      '@mainsail/crypto-transaction': 0.0.1-rc.2
+      '@mainsail/crypto-transaction-evm-call': 0.0.1-rc.2
+      '@mainsail/crypto-validation': 0.0.1-rc.2
+      '@mainsail/crypto-wif': 0.0.1-rc.2
+      '@mainsail/crypto-worker': 0.0.1-rc.2
+      '@mainsail/database': 0.0.1-rc.2
+      '@mainsail/evm-api-worker': 0.0.1-rc.2
+      '@mainsail/evm-consensus': 0.0.1-rc.2
+      '@mainsail/evm-contracts': 0.0.1-rc.2
+      '@mainsail/evm-service': 0.0.1-rc.2
+      '@mainsail/evm-state': 0.0.1-rc.2
+      '@mainsail/logger-pino': 0.0.1-rc.2
+      '@mainsail/networking-dns': 0.0.1-rc.2
+      '@mainsail/networking-ntp': 0.0.1-rc.2
+      '@mainsail/p2p': 0.0.1-rc.2
+      '@mainsail/processor': 0.0.1-rc.2
+      '@mainsail/serializer': 0.0.1-rc.2
+      '@mainsail/state': 0.0.1-rc.2
+      '@mainsail/transaction-pool-broadcaster': 0.0.1-rc.2
+      '@mainsail/transaction-pool-service': 0.0.1-rc.2
+      '@mainsail/transaction-pool-worker': 0.0.1-rc.2
+      '@mainsail/transactions': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
+      '@mainsail/validation': 0.0.1-rc.2
+      '@mainsail/validator': 0.0.1-rc.2
+      '@mainsail/webhooks': 0.0.1-rc.2
       bip39: 3.1.0
       boxen: 8.0.1
       dayjs: 1.11.13
@@ -4868,12 +4869,12 @@ snapshots:
       - zen-observable
       - zenObservable
 
-  '@mainsail/crypto-address-base58@0.0.1-rc.1':
+  '@mainsail/crypto-address-base58@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       bcrypto: 5.5.2
       bstring: 0.3.9
     transitivePeerDependencies:
@@ -4881,48 +4882,48 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@mainsail/crypto-address-keccak256@0.0.1-rc.1':
+  '@mainsail/crypto-address-keccak256@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       ethers: 6.13.5
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/crypto-block@0.0.1-rc.1':
+  '@mainsail/crypto-block@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/crypto-transaction': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/crypto-transaction': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       ajv: 8.17.1
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/crypto-commit@0.0.1-rc.1':
+  '@mainsail/crypto-commit@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/crypto-config@0.0.1-rc.1':
+  '@mainsail/crypto-config@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       deepmerge: 4.3.1
       lodash.clone: 4.5.0
       lodash.get: 4.4.2
@@ -4932,13 +4933,13 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@mainsail/crypto-consensus-bls12-381@0.0.1-rc.1(encoding@0.1.13)':
+  '@mainsail/crypto-consensus-bls12-381@0.0.1-rc.2(encoding@0.1.13)':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/crypto-key-pair-bls12-381': 0.0.1-rc.1(encoding@0.1.13)
-      '@mainsail/crypto-signature-bls12-381': 0.0.1-rc.1(encoding@0.1.13)
-      '@mainsail/kernel': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/crypto-key-pair-bls12-381': 0.0.1-rc.2(encoding@0.1.13)
+      '@mainsail/crypto-signature-bls12-381': 0.0.1-rc.2(encoding@0.1.13)
+      '@mainsail/kernel': 0.0.1-rc.2
     transitivePeerDependencies:
       - bluebird
       - bufferutil
@@ -4946,25 +4947,25 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@mainsail/crypto-hash-bcrypto@0.0.1-rc.1':
+  '@mainsail/crypto-hash-bcrypto@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
       bcrypto: 5.5.2
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/crypto-key-pair-bls12-381@0.0.1-rc.1(encoding@0.1.13)':
+  '@mainsail/crypto-key-pair-bls12-381@0.0.1-rc.2(encoding@0.1.13)':
     dependencies:
       '@chainsafe/bls': 7.1.3(@chainsafe/blst@0.2.10(encoding@0.1.13))
       '@chainsafe/blst': 0.2.10(encoding@0.1.13)
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       '@scure/bip39': 1.5.4
       bls12-381-keygen: 0.2.3
       wif: 5.0.0
@@ -4975,12 +4976,12 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@mainsail/crypto-key-pair-ecdsa@0.0.1-rc.1':
+  '@mainsail/crypto-key-pair-ecdsa@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       bcrypto: 5.5.2
       wif: 5.0.0
     transitivePeerDependencies:
@@ -4988,12 +4989,12 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@mainsail/crypto-key-pair-schnorr@0.0.1-rc.1':
+  '@mainsail/crypto-key-pair-schnorr@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       bcrypto: 5.5.2
       wif: 5.0.0
     transitivePeerDependencies:
@@ -5001,25 +5002,25 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@mainsail/crypto-messages@0.0.1-rc.1':
+  '@mainsail/crypto-messages@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       ajv: 8.17.1
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/crypto-signature-bls12-381@0.0.1-rc.1(encoding@0.1.13)':
+  '@mainsail/crypto-signature-bls12-381@0.0.1-rc.2(encoding@0.1.13)':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/crypto-key-pair-bls12-381': 0.0.1-rc.1(encoding@0.1.13)
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/crypto-key-pair-bls12-381': 0.0.1-rc.2(encoding@0.1.13)
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
     transitivePeerDependencies:
       - bluebird
       - bufferutil
@@ -5027,49 +5028,49 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@mainsail/crypto-signature-ecdsa@0.0.1-rc.1':
+  '@mainsail/crypto-signature-ecdsa@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       bcrypto: 5.5.2
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/crypto-signature-schnorr@0.0.1-rc.1':
+  '@mainsail/crypto-signature-schnorr@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       bcrypto: 5.5.2
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/crypto-transaction-evm-call@0.0.1-rc.1':
+  '@mainsail/crypto-transaction-evm-call@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/crypto-transaction': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/transactions': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/crypto-transaction': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/transactions': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/crypto-transaction@0.0.1-rc.1':
+  '@mainsail/crypto-transaction@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       ajv: 8.17.1
       ethers: 6.13.5
     transitivePeerDependencies:
@@ -5077,124 +5078,124 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@mainsail/crypto-validation@0.0.1-rc.1':
+  '@mainsail/crypto-validation@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       ajv: 8.17.1
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/crypto-wif@0.0.1-rc.1':
+  '@mainsail/crypto-wif@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
       wif: 5.0.0
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/crypto-worker@0.0.1-rc.1':
+  '@mainsail/crypto-worker@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       joi: 17.13.3
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/database@0.0.1-rc.1':
+  '@mainsail/database@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/evm-api-worker@0.0.1-rc.1':
+  '@mainsail/evm-api-worker@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
       joi: 17.13.3
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/evm-consensus@0.0.1-rc.1':
+  '@mainsail/evm-consensus@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/evm-contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/evm-contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       ethers: 6.13.5
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/evm-contracts@0.0.1-rc.1': {}
+  '@mainsail/evm-contracts@0.0.1-rc.2': {}
 
-  '@mainsail/evm-linux-arm64-gnu@0.0.1-rc.1':
+  '@mainsail/evm-linux-arm64-gnu@0.0.1-rc.2':
     optional: true
 
-  '@mainsail/evm-linux-arm64-musl@0.0.1-rc.1':
+  '@mainsail/evm-linux-arm64-musl@0.0.1-rc.2':
     optional: true
 
-  '@mainsail/evm-linux-x64-gnu@0.0.1-rc.1':
+  '@mainsail/evm-linux-x64-gnu@0.0.1-rc.2':
     optional: true
 
-  '@mainsail/evm-linux-x64-musl@0.0.1-rc.1':
+  '@mainsail/evm-linux-x64-musl@0.0.1-rc.2':
     optional: true
 
-  '@mainsail/evm-service@0.0.1-rc.1':
+  '@mainsail/evm-service@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/evm': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/evm': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/evm-state@0.0.1-rc.1':
+  '@mainsail/evm-state@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/evm@0.0.1-rc.1':
+  '@mainsail/evm@0.0.1-rc.2':
     optionalDependencies:
-      '@mainsail/evm-linux-arm64-gnu': 0.0.1-rc.1
-      '@mainsail/evm-linux-arm64-musl': 0.0.1-rc.1
-      '@mainsail/evm-linux-x64-gnu': 0.0.1-rc.1
-      '@mainsail/evm-linux-x64-musl': 0.0.1-rc.1
+      '@mainsail/evm-linux-arm64-gnu': 0.0.1-rc.2
+      '@mainsail/evm-linux-arm64-musl': 0.0.1-rc.2
+      '@mainsail/evm-linux-x64-gnu': 0.0.1-rc.2
+      '@mainsail/evm-linux-x64-musl': 0.0.1-rc.2
 
-  '@mainsail/kernel@0.0.1-rc.1':
+  '@mainsail/kernel@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       chalk: 5.4.1
       cron: 4.1.0
       date-fns: 4.1.0
@@ -5213,12 +5214,12 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@mainsail/logger-pino@0.0.1-rc.1':
+  '@mainsail/logger-pino@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       chalk: 5.4.1
       joi: 17.13.3
       pino: 9.6.0
@@ -5233,43 +5234,43 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@mainsail/networking-dns@0.0.1-rc.1':
+  '@mainsail/networking-dns@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       joi: 17.13.3
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/networking-ntp@0.0.1-rc.1':
+  '@mainsail/networking-ntp@0.0.1-rc.2':
     dependencies:
       '@hapi/sntp': 4.0.0
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       joi: 17.13.3
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/p2p@0.0.1-rc.1':
+  '@mainsail/p2p@0.0.1-rc.2':
     dependencies:
       '@hapi/boom': 10.0.1
       '@hapi/bounce': 3.0.2
       '@hapi/hapi': 21.4.0
       '@hapi/hoek': 11.0.7
       '@hapi/teamwork': 6.0.0
-      '@mainsail/blockchain-utils': 0.0.1-rc.1
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/blockchain-utils': 0.0.1-rc.2
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       ajv: 8.17.1
       dayjs: 1.11.13
       delay: 6.0.0
@@ -5287,41 +5288,41 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@mainsail/processor@0.0.1-rc.1':
+  '@mainsail/processor@0.0.1-rc.2':
     dependencies:
-      '@mainsail/blockchain-utils': 0.0.1-rc.1
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/blockchain-utils': 0.0.1-rc.2
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       dayjs: 1.11.13
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/serializer@0.0.1-rc.1':
+  '@mainsail/serializer@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/snapshot-legacy-exporter@0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)':
+  '@mainsail/snapshot-legacy-exporter@0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/crypto-address-keccak256': 0.0.1-rc.1
-      '@mainsail/crypto-key-pair-ecdsa': 0.0.1-rc.1
-      '@mainsail/crypto-validation': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/logger-pino': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
-      '@mainsail/validation': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/crypto-address-keccak256': 0.0.1-rc.2
+      '@mainsail/crypto-key-pair-ecdsa': 0.0.1-rc.2
+      '@mainsail/crypto-validation': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/logger-pino': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
+      '@mainsail/validation': 0.0.1-rc.2
       pg: 8.14.0
       tmp: 0.2.3
       typeorm: 0.3.21(better-sqlite3@11.8.1)(pg@8.14.0)(reflect-metadata@0.1.14)
@@ -5347,15 +5348,15 @@ snapshots:
       - typeorm-aurora-data-api-driver
       - utf-8-validate
 
-  '@mainsail/snapshot-legacy-importer@0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)':
+  '@mainsail/snapshot-legacy-importer@0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/evm-consensus': 0.0.1-rc.1
-      '@mainsail/evm-contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/snapshot-legacy-exporter': 0.0.1-rc.1(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/evm-consensus': 0.0.1-rc.2
+      '@mainsail/evm-contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/snapshot-legacy-exporter': 0.0.1-rc.2(better-sqlite3@11.8.1)(reflect-metadata@0.1.14)
+      '@mainsail/utils': 0.0.1-rc.2
       bip39: 3.1.0
       ethers: 6.13.5
     transitivePeerDependencies:
@@ -5380,23 +5381,23 @@ snapshots:
       - typeorm-aurora-data-api-driver
       - utf-8-validate
 
-  '@mainsail/state@0.0.1-rc.1':
+  '@mainsail/state@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/transaction-pool-broadcaster@0.0.1-rc.1':
+  '@mainsail/transaction-pool-broadcaster@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       dayjs: 1.11.13
       joi: 17.13.3
     transitivePeerDependencies:
@@ -5404,13 +5405,13 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@mainsail/transaction-pool-service@0.0.1-rc.1':
+  '@mainsail/transaction-pool-service@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/state': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/state': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       better-sqlite3: 11.8.1
       fs-extra: 11.3.0
       joi: 17.13.3
@@ -5419,29 +5420,29 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@mainsail/transaction-pool-worker@0.0.1-rc.1':
+  '@mainsail/transaction-pool-worker@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
       joi: 17.13.3
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/transactions@0.0.1-rc.1':
+  '@mainsail/transactions@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/utils@0.0.1-rc.1':
+  '@mainsail/utils@0.0.1-rc.2':
     dependencies:
       '@hapi/bourne': 3.0.0
       deepmerge: 4.3.1
@@ -5457,11 +5458,11 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@mainsail/validation@0.0.1-rc.1':
+  '@mainsail/validation@0.0.1-rc.2':
     dependencies:
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
       ajv: 8.17.1
       ajv-formats: 3.0.1(ajv@8.17.1)
       ajv-keywords: 5.1.0(ajv@8.17.1)
@@ -5470,28 +5471,28 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@mainsail/validator@0.0.1-rc.1':
+  '@mainsail/validator@0.0.1-rc.2':
     dependencies:
       '@chainsafe/bls-keystore': 3.1.0
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/evm-consensus': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/evm-consensus': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       joi: 17.13.3
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@mainsail/webhooks@0.0.1-rc.1':
+  '@mainsail/webhooks@0.0.1-rc.2':
     dependencies:
       '@hapi/boom': 10.0.1
       '@hapi/hapi': 21.4.0
-      '@mainsail/container': 0.0.1-rc.1
-      '@mainsail/contracts': 0.0.1-rc.1
-      '@mainsail/kernel': 0.0.1-rc.1
-      '@mainsail/utils': 0.0.1-rc.1
+      '@mainsail/container': 0.0.1-rc.2
+      '@mainsail/contracts': 0.0.1-rc.2
+      '@mainsail/kernel': 0.0.1-rc.2
+      '@mainsail/utils': 0.0.1-rc.2
       fs-extra: 11.3.0
       joi: 17.13.3
       lowdb: 7.0.1
@@ -7440,7 +7441,7 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  mainsail-network-config#main@https://codeload.github.com/ArkEcosystem/mainsail-network-config/tar.gz/0a6c43e5cdfbe293e7f612bbc62ea893a5c0b6ef: {}
+  mainsail-network-config#7479c6d1a3c9dea62a510a6d74ed4df28eb3e08a@https://codeload.github.com/ArkEcosystem/mainsail-network-config/tar.gz/7479c6d1a3c9dea62a510a6d74ed4df28eb3e08a: {}
 
   make-fetch-happen@9.1.0:
     dependencies:
