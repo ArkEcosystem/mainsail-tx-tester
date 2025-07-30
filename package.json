@@ -40,7 +40,7 @@
         "bip39": "3.1.0",
         "ethers": "^6.15.0",
         "fs-extra": "^9.0.1",
-        "mainsail-network-config": "https://github.com/ArkEcosystem/mainsail-network-config#main",
+        "mainsail-network-config": "https://github.com/ArkEcosystem/mainsail-network-config#7479c6d1a3c9dea62a510a6d74ed4df28eb3e08a",
         "reflect-metadata": "^0.1.13",
         "viem": "^2.16.3"
     },

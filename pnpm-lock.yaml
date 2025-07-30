@@ -75,8 +75,8 @@ importers:
         specifier: ^9.0.1
         version: 9.1.0
       mainsail-network-config:
-        specifier: https://github.com/ArkEcosystem/mainsail-network-config#main
-        version: mainsail-network-config#main@https://codeload.github.com/ArkEcosystem/mainsail-network-config/tar.gz/0a6c43e5cdfbe293e7f612bbc62ea893a5c0b6ef
+        specifier: https://github.com/ArkEcosystem/mainsail-network-config#7479c6d1a3c9dea62a510a6d74ed4df28eb3e08a
+        version: mainsail-network-config#7479c6d1a3c9dea62a510a6d74ed4df28eb3e08a@https://codeload.github.com/ArkEcosystem/mainsail-network-config/tar.gz/7479c6d1a3c9dea62a510a6d74ed4df28eb3e08a
       reflect-metadata:
         specifier: ^0.1.13
         version: 0.1.14
