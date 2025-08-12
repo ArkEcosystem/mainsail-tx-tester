@@ -2,7 +2,7 @@ import * as Client from "./client.js";
 
 import { Config, ContractData, EthViewParameters } from "./types.js";
 import { Contracts, Identifiers } from "@mainsail/contracts";
-import { decodeFunctionResult, encodeFunctionData } from "viem";
+import { AbiFunction, decodeFunctionResult, encodeFunctionData } from "viem";
 
 import { AppIdentifiers } from "./identifiers.js";
 import { Application } from "@mainsail/kernel";
@@ -92,6 +92,9 @@ export const makeEvmCall = async (
     const func = contractData.transactions[functionIndex];
 
     const usedArgs = args || func.args;
+
+    normalizeContractCallArgs(contractData, func.functionName, usedArgs);
+
     if (!amount) {
         amount = func.amount ? func.amount.toString() : "0";
     }
@@ -131,14 +134,18 @@ export const makeEvmView = async (
 
     const func = contractData.views[index];
 
+    const args = func.args;
+
+    normalizeContractCallArgs(contractData, func.functionName, args);
+
     const data = encodeFunctionData({
         abi: contractData.abi,
         functionName: func.functionName,
-        args: func.args,
+        args,
     });
 
     console.log(`Function: ${func.functionName}`);
-    console.log(`Args:     ${func.args.join(", ")}`);
+    console.log(`Args:     ${args.join(", ")}`);
     console.log(`Encoded:  ${data}`);
 
     return {
@@ -147,6 +154,25 @@ export const makeEvmView = async (
         data: data,
     };
 };
+
+// Ensure address/byte array args have 0x prefix
+function normalizeContractCallArgs(contractData: ContractData, functionName: string, args: any[]) {
+    for (let i = 0; i < args.length; i++) {
+        const functionAbi = contractData.abi.find(
+            (item) => item.type === "function" && item.name === functionName,
+        ) as AbiFunction | null;
+        if (!functionAbi) {
+            throw new Error("missing ABI for function: " + functionName);
+        }
+
+        const input = functionAbi.inputs[i];
+        if (input.type === "address" || input.type === "bytes") {
+            if (!args[i].startsWith("0x")) {
+                args[i] = `0x${args[i]}`;
+            }
+        }
+    }
+}
 
 export const decodeEvmViewResult = (config: Config, contractData: ContractData, index: number, data: any): void => {
     const func = contractData.views[index];
