@@ -21,6 +21,7 @@
         "@mainsail/container": "0.0.1-rc.6",
         "@mainsail/contracts": "0.0.1-rc.6",
         "@mainsail/core": "0.0.1-rc.6",
+        "@mainsail/crypto-address-base58": "link:../mainsail/packages/crypto-address-base58",
         "@mainsail/crypto-address-keccak256": "0.0.1-rc.6",
         "@mainsail/crypto-config": "0.0.1-rc.6",
         "@mainsail/crypto-consensus-bls12-381": "0.0.1-rc.6",
@@ -28,7 +29,6 @@
         "@mainsail/crypto-key-pair-ecdsa": "0.0.1-rc.6",
         "@mainsail/crypto-signature-ecdsa": "0.0.1-rc.6",
         "@mainsail/crypto-transaction": "0.0.1-rc.6",
-        "@mainsail/crypto-transaction-evm-call": "0.0.1-rc.6",
         "@mainsail/crypto-validation": "0.0.1-rc.6",
         "@mainsail/crypto-wif": "0.0.1-rc.6",
         "@mainsail/evm-contracts": "0.0.1-rc.6",
@@ -70,6 +70,27 @@
             "msgpackr-extract",
             "nsfw",
             "protobufjs"
-        ]
+        ],
+        "overrides": {
+            "@mainsail/contracts": "link:../mainsail/packages/contracts",
+            "@mainsail/core": "link:../mainsail/packages/core",
+            "@mainsail/crypto-address-base58": "link:../mainsail/packages/crypto-address-base58",
+            "@mainsail/crypto-config": "link:../mainsail/packages/crypto-config",
+            "@mainsail/crypto-hash-bcrypto": "link:../mainsail/packages/crypto-hash-bcrypto",
+            "@mainsail/crypto-key-pair-ecdsa": "link:../mainsail/packages/crypto-key-pair-ecdsa",
+            "@mainsail/crypto-signature-ecdsa": "link:../mainsail/packages/crypto-signature-ecdsa",
+            "@mainsail/crypto-transaction": "link:../mainsail/packages/crypto-transaction",
+            "@mainsail/crypto-validation": "link:../mainsail/packages/crypto-validation",
+            "@mainsail/crypto-wif": "link:../mainsail/packages/crypto-wif",
+            "@mainsail/evm-contracts": "link:../mainsail/packages/evm-contracts",
+            "@mainsail/kernel": "link:../mainsail/packages/kernel",
+            "@mainsail/serializer": "link:../mainsail/packages/serializer",
+            "@mainsail/transactions": "link:../mainsail/packages/transactions",
+            "@mainsail/utils": "link:../mainsail/packages/utils",
+            "@mainsail/validation": "link:../mainsail/packages/validation",
+            "@mainsail/container": "link:../mainsail/packages/container",
+            "@mainsail/crypto-address-keccak256": "link:../mainsail/packages/crypto-address-keccak256",
+            "@mainsail/crypto-consensus-bls12-381": "link:../mainsail/packages/crypto-consensus-bls12-381"
+        }
     }
 }

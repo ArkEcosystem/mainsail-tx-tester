@@ -55,9 +55,6 @@ export const makeApplication = async (config: Config): Promise<Application> => {
         {
             package: "@mainsail/crypto-transaction",
         },
-        {
-            package: "@mainsail/crypto-transaction-evm-call",
-        },
     ];
 
     for (const plugin of plugins) {

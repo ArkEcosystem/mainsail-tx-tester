@@ -2,7 +2,7 @@ import { encodeFunctionData } from "viem";
 import { SigningKey, hashMessage } from "ethers";
 import { getApplication, makeApplication } from "../boot.js";
 
-import { EvmCallBuilder } from "@mainsail/crypto-transaction-evm-call";
+import { TransactionBuilder } from "@mainsail/crypto-transaction";
 import fixtureConfig from "../../config/fixtures.js";
 import { join } from "path";
 import { loadConfig } from "../loader.js";
@@ -24,12 +24,12 @@ interface Identity {
 const writeFixtureToFile = async (filename: string, data: any) => {
     const dataDir = join(process.cwd(), "data");
 
-    if (data['data'] && typeof data['data']['gasPrice'] !== 'undefined') {
-        data['data']['gasPrice'] = data['data']['gasPrice'].toString();
+    if (data["data"] && typeof data["data"]["gasPrice"] !== "undefined") {
+        data["data"]["gasPrice"] = data["data"]["gasPrice"].toString();
     }
 
-    if (data['data'] && typeof data['data']['gasLimit'] !== 'undefined') {
-        data['data']['gasLimit'] = data['data']['gasLimit'].toString();
+    if (data["data"] && typeof data["data"]["gasLimit"] !== "undefined") {
+        data["data"]["gasLimit"] = data["data"]["gasLimit"].toString();
     }
 
     try {
@@ -109,7 +109,7 @@ const generateTransfer = async (mnemonic: string, fixtureName: string, config: o
     const app = getApplication();
 
     const transaction = app
-        .resolve(EvmCallBuilder)
+        .resolve(TransactionBuilder)
         .gasPrice(config["gasPrice"] || 5000000000)
         .gasLimit(config["gasLimit"] || 21000)
         .nonce(config["nonce"] || "1")
@@ -142,7 +142,7 @@ const generateTransaction = async (mnemonic: string, fixtureName: string, config
     });
 
     let builder = app
-        .resolve(EvmCallBuilder)
+        .resolve(TransactionBuilder)
         .gasPrice(config["gasPrice"] || 5000000000)
         .gasLimit(config["gasLimit"] || 21000)
         .nonce(config["nonce"] || "1")
@@ -162,7 +162,7 @@ const generateTransactions = async (mnemonic: string, defaultSecondMnemonic?: st
     for (const fixtureName of Object.keys(fixtureConfig)) {
         const fixture = fixtureConfig[fixtureName];
 
-        if (! fixture || typeof fixture !== "object") {
+        if (!fixture || typeof fixture !== "object") {
             continue;
         }
 
@@ -185,12 +185,12 @@ const generateMessageSign = async (mnemonic: string) => {
     const message = "Hello, world!";
     const privateKey = await privateKeyFactory.fromMnemonic(mnemonic);
     const publicKey = await publicKeyFactory.fromMnemonic(mnemonic);
-    const signature = new SigningKey(`0x${privateKey}`).sign(hashMessage(message))
+    const signature = new SigningKey(`0x${privateKey}`).sign(hashMessage(message));
 
     await writeFixtureToFile("message-sign.json", {
         message,
         publicKey,
-        signature: signature.serialized
+        signature: signature.serialized,
     });
 };
 
