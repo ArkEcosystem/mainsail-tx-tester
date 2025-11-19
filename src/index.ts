@@ -45,6 +45,7 @@ export const main = async (customArgs?: string[]) => {
             console.log(`Sent transfer with transaction hash: 0x${tx.hash} \n`);
 
             await waitForOneBlock(peer);
+            await logTransactionResult(peer, tx.hash);
 
             break;
         }
@@ -60,6 +61,7 @@ export const main = async (customArgs?: string[]) => {
             );
 
             await waitForOneBlock(peer);
+            await logTransactionResult(peer, tx.hash);
 
             break;
         }
@@ -92,9 +94,14 @@ const handleContract = async (args: string[], config: Config, contractData: Cont
     if (txIndex === undefined) {
         contract.list();
     } else {
-        await contract.interact(txIndex, txArgs, amount);
+        const hash = await contract.interact(txIndex, txArgs, amount);
+
+        if (hash === undefined) {
+            return;
+        }
 
         await waitForOneBlock(peer);
+        await logTransactionResult(peer, hash);
     }
 };
 
@@ -109,6 +116,25 @@ const waitForOneBlock = async (peer: string): Promise<void> => {
         console.log(".");
         await sleep(timeout);
     }
+};
+
+const logTransactionResult = async (peer: string, txHash: string): Promise<void> => {
+    console.log(`Fetching transaction receipt for hash: 0x${txHash}`);
+
+    const receipt = await Client.getReceipt(peer, txHash);
+
+    if (receipt === null) {
+        console.log("Transaction was not forged.");
+        return;
+    }
+
+    if (receipt.status === "0x0") {
+        console.log("Transaction failed:");
+    } else {
+        console.log("Transaction succeeded:");
+    }
+
+    console.log(receipt);
 };
 
 if (import.meta.url === `file://${process.argv[1]}`) {

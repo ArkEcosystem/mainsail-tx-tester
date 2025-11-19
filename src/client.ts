@@ -1,5 +1,5 @@
 import { http } from "@mainsail/utils";
-import { Peer, EthViewParameters } from "./types.js";
+import { Peer, EthViewParameters, Receipt } from "./types.js";
 
 const parseJSONRPCResult = <T>(method: string, response: any): T => {
     if (response.statusCode !== 200) {
@@ -48,4 +48,8 @@ export const postEthView = async (peer: Peer, viewParameters: EthViewParameters)
 
 export const postTransaction = async (peer: Peer, transaction: string): Promise<string> => {
     return JSONRPCCall<string>(peer, "eth_sendRawTransaction", [`0x${transaction}`]);
+};
+
+export const getReceipt = async (peer: Peer, transaction: string): Promise<Receipt | null> => {
+    return JSONRPCCall<Receipt | null>(peer, "eth_getTransactionReceipt", [`0x${transaction}`]);
 };
