@@ -34,12 +34,12 @@ interface ContractFunction {
 function generateDefaultArgs(inputs: any[]): any[] {
     return inputs.map((input) => {
         const type = input.type;
-        
+
         // Handle arrays first
         if (type.includes("[]")) {
             return [];
         }
-        
+
         // Handle basic types
         switch (type) {
             case "address":
@@ -76,11 +76,7 @@ function generateDefaultArgs(inputs: any[]): any[] {
 }
 
 function isViewFunction(func: any): boolean {
-    return (
-        func.stateMutability === "view" ||
-        func.stateMutability === "pure" ||
-        func.constant === true
-    );
+    return func.stateMutability === "view" || func.stateMutability === "pure" || func.constant === true;
 }
 
 function isTransactionFunction(func: any): boolean {
@@ -93,65 +89,67 @@ function isTransactionFunction(func: any): boolean {
 }
 
 function generateTransactionFunctions(abi: any[]): ContractFunction[] {
-    return abi
-        .filter(isTransactionFunction)
-        .map((func) => {
-            const args = generateDefaultArgs(func.inputs || []);
-            const result: ContractFunction = {
-                functionName: func.name,
-                args,
-            };
-            
-            // Add amount for payable functions
-            if (func.stateMutability === "payable") {
-                result.amount = 100;
-            }
-            
-            return result;
-        });
+    return abi.filter(isTransactionFunction).map((func) => {
+        const args = generateDefaultArgs(func.inputs || []);
+        const result: ContractFunction = {
+            functionName: func.name,
+            args,
+        };
+
+        // Add amount for payable functions
+        if (func.stateMutability === "payable") {
+            result.amount = 100;
+        }
+
+        return result;
+    });
 }
 
 function generateViewFunctions(abi: any[]): ContractFunction[] {
-    return abi
-        .filter(isViewFunction)
-        .map((func) => ({
-            functionName: func.name,
-            args: generateDefaultArgs(func.inputs || []),
-        }));
+    return abi.filter(isViewFunction).map((func) => ({
+        functionName: func.name,
+        args: generateDefaultArgs(func.inputs || []),
+    }));
 }
 
 function generateContractJs(artifact: BuildArtifact): string {
     const contractNameLower = artifact.contractName.toLowerCase();
     const transactions = generateTransactionFunctions(artifact.abi);
     const views = generateViewFunctions(artifact.abi);
-    
-    const transactionsCode = transactions.length > 0 
-        ? transactions.map(tx => {
-            const argsStr = JSON.stringify(tx.args);
-            if (tx.amount !== undefined) {
-                return `        {
+
+    const transactionsCode =
+        transactions.length > 0
+            ? transactions
+                  .map((tx) => {
+                      const argsStr = JSON.stringify(tx.args);
+                      if (tx.amount !== undefined) {
+                          return `        {
             functionName: "${tx.functionName}",
             args: ${argsStr},
             amount: ${tx.amount},
         }`;
-            } else {
-                return `        {
+                      } else {
+                          return `        {
             functionName: "${tx.functionName}",
             args: ${argsStr},
         }`;
-            }
-        }).join(',\n')
-        : '';
-    
-    const viewsCode = views.length > 0
-        ? views.map(view => {
-            const argsStr = JSON.stringify(view.args);
-            return `        {
+                      }
+                  })
+                  .join(",\n")
+            : "";
+
+    const viewsCode =
+        views.length > 0
+            ? views
+                  .map((view) => {
+                      const argsStr = JSON.stringify(view.args);
+                      return `        {
             functionName: "${view.functionName}",
             args: ${argsStr},
         }`;
-        }).join(',\n')
-        : '';
+                  })
+                  .join(",\n")
+            : "";
 
     return `import ${artifact.contractName} from "../builds/${artifact.contractName}.json" with { type: "json" };
 
@@ -159,8 +157,8 @@ export const ${contractNameLower} = {
     abi: ${artifact.contractName}.abi,
     name: "${artifact.contractName}",
     contractId: "", // Add deployed contract address here
-    transactions: [${transactions.length > 0 ? '\n' + transactionsCode + '\n    ' : ''}],
-    views: [${views.length > 0 ? '\n' + viewsCode + '\n    ' : ''}],
+    transactions: [${transactions.length > 0 ? "\n" + transactionsCode + "\n    " : ""}],
+    views: [${views.length > 0 ? "\n" + viewsCode + "\n    " : ""}],
 };
 `;
 }
@@ -168,42 +166,42 @@ export const ${contractNameLower} = {
 export function prepareContract(artifactFileName: string): void {
     const artifactPath = path.join(process.cwd(), "config", "builds", artifactFileName);
     const contractsPath = path.join(process.cwd(), "config", "contracts");
-    
+
     // Ensure contracts directory exists
     if (!fs.existsSync(contractsPath)) {
         fs.mkdirSync(contractsPath, { recursive: true });
     }
-    
+
     // Read the artifact file
     if (!fs.existsSync(artifactPath)) {
         throw new Error(`Artifact file not found: ${artifactPath}`);
     }
-    
+
     const artifact: BuildArtifact = JSON.parse(fs.readFileSync(artifactPath, "utf8"));
-    
+
     // Generate the contract .js file
     const contractJs = generateContractJs(artifact);
-    
+
     // Extract contract name and create filename
     const contractName = artifact.contractName.toLowerCase();
     const outputPath = path.join(contractsPath, `${contractName}.js`);
-    
+
     // Write the file (recreate if exists)
     fs.writeFileSync(outputPath, contractJs);
-    
+
     console.log(`✅ Contract "${artifact.contractName}" prepared successfully!`);
     console.log(`📁 Contract file created: ${outputPath}`);
     console.log(`📝 Remember to update the contractId with your deployed contract address`);
-    
+
     // Show summary of generated functions
     const transactions = generateTransactionFunctions(artifact.abi);
     const views = generateViewFunctions(artifact.abi);
-    
+
     if (transactions.length > 0) {
         console.log(`🔄 Generated ${transactions.length} transaction function(s):`);
         transactions.forEach((tx, i) => console.log(`   ${i}: ${tx.functionName}`));
     }
-    
+
     if (views.length > 0) {
         console.log(`👁️  Generated ${views.length} view function(s):`);
         views.forEach((view, i) => console.log(`   ${i + transactions.length}: ${view.functionName}`));
@@ -213,14 +211,14 @@ export function prepareContract(artifactFileName: string): void {
 // Main execution if run directly
 if (import.meta.url === `file://${process.argv[1]}`) {
     const artifactFileName = process.argv[2];
-    
+
     if (!artifactFileName) {
         console.error("Usage: npm run prepare-contract <artifact-file.json>");
         console.error("Example: npm run prepare-contract TestContract.json");
         console.error("Note: Artifact files should be in config/builds/ folder");
         process.exit(1);
     }
-    
+
     try {
         prepareContract(artifactFileName);
     } catch (error) {
