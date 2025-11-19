@@ -20,9 +20,8 @@ const config = {
         recipientAddress: "0xC870aF84F11e0d43c8a29C041F23a8E85a2Ce4ff",
         value: "350000000000000000000",
     },
-    evmDeploy: {
+    deploy: {
         data: DARK20.bytecode,
-        vendorField: "",
     },
     contracts: {
         consensus,
