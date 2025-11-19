@@ -145,7 +145,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     try {
         buildContract(contractFileName);
     } catch (error) {
-        console.error("❌ Build failed:", error.message);
+        console.error("Build failed:", error.message);
         process.exit(1);
     }
 }
