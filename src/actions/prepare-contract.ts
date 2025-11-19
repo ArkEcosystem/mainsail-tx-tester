@@ -2,9 +2,9 @@ import fs from "fs";
 import path from "path";
 
 interface BuildArtifact {
-    _format: string;
-    contractName: string;
-    sourceName: string;
+    _format?: string;
+    contractName?: string;
+    sourceName?: string;
     abi: Array<{
         type: string;
         name?: string;
@@ -20,9 +20,9 @@ interface BuildArtifact {
         }>;
         stateMutability?: string;
     }>;
-    bytecode: string;
-    linkReferences: Record<string, any>;
-    deployedLinkReferences: Record<string, any>;
+    bytecode?: string;
+    linkReferences?: Record<string, any>;
+    deployedLinkReferences?: Record<string, any>;
 }
 
 interface ContractFunction {
@@ -112,8 +112,10 @@ function generateViewFunctions(abi: any[]): ContractFunction[] {
     }));
 }
 
-function generateContractJs(artifact: BuildArtifact): string {
-    const contractNameLower = artifact.contractName.toLowerCase();
+function generateContractJs(artifact: BuildArtifact, fileName: string): string {
+    // Extract contract name from artifact or fallback to filename
+    const contractName = artifact.contractName || path.basename(fileName, ".json");
+    const contractNameLower = contractName.toLowerCase();
     const transactions = generateTransactionFunctions(artifact.abi);
     const views = generateViewFunctions(artifact.abi);
 
@@ -151,11 +153,11 @@ function generateContractJs(artifact: BuildArtifact): string {
                   .join(",\n")
             : "";
 
-    return `import ${artifact.contractName} from "../builds/${artifact.contractName}.json" with { type: "json" };
+    return `import ${contractName} from "../builds/${fileName}" with { type: "json" };
 
 export const ${contractNameLower} = {
-    abi: ${artifact.contractName}.abi,
-    name: "${artifact.contractName}",
+    abi: ${contractName}.abi,
+    name: "${contractName}",
     contractId: "", // Add deployed contract address here
     transactions: [${transactions.length > 0 ? "\n" + transactionsCode + "\n    " : ""}],
     views: [${views.length > 0 ? "\n" + viewsCode + "\n    " : ""}],
@@ -180,20 +182,19 @@ export function prepareContract(artifactFileName: string): void {
     const artifact: BuildArtifact = JSON.parse(fs.readFileSync(artifactPath, "utf8"));
 
     // Generate the contract .js file
-    const contractJs = generateContractJs(artifact);
+    const contractJs = generateContractJs(artifact, artifactFileName);
 
     // Extract contract name and create filename
-    const contractName = artifact.contractName.toLowerCase();
+    const contractName = (artifact.contractName || path.basename(artifactFileName, ".json")).toLowerCase();
     const outputPath = path.join(contractsPath, `${contractName}.js`);
 
     // Write the file (recreate if exists)
     fs.writeFileSync(outputPath, contractJs);
 
-    console.log(`✅ Contract "${artifact.contractName}" prepared successfully!`);
+    const displayName = artifact.contractName || path.basename(artifactFileName, ".json");
+    console.log(`✅ Contract "${displayName}" prepared successfully!`);
     console.log(`📁 Contract file created: ${outputPath}`);
-    console.log(`📝 Remember to update the contractId with your deployed contract address`);
-
-    // Show summary of generated functions
+    console.log(`📝 Remember to update the contractId with your deployed contract address`); // Show summary of generated functions
     const transactions = generateTransactionFunctions(artifact.abi);
     const views = generateViewFunctions(artifact.abi);
 
