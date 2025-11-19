@@ -43,7 +43,7 @@ function generateDefaultArgs(inputs: any[]): any[] {
         // Handle basic types
         switch (type) {
             case "address":
-                return "";
+                return "0x0000000000000000000000000000000000000000";
             case "string":
                 return "";
             case "bool":
