@@ -58,7 +58,7 @@ export const makeTransfer = async (
 
 export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Transaction> => {
     const { cli } = config;
-    const { evmDeploy } = cli;
+    const { deploy } = cli;
 
     const app = getApplication();
 
@@ -67,7 +67,7 @@ export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Tr
     let builder = app
         .resolve(TransactionBuilder)
         .gasPrice(cli.gasPrice)
-        .payload(evmDeploy.data.slice(2))
+        .payload(deploy.data.slice(2))
         .gasLimit(2_000_000)
         .nonce(walletNonce.toString());
 
