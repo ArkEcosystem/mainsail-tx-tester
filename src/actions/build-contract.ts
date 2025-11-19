@@ -10,10 +10,6 @@ interface CompilerOutput {
                 evm: {
                     bytecode: {
                         object: string;
-                        linkReferences: Record<string, any>;
-                    };
-                    deployedBytecode: {
-                        linkReferences: Record<string, any>;
                     };
                 };
             };
@@ -32,8 +28,6 @@ interface BuildOutput {
     sourceName: string;
     abi: any[];
     bytecode: string;
-    linkReferences: Record<string, any>;
-    deployedLinkReferences: Record<string, any>;
 }
 
 export function buildContract(contractFileName: string): void {
@@ -119,8 +113,6 @@ export function buildContract(contractFileName: string): void {
         sourceName: `config/solidity/${contractFileName}`,
         abi: contract.abi,
         bytecode: `0x${contract.evm.bytecode.object}`,
-        linkReferences: contract.evm.bytecode.linkReferences,
-        deployedLinkReferences: contract.evm.deployedBytecode.linkReferences,
     };
 
     // Write the output to the builds folder
