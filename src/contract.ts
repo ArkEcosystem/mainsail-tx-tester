@@ -40,10 +40,9 @@ export class Contract {
     async #transaction(transactionIndex: number, args?: any, amount?: string) {
         this.#logContract();
         const transaction = await Builder.makeEvmCall(this.config, this.contractData, transactionIndex, args, amount);
-        const result = await Client.postTransaction(this.config.cli.peer, transaction.serialized.toString("hex"));
         this.#logLine();
         console.log("Transaction sent: ", `0x${transaction.hash}`);
-        console.log("Response: ", result);
+        await Client.postTransaction(this.config.cli.peer, transaction.serialized.toString("hex"));
         this.#logLine();
     }
 

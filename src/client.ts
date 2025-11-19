@@ -17,7 +17,7 @@ const parseJSONRPCResult = <T>(method: string, response: any): T => {
 
 const JSONRPCCall = async <T>(peer: Peer, method: string, params: any[]): Promise<T> => {
     try {
-        const response = await http.post(`${peer.apiEvmUrl}/api/`, {
+        const response = await http.post(`${peer}/api/`, {
             headers: { "Content-Type": "application/json" },
             body: {
                 jsonrpc: "2.0",
@@ -29,7 +29,7 @@ const JSONRPCCall = async <T>(peer: Peer, method: string, params: any[]): Promis
 
         return parseJSONRPCResult<T>(method, response);
     } catch (err) {
-        console.error(`Error on ${method}. ${err.message}`);
+        // console.error(`Error on ${method}. ${err.message}`);
         throw err;
     }
 };
@@ -46,23 +46,6 @@ export const postEthView = async (peer: Peer, viewParameters: EthViewParameters)
     return JSONRPCCall<string>(peer, "eth_call", [viewParameters, "latest"]);
 };
 
-export const postTransaction = async (peer: Peer, transaction: string): Promise<void> => {
-    try {
-        const response = await http.post(`${peer.apiTxPoolUrl}/api/transactions`, {
-            headers: { "Content-Type": "application/json" },
-            body: {
-                transactions: [transaction] as any,
-            },
-        });
-
-        if (response.statusCode !== 200) {
-            console.log(JSON.stringify(response.data));
-
-            return response.data;
-        } else {
-            return response.data;
-        }
-    } catch (err) {
-        console.error(`Cannot post transaction: ${err.message}`);
-    }
+export const postTransaction = async (peer: Peer, transaction: string): Promise<string> => {
+    return JSONRPCCall<string>(peer, "eth_sendRawTransaction", [`0x${transaction}`]);
 };

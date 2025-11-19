@@ -41,16 +41,14 @@ export const main = async (customArgs?: string[]) => {
             const amount = args.length > 2 ? args[2] : undefined;
 
             const tx = await Builder.makeTransfer(config, recipient, amount);
-            const result = await Client.postTransaction(peer, tx.serialized.toString("hex"));
+            await Client.postTransaction(peer, tx.serialized.toString("hex"));
             console.log(`Sent transfer with transaction hash: 0x${tx.hash} \n`);
-
-            console.log(result);
 
             break;
         }
         case 2: {
             const tx = await Builder.makeEvmDeploy(config);
-            const result = await Client.postTransaction(peer, tx.serialized.toString("hex"));
+            await Client.postTransaction(peer, tx.serialized.toString("hex"));
             console.log(`Sent deploy with transaction hash: 0x${tx.hash}`);
             console.log(
                 `Deployed contract address: ${getContractAddress({
@@ -58,8 +56,6 @@ export const main = async (customArgs?: string[]) => {
                     nonce: tx.data.nonce.toBigInt(),
                 })}\n`,
             );
-
-            console.log(result);
             break;
         }
         default: {

@@ -11,10 +11,7 @@ import { tokenTransfer } from "./contracts/tokentransfer.js";
 const config = {
     senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     senderSecondPassphrase: "", // REPLACE senderSecondPassphrase WITH THE SECOND PASSPHRASE OF YOUR WALLET if you have one
-    peer: {
-        apiTxPoolUrl: "https://testnet.mainsailhq.com/tx",
-        apiEvmUrl: "https://testnet.mainsailhq.com/rpc",
-    },
+    peer: "https://testnet.mainsailhq.com/rpc",
     gasPrice: 5000000000,
     transfer: {
         recipientAddress: "0xC870aF84F11e0d43c8a29C041F23a8E85a2Ce4ff",
