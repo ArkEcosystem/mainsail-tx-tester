@@ -7,7 +7,7 @@ import { Config, ContractData } from "./types.js";
 import { getContractAddress } from "viem";
 import { makeApplication } from "./boot.js";
 import { AppIdentifiers } from "./identifiers.js";
-import { getArgs } from "./utils.js";
+import { getArgs, sleep } from "./utils.js";
 
 export const main = async (customArgs?: string[]) => {
     const config = Loader.loadConfig();
@@ -44,6 +44,8 @@ export const main = async (customArgs?: string[]) => {
             await Client.postTransaction(peer, tx.serialized.toString("hex"));
             console.log(`Sent transfer with transaction hash: 0x${tx.hash} \n`);
 
+            await waitForOneBlock(peer);
+
             break;
         }
         case 2: {
@@ -56,10 +58,13 @@ export const main = async (customArgs?: string[]) => {
                     nonce: tx.data.nonce.toBigInt(),
                 })}\n`,
             );
+
+            await waitForOneBlock(peer);
+
             break;
         }
         default: {
-            await handleContract(args, config, contracts[txType - 3]);
+            await handleContract(args, config, contracts[txType - 3], peer);
             break;
         }
     }
@@ -78,7 +83,7 @@ const help = (config: Config) => {
     }
 };
 
-const handleContract = async (args: string[], config: Config, contractData: ContractData) => {
+const handleContract = async (args: string[], config: Config, contractData: ContractData, peer: string) => {
     const txIndex = args.length > 1 ? parseInt(args[1]) : undefined;
     const txArgs = args.length > 2 ? JSON.parse(args[2]) : undefined;
     const amount = args.length > 3 ? args[3] : undefined;
@@ -88,6 +93,21 @@ const handleContract = async (args: string[], config: Config, contractData: Cont
         contract.list();
     } else {
         await contract.interact(txIndex, txArgs, amount);
+
+        await waitForOneBlock(peer);
+    }
+};
+
+const waitForOneBlock = async (peer: string): Promise<void> => {
+    const timeout = 2000; // 2 seconds
+
+    const startHeight = await Client.getHeight(peer);
+    console.log("Waiting for next block...");
+    await sleep(timeout);
+
+    while (startHeight + 1 >= (await Client.getHeight(peer))) {
+        console.log(".");
+        await sleep(timeout);
     }
 };
 
