@@ -28,7 +28,7 @@ interface BuildArtifact {
 interface ContractFunction {
     functionName: string;
     args: any[];
-    amount?: number;
+    amount?: string;
 }
 
 function generateDefaultArgs(inputs: any[]): any[] {
@@ -98,7 +98,7 @@ function generateTransactionFunctions(abi: any[]): ContractFunction[] {
 
         // Add amount for payable functions
         if (func.stateMutability === "payable") {
-            result.amount = 100;
+            result.amount = "0";
         }
 
         return result;
@@ -128,7 +128,7 @@ function generateContractJs(artifact: BuildArtifact, fileName: string): string {
                           return `        {
             functionName: "${tx.functionName}",
             args: ${argsStr},
-            amount: ${tx.amount},
+            amount: "${tx.amount}",
         }`;
                       } else {
                           return `        {
