@@ -6,7 +6,7 @@ import { AbiFunction, decodeFunctionResult, encodeFunctionData } from "viem";
 
 import { AppIdentifiers } from "./identifiers.js";
 import { Application } from "@mainsail/kernel";
-import { EvmCallBuilder } from "@mainsail/crypto-transaction-evm-call";
+import { TransactionBuilder } from "@mainsail/crypto-transaction";
 import { getApplication } from "./boot.js";
 
 export const getWalletNonce = async (app: Application, config: Config): Promise<number> => {
@@ -43,7 +43,7 @@ export const makeTransfer = async (
     const walletNonce = await getWalletNonce(app, config);
 
     let builder = app
-        .resolve(EvmCallBuilder)
+        .resolve(TransactionBuilder)
         .gasPrice(cli.gasPrice)
         .gasLimit(21000)
         .nonce(walletNonce.toFixed(0))
@@ -65,7 +65,7 @@ export const makeEvmDeploy = async (config: Config): Promise<Contracts.Crypto.Tr
     const walletNonce = await getWalletNonce(app, config);
 
     let builder = app
-        .resolve(EvmCallBuilder)
+        .resolve(TransactionBuilder)
         .gasPrice(cli.gasPrice)
         .payload(evmDeploy.data.slice(2))
         .gasLimit(2_000_000)
@@ -111,7 +111,7 @@ export const makeEvmCall = async (
     console.log(`Encoded:  ${data}`);
 
     let builder = app
-        .resolve(EvmCallBuilder)
+        .resolve(TransactionBuilder)
         .gasPrice(cli.gasPrice)
         .payload(data.slice(2))
         .gasLimit(1_000_000)
