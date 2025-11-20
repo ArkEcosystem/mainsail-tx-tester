@@ -51,7 +51,7 @@ export class Contract {
     async #view(viewIndex: number): Promise<void> {
         this.#logContract();
         const view = await Builder.makeEvmView(this.config, this.contractData, viewIndex);
-        const result = await Client.postEthView(this.config.cli.peer, view);
+        const result = await Client.ethCall(this.config.cli.peer, view);
         this.#logLine();
         Builder.decodeEvmViewResult(this.config, this.contractData, viewIndex, result);
         this.#logLine();

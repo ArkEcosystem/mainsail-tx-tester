@@ -42,7 +42,7 @@ export const getHeight = async (peer: Peer): Promise<number> => {
     return parseInt(await JSONRPCCall<string>(peer, "eth_blockNumber", []));
 };
 
-export const postEthView = async (peer: Peer, viewParameters: EthViewParameters): Promise<string> => {
+export const ethCall = async (peer: Peer, viewParameters: EthViewParameters): Promise<string> => {
     return JSONRPCCall<string>(peer, "eth_call", [viewParameters, "latest"]);
 };
 
