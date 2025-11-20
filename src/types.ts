@@ -22,9 +22,12 @@ export type Transfer = {
 };
 
 export type EthViewParameters = {
-    from: string;
+    from?: string;
     to: string;
     data: string;
+    gas?: string;
+    gasPrice?: string;
+    value?: string;
 };
 
 export type ContractData = {
