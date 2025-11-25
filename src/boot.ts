@@ -6,7 +6,7 @@ import { Client } from "./client.js";
 import { ContractData, ContractFactory } from "./types.js";
 import { Contract } from "./contract.js";
 import { Wallet } from "./wallet.js";
-import { TransferBuilder } from "./interactions/transfer-builder.js";
+import { TransferBuilder, ContractBuilder, ViewBuilder } from "./interactions/index.js";
 import config from "../config/config.js";
 
 let app: Application | undefined = undefined;
@@ -84,6 +84,9 @@ export const makeApplication = async (): Promise<Application> => {
     app.bind(AppIdentifiers.Client).to(Client).inSingletonScope();
     app.bind(AppIdentifiers.Wallet).to(Wallet).inSingletonScope();
     app.bind(AppIdentifiers.TransferBuilder).to(TransferBuilder).inSingletonScope();
+    app.bind(AppIdentifiers.ContractBuilder).to(ContractBuilder).inSingletonScope();
+    app.bind(AppIdentifiers.ViewBuilder).to(ViewBuilder).inSingletonScope();
+
     app.bind<ContractFactory>(AppIdentifiers.ContractFactory).toFactory(
         (context: Contracts.Kernel.Container.ResolutionContext) =>
             (contractData: ContractData): Contract =>
