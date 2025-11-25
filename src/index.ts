@@ -3,7 +3,6 @@ import * as Client from "./client.js";
 import * as Loader from "./loader.js";
 import { Contract } from "./contract.js";
 import { Config, ContractData } from "./types.js";
-import { getContractAddress } from "viem";
 import { makeApplication } from "./boot.js";
 import { AppIdentifiers } from "./identifiers.js";
 import { getArgs, sleep } from "./utils.js";
@@ -42,22 +41,6 @@ export const main = async (customArgs?: string[]) => {
             const tx = await Builder.makeTransfer(config, recipient, amount);
             await Client.postTransaction(peer, tx.serialized.toString("hex"));
             console.log(`Sent transfer with transaction hash: 0x${tx.hash} \n`);
-
-            await waitForOneBlock(peer);
-            await logTransactionResult(peer, tx.hash);
-
-            break;
-        }
-        case 2: {
-            const tx = await Builder.makeEvmDeploy(config);
-            await Client.postTransaction(peer, tx.serialized.toString("hex"));
-            console.log(`Sent deploy with transaction hash: 0x${tx.hash}`);
-            console.log(
-                `Deployed contract address: ${getContractAddress({
-                    from: tx.data.from as any,
-                    nonce: tx.data.nonce.toBigInt(),
-                })}\n`,
-            );
 
             await waitForOneBlock(peer);
             await logTransactionResult(peer, tx.hash);

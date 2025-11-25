@@ -30,6 +30,11 @@ export class Contract {
     }
 
     async interact(transactionIndex: number, args?: any, amount?: string): Promise<string | void> {
+        if (transactionIndex === 0) {
+            return await this.#deploy();
+        }
+
+        transactionIndex--; // Adjust for deploy at index 0
         if (transactionIndex < this.contractData.transactions.length) {
             return await this.#transaction(transactionIndex, args, amount);
         } else if (transactionIndex < this.contractData.transactions.length + this.contractData.views.length) {
@@ -37,6 +42,19 @@ export class Contract {
         } else {
             throw new Error("Invalid index");
         }
+    }
+
+    async #deploy(): Promise<string> {
+        this.#logContract();
+        const transaction = await Builder.makeEvmDeploy(this.config, this.contractData);
+        this.#logLine();
+
+        this.#logLine();
+        console.log("Transaction sent: ", `0x${transaction.hash}`);
+        await Client.postTransaction(this.config.cli.peer, transaction.serialized.toString("hex"));
+        this.#logLine();
+
+        return transaction.hash;
     }
 
     async #transaction(transactionIndex: number, args?: any, amount?: string): Promise<string> {
