@@ -48,7 +48,7 @@ export const main = async (customArgs?: string[]) => {
             break;
         }
         default: {
-            await handleContract(args, config, contracts[txType - 3], peer);
+            await handleContract(args, config, contracts[txType - 2], peer);
             break;
         }
     }
@@ -58,10 +58,9 @@ const help = (config: Config) => {
     console.log("Please provide TX number in arguments:");
 
     console.log("1 - Transfer");
-    console.log("2 - Deploy");
 
     const contracts: ContractData[] = Object.values(config.cli.contracts);
-    let index = 3;
+    let index = 2;
     for (let contract of contracts) {
         console.log(`${index++} - ${contract.name}`);
     }
