@@ -1,5 +1,5 @@
 import { injectable, inject } from "@mainsail/container";
-import { Config, Logger, ContractFactory, ContractData, TransactionSender, TransferBuilder } from "./types.js";
+import { Config, Logger, ContractFactory, ContractData, TransactionSender, TransferBuilder, Args } from "./types.js";
 import { AppIdentifiers } from "./identifiers.js";
 import { getArgs } from "./utils.js";
 
@@ -38,11 +38,7 @@ export class Cli {
         }
 
         if (txType === 1) {
-            const recipient = args.length > 1 ? args[1] : undefined;
-            const amount = args.length > 2 ? args[2] : undefined;
-
-            const tx = await this.transferBuilder.makeTransfer(this.config, recipient, amount);
-            await this.transactionSender.sendTransaction(tx);
+            await this.handleTransfer(args);
         } else {
             await this.handleContract(args, contracts[txType - 2]);
         }
@@ -59,7 +55,15 @@ export class Cli {
         }
     }
 
-    handleContract = async (args: string[], contractData: ContractData) => {
+    handleTransfer = async (args: Args) => {
+        const recipient = args.length > 1 ? args[1] : undefined;
+        const amount = args.length > 2 ? args[2] : undefined;
+
+        const tx = await this.transferBuilder.makeTransfer(this.config, recipient, amount);
+        await this.transactionSender.sendTransaction(tx);
+    };
+
+    handleContract = async (args: Args, contractData: ContractData) => {
         const txIndex = args.length > 1 ? parseInt(args[1]) : undefined;
         const txArgs = args.length > 2 ? JSON.parse(args[2]) : undefined;
         const amount = args.length > 3 ? args[3] : undefined;

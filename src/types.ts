@@ -96,9 +96,11 @@ export type EthViewParameters = {
     value?: string;
 };
 
+export type Args = string[];
+export type Flags = Record<string, string>;
 export type ArgsAndFlags = {
-    args: string[];
-    flags: Record<string, string>;
+    args: Args;
+    flags: Flags;
 };
 
 export type Receipt = {
