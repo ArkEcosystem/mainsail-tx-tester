@@ -1,11 +1,13 @@
 import * as Builder from "./builder.js";
-import * as Client from "./client.js";
+import { Client } from "./client.js";
 import * as Loader from "./loader.js";
 import { Contract } from "./contract.js";
 import { Config, ContractData } from "./types.js";
 import { makeApplication } from "./boot.js";
 import { AppIdentifiers } from "./identifiers.js";
-import { getArgs, sleep } from "./utils.js";
+import { getArgs } from "./utils.js";
+
+import { Contracts } from "@mainsail/contracts";
 
 export const main = async (customArgs?: string[]) => {
     const config = Loader.loadConfig();
@@ -33,22 +35,24 @@ export const main = async (customArgs?: string[]) => {
         return;
     }
 
+    const client = app.get<Client>(AppIdentifiers.Client);
+
     switch (txType) {
         case 1: {
             const recipient = args.length > 1 ? args[1] : undefined;
             const amount = args.length > 2 ? args[2] : undefined;
 
             const tx = await Builder.makeTransfer(config, recipient, amount);
-            await Client.postTransaction(peer, tx.serialized.toString("hex"));
+            await client.postTransaction(peer, tx.serialized.toString("hex"));
             console.log(`Sent transfer with transaction hash: 0x${tx.hash} \n`);
 
-            await waitForOneBlock(peer);
-            await logTransactionResult(peer, tx.hash);
+            // await waitForOneBlock(peer);
+            // await logTransactionResult(peer, tx.hash);
 
             break;
         }
         default: {
-            await handleContract(args, config, contracts[txType - 2], peer);
+            await handleContract(app, args, config, contracts[txType - 2], peer);
             break;
         }
     }
@@ -66,7 +70,13 @@ const help = (config: Config) => {
     }
 };
 
-const handleContract = async (args: string[], config: Config, contractData: ContractData, peer: string) => {
+const handleContract = async (
+    app: Contracts.Kernel.Application,
+    args: string[],
+    config: Config,
+    contractData: ContractData,
+    peer: string,
+) => {
     const txIndex = args.length > 1 ? parseInt(args[1]) : undefined;
     const txArgs = args.length > 2 ? JSON.parse(args[2]) : undefined;
     const amount = args.length > 3 ? args[3] : undefined;
@@ -75,50 +85,50 @@ const handleContract = async (args: string[], config: Config, contractData: Cont
     if (txIndex === undefined) {
         contract.list();
     } else {
-        const hash = await contract.interact(txIndex, txArgs, amount);
+        const hash = await contract.interact(app, txIndex, txArgs, amount);
 
         if (hash === undefined) {
             return;
         }
 
-        await waitForOneBlock(peer);
-        await logTransactionResult(peer, hash);
+        // await waitForOneBlock(peer);
+        // await logTransactionResult(peer, hash);
     }
 };
 
-const waitForOneBlock = async (peer: string): Promise<void> => {
-    return;
+// const waitForOneBlock = async (peer: string): Promise<void> => {
+//     return;
 
-    const timeout = 2000; // 2 seconds
+//     const timeout = 2000; // 2 seconds
 
-    const startHeight = await Client.getHeight(peer);
-    console.log("Waiting for next block...");
-    await sleep(timeout);
+//     const startHeight = await Client.getHeight(peer);
+//     console.log("Waiting for next block...");
+//     await sleep(timeout);
 
-    while (startHeight + 1 >= (await Client.getHeight(peer))) {
-        console.log(".");
-        await sleep(timeout);
-    }
-};
+//     while (startHeight + 1 >= (await Client.getHeight(peer))) {
+//         console.log(".");
+//         await sleep(timeout);
+//     }
+// };
 
-const logTransactionResult = async (peer: string, txHash: string): Promise<void> => {
-    console.log(`Fetching transaction receipt for hash: 0x${txHash}`);
+// const logTransactionResult = async (peer: string, txHash: string): Promise<void> => {
+//     console.log(`Fetching transaction receipt for hash: 0x${txHash}`);
 
-    const receipt = await Client.getReceipt(peer, txHash);
+//     const receipt = await Client.getReceipt(peer, txHash);
 
-    if (receipt === null) {
-        console.log("Transaction was not forged.");
-        return;
-    }
+//     if (receipt === null) {
+//         console.log("Transaction was not forged.");
+//         return;
+//     }
 
-    if (receipt.status === "0x0") {
-        console.log("Transaction failed:");
-    } else {
-        console.log("Transaction succeeded:");
-    }
+//     if (receipt.status === "0x0") {
+//         console.log("Transaction failed:");
+//     } else {
+//         console.log("Transaction succeeded:");
+//     }
 
-    console.log(receipt);
-};
+//     console.log(receipt);
+// };
 
 if (import.meta.url === `file://${process.argv[1]}`) {
     main();

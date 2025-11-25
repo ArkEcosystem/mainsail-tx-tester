@@ -3,6 +3,7 @@ import { Identifiers, Contracts } from "@mainsail/contracts";
 import { Application, Providers } from "@mainsail/kernel";
 import { Config } from "./types.js";
 import { AppIdentifiers } from "./identifiers.js";
+import { Client } from "./client.js";
 
 let app: Application | undefined = undefined;
 
@@ -74,6 +75,7 @@ export const makeApplication = async (config: Config): Promise<Application> => {
 
     // APP
     app.bind(AppIdentifiers.WalletPassphrase).toConstantValue(config.cli.senderPassphrase);
+    app.bind(AppIdentifiers.Client).to(Client).inSingletonScope();
 
     return app;
 };

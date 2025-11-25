@@ -1,4 +1,4 @@
-import * as Client from "./client.js";
+import { Client } from "./client.js";
 
 import { Config, ContractData, EthViewParameters } from "./types.js";
 import { Contracts, Identifiers } from "@mainsail/contracts";
@@ -20,7 +20,7 @@ export const getWalletNonce = async (app: Application, config: Config): Promise<
 
     let walletNonce = 0;
     try {
-        walletNonce = await Client.getWalletNonce(peer, walletAddress);
+        walletNonce = await app.get<Client>(AppIdentifiers.Client).getWalletNonce(peer, walletAddress);
     } catch (e) {}
 
     console.log(`Using wallet: ${walletAddress} nonce: ${walletNonce}`);

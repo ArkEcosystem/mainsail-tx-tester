@@ -2,8 +2,9 @@ import { makeApplication } from "../boot.js";
 import { loadConfig } from "../loader.js";
 import { makeIdentityFactories } from "../builder.js";
 import { getArgs } from "../utils.js";
+import { AppIdentifiers } from "../identifiers.js";
 
-import * as Client from "../client.js";
+import { Client } from "../client.js";
 
 export const main = async (customArgs?: string[]) => {
     const config = loadConfig();
@@ -21,7 +22,7 @@ export const main = async (customArgs?: string[]) => {
 
     let walletNonce = 0;
     try {
-        walletNonce = await Client.getWalletNonce(peer, walletAddress);
+        walletNonce = await app.get<Client>(AppIdentifiers.Client).getWalletNonce(peer, walletAddress);
     } catch (e) {}
 
     console.log(walletNonce);
