@@ -12,15 +12,22 @@ export class Contract {
 
     async list() {
         this.#logContract();
-        console.log("Transactions:");
+        // Deploys:
+        console.log("Deploys:");
+        this.#logLine();
+        console.log(`0 - Deploy`);
         this.#logLine();
 
-        let i = 0;
+        // Transactions:
+        console.log("Transactions:");
+        this.#logLine();
+        let i = 1;
         for (let transaction of this.contractData.transactions) {
             console.log(`${i++} - ${transaction.functionName}`);
         }
-
         this.#logLine();
+
+        // Views:
         console.log("Views:");
         this.#logLine();
 
@@ -50,7 +57,7 @@ export class Contract {
         this.#logLine();
 
         this.#logLine();
-        console.log("Transaction sent: ", `0x${transaction.hash}`);
+        console.log("Deployment sent: ", `0x${transaction.hash}`);
         await Client.postTransaction(this.config.cli.peer, transaction.serialized.toString("hex"));
         this.#logLine();
 
