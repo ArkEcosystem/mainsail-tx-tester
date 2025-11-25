@@ -1,11 +1,14 @@
 import { Contracts } from "@mainsail/contracts";
 import { injectable, inject } from "@mainsail/container";
 
-import { ContractData, Client, Contract as IContract, ContractBuilder, ViewBuilder } from "./types.js";
+import { ContractData, Client, Contract as IContract, ContractBuilder, ViewBuilder, Logger } from "./types.js";
 import { AppIdentifiers } from "./identifiers.js";
 
 @injectable()
 export class Contract implements IContract {
+    @inject(AppIdentifiers.Logger)
+    private logger!: Logger;
+
     @inject(AppIdentifiers.Client)
     private client!: Client;
 
@@ -25,26 +28,21 @@ export class Contract implements IContract {
     list(): void {
         this.#logContract();
         // Deploys:
-        console.log("Deploys:");
-        this.#logLine();
-        console.log(`0 - Deploy`);
-        this.#logLine();
+        this.logger.header("Deploys:");
+        this.logger.log(`0 - Deploy`);
 
         // Transactions:
-        console.log("Transactions:");
-        this.#logLine();
+        this.logger.header("Transactions:");
         let i = 1;
         for (let transaction of this.contractData.transactions) {
-            console.log(`${i++} - ${transaction.functionName}`);
+            this.logger.log(`${i++} - ${transaction.functionName}`);
         }
-        this.#logLine();
 
         // Views:
-        console.log("Views:");
-        this.#logLine();
+        this.logger.header("Views:");
 
         for (let view of this.contractData.views) {
-            console.log(`${i++} - ${view.functionName}`);
+            this.logger.log(`${i++} - ${view.functionName}`);
         }
     }
 
@@ -66,12 +64,12 @@ export class Contract implements IContract {
     async #deploy(): Promise<string> {
         this.#logContract();
         const transaction = await this.contractBuilder.makeDeploy(this.contractData);
-        this.#logLine();
 
-        this.#logLine();
-        console.log("Deployment sent: ", `0x${transaction.hash}`);
+        this.logger.line();
+        this.logger.logKV("Deployment sent: ", `0x${transaction.hash}`);
+        this.logger.line();
+
         await this.client.postTransaction(transaction.serialized.toString("hex"));
-        this.#logLine();
 
         return transaction.hash;
     }
@@ -79,21 +77,21 @@ export class Contract implements IContract {
     async #transaction(transactionIndex: number, args?: any, amount?: string): Promise<string> {
         this.#logContract();
         const transaction = await this.contractBuilder.makeCall(this.contractData, transactionIndex, args, amount);
-        this.#logLine();
+        this.logger.line();
 
         // await this.#simulate(this.config.cli.peer, transaction);
 
-        this.#logLine();
-        console.log("Transaction sent: ", `0x${transaction.hash}`);
+        this.logger.line();
+        this.logger.logKV("Transaction sent: ", `0x${transaction.hash}`);
         await this.client.postTransaction(transaction.serialized.toString("hex"));
-        this.#logLine();
+        this.logger.line();
 
         return transaction.hash;
     }
 
     // @ts-ignore
     #simulate = async (transaction: Contracts.Crypto.Transaction): Promise<void> => {
-        console.log("Simulating transaction...");
+        this.logger.log("Simulating transaction...");
         const result = await this.client.ethCall({
             from: transaction.data.from,
             to: transaction.data.to!, // TODO: Support to
@@ -103,27 +101,24 @@ export class Contract implements IContract {
             // value: transaction.data.value?.toString(),
         });
 
-        console.log("Simulation result:");
-        console.log(result);
+        this.logger.log("Simulation result:");
+        this.logger.log(result);
     };
 
     async #view(viewIndex: number): Promise<void> {
         this.#logContract();
         const view = await this.viewBuilder.makeView(this.contractData, viewIndex);
         const result = await this.client.ethCall(view);
-        this.#logLine();
+
+        this.logger.line();
         this.viewBuilder.decodeViewResult(this.contractData, viewIndex, result);
-        this.#logLine();
+        this.logger.line();
     }
 
     #logContract() {
-        this.#logLine();
-        console.log(`Contract: ${this.contractData.name}`);
-        console.log(`Id: ${this.contractData.contractId}`);
-        this.#logLine();
-    }
-
-    #logLine() {
-        console.log("-".repeat(46));
+        this.logger.line();
+        this.logger.logKV("Contract", this.contractData.name);
+        this.logger.logKV("Id", this.contractData.contractId);
+        this.logger.line();
     }
 }

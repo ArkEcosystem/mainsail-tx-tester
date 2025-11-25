@@ -5,6 +5,7 @@ import { AppIdentifiers } from "./identifiers.js";
 import { Client } from "./client.js";
 import { ContractData, ContractFactory } from "./types.js";
 import { Contract } from "./contract.js";
+import { Logger } from "./logger.js";
 import { Wallet } from "./wallet.js";
 import { TransferBuilder, ContractBuilder, ViewBuilder } from "./interactions/index.js";
 import config from "../config/config.js";
@@ -81,6 +82,7 @@ export const makeApplication = async (): Promise<Application> => {
     // APP
     app.bind(AppIdentifiers.WalletPassphrase).toConstantValue(config.senderPassphrase); // TODO: Remove
 
+    app.bind(AppIdentifiers.Logger).to(Logger).inSingletonScope();
     app.bind(AppIdentifiers.Client).to(Client).inSingletonScope();
     app.bind(AppIdentifiers.Wallet).to(Wallet).inSingletonScope();
     app.bind(AppIdentifiers.TransferBuilder).to(TransferBuilder).inSingletonScope();

@@ -1,6 +1,13 @@
 import { Contracts } from "@mainsail/contracts";
 import { Abi } from "viem";
 
+export interface Logger {
+    line: () => void;
+    header: (title: string) => void;
+    logKV: (key: string, value: string) => void;
+    log: (message: string) => void;
+}
+
 export interface Client {
     getWalletNonce: (address: string) => Promise<number>;
     getHeight: () => Promise<number>;
