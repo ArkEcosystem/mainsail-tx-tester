@@ -1,3 +1,5 @@
+import { Contracts } from "@mainsail/contracts";
+
 import { ContractData, Config } from "./types.js";
 import * as Builder from "./builder.js";
 import * as Client from "./client.js";
@@ -41,12 +43,32 @@ export class Contract {
         this.#logContract();
         const transaction = await Builder.makeEvmCall(this.config, this.contractData, transactionIndex, args, amount);
         this.#logLine();
+
+        // await this.#simulate(this.config.cli.peer, transaction);
+
+        this.#logLine();
         console.log("Transaction sent: ", `0x${transaction.hash}`);
         await Client.postTransaction(this.config.cli.peer, transaction.serialized.toString("hex"));
         this.#logLine();
 
         return transaction.hash;
     }
+
+    // @ts-ignore
+    #simulate = async (peer: string, transaction: Contracts.Crypto.Transaction): Promise<void> => {
+        console.log("Simulating transaction...");
+        const result = await Client.ethCall(peer, {
+            from: transaction.data.from,
+            to: transaction.data.to!, // TODO: Support to
+            data: `0x${transaction.serialized.toString("hex")}`,
+            // gas: transaction.data.gasLimit?.toString(),
+            // gasPrice: transaction.data.gasPrice?.toString(),
+            // value: transaction.data.value?.toString(),
+        });
+
+        console.log("Simulation result:");
+        console.log(result);
+    };
 
     async #view(viewIndex: number): Promise<void> {
         this.#logContract();

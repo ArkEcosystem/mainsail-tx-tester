@@ -2,7 +2,6 @@ import * as Builder from "./builder.js";
 import * as Client from "./client.js";
 import * as Loader from "./loader.js";
 import { Contract } from "./contract.js";
-
 import { Config, ContractData } from "./types.js";
 import { getContractAddress } from "viem";
 import { makeApplication } from "./boot.js";
