@@ -1,10 +1,10 @@
 import { Container } from "@mainsail/container";
 import { Identifiers, Contracts } from "@mainsail/contracts";
 import { Application, Providers } from "@mainsail/kernel";
-import { Config } from "./types.js";
 import { AppIdentifiers } from "./identifiers.js";
 import { Client } from "./client.js";
 import { TransferBuilder } from "./interactions/transfer-builder.js";
+import config from "../config/config.js";
 
 let app: Application | undefined = undefined;
 
@@ -16,7 +16,7 @@ export const getApplication = (): Application => {
     return app;
 };
 
-export const makeApplication = async (config: Config): Promise<Application> => {
+export const makeApplication = async (): Promise<Application> => {
     if (app) {
         return app;
     }
@@ -72,10 +72,12 @@ export const makeApplication = async (config: Config): Promise<Application> => {
         }
     }
 
+    app.bind(AppIdentifiers.Config).toConstantValue(config);
     app.get<Contracts.Crypto.Configuration>(Identifiers.Cryptography.Configuration).setConfig(config.crypto);
 
     // APP
-    app.bind(AppIdentifiers.WalletPassphrase).toConstantValue(config.cli.senderPassphrase);
+    app.bind(AppIdentifiers.WalletPassphrase).toConstantValue(config.senderPassphrase); // TODO: Remove
+
     app.bind(AppIdentifiers.Client).to(Client).inSingletonScope();
     app.bind(AppIdentifiers.TransferBuilder).to(TransferBuilder).inSingletonScope();
 

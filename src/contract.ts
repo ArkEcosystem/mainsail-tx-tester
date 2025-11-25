@@ -64,7 +64,7 @@ export class Contract {
         console.log("Deployment sent: ", `0x${transaction.hash}`);
         await app
             .get<Client>(AppIdentifiers.Client)
-            .postTransaction(this.config.cli.peer, transaction.serialized.toString("hex"));
+            .postTransaction(this.config.peer, transaction.serialized.toString("hex"));
         this.#logLine();
 
         return transaction.hash;
@@ -86,7 +86,7 @@ export class Contract {
         console.log("Transaction sent: ", `0x${transaction.hash}`);
         await app
             .get<Client>(AppIdentifiers.Client)
-            .postTransaction(this.config.cli.peer, transaction.serialized.toString("hex"));
+            .postTransaction(this.config.peer, transaction.serialized.toString("hex"));
         this.#logLine();
 
         return transaction.hash;
@@ -95,7 +95,7 @@ export class Contract {
     // @ts-ignore
     #simulate = async (app: Contracts.Kernel.Application, transaction: Contracts.Crypto.Transaction): Promise<void> => {
         console.log("Simulating transaction...");
-        const result = await app.get<Client>(AppIdentifiers.Client).ethCall(this.config.cli.peer, {
+        const result = await app.get<Client>(AppIdentifiers.Client).ethCall(this.config.peer, {
             from: transaction.data.from,
             to: transaction.data.to!, // TODO: Support to
             data: `0x${transaction.serialized.toString("hex")}`,
@@ -111,7 +111,7 @@ export class Contract {
     async #view(app: Contracts.Kernel.Application, viewIndex: number): Promise<void> {
         this.#logContract();
         const view = await Builder.makeEvmView(this.config, this.contractData, viewIndex);
-        const result = await app.get<Client>(AppIdentifiers.Client).ethCall(this.config.cli.peer, view);
+        const result = await app.get<Client>(AppIdentifiers.Client).ethCall(this.config.peer, view);
         this.#logLine();
         Builder.decodeEvmViewResult(this.config, this.contractData, viewIndex, result);
         this.#logLine();

@@ -1,15 +1,14 @@
 import { generateMnemonic } from "bip39";
 import { makeApplication } from "../boot.js";
-import { loadConfig } from "../loader.js";
 import { makeIdentityFactories } from "../builder.js";
 
 const main = async () => {
     const mnemonic = process.argv.length === 3 ? process.argv[2] : generateMnemonic(256);
 
-    const app = await makeApplication(loadConfig());
+    const app = await makeApplication();
 
     const { consensusPrivateKeyFactory, consensusPublicKeyFactory } = makeIdentityFactories(app);
-    
+
     console.log("Mnemonic: ", mnemonic);
     console.log();
 

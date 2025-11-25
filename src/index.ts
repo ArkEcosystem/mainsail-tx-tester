@@ -1,4 +1,3 @@
-import * as Loader from "./loader.js";
 import { Contract } from "./contract.js";
 import { Config, ContractData, Client, TransferBuilder } from "./types.js";
 import { makeApplication } from "./boot.js";
@@ -8,10 +7,8 @@ import { getArgs } from "./utils.js";
 import { Contracts } from "@mainsail/contracts";
 
 export const main = async (customArgs?: string[]) => {
-    const config = Loader.loadConfig();
-    const app = await makeApplication(config);
-
-    const peer = config.cli.peer;
+    const app = await makeApplication();
+    const config = app.get<Config>(AppIdentifiers.Config);
 
     const { args, flags } = getArgs(customArgs);
 
@@ -26,7 +23,7 @@ export const main = async (customArgs?: string[]) => {
 
     const txType = parseInt(args[0]);
 
-    const contracts: ContractData[] = Object.values(config.cli.contracts);
+    const contracts: ContractData[] = Object.values(config.contracts);
 
     if (txType >= contracts.length + 3) {
         help(config);
@@ -43,7 +40,7 @@ export const main = async (customArgs?: string[]) => {
             const tx = await app
                 .get<TransferBuilder>(AppIdentifiers.TransferBuilder)
                 .makeTransfer(config, recipient, amount);
-            await client.postTransaction(peer, tx.serialized.toString("hex"));
+            await client.postTransaction(config.peer, tx.serialized.toString("hex"));
             console.log(`Sent transfer with transaction hash: 0x${tx.hash} \n`);
 
             // await waitForOneBlock(peer);
@@ -52,7 +49,7 @@ export const main = async (customArgs?: string[]) => {
             break;
         }
         default: {
-            await handleContract(app, args, config, contracts[txType - 2], peer);
+            await handleContract(app, args, config, contracts[txType - 2], config.peer);
             break;
         }
     }
@@ -63,7 +60,7 @@ const help = (config: Config) => {
 
     console.log("1 - Transfer");
 
-    const contracts: ContractData[] = Object.values(config.cli.contracts);
+    const contracts: ContractData[] = Object.values(config.contracts);
     let index = 2;
     for (let contract of contracts) {
         console.log(`${index++} - ${contract.name}`);

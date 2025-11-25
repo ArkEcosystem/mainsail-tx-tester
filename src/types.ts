@@ -1,5 +1,4 @@
 import { Contracts } from "@mainsail/contracts";
-import cli from "../config/config.js";
 import { Abi } from "viem";
 
 export interface Client {
@@ -14,11 +13,25 @@ export interface TransferBuilder {
     makeTransfer: (config: Config, recipient?: string, amount?: string) => Promise<Contracts.Crypto.Transaction>;
 }
 
-export type Peer = typeof cli.peer;
+export type Peer = string;
 
 export type Config = {
+    privateKey: string;
+    senderPassphrase: string;
+    senderSecondPassphrase: string;
+    peer: string;
+    gasPrice: number;
+    transfer: {
+        recipientAddress: string;
+        value: string;
+    };
+    contracts: Record<string, ContractData>;
+    message: {
+        publicKey: string;
+        message: string;
+        signature: string;
+    };
     crypto: Contracts.Crypto.NetworkConfig;
-    cli: typeof cli;
 };
 
 export type AddressType = "base58" | "bech32m";

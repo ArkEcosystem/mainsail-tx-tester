@@ -8,9 +8,9 @@ import { TransactionBuilder } from "@mainsail/crypto-transaction";
 import { getApplication } from "./boot.js";
 
 export const getWalletNonce = async (app: Application, config: Config): Promise<number> => {
-    const { peer } = config.cli;
+    const { peer } = config;
 
-    const walletAddress = await getAddress(app, config.cli);
+    const walletAddress = await getAddress(app, config);
 
     if (app.isBound(AppIdentifiers.WalletNonce)) {
         return app.get<number>(AppIdentifiers.WalletNonce);
@@ -30,20 +30,18 @@ export const makeEvmDeploy = async (
     config: Config,
     contractData: ContractData,
 ): Promise<Contracts.Crypto.Transaction> => {
-    const { cli } = config;
-
     const app = getApplication();
 
     const walletNonce = await getWalletNonce(app, config);
 
     let builder = app
         .resolve(TransactionBuilder)
-        .gasPrice(cli.gasPrice)
+        .gasPrice(config.gasPrice)
         .payload(contractData.bytecode.slice(2))
         .gasLimit(2_000_000)
         .nonce(walletNonce.toString());
 
-    const signed = await signTransaction(app, builder, cli);
+    const signed = await signTransaction(app, builder, config);
 
     return signed.build();
 };
@@ -55,8 +53,6 @@ export const makeEvmCall = async (
     args?: any[],
     amount?: string,
 ): Promise<Contracts.Crypto.Transaction> => {
-    const { cli } = config;
-
     const app = getApplication();
 
     const walletNonce = await getWalletNonce(app, config);
@@ -84,14 +80,14 @@ export const makeEvmCall = async (
 
     let builder = app
         .resolve(TransactionBuilder)
-        .gasPrice(cli.gasPrice)
+        .gasPrice(config.gasPrice)
         .payload(data.slice(2))
         .gasLimit(1_000_000)
         .recipientAddress(contractData.contractId)
         .value(amount)
         .nonce(walletNonce.toString());
 
-    const signed = await signTransaction(app, builder, cli);
+    const signed = await signTransaction(app, builder, config);
 
     return signed.build();
 };
@@ -119,7 +115,7 @@ export const makeEvmView = async (
     console.log(`Encoded:  ${data}`);
 
     return {
-        from: await getAddress(app, config.cli),
+        from: await getAddress(app, config),
         to: contractData.contractId,
         data: data,
     };
