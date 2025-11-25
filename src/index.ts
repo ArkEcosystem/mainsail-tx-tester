@@ -105,6 +105,8 @@ const handleContract = async (args: string[], config: Config, contractData: Cont
 };
 
 const waitForOneBlock = async (peer: string): Promise<void> => {
+    return;
+
     const timeout = 2000; // 2 seconds
 
     const startHeight = await Client.getHeight(peer);
