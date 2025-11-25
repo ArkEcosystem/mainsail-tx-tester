@@ -26,32 +26,6 @@ export const getWalletNonce = async (app: Application, config: Config): Promise<
     return walletNonce;
 };
 
-export const makeTransfer = async (
-    config: Config,
-    recipient?: string,
-    amount?: string,
-): Promise<Contracts.Crypto.Transaction> => {
-    const { cli } = config;
-    const { transfer } = cli;
-
-    const app = getApplication();
-
-    const walletNonce = await getWalletNonce(app, config);
-
-    let builder = app
-        .resolve(TransactionBuilder)
-        .gasPrice(cli.gasPrice)
-        .gasLimit(21000)
-        .nonce(walletNonce.toFixed(0))
-        .recipientAddress(recipient ? recipient : transfer.recipientAddress)
-        .value(amount ? amount : transfer.value)
-        .payload("");
-
-    const signed = await signTransaction(app, builder, cli);
-
-    return signed.build();
-};
-
 export const makeEvmDeploy = async (
     config: Config,
     contractData: ContractData,
