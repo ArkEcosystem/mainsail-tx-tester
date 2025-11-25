@@ -159,6 +159,7 @@ export const ${contractNameLower} = {
     abi: ${contractName}.abi,
     name: "${contractName}",
     contractId: "", // Add deployed contract address here
+    bytecode: ${contractName}.bytecode,
     transactions: [${transactions.length > 0 ? "\n" + transactionsCode + "\n    " : ""}],
     views: [${views.length > 0 ? "\n" + viewsCode + "\n    " : ""}],
 };
