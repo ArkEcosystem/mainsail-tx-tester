@@ -5,7 +5,6 @@ import { usernames } from "./contracts/usernames.js";
 import { multiPayment } from "./contracts/multipayment.js";
 import { dark20 } from "./contracts/dark20.js";
 import { revert } from "./contracts/revert.js";
-import { tokenTransfer } from "./contracts/tokentransfer.js";
 import { test } from "./contracts/test.js";
 
 const config = {
@@ -25,7 +24,6 @@ const config = {
         multiPayment,
         dark20,
         revert,
-        tokenTransfer,
         test,
     },
     message: {
