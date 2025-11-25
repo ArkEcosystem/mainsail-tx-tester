@@ -1,7 +1,6 @@
-import * as Builder from "./builder.js";
 import * as Loader from "./loader.js";
 import { Contract } from "./contract.js";
-import { Config, ContractData, Client } from "./types.js";
+import { Config, ContractData, Client, TransferBuilder } from "./types.js";
 import { makeApplication } from "./boot.js";
 import { AppIdentifiers } from "./identifiers.js";
 import { getArgs } from "./utils.js";
@@ -41,7 +40,9 @@ export const main = async (customArgs?: string[]) => {
             const recipient = args.length > 1 ? args[1] : undefined;
             const amount = args.length > 2 ? args[2] : undefined;
 
-            const tx = await Builder.makeTransfer(config, recipient, amount);
+            const tx = await app
+                .get<TransferBuilder>(AppIdentifiers.TransferBuilder)
+                .makeTransfer(config, recipient, amount);
             await client.postTransaction(peer, tx.serialized.toString("hex"));
             console.log(`Sent transfer with transaction hash: 0x${tx.hash} \n`);
 

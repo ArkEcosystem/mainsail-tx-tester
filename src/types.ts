@@ -10,6 +10,10 @@ export interface Client {
     getReceipt: (peer: Peer, transaction: string) => Promise<Receipt | null>;
 }
 
+export interface TransferBuilder {
+    makeTransfer: (config: Config, recipient?: string, amount?: string) => Promise<Contracts.Crypto.Transaction>;
+}
+
 export type Peer = typeof cli.peer;
 
 export type Config = {
