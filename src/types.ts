@@ -12,6 +12,19 @@ export interface Client {
 export interface TransferBuilder {
     makeTransfer: (config: Config, recipient?: string, amount?: string) => Promise<Contracts.Crypto.Transaction>;
 }
+export interface ContractBuilder {
+    makeDeploy: (contractData: ContractData) => Promise<Contracts.Crypto.Transaction>;
+    makeCall: (
+        contractData: ContractData,
+        functionIndex: number,
+        args?: any[],
+        amount?: string,
+    ) => Promise<Contracts.Crypto.Transaction>;
+}
+
+export interface ViewBuilder {
+    makeView: (contractData: ContractData, index: number) => Promise<EthViewParameters>;
+}
 
 export type Peer = string;
 

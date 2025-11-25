@@ -1,7 +1,8 @@
 import { Contracts, Identifiers } from "@mainsail/contracts";
 import { injectable, inject } from "@mainsail/container";
+import { TransactionBuilder } from "@mainsail/crypto-transaction";
 
-import { ContractData, Config, Client, Contract as IContract } from "./types.js";
+import { ContractData, Config, Client, Contract as IContract, Wallet } from "./types.js";
 import * as Builder from "./builder.js";
 import { AppIdentifiers } from "./identifiers.js";
 
@@ -9,6 +10,9 @@ import { AppIdentifiers } from "./identifiers.js";
 export class Contract implements IContract {
     @inject(Identifiers.Application.Instance)
     private app!: Contracts.Kernel.Application;
+
+    @inject(AppIdentifiers.Wallet)
+    private readonly wallet!: Wallet;
 
     @inject(AppIdentifiers.Config)
     private config!: Config;
@@ -61,9 +65,28 @@ export class Contract implements IContract {
         }
     }
 
+    async makeEvmDeploy(contractData: ContractData): Promise<Contracts.Crypto.Transaction> {
+        const walletNonce = await this.wallet.getNonce();
+
+        let builder = this.app
+            .resolve(TransactionBuilder)
+            .gasPrice(this.config.gasPrice)
+            .payload(contractData.bytecode.slice(2))
+            .gasLimit(2_000_000)
+            .nonce(walletNonce.toString());
+
+        await builder.signWithKeyPair(await this.wallet.getKeyPair());
+
+        if (this.wallet.hasSecondPassphrase()) {
+            builder = await builder.legacySecondSign(this.wallet.getSecondPassphrase());
+        }
+
+        return builder.build();
+    }
+
     async #deploy(): Promise<string> {
         this.#logContract();
-        const transaction = await Builder.makeEvmDeploy(this.config, this.contractData);
+        const transaction = await this.makeEvmDeploy(this.contractData);
         this.#logLine();
 
         this.#logLine();

@@ -1,17 +1,11 @@
-import { injectable, inject } from "@mainsail/container";
-import { Contracts, Identifiers } from "@mainsail/contracts";
-import { AppIdentifiers } from "../identifiers.js";
-import { Config, TransferBuilder as ITransferBuilder, Wallet } from "../types.js";
+import { injectable } from "@mainsail/container";
+import { Contracts } from "@mainsail/contracts";
+import { Base } from "./base.js";
+import { Config, TransferBuilder as ITransferBuilder } from "../types.js";
 import { TransactionBuilder } from "@mainsail/crypto-transaction";
 
 @injectable()
-export class TransferBuilder implements ITransferBuilder {
-    @inject(Identifiers.Application.Instance)
-    private readonly app!: Contracts.Kernel.Application;
-
-    @inject(AppIdentifiers.Wallet)
-    private readonly wallet!: Wallet;
-
+export class TransferBuilder extends Base implements ITransferBuilder {
     public async makeTransfer(
         config: Config,
         recipient?: string,
