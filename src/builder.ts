@@ -249,13 +249,11 @@ export const makeIdentityFactories = (
     };
 };
 
-const signTransaction = async <
-    T extends { sign: (passphrase: string) => Promise<T>; legacySecondSign: (passphrase: string) => Promise<T> },
->(
+const signTransaction = async (
     app: Contracts.Kernel.Application,
-    builder: T,
+    builder: TransactionBuilder,
     cli: any,
-): Promise<T> => {
+): Promise<TransactionBuilder> => {
     let signed = await builder.sign(app.get(AppIdentifiers.WalletPassphrase));
 
     // if second passphrase is set, sign again
