@@ -2,6 +2,14 @@ import { Contracts } from "@mainsail/contracts";
 import cli from "../config/config.js";
 import { Abi } from "viem";
 
+export interface Client {
+    getWalletNonce: (peer: Peer, address: string) => Promise<number>;
+    getHeight: (peer: Peer) => Promise<number>;
+    ethCall: (peer: Peer, viewParameters: EthViewParameters) => Promise<string>;
+    postTransaction: (peer: Peer, transaction: string) => Promise<string>;
+    getReceipt: (peer: Peer, transaction: string) => Promise<Receipt | null>;
+}
+
 export type Peer = typeof cli.peer;
 
 export type Config = {

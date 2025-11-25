@@ -1,7 +1,7 @@
 import { http } from "@mainsail/utils";
-import { Peer, EthViewParameters, Receipt } from "./types.js";
+import { Peer, EthViewParameters, Receipt, Client as IClient } from "./types.js";
 
-export class Client {
+export class Client implements IClient {
     public async getWalletNonce(peer: Peer, address: string): Promise<number> {
         return parseInt(await this.#JSONRPCCall<string>(peer, "eth_getTransactionCount", [address, "latest"]));
     }

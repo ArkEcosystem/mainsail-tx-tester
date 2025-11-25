@@ -1,6 +1,4 @@
-import { Client } from "./client.js";
-
-import { Config, ContractData, EthViewParameters } from "./types.js";
+import { Config, ContractData, EthViewParameters, Client } from "./types.js";
 import { Contracts, Identifiers } from "@mainsail/contracts";
 import { AbiFunction, decodeFunctionResult, encodeFunctionData } from "viem";
 

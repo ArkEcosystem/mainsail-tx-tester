@@ -1,8 +1,7 @@
 import * as Builder from "./builder.js";
-import { Client } from "./client.js";
 import * as Loader from "./loader.js";
 import { Contract } from "./contract.js";
-import { Config, ContractData } from "./types.js";
+import { Config, ContractData, Client } from "./types.js";
 import { makeApplication } from "./boot.js";
 import { AppIdentifiers } from "./identifiers.js";
 import { getArgs } from "./utils.js";

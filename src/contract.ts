@@ -1,8 +1,7 @@
 import { Contracts } from "@mainsail/contracts";
 
-import { ContractData, Config } from "./types.js";
+import { ContractData, Config, Client } from "./types.js";
 import * as Builder from "./builder.js";
-import { Client } from "./client.js";
 import { AppIdentifiers } from "./identifiers.js";
 
 export class Contract {
