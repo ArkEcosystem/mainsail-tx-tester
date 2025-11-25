@@ -203,6 +203,7 @@ export const makeIdentityFactories = (
     consensusPrivateKeyFactory: Contracts.Crypto.PrivateKeyFactory;
     signatureFactory: Contracts.Crypto.Signature;
     wifFactory: Contracts.Crypto.WIFFactory;
+    keyPairFactory: Contracts.Crypto.KeyPairFactory;
 } => {
     return {
         addressFactory: app.getTagged<Contracts.Crypto.AddressFactory>(
@@ -246,6 +247,12 @@ export const makeIdentityFactories = (
             "type",
             "wallet",
         ),
+
+        keyPairFactory: app.getTagged<Contracts.Crypto.KeyPairFactory>(
+            Identifiers.Cryptography.Identity.KeyPair.Factory,
+            "type",
+            "wallet",
+        ),
     };
 };
 
@@ -254,6 +261,13 @@ const signTransaction = async (
     builder: TransactionBuilder,
     cli: any,
 ): Promise<TransactionBuilder> => {
+    if (cli.privateKey && cli.privateKey !== "") {
+        const { keyPairFactory } = makeIdentityFactories(app);
+        const keyPair = await keyPairFactory.fromPrivateKey(Buffer.from(cli.privateKey, "hex"));
+
+        return builder.signWithKeyPair(keyPair);
+    }
+
     let signed = await builder.sign(app.get(AppIdentifiers.WalletPassphrase));
 
     // if second passphrase is set, sign again
