@@ -3,6 +3,8 @@ import { Config, Logger, ContractFactory, ContractData, TransactionSender, Trans
 import { AppIdentifiers } from "./identifiers.js";
 import { getArgs } from "./utils.js";
 
+const PRE_CONTRACT_OFFSET = 1;
+
 @injectable()
 export class Cli {
     @inject(AppIdentifiers.Config)
@@ -32,7 +34,7 @@ export class Cli {
 
         const contracts = Object.values(this.config.contracts);
 
-        if (txType >= contracts.length + 1) {
+        if (txType >= contracts.length + PRE_CONTRACT_OFFSET || txType < 1) {
             this.help();
             return;
         }
@@ -40,7 +42,7 @@ export class Cli {
         if (txType === 1) {
             await this.handleTransfer(args);
         } else {
-            await this.handleContract(args, contracts[txType - 2]);
+            await this.handleContract(args, contracts[txType - PRE_CONTRACT_OFFSET - 1]);
         }
     }
 
