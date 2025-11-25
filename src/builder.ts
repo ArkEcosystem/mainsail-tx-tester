@@ -12,9 +12,7 @@ import { getApplication } from "./boot.js";
 export const getWalletNonce = async (app: Application, config: Config): Promise<number> => {
     const { peer } = config.cli;
 
-    const { addressFactory } = makeIdentityFactories(app);
-
-    const walletAddress = await addressFactory.fromMnemonic(app.get(AppIdentifiers.WalletPassphrase));
+    const walletAddress = await getAddress(app, config.cli);
 
     if (app.isBound(AppIdentifiers.WalletNonce)) {
         return app.get<number>(AppIdentifiers.WalletNonce);
@@ -130,8 +128,6 @@ export const makeEvmView = async (
     index: number,
 ): Promise<EthViewParameters> => {
     const app = getApplication();
-    const { addressFactory } = makeIdentityFactories(app);
-
     const func = contractData.views[index];
 
     const args = func.args;
@@ -149,7 +145,7 @@ export const makeEvmView = async (
     console.log(`Encoded:  ${data}`);
 
     return {
-        from: await addressFactory.fromMnemonic(app.get(AppIdentifiers.WalletPassphrase)),
+        from: await getAddress(app, config.cli),
         to: contractData.contractId,
         data: data,
     };
@@ -254,6 +250,18 @@ export const makeIdentityFactories = (
             "wallet",
         ),
     };
+};
+
+const getAddress = async (app: Contracts.Kernel.Application, cli: any): Promise<string> => {
+    const { addressFactory, keyPairFactory } = makeIdentityFactories(app);
+
+    if (cli.privateKey && cli.privateKey !== "") {
+        const keyPair = await keyPairFactory.fromPrivateKey(Buffer.from(cli.privateKey, "hex"));
+
+        return addressFactory.fromPublicKey(keyPair.publicKey);
+    }
+
+    return addressFactory.fromMnemonic(app.get(AppIdentifiers.WalletPassphrase));
 };
 
 const signTransaction = async (
