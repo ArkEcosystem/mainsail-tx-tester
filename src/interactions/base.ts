@@ -2,6 +2,7 @@ import { Contracts, Identifiers } from "@mainsail/contracts";
 import { injectable, inject } from "@mainsail/container";
 import { AppIdentifiers } from "../identifiers.js";
 import { Config, Wallet, ContractData } from "../types.js";
+import { TransactionBuilder } from "@mainsail/crypto-transaction";
 
 import { AbiFunction } from "viem";
 
@@ -15,6 +16,14 @@ export class Base {
 
     @inject(AppIdentifiers.Config)
     protected config!: Config;
+
+    protected async sign(builder: TransactionBuilder): Promise<void> {
+        await builder.signWithKeyPair(await this.wallet.getKeyPair());
+
+        if (this.wallet.hasSecondPassphrase()) {
+            builder = await builder.legacySecondSign(this.wallet.getSecondPassphrase());
+        }
+    }
 
     // Ensure address/byte array args have 0x prefix
     protected normalizeContractCallArgs(contractData: ContractData, functionName: string, args: any[]) {

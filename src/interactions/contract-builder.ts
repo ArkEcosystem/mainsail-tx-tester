@@ -17,12 +17,7 @@ export class ContractBuilder extends Base implements IContractBuilder {
             .gasLimit(2_000_000)
             .nonce(walletNonce.toString());
 
-        await builder.signWithKeyPair(await this.wallet.getKeyPair());
-
-        if (this.wallet.hasSecondPassphrase()) {
-            builder = await builder.legacySecondSign(this.wallet.getSecondPassphrase());
-        }
-
+        await this.sign(builder);
         return builder.build();
     }
 
@@ -63,12 +58,7 @@ export class ContractBuilder extends Base implements IContractBuilder {
             .value(amount)
             .nonce(walletNonce.toString());
 
-        await builder.signWithKeyPair(await this.wallet.getKeyPair());
-
-        if (this.wallet.hasSecondPassphrase()) {
-            builder = await builder.legacySecondSign(this.wallet.getSecondPassphrase());
-        }
-
+        await this.sign(builder);
         return builder.build();
     };
 }

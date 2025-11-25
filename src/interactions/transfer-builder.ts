@@ -24,12 +24,7 @@ export class TransferBuilder extends Base implements ITransferBuilder {
             .value(amount ? amount : transfer.value)
             .payload("");
 
-        await builder.signWithKeyPair(await this.wallet.getKeyPair());
-
-        if (this.wallet.hasSecondPassphrase()) {
-            builder = await builder.legacySecondSign(this.wallet.getSecondPassphrase());
-        }
-
+        await this.sign(builder);
         return builder.build();
     }
 }
