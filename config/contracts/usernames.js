@@ -4,6 +4,7 @@ export const usernames = {
     abi: UsernamesAbi.abi,
     name: "Usernames",
     contractId: "0x2c1DE3b4Dbb4aDebEbB5dcECAe825bE2a9fc6eb6",
+    bytecode: UsernamesAbi.bytecode,
     transactions: [
         {
             functionName: "registerUsername",

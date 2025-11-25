@@ -4,6 +4,7 @@ export const test = {
     abi: Test.abi,
     name: "Test",
     contractId: "", // Add deployed contract address here
+    bytecode: Test.bytecode,
     transactions: [
         {
             functionName: "setCounter",

@@ -1,24 +1,28 @@
-// import crypto from "@mainsail/core/bin/config/devnet/core/crypto.json" with { type: "json" };
-import crypto from "mainsail-network-config/testnet/mainsail/crypto.json" with { type: "json" };
+import crypto from "@mainsail/core/bin/config/devnet/core/crypto.json" with { type: "json" };
+// import crypto from "mainsail-network-config/testnet/mainsail/crypto.json" with { type: "json" };
 import DARK20 from "./builds/DARK20.json" with { type: "json" };
+import TEST from "./builds/Test.json" with { type: "json" };
 import { consensus } from "./contracts/consensus.js";
 import { usernames } from "./contracts/usernames.js";
 import { multiPayment } from "./contracts/multipayment.js";
 import { dark20 } from "./contracts/dark20.js";
 import { revert } from "./contracts/revert.js";
 import { tokenTransfer } from "./contracts/tokentransfer.js";
+import { test } from "./contracts/test.js";
 
 const config = {
+    privateKey: "",
     senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     senderSecondPassphrase: "", // REPLACE senderSecondPassphrase WITH THE SECOND PASSPHRASE OF YOUR WALLET if you have one
-    peer: "https://testnet.mainsailhq.com/rpc",
+    peer: "http://localhost:4008/api",
+    // peer: "http://192.168.50.202:8545",
     gasPrice: 5000000000,
     transfer: {
         recipientAddress: "0xC870aF84F11e0d43c8a29C041F23a8E85a2Ce4ff",
         value: "350000000000000000000",
     },
     deploy: {
-        data: DARK20.bytecode,
+        data: TEST.bytecode,
     },
     contracts: {
         consensus,
@@ -27,6 +31,7 @@ const config = {
         dark20,
         revert,
         tokenTransfer,
+        test,
     },
     message: {
         publicKey: "0243333347c8cbf4e3cbc7a96964181d02a2b0c854faa2fef86b4b8d92afcf473d",
