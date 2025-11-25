@@ -1,6 +1,6 @@
 import { ArgsAndFlags } from "./types.js";
 
-export const getArgs = (customArgs: string[] | undefined): ArgsAndFlags => {
+export const getArgs = (customArgs?: string[]): ArgsAndFlags => {
     const allArgs = customArgs ? customArgs : process.argv.slice(2);
     const args = allArgs.filter((arg) => !arg.startsWith("--"));
     const flags = {};

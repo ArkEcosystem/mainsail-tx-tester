@@ -7,6 +7,7 @@ import { ContractData, ContractFactory } from "./types.js";
 import { Contract } from "./contract.js";
 import { Logger } from "./logger.js";
 import { Wallet } from "./wallet.js";
+import { TransactionSender } from "./transaction-sender.js";
 import { TransferBuilder, ContractBuilder, ViewBuilder } from "./interactions/index.js";
 import config from "../config/config.js";
 
@@ -85,6 +86,7 @@ export const makeApplication = async (): Promise<Application> => {
     app.bind(AppIdentifiers.Logger).to(Logger).inSingletonScope();
     app.bind(AppIdentifiers.Client).to(Client).inSingletonScope();
     app.bind(AppIdentifiers.Wallet).to(Wallet).inSingletonScope();
+    app.bind(AppIdentifiers.TransactionSender).to(TransactionSender).inSingletonScope();
     app.bind(AppIdentifiers.TransferBuilder).to(TransferBuilder).inSingletonScope();
     app.bind(AppIdentifiers.ContractBuilder).to(ContractBuilder).inSingletonScope();
     app.bind(AppIdentifiers.ViewBuilder).to(ViewBuilder).inSingletonScope();

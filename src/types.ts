@@ -16,6 +16,10 @@ export interface Client {
     getReceipt: (transaction: string) => Promise<Receipt | null>;
 }
 
+export interface TransactionSender {
+    sendTransaction: (tx: Contracts.Crypto.Transaction) => Promise<void>;
+}
+
 export interface TransferBuilder {
     makeTransfer: (config: Config, recipient?: string, amount?: string) => Promise<Contracts.Crypto.Transaction>;
 }
