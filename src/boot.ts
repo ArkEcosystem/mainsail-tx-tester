@@ -3,6 +3,8 @@ import { Identifiers, Contracts } from "@mainsail/contracts";
 import { Application, Providers } from "@mainsail/kernel";
 import { AppIdentifiers } from "./identifiers.js";
 import { Client } from "./client.js";
+import { ContractData, ContractFactory } from "./types.js";
+import { Contract } from "./contract.js";
 import { TransferBuilder } from "./interactions/transfer-builder.js";
 import config from "../config/config.js";
 
@@ -80,6 +82,11 @@ export const makeApplication = async (): Promise<Application> => {
 
     app.bind(AppIdentifiers.Client).to(Client).inSingletonScope();
     app.bind(AppIdentifiers.TransferBuilder).to(TransferBuilder).inSingletonScope();
+    app.bind<ContractFactory>(AppIdentifiers.ContractFactory).toFactory(
+        (context: Contracts.Kernel.Container.ResolutionContext) =>
+            (contractData: ContractData): Contract =>
+                context.get(Contract, { autobind: true }).init(contractData),
+    );
 
     return app;
 };

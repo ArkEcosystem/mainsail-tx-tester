@@ -4,4 +4,5 @@ export const AppIdentifiers = {
     Config: Symbol.for("Config"),
     Client: Symbol.for("Client"),
     TransferBuilder: Symbol.for("TransferBuilder"),
+    ContractFactory: Symbol.for("ContractFactory"),
 };

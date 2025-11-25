@@ -1,5 +1,4 @@
-import { Contract } from "./contract.js";
-import { Config, ContractData, Client, TransferBuilder } from "./types.js";
+import { Config, ContractData, Client, TransferBuilder, ContractFactory } from "./types.js";
 import { makeApplication } from "./boot.js";
 import { AppIdentifiers } from "./identifiers.js";
 import { getArgs } from "./utils.js";
@@ -49,7 +48,7 @@ export const main = async (customArgs?: string[]) => {
             break;
         }
         default: {
-            await handleContract(app, args, config, contracts[txType - 2], config.peer);
+            await handleContract(app, args, contracts[txType - 2]);
             break;
         }
     }
@@ -67,22 +66,16 @@ const help = (config: Config) => {
     }
 };
 
-const handleContract = async (
-    app: Contracts.Kernel.Application,
-    args: string[],
-    config: Config,
-    contractData: ContractData,
-    peer: string,
-) => {
+const handleContract = async (app: Contracts.Kernel.Application, args: string[], contractData: ContractData) => {
     const txIndex = args.length > 1 ? parseInt(args[1]) : undefined;
     const txArgs = args.length > 2 ? JSON.parse(args[2]) : undefined;
     const amount = args.length > 3 ? args[3] : undefined;
 
-    const contract = new Contract(config, contractData);
+    const contract = app.get<ContractFactory>(AppIdentifiers.ContractFactory)(contractData);
     if (txIndex === undefined) {
         contract.list();
     } else {
-        const hash = await contract.interact(app, txIndex, txArgs, amount);
+        const hash = await contract.interact(txIndex, txArgs, amount);
 
         if (hash === undefined) {
             return;

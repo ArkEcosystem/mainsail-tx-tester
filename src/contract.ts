@@ -1,15 +1,26 @@
-import { Contracts } from "@mainsail/contracts";
-import { ContractData, Config, Client } from "./types.js";
+import { Contracts, Identifiers } from "@mainsail/contracts";
+import { injectable, inject } from "@mainsail/container";
+
+import { ContractData, Config, Client, Contract as IContract } from "./types.js";
 import * as Builder from "./builder.js";
 import { AppIdentifiers } from "./identifiers.js";
 
-export class Contract {
-    constructor(
-        private config: Config,
-        private contractData: ContractData,
-    ) {}
+@injectable()
+export class Contract implements IContract {
+    @inject(Identifiers.Application.Instance)
+    private app!: Contracts.Kernel.Application;
 
-    async list() {
+    @inject(AppIdentifiers.Config)
+    private config!: Config;
+
+    private contractData!: ContractData;
+
+    public init(contractData: ContractData): Contract {
+        this.contractData = contractData;
+        return this;
+    }
+
+    list(): void {
         this.#logContract();
         // Deploys:
         console.log("Deploys:");
@@ -35,34 +46,29 @@ export class Contract {
         }
     }
 
-    async interact(
-        app: Contracts.Kernel.Application,
-        transactionIndex: number,
-        args?: any,
-        amount?: string,
-    ): Promise<string | void> {
+    async interact(transactionIndex: number, args?: any, amount?: string): Promise<string | void> {
         if (transactionIndex === 0) {
-            return await this.#deploy(app);
+            return await this.#deploy();
         }
 
         transactionIndex--; // Adjust for deploy at index 0
         if (transactionIndex < this.contractData.transactions.length) {
-            return await this.#transaction(app, transactionIndex, args, amount);
+            return await this.#transaction(transactionIndex, args, amount);
         } else if (transactionIndex < this.contractData.transactions.length + this.contractData.views.length) {
-            await this.#view(app, transactionIndex - this.contractData.transactions.length);
+            await this.#view(transactionIndex - this.contractData.transactions.length);
         } else {
             throw new Error("Invalid index");
         }
     }
 
-    async #deploy(app: Contracts.Kernel.Application): Promise<string> {
+    async #deploy(): Promise<string> {
         this.#logContract();
         const transaction = await Builder.makeEvmDeploy(this.config, this.contractData);
         this.#logLine();
 
         this.#logLine();
         console.log("Deployment sent: ", `0x${transaction.hash}`);
-        await app
+        await this.app
             .get<Client>(AppIdentifiers.Client)
             .postTransaction(this.config.peer, transaction.serialized.toString("hex"));
         this.#logLine();
@@ -70,12 +76,7 @@ export class Contract {
         return transaction.hash;
     }
 
-    async #transaction(
-        app: Contracts.Kernel.Application,
-        transactionIndex: number,
-        args?: any,
-        amount?: string,
-    ): Promise<string> {
+    async #transaction(transactionIndex: number, args?: any, amount?: string): Promise<string> {
         this.#logContract();
         const transaction = await Builder.makeEvmCall(this.config, this.contractData, transactionIndex, args, amount);
         this.#logLine();
@@ -84,7 +85,7 @@ export class Contract {
 
         this.#logLine();
         console.log("Transaction sent: ", `0x${transaction.hash}`);
-        await app
+        await this.app
             .get<Client>(AppIdentifiers.Client)
             .postTransaction(this.config.peer, transaction.serialized.toString("hex"));
         this.#logLine();
@@ -108,10 +109,10 @@ export class Contract {
         console.log(result);
     };
 
-    async #view(app: Contracts.Kernel.Application, viewIndex: number): Promise<void> {
+    async #view(viewIndex: number): Promise<void> {
         this.#logContract();
         const view = await Builder.makeEvmView(this.config, this.contractData, viewIndex);
-        const result = await app.get<Client>(AppIdentifiers.Client).ethCall(this.config.peer, view);
+        const result = await this.app.get<Client>(AppIdentifiers.Client).ethCall(this.config.peer, view);
         this.#logLine();
         Builder.decodeEvmViewResult(this.config, this.contractData, viewIndex, result);
         this.#logLine();

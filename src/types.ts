@@ -34,6 +34,22 @@ export type Config = {
     crypto: Contracts.Crypto.NetworkConfig;
 };
 
+export type ContractData = {
+    abi: Abi;
+    name: string;
+    contractId: string;
+    bytecode: string;
+    transactions: { functionName: string; args: any[]; amount?: number }[];
+    views: { functionName: string; args: any[] }[];
+};
+
+export interface Contract {
+    list: () => void;
+    interact: (transactionIndex: number, args?: any, amount?: string) => Promise<string | void>;
+}
+
+export type ContractFactory = (data: ContractData) => Contract;
+
 export type AddressType = "base58" | "bech32m";
 
 export type ValidatorConfig = {
@@ -53,15 +69,6 @@ export type EthViewParameters = {
     gas?: string;
     gasPrice?: string;
     value?: string;
-};
-
-export type ContractData = {
-    abi: Abi;
-    name: string;
-    contractId: string;
-    bytecode: string;
-    transactions: { functionName: string; args: any[]; amount?: number }[];
-    views: { functionName: string; args: any[] }[];
 };
 
 export type ArgsAndFlags = {
