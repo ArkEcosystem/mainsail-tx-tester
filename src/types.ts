@@ -50,6 +50,14 @@ export interface Contract {
 
 export type ContractFactory = (data: ContractData) => Contract;
 
+export interface Wallet {
+    getAddress: () => Promise<string>;
+    getNonce: () => Promise<number>;
+    getKeyPair: () => Promise<Contracts.Crypto.KeyPair>;
+    hasSecondPassphrase: () => boolean;
+    getSecondPassphrase: () => string;
+}
+
 export type AddressType = "base58" | "bech32m";
 
 export type ValidatorConfig = {
