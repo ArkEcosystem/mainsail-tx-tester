@@ -2,8 +2,7 @@ import { Contracts, Identifiers } from "@mainsail/contracts";
 import { injectable, inject } from "@mainsail/container";
 import { TransactionBuilder } from "@mainsail/crypto-transaction";
 
-import { ContractData, Config, Client, Contract as IContract, Wallet } from "./types.js";
-import * as Builder from "./builder.js";
+import { ContractData, Config, Client, Contract as IContract, Wallet, ContractBuilder, ViewBuilder } from "./types.js";
 import { AppIdentifiers } from "./identifiers.js";
 
 @injectable()
@@ -16,6 +15,12 @@ export class Contract implements IContract {
 
     @inject(AppIdentifiers.Config)
     private config!: Config;
+
+    @inject(AppIdentifiers.ContractBuilder)
+    private contractBuilder!: ContractBuilder;
+
+    @inject(AppIdentifiers.ViewBuilder)
+    private viewBuilder!: ViewBuilder;
 
     private contractData!: ContractData;
 
@@ -101,7 +106,7 @@ export class Contract implements IContract {
 
     async #transaction(transactionIndex: number, args?: any, amount?: string): Promise<string> {
         this.#logContract();
-        const transaction = await Builder.makeEvmCall(this.config, this.contractData, transactionIndex, args, amount);
+        const transaction = await this.contractBuilder.makeCall(this.contractData, transactionIndex, args, amount);
         this.#logLine();
 
         // await this.#simulate(this.config.cli.peer, transaction);
@@ -134,10 +139,10 @@ export class Contract implements IContract {
 
     async #view(viewIndex: number): Promise<void> {
         this.#logContract();
-        const view = await Builder.makeEvmView(this.config, this.contractData, viewIndex);
+        const view = await this.viewBuilder.makeView(this.contractData, viewIndex);
         const result = await this.app.get<Client>(AppIdentifiers.Client).ethCall(this.config.peer, view);
         this.#logLine();
-        Builder.decodeEvmViewResult(this.config, this.contractData, viewIndex, result);
+        this.viewBuilder.decodeViewResult(this.contractData, viewIndex, result);
         this.#logLine();
     }
 

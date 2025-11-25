@@ -24,6 +24,7 @@ export interface ContractBuilder {
 
 export interface ViewBuilder {
     makeView: (contractData: ContractData, index: number) => Promise<EthViewParameters>;
+    decodeViewResult: (contractData: ContractData, index: number, data: any) => void;
 }
 
 export type Peer = string;

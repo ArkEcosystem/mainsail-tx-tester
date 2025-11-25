@@ -1,6 +1,6 @@
 import { injectable } from "@mainsail/container";
 import { Base } from "./base.js";
-import { Config, ViewBuilder as IViewBuilder, EthViewParameters, ContractData } from "../types.js";
+import { ViewBuilder as IViewBuilder, EthViewParameters, ContractData } from "../types.js";
 import { encodeFunctionData, decodeFunctionResult } from "viem";
 
 @injectable()
@@ -29,7 +29,7 @@ export class ViewBuilder extends Base implements IViewBuilder {
         };
     };
 
-    decodeEvmViewResult = (config: Config, contractData: ContractData, index: number, data: any): void => {
+    decodeViewResult = (contractData: ContractData, index: number, data: any): void => {
         const func = contractData.views[index];
 
         let result;
