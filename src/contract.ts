@@ -16,6 +16,9 @@ export class Contract implements IContract {
     @inject(AppIdentifiers.Config)
     private config!: Config;
 
+    @inject(AppIdentifiers.Client)
+    private client!: Client;
+
     @inject(AppIdentifiers.ContractBuilder)
     private contractBuilder!: ContractBuilder;
 
@@ -96,7 +99,7 @@ export class Contract implements IContract {
 
         this.#logLine();
         console.log("Deployment sent: ", `0x${transaction.hash}`);
-        await this.app.get<Client>(AppIdentifiers.Client).postTransaction(transaction.serialized.toString("hex"));
+        await this.client.postTransaction(transaction.serialized.toString("hex"));
         this.#logLine();
 
         return transaction.hash;
@@ -111,16 +114,16 @@ export class Contract implements IContract {
 
         this.#logLine();
         console.log("Transaction sent: ", `0x${transaction.hash}`);
-        await this.app.get<Client>(AppIdentifiers.Client).postTransaction(transaction.serialized.toString("hex"));
+        await this.client.postTransaction(transaction.serialized.toString("hex"));
         this.#logLine();
 
         return transaction.hash;
     }
 
     // @ts-ignore
-    #simulate = async (app: Contracts.Kernel.Application, transaction: Contracts.Crypto.Transaction): Promise<void> => {
+    #simulate = async (transaction: Contracts.Crypto.Transaction): Promise<void> => {
         console.log("Simulating transaction...");
-        const result = await app.get<Client>(AppIdentifiers.Client).ethCall({
+        const result = await this.client.ethCall({
             from: transaction.data.from,
             to: transaction.data.to!, // TODO: Support to
             data: `0x${transaction.serialized.toString("hex")}`,
@@ -136,7 +139,7 @@ export class Contract implements IContract {
     async #view(viewIndex: number): Promise<void> {
         this.#logContract();
         const view = await this.viewBuilder.makeView(this.contractData, viewIndex);
-        const result = await this.app.get<Client>(AppIdentifiers.Client).ethCall(view);
+        const result = await this.client.ethCall(view);
         this.#logLine();
         this.viewBuilder.decodeViewResult(this.contractData, viewIndex, result);
         this.#logLine();
