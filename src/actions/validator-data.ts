@@ -1,6 +1,6 @@
 import { generateMnemonic } from "bip39";
 import { makeApplication } from "../boot.js";
-import { makeIdentityFactories } from "../builder.js";
+import { makeIdentityFactories } from "./utils.js";
 
 const main = async () => {
     const mnemonic = process.argv.length === 3 ? process.argv[2] : generateMnemonic(256);

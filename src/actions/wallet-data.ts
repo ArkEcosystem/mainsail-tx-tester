@@ -1,5 +1,5 @@
 import { makeApplication } from "../boot.js";
-import { makeIdentityFactories } from "../builder.js";
+import { makeIdentityFactories } from "./utils.js";
 import { generateMnemonic } from "bip39";
 
 const main = async () => {

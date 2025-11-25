@@ -1,8 +1,7 @@
 import { keccak256, toHex } from "viem";
 
-import { loadConfig } from "./loader.js";
 import { makeApplication } from "../boot.js";
-import { makeIdentityFactories } from "../builder.js";
+import { makeIdentityFactories, loadConfig } from "./utils.js";
 
 const main = async () => {
     const config = loadConfig();

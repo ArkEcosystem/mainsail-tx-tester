@@ -5,7 +5,7 @@ import { getApplication, makeApplication } from "../boot.js";
 import { TransactionBuilder } from "@mainsail/crypto-transaction";
 import fixtureConfig from "../../config/fixtures.js";
 import { join } from "path";
-import { makeIdentityFactories } from "../builder.js";
+import { makeIdentityFactories } from "./utils.js";
 import { writeFileSync } from "fs";
 
 interface Identity {

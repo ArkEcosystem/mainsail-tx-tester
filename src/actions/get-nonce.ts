@@ -1,6 +1,5 @@
 import { makeApplication } from "../boot.js";
-import { loadConfig } from "./loader.js";
-import { makeIdentityFactories } from "../builder.js";
+import { makeIdentityFactories, loadConfig } from "./utils.js";
 import { getArgs } from "../utils.js";
 import { AppIdentifiers } from "../identifiers.js";
 
