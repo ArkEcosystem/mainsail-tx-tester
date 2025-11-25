@@ -17,7 +17,7 @@ const parseJSONRPCResult = <T>(method: string, response: any): T => {
 
 const JSONRPCCall = async <T>(peer: Peer, method: string, params: any[]): Promise<T> => {
     try {
-        const response = await http.post(`${peer}/api/`, {
+        const response = await http.post(`${peer}`, {
             headers: { "Content-Type": "application/json" },
             body: {
                 jsonrpc: "2.0",
