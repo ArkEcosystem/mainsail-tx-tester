@@ -11,7 +11,6 @@ export const main = async (customArgs?: string[]) => {
     const config = loadConfig();
 
     const passphrase = args.length === 1 ? args[0] : config.senderPassphrase;
-    const peer = config.peer;
 
     const app = await makeApplication();
 
@@ -21,7 +20,7 @@ export const main = async (customArgs?: string[]) => {
 
     let walletNonce = 0;
     try {
-        walletNonce = await app.get<Client>(AppIdentifiers.Client).getWalletNonce(peer, walletAddress);
+        walletNonce = await app.get<Client>(AppIdentifiers.Client).getWalletNonce(walletAddress);
     } catch (e) {}
 
     console.log(walletNonce);

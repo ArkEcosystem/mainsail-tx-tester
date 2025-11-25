@@ -2,11 +2,11 @@ import { Contracts } from "@mainsail/contracts";
 import { Abi } from "viem";
 
 export interface Client {
-    getWalletNonce: (peer: string, address: string) => Promise<number>;
-    getHeight: (peer: string) => Promise<number>;
-    ethCall: (peer: string, viewParameters: EthViewParameters) => Promise<string>;
-    postTransaction: (peer: string, transaction: string) => Promise<string>;
-    getReceipt: (peer: string, transaction: string) => Promise<Receipt | null>;
+    getWalletNonce: (address: string) => Promise<number>;
+    getHeight: () => Promise<number>;
+    ethCall: (viewParameters: EthViewParameters) => Promise<string>;
+    postTransaction: (transaction: string) => Promise<string>;
+    getReceipt: (transaction: string) => Promise<Receipt | null>;
 }
 
 export interface TransferBuilder {

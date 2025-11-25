@@ -41,7 +41,7 @@ export class Wallet implements IWallet {
 
         this.#nonce = 0;
         try {
-            this.#nonce = await this.client.getWalletNonce(this.config.peer, walletAddress);
+            this.#nonce = await this.client.getWalletNonce(walletAddress);
         } catch (e) {}
 
         console.log(`Using wallet: ${walletAddress} nonce: ${this.#nonce}`);

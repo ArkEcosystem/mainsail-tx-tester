@@ -39,7 +39,7 @@ export const main = async (customArgs?: string[]) => {
             const tx = await app
                 .get<TransferBuilder>(AppIdentifiers.TransferBuilder)
                 .makeTransfer(config, recipient, amount);
-            await client.postTransaction(config.peer, tx.serialized.toString("hex"));
+            await client.postTransaction(tx.serialized.toString("hex"));
             console.log(`Sent transfer with transaction hash: 0x${tx.hash} \n`);
 
             // await waitForOneBlock(peer);
