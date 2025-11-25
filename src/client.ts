@@ -1,26 +1,26 @@
 import { http } from "@mainsail/utils";
 import { injectable } from "@mainsail/container";
-import { Peer, EthViewParameters, Receipt, Client as IClient } from "./types.js";
+import { EthViewParameters, Receipt, Client as IClient } from "./types.js";
 
 @injectable()
 export class Client implements IClient {
-    public async getWalletNonce(peer: Peer, address: string): Promise<number> {
+    public async getWalletNonce(peer: string, address: string): Promise<number> {
         return parseInt(await this.#JSONRPCCall<string>(peer, "eth_getTransactionCount", [address, "latest"]));
     }
 
-    public async getHeight(peer: Peer): Promise<number> {
+    public async getHeight(peer: string): Promise<number> {
         return parseInt(await this.#JSONRPCCall<string>(peer, "eth_blockNumber", []));
     }
 
-    public async ethCall(peer: Peer, viewParameters: EthViewParameters): Promise<string> {
+    public async ethCall(peer: string, viewParameters: EthViewParameters): Promise<string> {
         return this.#JSONRPCCall<string>(peer, "eth_call", [viewParameters, "latest"]);
     }
 
-    public async postTransaction(peer: Peer, transaction: string): Promise<string> {
+    public async postTransaction(peer: string, transaction: string): Promise<string> {
         return this.#JSONRPCCall<string>(peer, "eth_sendRawTransaction", [`0x${transaction}`]);
     }
 
-    public async getReceipt(peer: Peer, transaction: string): Promise<Receipt | null> {
+    public async getReceipt(peer: string, transaction: string): Promise<Receipt | null> {
         return this.#JSONRPCCall<Receipt | null>(peer, "eth_getTransactionReceipt", [`0x${transaction}`]);
     }
 
@@ -38,7 +38,7 @@ export class Client implements IClient {
         return response.data.result;
     }
 
-    async #JSONRPCCall<T>(peer: Peer, method: string, params: any[]): Promise<T> {
+    async #JSONRPCCall<T>(peer: string, method: string, params: any[]): Promise<T> {
         try {
             const response = await http.post(`${peer}`, {
                 headers: { "Content-Type": "application/json" },

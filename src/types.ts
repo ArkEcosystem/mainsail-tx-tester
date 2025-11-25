@@ -2,11 +2,11 @@ import { Contracts } from "@mainsail/contracts";
 import { Abi } from "viem";
 
 export interface Client {
-    getWalletNonce: (peer: Peer, address: string) => Promise<number>;
-    getHeight: (peer: Peer) => Promise<number>;
-    ethCall: (peer: Peer, viewParameters: EthViewParameters) => Promise<string>;
-    postTransaction: (peer: Peer, transaction: string) => Promise<string>;
-    getReceipt: (peer: Peer, transaction: string) => Promise<Receipt | null>;
+    getWalletNonce: (peer: string, address: string) => Promise<number>;
+    getHeight: (peer: string) => Promise<number>;
+    ethCall: (peer: string, viewParameters: EthViewParameters) => Promise<string>;
+    postTransaction: (peer: string, transaction: string) => Promise<string>;
+    getReceipt: (peer: string, transaction: string) => Promise<Receipt | null>;
 }
 
 export interface TransferBuilder {
@@ -26,8 +26,6 @@ export interface ViewBuilder {
     makeView: (contractData: ContractData, index: number) => Promise<EthViewParameters>;
     decodeViewResult: (contractData: ContractData, index: number, data: any) => void;
 }
-
-export type Peer = string;
 
 export type Config = {
     privateKey: string;
@@ -76,12 +74,6 @@ export type AddressType = "base58" | "bech32m";
 
 export type ValidatorConfig = {
     secrets: string[];
-};
-
-export type Transfer = {
-    recipientAddress: string;
-    gasPrice: string;
-    value: string;
 };
 
 export type EthViewParameters = {
