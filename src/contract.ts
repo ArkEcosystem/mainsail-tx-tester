@@ -112,7 +112,7 @@ export class Contract implements IContract {
         const data = {
             from: transaction.data.from,
             to: transaction.data.to!,
-            data: `0x${transaction.serialized.toString("hex")}`,
+            data: `0x${transaction.data.data}`,
             gas: `0x${transaction.data.gasLimit?.toString(16)}`,
             gasPrice: `0x${transaction.data.gasPrice?.toString(16)}`,
             value: transaction.data.value ? `0x${transaction.data.value.toString(16)}` : undefined,
@@ -133,7 +133,7 @@ export class Contract implements IContract {
         const data = {
             from: transaction.data.from,
             to: transaction.data.to!,
-            data: `0x${transaction.serialized.toString("hex")}`,
+            data: `0x${transaction.data.data}`,
             gas: `0x${transaction.data.gasLimit?.toString(16)}`,
             gasPrice: `0x${transaction.data.gasPrice?.toString(16)}`,
             value: transaction.data.value ? `0x${transaction.data.value.toString(16)}` : undefined,
@@ -185,6 +185,11 @@ export class Contract implements IContract {
     async #view(viewIndex: number): Promise<void> {
         this.#logContract();
         const view = await this.viewBuilder.makeView(this.contractData, viewIndex);
+
+        this.logger.line();
+        this.logger.log("Calling view...");
+        this.logger.logKV("View data", JSON.stringify(view, null, 2));
+
         const result = await this.client.ethCall(view);
 
         this.logger.line();
