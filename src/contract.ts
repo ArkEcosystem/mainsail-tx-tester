@@ -65,11 +65,13 @@ export class Contract implements IContract {
         this.#logContract();
         const transaction = await this.contractBuilder.makeDeploy(this.contractData);
 
-        this.logger.line();
-        this.logger.logKV("Deployment sent: ", `0x${transaction.hash}`);
-        this.logger.line();
+        this.#simulate(transaction);
 
-        await this.client.postTransaction(transaction.serialized.toString("hex"));
+        // this.logger.line();
+        // this.logger.logKV("Deployment sent: ", `0x${transaction.hash}`);
+        // this.logger.line();
+
+        // await this.client.postTransaction(transaction.serialized.toString("hex"));
 
         return transaction.hash;
     }
@@ -89,17 +91,22 @@ export class Contract implements IContract {
         return transaction.hash;
     }
 
-    // @ts-ignore
     #simulate = async (transaction: Contracts.Crypto.Transaction): Promise<void> => {
         this.logger.log("Simulating transaction...");
-        const result = await this.client.ethCall({
+
+        const data = {
             from: transaction.data.from,
-            to: transaction.data.to!, // TODO: Support to
+            to: transaction.data.to!,
             data: `0x${transaction.serialized.toString("hex")}`,
             // gas: transaction.data.gasLimit?.toString(),
             // gasPrice: transaction.data.gasPrice?.toString(),
             // value: transaction.data.value?.toString(),
-        });
+        };
+
+        this.logger.log("Simulation call data:");
+        this.logger.log(JSON.stringify(data, null, 2));
+
+        const result = await this.client.ethCall(data);
 
         this.logger.log("Simulation result:");
         this.logger.log(result);
