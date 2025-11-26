@@ -16,6 +16,10 @@ export class Client implements IClient {
         return parseInt(await this.#JSONRPCCall<string>("eth_blockNumber", []));
     }
 
+    public async ethEstimateGas(viewParameters: EthViewParameters): Promise<string> {
+        return this.#JSONRPCCall<string>("eth_estimateGas", [viewParameters]);
+    }
+
     public async ethCall(viewParameters: EthViewParameters): Promise<string> {
         return this.#JSONRPCCall<string>("eth_call", [viewParameters, "latest"]);
     }

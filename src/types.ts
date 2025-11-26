@@ -11,6 +11,7 @@ export interface Logger {
 export interface Client {
     getWalletNonce: (address: string) => Promise<number>;
     getHeight: () => Promise<number>;
+    ethEstimateGas: (viewParameters: EthViewParameters) => Promise<string>;
     ethCall: (viewParameters: EthViewParameters) => Promise<string>;
     postTransaction: (transaction: string) => Promise<string>;
     getReceipt: (transaction: string) => Promise<Receipt | null>;

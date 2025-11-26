@@ -65,7 +65,8 @@ export class Contract implements IContract {
         this.#logContract();
         const transaction = await this.contractBuilder.makeDeploy(this.contractData);
 
-        this.#simulate(transaction);
+        // this.#gasEstimate(transaction);
+        // this.#simulate(transaction);
 
         // this.logger.line();
         // this.logger.logKV("Deployment sent: ", `0x${transaction.hash}`);
@@ -91,7 +92,29 @@ export class Contract implements IContract {
         return transaction.hash;
     }
 
-    #simulate = async (transaction: Contracts.Crypto.Transaction): Promise<void> => {
+    // @ts-ignore
+    async #gasEstimate(transaction: Contracts.Crypto.Transaction): Promise<void> {
+        this.logger.log("Estimating gas...");
+
+        const data = {
+            from: transaction.data.from,
+            to: transaction.data.to!,
+            data: `0x${transaction.serialized.toString("hex")}`,
+            value: transaction.data.value ? `0x${transaction.data.value.toString(16)}` : undefined,
+            gas: `0x${transaction.data.gasLimit.toString(16)}`,
+            gasPrice: `0x${transaction.data.gasPrice.toString(16)}`,
+        };
+
+        this.logger.log("Gas estimation call data:");
+        this.logger.log(JSON.stringify(data, null, 2));
+
+        const gasEstimate = await this.client.ethEstimateGas(data);
+
+        this.logger.logKV("Estimated gas:", gasEstimate);
+    }
+
+    // @ts-ignore
+    async #simulate(transaction: Contracts.Crypto.Transaction): Promise<void> {
         this.logger.log("Simulating transaction...");
 
         const data = {
@@ -110,7 +133,7 @@ export class Contract implements IContract {
 
         this.logger.log("Simulation result:");
         this.logger.log(result);
-    };
+    }
 
     async #view(viewIndex: number): Promise<void> {
         this.#logContract();
