@@ -20,22 +20,3 @@ export class TransactionSender implements ITransactionSender {
         this.logger.line();
     }
 }
-
-// const logTransactionResult = async (peer: string, txHash: string): Promise<void> => {
-//     console.log(`Fetching transaction receipt for hash: 0x${txHash}`);
-
-//     const receipt = await Client.getReceipt(peer, txHash);
-
-//     if (receipt === null) {
-//         console.log("Transaction was not forged.");
-//         return;
-//     }
-
-//     if (receipt.status === "0x0") {
-//         console.log("Transaction failed:");
-//     } else {
-//         console.log("Transaction succeeded:");
-//     }
-
-//     console.log(receipt);
-// };
