@@ -34,7 +34,7 @@ export class Cli {
 
         const contracts = Object.values(this.config.contracts);
 
-        if (txType >= contracts.length + PRE_CONTRACT_OFFSET || txType < 1) {
+        if (txType > contracts.length + PRE_CONTRACT_OFFSET || txType < 1) {
             this.help();
             return;
         }
