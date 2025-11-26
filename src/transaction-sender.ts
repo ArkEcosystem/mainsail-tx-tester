@@ -21,21 +21,6 @@ export class TransactionSender implements ITransactionSender {
     }
 }
 
-// const waitForOneBlock = async (peer: string): Promise<void> => {
-//     return;
-
-//     const timeout = 2000; // 2 seconds
-
-//     const startHeight = await Client.getHeight(peer);
-//     console.log("Waiting for next block...");
-//     await sleep(timeout);
-
-//     while (startHeight + 1 >= (await Client.getHeight(peer))) {
-//         console.log(".");
-//         await sleep(timeout);
-//     }
-// };
-
 // const logTransactionResult = async (peer: string, txHash: string): Promise<void> => {
 //     console.log(`Fetching transaction receipt for hash: 0x${txHash}`);
 

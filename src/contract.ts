@@ -3,6 +3,7 @@ import { injectable, inject } from "@mainsail/container";
 
 import { ContractData, Client, Contract as IContract, ContractBuilder, ViewBuilder, Logger } from "./types.js";
 import { AppIdentifiers } from "./identifiers.js";
+import { sleep } from "./utils.js";
 
 @injectable()
 export class Contract implements IContract {
@@ -65,14 +66,14 @@ export class Contract implements IContract {
         this.#logContract();
         const transaction = await this.contractBuilder.makeDeploy(this.contractData);
 
-        // this.#gasEstimate(transaction);
-        // this.#simulate(transaction);
+        // await this.#gasEstimate(transaction);
+        // await this.#simulate(transaction);
 
-        // this.logger.line();
-        // this.logger.logKV("Deployment sent: ", `0x${transaction.hash}`);
-        // this.logger.line();
+        this.logger.line();
+        this.logger.logKV("Deployment sent: ", `0x${transaction.hash}`);
+        this.logger.line();
 
-        // await this.client.postTransaction(transaction.serialized.toString("hex"));
+        await this.client.postTransaction(transaction.serialized.toString("hex"));
 
         return transaction.hash;
     }
@@ -82,12 +83,16 @@ export class Contract implements IContract {
         const transaction = await this.contractBuilder.makeCall(this.contractData, transactionIndex, args, amount);
         this.logger.line();
 
-        // await this.#simulate(this.config.cli.peer, transaction);
+        // await this.#gasEstimate(transaction);
+        // await this.#simulate(transaction);
 
         this.logger.line();
         this.logger.logKV("Transaction sent: ", `0x${transaction.hash}`);
         await this.client.postTransaction(transaction.serialized.toString("hex"));
         this.logger.line();
+
+        // await this.#waitForOneBlock();
+        await this.#logTransactionReceipt(transaction);
 
         return transaction.hash;
     }
@@ -101,8 +106,8 @@ export class Contract implements IContract {
             to: transaction.data.to!,
             data: `0x${transaction.serialized.toString("hex")}`,
             value: transaction.data.value ? `0x${transaction.data.value.toString(16)}` : undefined,
-            gas: `0x${transaction.data.gasLimit.toString(16)}`,
-            gasPrice: `0x${transaction.data.gasPrice.toString(16)}`,
+            // gas: `0x${transaction.data.gasLimit.toString(16)}`,
+            // gasPrice: `0x${transaction.data.gasPrice.toString(16)}`,
         };
 
         this.logger.log("Gas estimation call data:");
@@ -133,6 +138,39 @@ export class Contract implements IContract {
 
         this.logger.log("Simulation result:");
         this.logger.log(result);
+    }
+
+    // @ts-ignore
+    async #waitForOneBlock(): Promise<void> {
+        const timeout = 2000; // 2 seconds
+
+        const startHeight = await this.client.getHeight();
+        this.logger.log("Waiting for next block...");
+        await sleep(timeout);
+
+        while (startHeight + 1 >= (await this.client.getHeight())) {
+            this.logger.log(".");
+            await sleep(timeout);
+        }
+    }
+
+    async #logTransactionReceipt(tx: Contracts.Crypto.Transaction): Promise<void> {
+        this.logger.log(`Fetching transaction receipt for hash: 0x${tx.hash}`);
+
+        const receipt = await this.client.getReceipt(tx.hash);
+
+        if (receipt === null) {
+            this.logger.log("Transaction was not forged.");
+            return;
+        }
+
+        if (receipt.status === "0x0") {
+            this.logger.log("Transaction failed:");
+        } else {
+            this.logger.log("Transaction succeeded:");
+        }
+
+        this.logger.log(JSON.stringify(receipt, null, 2));
     }
 
     async #view(viewIndex: number): Promise<void> {
