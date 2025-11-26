@@ -67,8 +67,8 @@ export class Contract implements IContract {
         this.#logContract();
         const transaction = await this.contractBuilder.makeDeploy(this.contractData);
 
-        // await this.#gasEstimate(transaction);
-        // await this.#simulate(transaction);
+        await this.#gasEstimate(transaction);
+        await this.#simulate(transaction);
 
         this.logger.line();
         this.logger.logKV("Deployment sent", `0x${transaction.hash}`);
@@ -107,6 +107,7 @@ export class Contract implements IContract {
 
     // @ts-ignore
     async #gasEstimate(transaction: Contracts.Crypto.Transaction): Promise<void> {
+        this.logger.line();
         this.logger.log("Estimating gas...");
 
         const data = {
@@ -128,6 +129,7 @@ export class Contract implements IContract {
 
     // @ts-ignore
     async #simulate(transaction: Contracts.Crypto.Transaction): Promise<void> {
+        this.logger.line();
         this.logger.log("Simulating transaction...");
 
         const data = {
