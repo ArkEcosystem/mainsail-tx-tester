@@ -94,13 +94,13 @@ export class Contract implements IContract {
         await this.#gasEstimate(transaction);
         await this.#simulate(transaction);
 
-        // this.logger.line();
-        // this.logger.logKV("Transaction sent: ", `0x${transaction.hash}`);
-        // await this.client.postTransaction(transaction.serialized.toString("hex"));
-        // this.logger.line();
+        this.logger.line();
+        this.logger.logKV("Transaction sent: ", `0x${transaction.hash}`);
+        await this.client.postTransaction(transaction.serialized.toString("hex"));
+        this.logger.line();
 
-        // // await this.#waitForOneBlock();
-        // await this.#logTransactionReceipt(transaction);
+        // await this.#waitForOneBlock();
+        await this.#logTransactionReceipt(transaction);
 
         return transaction.hash;
     }
