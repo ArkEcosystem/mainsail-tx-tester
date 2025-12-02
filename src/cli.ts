@@ -64,6 +64,10 @@ export class Cli {
         for (let contract of Object.values(this.config.contracts)) {
             this.logger.log(`${index++} - ${contract.name}`);
         }
+
+        this.logger.log("");
+        this.logger.log("Flags:");
+        this.logger.log("--estimate-gas: Estimate gas for the transaction");
     }
 
     handleTransfer = async (args: Args) => {
