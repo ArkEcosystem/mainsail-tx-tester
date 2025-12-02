@@ -1,0 +1,42 @@
+{
+    "genesisBlock": {
+        "block": {
+            "number": 1
+        }
+    },
+    "milestones": [
+        {
+            "block": {
+                "maxGasLimit": 10000000,
+                "maxPayload": 2097152,
+                "version": 1
+            },
+            "epoch": "2025-10-24T00:00:00.000Z",
+            "evmSpec": "Shanghai",
+            "gas": {
+                "maximumGasLimit": 5000000,
+                "maximumGasPrice": 10000000000000,
+                "minimumGasLimit": 21000,
+                "minimumGasPrice": 5000000000
+            },
+            "height": 0,
+            "reward": "0",
+            "roundValidators": 0,
+            "satoshi": {
+                "decimals": 18,
+                "denomination": 1000000000000000000
+            },
+            "timeouts": {
+                "blockPrepareTime": 4000,
+                "blockTime": 8000,
+                "stageTimeout": 2000,
+                "stageTimeoutIncrease": 2000,
+                "tolerance": 100
+            },
+            "validatorRegistrationFee": "250000000000000000000"
+        }
+    ],
+    "network": {
+        "chainId": 31337
+    }
+}

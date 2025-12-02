@@ -1,6 +1,8 @@
 import { testnet } from "./networks/testnet.js";
 import { devnet } from "./networks/devnet.js";
 import { geth } from "./networks/geth.js";
+import { reth } from "./networks/reth.js";
+import { anvil } from "./networks/anvil.js";
 
 import { consensus } from "./contracts/consensus.js";
 import { usernames } from "./contracts/usernames.js";
