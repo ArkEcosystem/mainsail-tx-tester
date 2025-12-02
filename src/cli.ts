@@ -68,6 +68,7 @@ export class Cli {
         this.logger.log("");
         this.logger.log("Flags:");
         this.logger.log("--estimate-gas: Estimate gas for the transaction");
+        this.logger.log("--no-simulate : Skip transaction simulation");
     }
 
     handleTransfer = async (args: Args) => {
