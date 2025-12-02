@@ -7,14 +7,42 @@ export const test = {
     bytecode: Test.bytecode,
     transactions: [
         {
+            functionName: "incrementCounter",
+            args: [],
+        },
+        {
             functionName: "setCounter",
             args: [0],
         },
+        {
+            functionName: "useError",
+            args: [],
+        },
+        {
+            functionName: "useErrorWithAttributes",
+            args: [],
+        },
+        {
+            functionName: "useRevert",
+            args: [],
+        }
     ],
     views: [
         {
             functionName: "getCounter",
             args: [],
         },
+        {
+            functionName: "useErrorView",
+            args: [],
+        },
+        {
+            functionName: "useErrorWithAttributesView",
+            args: [],
+        },
+        {
+            functionName: "useRevertView",
+            args: [],
+        }
     ],
 };
