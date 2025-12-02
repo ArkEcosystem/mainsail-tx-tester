@@ -2,7 +2,7 @@ import { Contracts } from "@mainsail/contracts";
 import { injectable, inject } from "@mainsail/container";
 import { getContractAddress } from "viem";
 
-import { ContractData, Client, Contract as IContract, ContractBuilder, ViewBuilder, Logger } from "./types.js";
+import { ContractData, Client, Contract as IContract, ContractBuilder, ViewBuilder, Logger, Config } from "./types.js";
 import { AppIdentifiers } from "./identifiers.js";
 import { sleep } from "./utils.js";
 
@@ -10,6 +10,9 @@ import { sleep } from "./utils.js";
 export class Contract implements IContract {
     @inject(AppIdentifiers.Logger)
     private logger!: Logger;
+
+    @inject(AppIdentifiers.Config)
+    protected config!: Config;
 
     @inject(AppIdentifiers.Client)
     private client!: Client;
@@ -145,6 +148,10 @@ export class Contract implements IContract {
 
     // @ts-ignore
     async #waitForOneBlock(): Promise<void> {
+        if (!this.config.waitForBlock) {
+            return;
+        }
+
         const timeout = 2000; // 2 seconds
 
         const startHeight = await this.client.getHeight();

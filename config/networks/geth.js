@@ -5,5 +5,6 @@ export const geth = {
     senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     senderSecondPassphrase: "", // REPLACE senderSecondPassphrase WITH THE SECOND PASSPHRASE OF YOUR WALLET if you have one
     peer: "http://192.168.50.202:8545",
+    waitForBlock: false,
     crypto: crypto,
 };

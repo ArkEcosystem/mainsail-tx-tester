@@ -10,7 +10,7 @@ import { revert } from "./contracts/revert.js";
 import { test } from "./contracts/test.js";
 
 const config = {
-    ...devnet,
+    ...geth,
     gasPrice: 5000000000,
     transfer: {
         recipientAddress: "0xC870aF84F11e0d43c8a29C041F23a8E85a2Ce4ff",

@@ -55,6 +55,7 @@ export type Config = {
         message: string;
         signature: string;
     };
+    waitForBlock: boolean;
     crypto: Contracts.Crypto.NetworkConfig;
 };
 
