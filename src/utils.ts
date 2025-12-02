@@ -14,4 +14,8 @@ export const getArgsAndFlags = (customArgs?: string[]): ArgsAndFlags => {
     return { args, flags };
 };
 
+export const hasFlag = (flags: Record<string, string>, flagName: string): boolean => {
+    return Object.keys(flags).includes(flagName);
+};
+
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

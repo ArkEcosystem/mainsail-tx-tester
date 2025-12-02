@@ -13,7 +13,7 @@ import {
     Flags,
 } from "./types.js";
 import { AppIdentifiers } from "./identifiers.js";
-import { sleep } from "./utils.js";
+import { sleep, hasFlag } from "./utils.js";
 
 @injectable()
 export class Contract implements IContract {
@@ -33,7 +33,6 @@ export class Contract implements IContract {
     private viewBuilder!: ViewBuilder;
 
     private contractData!: ContractData;
-    // @ts-ignore
     private flags!: Flags;
 
     public init(contractData: ContractData, flags: Flags): Contract {
@@ -111,8 +110,13 @@ export class Contract implements IContract {
         return transaction.hash;
     }
 
-    // @ts-ignore
     async #gasEstimate(transaction: Contracts.Crypto.Transaction): Promise<void> {
+        if (!hasFlag(this.flags, "estimate-gas")) {
+            this.logger.line();
+            this.logger.log("Skipping gas estimation.");
+            return;
+        }
+
         this.logger.line();
         this.logger.log("Estimating gas...");
 
@@ -133,7 +137,6 @@ export class Contract implements IContract {
         this.logger.logKV("Estimated gas", gasEstimate);
     }
 
-    // @ts-ignore
     async #simulate(transaction: Contracts.Crypto.Transaction): Promise<void> {
         this.logger.line();
         this.logger.log("Simulating transaction...");
@@ -156,7 +159,6 @@ export class Contract implements IContract {
         this.logger.log(result);
     }
 
-    // @ts-ignore
     async #waitForOneBlock(): Promise<void> {
         if (!this.config.waitForBlock) {
             return;
@@ -175,7 +177,6 @@ export class Contract implements IContract {
         }
     }
 
-    // @ts-ignore
     async #logTransactionReceipt(tx: Contracts.Crypto.Transaction): Promise<void> {
         this.logger.line();
         this.logger.log(`Fetching transaction receipt for hash: 0x${tx.hash}`);
