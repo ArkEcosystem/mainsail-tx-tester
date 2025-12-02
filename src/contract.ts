@@ -70,18 +70,11 @@ export class Contract implements IContract {
         await this.#gasEstimate(transaction);
         await this.#simulate(transaction);
 
-        this.logger.line();
-        this.logger.logKV("Deployment sent", `0x${transaction.hash}`);
-        this.logger.logKV(
-            "Contract address",
-            getContractAddress({
-                from: transaction.data.from as `0x${string}`,
-                nonce: transaction.data.nonce.toBigInt(),
-            }),
-        );
-        this.logger.line();
+        this.#logDeploy(transaction);
 
         await this.client.postTransaction(transaction.serialized.toString("hex"));
+        await this.#waitForOneBlock();
+        await this.#logTransactionReceipt(transaction);
 
         return transaction.hash;
     }
@@ -155,6 +148,7 @@ export class Contract implements IContract {
         const timeout = 2000; // 2 seconds
 
         const startHeight = await this.client.getHeight();
+        this.logger.line();
         this.logger.log("Waiting for next block...");
         await sleep(timeout);
 
@@ -166,6 +160,7 @@ export class Contract implements IContract {
 
     // @ts-ignore
     async #logTransactionReceipt(tx: Contracts.Crypto.Transaction): Promise<void> {
+        this.logger.line();
         this.logger.log(`Fetching transaction receipt for hash: 0x${tx.hash}`);
 
         const receipt = await this.client.getReceipt(tx.hash);
@@ -197,6 +192,18 @@ export class Contract implements IContract {
         this.logger.line();
         this.viewBuilder.decodeViewResult(this.contractData, viewIndex, result);
         this.logger.line();
+    }
+
+    #logDeploy(transaction: Contracts.Crypto.Transaction): void {
+        this.logger.line();
+        this.logger.logKV("Deployment sent", `0x${transaction.hash}`);
+        this.logger.logKV(
+            "Contract address",
+            getContractAddress({
+                from: transaction.data.from as `0x${string}`,
+                nonce: transaction.data.nonce.toBigInt(),
+            }),
+        );
     }
 
     #logContract() {
