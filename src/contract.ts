@@ -90,12 +90,10 @@ export class Contract implements IContract {
         await this.#gasEstimate(transaction);
         await this.#simulate(transaction);
 
-        this.logger.line();
-        this.logger.logKV("Transaction sent: ", `0x${transaction.hash}`);
+        this.#logTransaction(transaction);
         await this.client.postTransaction(transaction.serialized.toString("hex"));
-        this.logger.line();
 
-        // await this.#waitForOneBlock();
+        await this.#waitForOneBlock();
         await this.#logTransactionReceipt(transaction);
 
         return transaction.hash;
@@ -211,6 +209,11 @@ export class Contract implements IContract {
                 nonce: transaction.data.nonce.toBigInt(),
             }),
         );
+    }
+
+    #logTransaction(transaction: Contracts.Crypto.Transaction): void {
+        this.logger.line();
+        this.logger.logKV("Transaction sent", `0x${transaction.hash}`);
     }
 
     #logContract() {
