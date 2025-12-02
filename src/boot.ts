@@ -3,7 +3,7 @@ import { Identifiers, Contracts } from "@mainsail/contracts";
 import { Application, Providers } from "@mainsail/kernel";
 import { AppIdentifiers } from "./identifiers.js";
 import { Client } from "./client.js";
-import { ContractData, ContractFactory } from "./types.js";
+import { ContractData, ContractFactory, Flags } from "./types.js";
 import { Contract } from "./contract.js";
 import { Logger } from "./logger.js";
 import { Wallet } from "./wallet.js";
@@ -93,8 +93,8 @@ export const makeApplication = async (): Promise<Application> => {
 
     app.bind<ContractFactory>(AppIdentifiers.ContractFactory).toFactory(
         (context: Contracts.Kernel.Container.ResolutionContext) =>
-            (contractData: ContractData): Contract =>
-                context.get(Contract, { autobind: true }).init(contractData),
+            (contractData: ContractData, flags: Flags): Contract =>
+                context.get(Contract, { autobind: true }).init(contractData, flags),
     );
 
     return app;

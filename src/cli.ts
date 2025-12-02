@@ -1,5 +1,14 @@
 import { injectable, inject } from "@mainsail/container";
-import { Config, Logger, ContractFactory, ContractData, TransactionSender, TransferBuilder, Args } from "./types.js";
+import {
+    Config,
+    Logger,
+    ContractFactory,
+    ContractData,
+    TransactionSender,
+    TransferBuilder,
+    Args,
+    Flags,
+} from "./types.js";
 import { AppIdentifiers } from "./identifiers.js";
 import { getArgsAndFlags } from "./utils.js";
 
@@ -23,7 +32,7 @@ export class Cli {
     protected contractFactory!: ContractFactory;
 
     async run() {
-        const { args } = getArgsAndFlags();
+        const { args, flags } = getArgsAndFlags();
 
         if (args.length < 1) {
             this.help();
@@ -42,7 +51,7 @@ export class Cli {
         if (txType === 1) {
             await this.handleTransfer(args);
         } else {
-            await this.handleContract(args, contracts[txType - PRE_CONTRACT_OFFSET - 1]);
+            await this.handleContract(args, flags, contracts[txType - PRE_CONTRACT_OFFSET - 1]);
         }
     }
 
@@ -65,12 +74,12 @@ export class Cli {
         await this.transactionSender.sendTransaction(tx);
     };
 
-    handleContract = async (args: Args, contractData: ContractData) => {
+    handleContract = async (args: Args, flags: Flags, contractData: ContractData) => {
         const txIndex = args.length > 1 ? parseInt(args[1]) : undefined;
         const txArgs = args.length > 2 ? JSON.parse(args[2]) : undefined;
         const amount = args.length > 3 ? args[3] : undefined;
 
-        const contract = this.contractFactory(contractData);
+        const contract = this.contractFactory(contractData, flags);
         if (txIndex === undefined) {
             contract.list();
         } else {

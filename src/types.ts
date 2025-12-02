@@ -73,7 +73,7 @@ export interface Contract {
     interact: (transactionIndex: number, args?: any, amount?: string) => Promise<string | void>;
 }
 
-export type ContractFactory = (data: ContractData) => Contract;
+export type ContractFactory = (data: ContractData, flags: Flags) => Contract;
 
 export interface Wallet {
     getAddress: () => Promise<string>;

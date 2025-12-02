@@ -2,7 +2,16 @@ import { Contracts } from "@mainsail/contracts";
 import { injectable, inject } from "@mainsail/container";
 import { getContractAddress } from "viem";
 
-import { ContractData, Client, Contract as IContract, ContractBuilder, ViewBuilder, Logger, Config } from "./types.js";
+import {
+    ContractData,
+    Client,
+    Contract as IContract,
+    ContractBuilder,
+    ViewBuilder,
+    Logger,
+    Config,
+    Flags,
+} from "./types.js";
 import { AppIdentifiers } from "./identifiers.js";
 import { sleep } from "./utils.js";
 
@@ -24,9 +33,12 @@ export class Contract implements IContract {
     private viewBuilder!: ViewBuilder;
 
     private contractData!: ContractData;
+    // @ts-ignore
+    private flags!: Flags;
 
-    public init(contractData: ContractData): Contract {
+    public init(contractData: ContractData, flags: Flags): Contract {
         this.contractData = contractData;
+        this.flags = flags;
         return this;
     }
 
