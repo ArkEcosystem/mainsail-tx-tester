@@ -81,8 +81,6 @@ export const makeApplication = async (): Promise<Application> => {
     app.get<Contracts.Crypto.Configuration>(Identifiers.Cryptography.Configuration).setConfig(config.crypto);
 
     // APP
-    app.bind(AppIdentifiers.WalletPassphrase).toConstantValue(config.senderPassphrase); // TODO: Remove
-
     app.bind(AppIdentifiers.Logger).to(Logger).inSingletonScope();
     app.bind(AppIdentifiers.Client).to(Client).inSingletonScope();
     app.bind(AppIdentifiers.Wallet).to(Wallet).inSingletonScope();

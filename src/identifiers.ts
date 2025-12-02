@@ -1,6 +1,4 @@
 export const AppIdentifiers = {
-    WalletPassphrase: Symbol.for("WalletPassphrase"),
-    WalletNonce: Symbol.for("WalletNonce"),
     Logger: Symbol.for("Logger"),
     Wallet: Symbol.for("Wallet"),
     Config: Symbol.for("Config"),
