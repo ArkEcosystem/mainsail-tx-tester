@@ -1,7 +1,7 @@
 import { injectable, inject } from "@mainsail/container";
 import { Config, Logger, ContractFactory, ContractData, TransactionSender, TransferBuilder, Args } from "./types.js";
 import { AppIdentifiers } from "./identifiers.js";
-import { getArgs } from "./utils.js";
+import { getArgsAndFlags } from "./utils.js";
 
 const PRE_CONTRACT_OFFSET = 1;
 
@@ -23,7 +23,7 @@ export class Cli {
     protected contractFactory!: ContractFactory;
 
     async run() {
-        const { args } = getArgs();
+        const { args } = getArgsAndFlags();
 
         if (args.length < 1) {
             this.help();

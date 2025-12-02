@@ -1,12 +1,12 @@
 import { makeApplication } from "../boot.js";
 import { makeIdentityFactories, loadConfig } from "./utils.js";
-import { getArgs } from "../utils.js";
+import { getArgsAndFlags } from "../utils.js";
 import { AppIdentifiers } from "../identifiers.js";
 
 import { Client } from "../client.js";
 
 export const main = async (customArgs?: string[]) => {
-    const { args } = getArgs(customArgs);
+    const { args } = getArgsAndFlags(customArgs);
 
     const config = loadConfig();
 
