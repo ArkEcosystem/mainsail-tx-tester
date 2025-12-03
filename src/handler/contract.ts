@@ -11,9 +11,9 @@ import {
     Logger,
     Config,
     Flags,
-} from "./types.js";
-import { AppIdentifiers } from "./identifiers.js";
-import { sleep, hasFlag } from "./utils.js";
+} from "../types.js";
+import { AppIdentifiers } from "../identifiers.js";
+import { sleep, hasFlag } from "../utils.js";
 
 @injectable()
 export class Contract implements IContract {

@@ -4,10 +4,9 @@ import { Application, Providers } from "@mainsail/kernel";
 import { AppIdentifiers } from "./identifiers.js";
 import { Client } from "./client.js";
 import { ContractData, ContractFactory, Flags } from "./types.js";
-import { Contract } from "./contract.js";
+import { Contract, TransactionSender } from "./handler/index.js";
 import { Logger } from "./logger.js";
 import { Wallet } from "./wallet.js";
-import { TransactionSender } from "./transaction-sender.js";
 import { TransferBuilder, ContractBuilder, ViewBuilder } from "./interactions/index.js";
 import config from "../config/config.js";
 
