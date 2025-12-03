@@ -83,12 +83,12 @@ export type ContractData = {
     views: { functionName: string; args: any[] }[];
 };
 
-export interface Contract {
+export interface ContractHandler {
     list: () => void;
     interact: (transactionIndex: number, args?: any, amount?: string) => Promise<string | void>;
 }
 
-export type ContractFactory = (data: ContractData, flags: Flags) => Contract;
+export type ContractHandlerFactory = (data: ContractData, flags: Flags) => ContractHandler;
 
 export interface Wallet {
     getAddress: () => Promise<string>;

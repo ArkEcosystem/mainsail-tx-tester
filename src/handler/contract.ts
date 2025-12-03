@@ -5,7 +5,7 @@ import { getContractAddress } from "viem";
 import {
     ContractData,
     Client,
-    Contract as IContract,
+    ContractHandler as IContractHandler,
     ContractBuilder,
     ViewBuilder,
     Logger,
@@ -16,7 +16,7 @@ import { AppIdentifiers } from "../identifiers.js";
 import { sleep, hasFlag } from "../utils.js";
 
 @injectable()
-export class Contract implements IContract {
+export class ContractHandler implements IContractHandler {
     @inject(AppIdentifiers.Logger)
     private logger!: Logger;
 
@@ -35,7 +35,7 @@ export class Contract implements IContract {
     private contractData!: ContractData;
     private flags!: Flags;
 
-    public init(contractData: ContractData, flags: Flags): Contract {
+    public init(contractData: ContractData, flags: Flags): ContractHandler {
         this.contractData = contractData;
         this.flags = flags;
         return this;

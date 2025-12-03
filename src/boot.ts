@@ -3,8 +3,8 @@ import { Identifiers, Contracts } from "@mainsail/contracts";
 import { Application, Providers } from "@mainsail/kernel";
 import { AppIdentifiers } from "./identifiers.js";
 import { Client } from "./client.js";
-import { ContractData, ContractFactory, Flags } from "./types.js";
-import { Contract, TransactionHandler } from "./handler/index.js";
+import { ContractData, ContractHandlerFactory, Flags } from "./types.js";
+import { ContractHandler, TransactionHandler } from "./handler/index.js";
 import { Logger } from "./logger.js";
 import { Wallet } from "./wallet.js";
 import { TransferBuilder, ContractBuilder, ViewBuilder } from "./interactions/index.js";
@@ -88,10 +88,10 @@ export const makeApplication = async (): Promise<Application> => {
     app.bind(AppIdentifiers.ContractBuilder).to(ContractBuilder).inSingletonScope();
     app.bind(AppIdentifiers.ViewBuilder).to(ViewBuilder).inSingletonScope();
 
-    app.bind<ContractFactory>(AppIdentifiers.ContractFactory).toFactory(
+    app.bind<ContractHandlerFactory>(AppIdentifiers.ContractHandlerFactory).toFactory(
         (context: Contracts.Kernel.Container.ResolutionContext) =>
-            (contractData: ContractData, flags: Flags): Contract =>
-                context.get(Contract, { autobind: true }).init(contractData, flags),
+            (contractData: ContractData, flags: Flags): ContractHandler =>
+                context.get(ContractHandler, { autobind: true }).init(contractData, flags),
     );
 
     return app;

@@ -2,7 +2,7 @@ import { injectable, inject } from "@mainsail/container";
 import {
     Config,
     Logger,
-    ContractFactory,
+    ContractHandlerFactory,
     ContractData,
     TransactionHandler,
     TransferBuilder,
@@ -28,8 +28,8 @@ export class Cli {
     @inject(AppIdentifiers.TransactionHandler)
     protected transactionHandler!: TransactionHandler;
 
-    @inject(AppIdentifiers.ContractFactory)
-    protected contractFactory!: ContractFactory;
+    @inject(AppIdentifiers.ContractHandlerFactory)
+    protected contractHandlerFactory!: ContractHandlerFactory;
 
     async run() {
         const { args, flags } = getArgsAndFlags();
@@ -85,11 +85,11 @@ export class Cli {
         const txArgs = args.length > 2 ? JSON.parse(args[2]) : undefined;
         const amount = args.length > 3 ? args[3] : undefined;
 
-        const contract = this.contractFactory(contractData, flags);
+        const contractHandler = this.contractHandlerFactory(contractData, flags);
         if (txIndex === undefined) {
-            contract.list();
+            contractHandler.list();
         } else {
-            await contract.interact(txIndex, txArgs, amount);
+            await contractHandler.interact(txIndex, txArgs, amount);
         }
     };
 }
