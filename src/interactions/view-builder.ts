@@ -36,20 +36,22 @@ export class ViewBuilder extends Base implements IViewBuilder {
     decodeViewResult = (contractData: ContractData, index: number, data: string): void => {
         const func = contractData.views[index];
 
-        let result;
         try {
-            result = decodeFunctionResult({
+            const result = decodeFunctionResult({
                 abi: contractData.abi,
                 functionName: func.functionName,
                 data: data as `0x${string}`,
             });
-        } catch (ex) {
-            result = ex.message;
-        }
 
-        console.log(`Result:   ${data}`);
-        console.log(`Decoded:`);
-        console.log(`${JSON.stringify(result, (_, v) => (typeof v === "bigint" ? v.toString() : v), "  ")}`);
+            this.logger.line();
+            this.logger.log(`Decoded result:`);
+            this.logger.log(`Bytes: ${data}`);
+            this.logger.log(`Func : ${func.functionName}`);
+
+            console.log(`${JSON.stringify(result, (_, v) => (typeof v === "bigint" ? v.toString() : v), "  ")}`);
+        } catch (ex) {
+            this.logger.log(`Failed to decode result: ${ex.message}`);
+        }
     };
 
     decodeViewError = (contractData: ContractData, data: string): void => {

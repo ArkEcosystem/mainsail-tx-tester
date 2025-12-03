@@ -230,10 +230,15 @@ export class Contract implements IContract {
         this.logger.log("Calling view...");
         this.logger.logKV("View data", JSON.stringify(view, null, 2));
 
-        const result = await this.client.ethCall(view);
+        const response = await this.client.ethCall(view);
+
+        if (!response.success) {
+            this.logger.log(`View call failed: ${response.message}`);
+            return;
+        }
 
         this.logger.line();
-        this.viewBuilder.decodeViewResult(this.contractData, viewIndex, result);
+        this.viewBuilder.decodeViewResult(this.contractData, viewIndex, response.result);
         this.logger.line();
     }
 
