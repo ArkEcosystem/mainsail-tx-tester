@@ -37,18 +37,19 @@ export class ViewBuilder extends Base implements IViewBuilder {
         const func = [...contractData.transactions, ...contractData.views][functionIndex];
 
         try {
+            this.logger.line();
+            this.logger.log(`Decoded result:`);
+            this.logger.log(`Bytes : ${data}`);
+            this.logger.log(`Func  : ${func.functionName}`);
+
             const result = decodeFunctionResult({
                 abi: contractData.abi,
                 functionName: func.functionName,
                 data: data as `0x${string}`,
             });
-
-            this.logger.line();
-            this.logger.log(`Decoded result:`);
-            this.logger.log(`Bytes: ${data}`);
-            this.logger.log(`Func : ${func.functionName}`);
-
-            console.log(`${JSON.stringify(result, (_, v) => (typeof v === "bigint" ? v.toString() : v), "  ")}`);
+            this.logger.log(
+                `Result: ${JSON.stringify(result, (_, v) => (typeof v === "bigint" ? v.toString() : v), "  ")}`,
+            );
         } catch (ex) {
             this.logger.log(`Failed to decode result: ${ex.message}`);
         }

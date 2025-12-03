@@ -82,7 +82,7 @@ export class Contract implements IContract {
         const transaction = await this.contractBuilder.makeDeploy(this.contractData);
 
         await this.#gasEstimate(transaction);
-        await this.#simulate(transaction);
+        await this.#simulate(transaction, -1);
 
         this.#logDeploy(transaction);
 
@@ -99,7 +99,7 @@ export class Contract implements IContract {
         this.logger.line();
 
         await this.#gasEstimate(transaction);
-        await this.#simulate(transaction);
+        await this.#simulate(transaction, transactionIndex);
 
         this.#logTransaction(transaction);
         await this.client.postTransaction(transaction.serialized.toString("hex"));
@@ -140,7 +140,7 @@ export class Contract implements IContract {
         this.logger.logKV("Estimated gas", gasEstimate.result);
     }
 
-    async #simulate(transaction: Contracts.Crypto.Transaction): Promise<void> {
+    async #simulate(transaction: Contracts.Crypto.Transaction, functionIndex: number): Promise<void> {
         if (hasFlag(this.flags, "no-simulate")) {
             this.logger.line();
             this.logger.log("Skipping transaction simulation.");
@@ -162,19 +162,14 @@ export class Contract implements IContract {
         this.logger.log("Simulation call data:");
         this.logger.log(JSON.stringify(data, null, 2));
 
-        const result = await this.client.ethCall(data);
-        if (result.success) {
-            // this.viewBuilder.decodeViewResult(this.contractData, viewIndex, result);
-
-            this.logger.line();
-
-            this.logger.log("Simulation result:");
-            this.logger.log(result.result);
+        const response = await this.client.ethCall(data);
+        if (response.success) {
+            this.viewBuilder.decodeViewResult(this.contractData, functionIndex, response.result);
             return;
         }
 
-        if (result.data) {
-            this.viewBuilder.decodeViewError(this.contractData, result.data);
+        if (response.data) {
+            this.viewBuilder.decodeViewError(this.contractData, response.data);
         }
 
         process.exit(0);
