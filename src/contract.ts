@@ -110,7 +110,7 @@ export class Contract implements IContract {
     }
 
     async #gasEstimate(transaction: Contracts.Crypto.Transaction): Promise<void> {
-        if (!hasFlag(this.flags, "estimate-gas")) {
+        if (!hasFlag(this.flags, "estimateGas")) {
             this.logger.line();
             this.logger.log("Skipping gas estimation.");
             return;
@@ -140,7 +140,7 @@ export class Contract implements IContract {
     }
 
     async #simulate(transaction: Contracts.Crypto.Transaction, functionIndex: number): Promise<void> {
-        if (hasFlag(this.flags, "no-simulate")) {
+        if (hasFlag(this.flags, "noSimulate")) {
             this.logger.line();
             this.logger.log("Skipping transaction simulation.");
             return;
@@ -174,7 +174,9 @@ export class Contract implements IContract {
             this.viewBuilder.decodeViewError(this.contractData, response.data);
         }
 
-        process.exit(0);
+        if (!hasFlag(this.flags, "forceSend")) {
+            process.exit(0);
+        }
     }
 
     async #waitForOneBlock(): Promise<void> {
