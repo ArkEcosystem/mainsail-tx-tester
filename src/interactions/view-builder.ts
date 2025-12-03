@@ -42,6 +42,10 @@ export class ViewBuilder extends Base implements IViewBuilder {
             this.logger.log(`Bytes : ${data}`);
             this.logger.log(`Func  : ${func.functionName}`);
 
+            if (func === deployFunction) {
+                return;
+            }
+
             const result = decodeFunctionResult({
                 abi: contractData.abi,
                 functionName: func.functionName,

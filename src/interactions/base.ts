@@ -7,7 +7,7 @@ import { TransactionBuilder } from "@mainsail/crypto-transaction";
 import { AbiFunction } from "viem";
 
 export const deployFunction = {
-    functionName: "deploy",
+    functionName: "DEPLOY",
     args: [],
     amount: "0",
 };

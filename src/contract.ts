@@ -81,7 +81,7 @@ export class Contract implements IContract {
         const transaction = await this.contractBuilder.makeDeploy(this.contractData);
 
         await this.#gasEstimate(transaction);
-        await this.#simulate(transaction, -1);
+        await this.#simulate(transaction, 0);
 
         this.#logDeploy(transaction);
 
