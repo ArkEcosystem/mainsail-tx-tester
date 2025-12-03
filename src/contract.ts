@@ -71,7 +71,7 @@ export class Contract implements IContract {
         if (transactionIndex < this.contractData.transactions.length) {
             return await this.#transaction(transactionIndex, args, amount);
         } else if (transactionIndex < this.contractData.transactions.length + this.contractData.views.length) {
-            await this.#view(transactionIndex - this.contractData.transactions.length);
+            await this.#view(transactionIndex);
         } else {
             throw new Error("Invalid index");
         }
@@ -222,9 +222,9 @@ export class Contract implements IContract {
         this.logger.log(JSON.stringify(receipt, null, 2));
     }
 
-    async #view(viewIndex: number): Promise<void> {
+    async #view(functionIndex: number): Promise<void> {
         this.#logContract();
-        const view = await this.viewBuilder.makeView(this.contractData, viewIndex);
+        const view = await this.viewBuilder.makeView(this.contractData, functionIndex);
 
         this.logger.line();
         this.logger.log("Calling view...");
@@ -238,7 +238,7 @@ export class Contract implements IContract {
         }
 
         this.logger.line();
-        this.viewBuilder.decodeViewResult(this.contractData, viewIndex, response.result);
+        this.viewBuilder.decodeViewResult(this.contractData, functionIndex, response.result);
         this.logger.line();
     }
 

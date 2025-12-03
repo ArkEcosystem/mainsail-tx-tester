@@ -9,8 +9,8 @@ export class ViewBuilder extends Base implements IViewBuilder {
     @inject(AppIdentifiers.Logger)
     private logger!: Logger;
 
-    makeView = async (contractData: ContractData, index: number): Promise<EthViewParameters> => {
-        const func = contractData.views[index];
+    makeView = async (contractData: ContractData, functionIndex: number): Promise<EthViewParameters> => {
+        const func = [...contractData.transactions, ...contractData.views][functionIndex];
 
         const args = func.args;
 
@@ -33,8 +33,8 @@ export class ViewBuilder extends Base implements IViewBuilder {
         };
     };
 
-    decodeViewResult = (contractData: ContractData, index: number, data: string): void => {
-        const func = contractData.views[index];
+    decodeViewResult = (contractData: ContractData, functionIndex: number, data: string): void => {
+        const func = [...contractData.transactions, ...contractData.views][functionIndex];
 
         try {
             const result = decodeFunctionResult({
