@@ -237,9 +237,7 @@ export class Contract implements IContract {
             return;
         }
 
-        this.logger.line();
         this.viewBuilder.decodeViewResult(this.contractData, functionIndex, response.result);
-        this.logger.line();
     }
 
     #logDeploy(transaction: Contracts.Crypto.Transaction): void {
