@@ -3,8 +3,7 @@ import Test from "../builds/Test.json" with { type: "json" };
 export const test = {
     abi: Test.abi,
     name: "Test",
-    // contractId: "0xA762F523d959eEefc3012Aa20Af636eEFad6e99c", // Add deployed contract address here
-    contractId: "0x5FbDB2315678afecb367f032d93F642f64180aa3", // Add deployed contract address here
+    contractId: "", // Add deployed contract address here
     bytecode: Test.bytecode,
     transactions: [
         {
@@ -13,6 +12,10 @@ export const test = {
         },
         {
             functionName: "setCounter",
+            args: [0],
+        },
+        {
+            functionName: "setCounterAndReturn",
             args: [0],
         },
         {

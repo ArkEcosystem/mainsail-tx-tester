@@ -19,6 +19,11 @@ contract Test {
         counter = newCounter;
     }
 
+    function setCounterAndReturn(uint256 newCounter) public returns (uint256) {
+        counter = newCounter;
+        return counter;
+    }
+
     function incrementCounter() public {
         counter++;
     }
