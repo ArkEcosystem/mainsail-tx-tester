@@ -167,6 +167,9 @@ export class Contract implements IContract {
             return;
         }
 
+        this.logger.line();
+        this.logger.log(`Simulation failed: ${response.message}`);
+
         if (response.data) {
             this.viewBuilder.decodeViewError(this.contractData, response.data);
         }
