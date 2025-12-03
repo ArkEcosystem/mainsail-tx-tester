@@ -31,7 +31,7 @@ export interface Client {
     getReceipt: (transaction: string) => Promise<JSONRPCResponse<Receipt | null>>;
 }
 
-export interface TransactionSender {
+export interface TransactionHandler {
     sendTransaction: (tx: Contracts.Crypto.Transaction) => Promise<void>;
 }
 

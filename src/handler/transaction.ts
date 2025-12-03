@@ -1,11 +1,11 @@
 import { Contracts } from "@mainsail/contracts";
 import { injectable, inject } from "@mainsail/container";
 
-import { Client, Logger, TransactionSender as ITransactionSender } from "../types.js";
+import { Client, Logger, TransactionHandler as ITransactionHandler } from "../types.js";
 import { AppIdentifiers } from "../identifiers.js";
 
 @injectable()
-export class TransactionSender implements ITransactionSender {
+export class TransactionHandler implements ITransactionHandler {
     @inject(AppIdentifiers.Logger)
     private logger!: Logger;
 

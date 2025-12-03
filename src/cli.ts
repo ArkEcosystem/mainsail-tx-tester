@@ -4,7 +4,7 @@ import {
     Logger,
     ContractFactory,
     ContractData,
-    TransactionSender,
+    TransactionHandler,
     TransferBuilder,
     Args,
     Flags,
@@ -25,8 +25,8 @@ export class Cli {
     @inject(AppIdentifiers.TransferBuilder)
     protected transferBuilder!: TransferBuilder;
 
-    @inject(AppIdentifiers.TransactionSender)
-    protected transactionSender!: TransactionSender;
+    @inject(AppIdentifiers.TransactionHandler)
+    protected transactionHandler!: TransactionHandler;
 
     @inject(AppIdentifiers.ContractFactory)
     protected contractFactory!: ContractFactory;
@@ -77,7 +77,7 @@ export class Cli {
         const amount = args.length > 2 ? args[2] : undefined;
 
         const tx = await this.transferBuilder.makeTransfer(this.config, recipient, amount);
-        await this.transactionSender.sendTransaction(tx);
+        await this.transactionHandler.sendTransaction(tx);
     };
 
     handleContract = async (args: Args, flags: Flags, contractData: ContractData) => {

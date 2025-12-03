@@ -4,7 +4,7 @@ import { Application, Providers } from "@mainsail/kernel";
 import { AppIdentifiers } from "./identifiers.js";
 import { Client } from "./client.js";
 import { ContractData, ContractFactory, Flags } from "./types.js";
-import { Contract, TransactionSender } from "./handler/index.js";
+import { Contract, TransactionHandler } from "./handler/index.js";
 import { Logger } from "./logger.js";
 import { Wallet } from "./wallet.js";
 import { TransferBuilder, ContractBuilder, ViewBuilder } from "./interactions/index.js";
@@ -83,7 +83,7 @@ export const makeApplication = async (): Promise<Application> => {
     app.bind(AppIdentifiers.Logger).to(Logger).inSingletonScope();
     app.bind(AppIdentifiers.Client).to(Client).inSingletonScope();
     app.bind(AppIdentifiers.Wallet).to(Wallet).inSingletonScope();
-    app.bind(AppIdentifiers.TransactionSender).to(TransactionSender).inSingletonScope();
+    app.bind(AppIdentifiers.TransactionHandler).to(TransactionHandler).inSingletonScope();
     app.bind(AppIdentifiers.TransferBuilder).to(TransferBuilder).inSingletonScope();
     app.bind(AppIdentifiers.ContractBuilder).to(ContractBuilder).inSingletonScope();
     app.bind(AppIdentifiers.ViewBuilder).to(ViewBuilder).inSingletonScope();
