@@ -48,9 +48,12 @@ export class Client implements IClient {
             console.error(error);
             throw new Error(error);
         } else if (response.data.error) {
-            const error = `Error on ${method}. Error code: ${response.data.error.code}, message: ${response.data.error.message}`;
-            console.error(error);
-            throw new Error(error);
+            return {
+                success: false,
+                code: response.data.error.code,
+                message: response.data.error.message,
+                data: response.data.error.data,
+            };
         }
 
         return {

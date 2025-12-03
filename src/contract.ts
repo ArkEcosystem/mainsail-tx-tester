@@ -163,14 +163,21 @@ export class Contract implements IContract {
         this.logger.log(JSON.stringify(data, null, 2));
 
         const result = await this.client.ethCall(data);
-        if (!result.success) {
-            throw new Error(`Error simulating transaction: ${result.message}`);
+        if (result.success) {
+            // this.viewBuilder.decodeViewResult(this.contractData, viewIndex, result);
+
+            this.logger.line();
+
+            this.logger.log("Simulation result:");
+            this.logger.log(result.result);
+            return;
         }
 
-        this.logger.line();
+        if (result.data) {
+            this.viewBuilder.decodeViewError(this.contractData, result.data);
+        }
 
-        this.logger.log("Simulation result:");
-        this.logger.log(result.result);
+        process.exit(0);
     }
 
     async #waitForOneBlock(): Promise<void> {
