@@ -7,7 +7,7 @@ import { ContractData, ContractHandlerFactory, Flags } from "./types.js";
 import { ContractHandler, TransactionHandler } from "./handler/index.js";
 import { Logger } from "./logger.js";
 import { Wallet } from "./wallet.js";
-import { TransferBuilder, ContractBuilder, ViewBuilder } from "./interactions/index.js";
+import { TransferBuilder, ContractBuilder, ViewBuilder } from "./builders/index.js";
 import config from "../config/config.js";
 
 let app: Application | undefined = undefined;
