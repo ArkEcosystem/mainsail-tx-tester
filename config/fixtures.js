@@ -1,6 +1,6 @@
 import { consensus } from "./contracts/consensus.js";
 import { multiPayment } from "./contracts/multipayment.js";
-import { tokenTransfer } from "./contracts/tokentransfer.js";
+import { dark20 } from "./contracts/dark20.js";
 import { usernames } from "./contracts/usernames.js";
 
 const fixtureConfig = {
@@ -21,7 +21,8 @@ const fixtureConfig = {
     "transfer-legacy-second-signature": {
         recipientAddress: "0x6F0182a0cc707b055322CcF6d4CB6a5Aff1aEb22",
         value: "100000000",
-        secondPassphrase: "gold favorite math anchor detect march purpose such sausage crucial reform novel connect misery update episode invite salute barely garbage exclude winner visa cruise"
+        secondPassphrase:
+            "gold favorite math anchor detect march purpose such sausage crucial reform novel connect misery update episode invite salute barely garbage exclude winner visa cruise",
     },
     vote: {
         contract: {
@@ -47,7 +48,7 @@ const fixtureConfig = {
             ],
         },
         gasLimit: 200000,
-        value: "250000000000000000000"
+        value: "250000000000000000000",
     },
     "validator-resignation": {
         contract: {
@@ -102,7 +103,7 @@ const fixtureConfig = {
     },
     "evm-sign": {
         contract: {
-            data: tokenTransfer,
+            data: dark20,
             functionName: "transfer",
             args: ["0x27fa7caffaae77ddb9ab232fdbda56d5e5af2393", "100"],
         },
