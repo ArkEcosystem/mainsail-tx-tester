@@ -67,10 +67,9 @@ export class Contract implements IContract {
             return await this.#deploy();
         }
 
-        transactionIndex--; // Adjust for deploy at index 0
-        if (transactionIndex < this.contractData.transactions.length) {
+        if (transactionIndex - 1 < this.contractData.transactions.length) {
             return await this.#transaction(transactionIndex, args, amount);
-        } else if (transactionIndex < this.contractData.transactions.length + this.contractData.views.length) {
+        } else if (transactionIndex - 1 < this.contractData.transactions.length + this.contractData.views.length) {
             await this.#view(transactionIndex);
         } else {
             throw new Error("Invalid index");
@@ -228,7 +227,9 @@ export class Contract implements IContract {
         const response = await this.client.ethCall(view);
 
         if (!response.success) {
+            this.logger.line();
             this.logger.log(`View call failed: ${response.message}`);
+            this.viewBuilder.decodeViewError(this.contractData, response.data!);
             return;
         }
 

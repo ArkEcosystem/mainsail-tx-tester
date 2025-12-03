@@ -1,6 +1,6 @@
 import { injectable } from "@mainsail/container";
 import { Contracts } from "@mainsail/contracts";
-import { Base } from "./base.js";
+import { Base, deployFunction } from "./base.js";
 import { encodeFunctionData } from "viem";
 import { ContractData, ContractBuilder as IContractBuilder } from "../types.js";
 import { TransactionBuilder } from "@mainsail/crypto-transaction";
@@ -29,7 +29,7 @@ export class ContractBuilder extends Base implements IContractBuilder {
     ): Promise<Contracts.Crypto.Transaction> => {
         const walletNonce = await this.wallet.getNonce();
 
-        const func = contractData.transactions[functionIndex];
+        const func = [deployFunction, ...contractData.transactions][functionIndex];
         const usedArgs = args || func.args;
 
         this.normalizeContractCallArgs(contractData, func.functionName, usedArgs);

@@ -1,5 +1,5 @@
 import { injectable, inject } from "@mainsail/container";
-import { Base } from "./base.js";
+import { Base, deployFunction } from "./base.js";
 import { ViewBuilder as IViewBuilder, EthViewParameters, ContractData, Logger } from "../types.js";
 import { encodeFunctionData, decodeFunctionResult, decodeErrorResult } from "viem";
 import { AppIdentifiers } from "../identifiers.js";
@@ -10,7 +10,7 @@ export class ViewBuilder extends Base implements IViewBuilder {
     private logger!: Logger;
 
     makeView = async (contractData: ContractData, functionIndex: number): Promise<EthViewParameters> => {
-        const func = [...contractData.transactions, ...contractData.views][functionIndex];
+        const func = [deployFunction, ...contractData.transactions, ...contractData.views][functionIndex];
 
         const args = func.args;
 
@@ -34,7 +34,7 @@ export class ViewBuilder extends Base implements IViewBuilder {
     };
 
     decodeViewResult = (contractData: ContractData, functionIndex: number, data: string): void => {
-        const func = [...contractData.transactions, ...contractData.views][functionIndex];
+        const func = [deployFunction, ...contractData.transactions, ...contractData.views][functionIndex];
 
         try {
             this.logger.line();

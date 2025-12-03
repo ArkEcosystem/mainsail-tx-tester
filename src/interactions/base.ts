@@ -6,6 +6,12 @@ import { TransactionBuilder } from "@mainsail/crypto-transaction";
 
 import { AbiFunction } from "viem";
 
+export const deployFunction = {
+    functionName: "deploy",
+    args: [],
+    amount: "0",
+};
+
 @injectable()
 export class Base {
     @inject(Identifiers.Application.Instance)
