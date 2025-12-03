@@ -133,8 +133,11 @@ export class Contract implements IContract {
         this.logger.log(JSON.stringify(data, null, 2));
 
         const gasEstimate = await this.client.ethEstimateGas(data);
+        if (!gasEstimate.success) {
+            throw new Error(`Error estimating gas: ${gasEstimate.message}`);
+        }
 
-        this.logger.logKV("Estimated gas", gasEstimate);
+        this.logger.logKV("Estimated gas", gasEstimate.result);
     }
 
     async #simulate(transaction: Contracts.Crypto.Transaction): Promise<void> {
@@ -160,9 +163,14 @@ export class Contract implements IContract {
         this.logger.log(JSON.stringify(data, null, 2));
 
         const result = await this.client.ethCall(data);
+        if (!result.success) {
+            throw new Error(`Error simulating transaction: ${result.message}`);
+        }
+
+        this.logger.line();
 
         this.logger.log("Simulation result:");
-        this.logger.log(result);
+        this.logger.log(result.result);
     }
 
     async #waitForOneBlock(): Promise<void> {
@@ -187,8 +195,12 @@ export class Contract implements IContract {
         this.logger.line();
         this.logger.log(`Fetching transaction receipt for hash: 0x${tx.hash}`);
 
-        const receipt = await this.client.getReceipt(tx.hash);
+        const result = await this.client.getReceipt(tx.hash);
+        if (!result.success) {
+            throw new Error(`Error getting transaction receipt: ${result.message}`);
+        }
 
+        const receipt = result.result;
         if (receipt === null) {
             this.logger.log("Transaction was not forged.");
             return;

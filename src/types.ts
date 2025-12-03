@@ -8,13 +8,27 @@ export interface Logger {
     log: (message: string) => void;
 }
 
+export type JSONRPCResultSuccess<T> = {
+    success: true;
+    result: T;
+};
+
+export type JSONRPCResultError = {
+    success: false;
+    code: number;
+    message: string;
+    data?: string;
+};
+
+export type JSONRPCResponse<T> = JSONRPCResultSuccess<T> | JSONRPCResultError;
+
 export interface Client {
     getWalletNonce: (address: string) => Promise<number>;
     getHeight: () => Promise<number>;
-    ethEstimateGas: (viewParameters: EthViewParameters) => Promise<string>;
-    ethCall: (viewParameters: EthViewParameters) => Promise<string>;
-    postTransaction: (transaction: string) => Promise<string>;
-    getReceipt: (transaction: string) => Promise<Receipt | null>;
+    ethEstimateGas: (viewParameters: EthViewParameters) => Promise<JSONRPCResponse<string>>;
+    ethCall: (viewParameters: EthViewParameters) => Promise<JSONRPCResponse<string>>;
+    postTransaction: (transaction: string) => Promise<JSONRPCResponse<string>>;
+    getReceipt: (transaction: string) => Promise<JSONRPCResponse<Receipt | null>>;
 }
 
 export interface TransactionSender {

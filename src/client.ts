@@ -1,6 +1,6 @@
 import { http } from "@mainsail/utils";
 import { injectable, inject } from "@mainsail/container";
-import { EthViewParameters, Receipt, Client as IClient, Config } from "./types.js";
+import { EthViewParameters, Receipt, Client as IClient, Config, JSONRPCResponse } from "./types.js";
 import { AppIdentifiers } from "./identifiers.js";
 
 @injectable()
@@ -9,30 +9,40 @@ export class Client implements IClient {
     protected config!: Config;
 
     public async getWalletNonce(address: string): Promise<number> {
-        return parseInt(await this.#JSONRPCCall<string>("eth_getTransactionCount", [address, "latest"]));
+        const response = await this.#JSONRPCCall<string>("eth_getTransactionCount", [address, "latest"]);
+        if (!response.success) {
+            throw new Error(`Error getting wallet nonce: ${response.message}`);
+        }
+
+        return parseInt(response.result);
     }
 
     public async getHeight(): Promise<number> {
-        return parseInt(await this.#JSONRPCCall<string>("eth_blockNumber", []));
+        const response = await this.#JSONRPCCall<string>("eth_blockNumber", []);
+        if (!response.success) {
+            throw new Error(`Error getting block number: ${response.message}`);
+        }
+
+        return parseInt(response.result);
     }
 
-    public async ethEstimateGas(viewParameters: EthViewParameters): Promise<string> {
+    public async ethEstimateGas(viewParameters: EthViewParameters): Promise<JSONRPCResponse<string>> {
         return this.#JSONRPCCall<string>("eth_estimateGas", [viewParameters]);
     }
 
-    public async ethCall(viewParameters: EthViewParameters): Promise<string> {
+    public async ethCall(viewParameters: EthViewParameters): Promise<JSONRPCResponse<string>> {
         return this.#JSONRPCCall<string>("eth_call", [viewParameters, "latest"]);
     }
 
-    public async postTransaction(transaction: string): Promise<string> {
+    public async postTransaction(transaction: string): Promise<JSONRPCResponse<string>> {
         return this.#JSONRPCCall<string>("eth_sendRawTransaction", [`0x${transaction}`]);
     }
 
-    public async getReceipt(transaction: string): Promise<Receipt | null> {
+    public async getReceipt(transaction: string): Promise<JSONRPCResponse<Receipt | null>> {
         return this.#JSONRPCCall<Receipt | null>("eth_getTransactionReceipt", [`0x${transaction}`]);
     }
 
-    async #parseJSONRPCResult<T>(method: string, response: any): Promise<T> {
+    async #parseJSONRPCResult<T>(method: string, response: any): Promise<JSONRPCResponse<T>> {
         if (response.statusCode !== 200) {
             const error = `Error on ${method}. Status code is ${response.statusCode}`;
             console.error(error);
@@ -43,10 +53,13 @@ export class Client implements IClient {
             throw new Error(error);
         }
 
-        return response.data.result;
+        return {
+            success: true,
+            result: response.data.result,
+        };
     }
 
-    async #JSONRPCCall<T>(method: string, params: any[]): Promise<T> {
+    async #JSONRPCCall<T>(method: string, params: any[]): Promise<JSONRPCResponse<T>> {
         try {
             const response = await http.post(`${this.config.peer}`, {
                 headers: { "Content-Type": "application/json" },
