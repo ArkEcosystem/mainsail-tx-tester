@@ -133,7 +133,12 @@ export class Contract implements IContract {
 
         const gasEstimate = await this.client.ethEstimateGas(data);
         if (!gasEstimate.success) {
-            throw new Error(`Error estimating gas: ${gasEstimate.message}`);
+            this.logger.log(`Error estimating gas: ${gasEstimate.message}`);
+
+            if (!hasFlag(this.flags, "forceSend")) {
+                process.exit(0);
+            }
+            return;
         }
 
         this.logger.logKV("Estimated gas", gasEstimate.result);
