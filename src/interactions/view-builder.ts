@@ -63,7 +63,7 @@ export class ViewBuilder extends Base implements IViewBuilder {
             this.logger.log(`Decoded error:`);
             this.logger.log(`Bytes: ${data}`);
             this.logger.log(`Name : ${result.errorName}`);
-            this.logger.log(`Args : ${result.args}`);
+            this.logger.log(`Args : ${result.args?.length ? result.args.join(", ") : "None"}`);
         } catch (ex) {
             this.logger.log(`Failed to decode error: ${ex.message}`);
         }
