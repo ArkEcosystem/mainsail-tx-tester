@@ -19,6 +19,11 @@ contract Test {
         counter = newCounter;
     }
 
+    // Used to throw division by zero errors
+    function divideCounter(uint256 divisor) public view returns (uint256) {
+        return counter / divisor;
+    }
+
     function setCounterAndReturn(uint256 newCounter) public returns (uint256) {
         counter = newCounter;
         return counter;

@@ -33,6 +33,10 @@ export const test = {
     ],
     views: [
         {
+            functionName: "divideCounter",
+            args: [0],
+        },
+        {
             functionName: "getCounter",
             args: [],
         },
