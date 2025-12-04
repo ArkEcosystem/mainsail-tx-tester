@@ -4,6 +4,19 @@ import { ViewBuilder as IViewBuilder, EthViewParameters, ContractData, Logger } 
 import { encodeFunctionData, decodeFunctionResult, decodeErrorResult } from "viem";
 import { AppIdentifiers } from "../identifiers.js";
 
+// https://docs.soliditylang.org/en/v0.8.16/control-structures.html#panic-via-assert-and-error-via-require
+const panicReasons = {
+    1: "An `assert` condition failed",
+    17: "Arithmetic operation resulted in underflow or overflow",
+    18: "Division or modulo by zero",
+    33: "Attempted to convert to an invalid type",
+    34: "Attempted to access a storage byte array that is incorrectly encoded",
+    49: "Performed `.pop()` on an empty array",
+    50: "Array index is out of bounds",
+    65: "Allocated too much memory or created an array which is too large",
+    81: "Attempted to call a zero-initialized variable of internal function type",
+} as const;
+
 @injectable()
 export class ViewBuilder extends Base implements IViewBuilder {
     @inject(AppIdentifiers.Logger)
@@ -75,6 +88,12 @@ export class ViewBuilder extends Base implements IViewBuilder {
             });
             this.logger.log(`Name : ${result.errorName}`);
             this.logger.log(`Args : ${result.args?.length ? result.args.join(", ") : "None"}`);
+
+            if (result.errorName === "Panic" && result.args && result.args.length) {
+                const code = result.args[0] as number;
+                const reason = panicReasons[code as keyof typeof panicReasons] || "Unknown panic code";
+                this.logger.log(`Panic: ${reason}`);
+            }
         } catch (ex) {
             this.logger.log(`Failed to decode error: ${ex.message}`);
         }
