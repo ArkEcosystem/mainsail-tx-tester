@@ -14,7 +14,7 @@ export class ContractBuilder extends Base implements IContractBuilder {
             .resolve(TransactionBuilder)
             .gasPrice(this.config.gasPrice)
             .payload(contractData.bytecode.slice(2))
-            .gasLimit(2_000_000)
+            .gasLimit(this.config.gasLimit)
             .nonce(walletNonce.toString());
 
         await this.sign(builder);

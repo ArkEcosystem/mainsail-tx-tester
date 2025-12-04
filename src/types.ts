@@ -60,6 +60,7 @@ export type Config = {
     senderSecondPassphrase: string;
     peer: string;
     gasPrice: number;
+    gasLimit: number;
     transfer: {
         recipientAddress: string;
         value: string;
