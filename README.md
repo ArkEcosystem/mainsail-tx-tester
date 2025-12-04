@@ -80,6 +80,22 @@ pnpm run fixtures
 
 Fixtures can be configured in `config/fixtures.js`. They defaults are used for generating fixtures for our test suites. For fixtures with a second signature, please first set `senderSecondPassphrase` before generating the fixtures.
 
+## Contracts
+
+**Build contract from solidity**
+
+```bash
+pnpm run build-contract test.sol
+```
+
+You can also use contract build from other sources. Just make sure that you include them in builds and format matches other \*.json files .
+
+**Prepare contract for tester**
+
+```bash
+pnpm run prepare-contract Test.json
+```
+
 ## Configuration
 
 Look into `/config/config.js` file.
