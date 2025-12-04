@@ -12,7 +12,7 @@ import { revert } from "./contracts/revert.js";
 import { test } from "./contracts/test.js";
 
 const config = {
-    ...devnet,
+    ...testnet,
     gasPrice: 5_000_000_000,
     gasLimit: 5_000_000,
     transfer: {
