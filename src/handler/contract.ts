@@ -79,6 +79,7 @@ export class ContractHandler implements IContractHandler {
     async #deploy(): Promise<string> {
         this.#logContract();
         const transaction = await this.contractBuilder.makeDeploy(this.contractData);
+        this.#logTransaction(transaction);
 
         await this.#gasEstimate(transaction);
         await this.#simulate(transaction, 0);
@@ -95,12 +96,12 @@ export class ContractHandler implements IContractHandler {
     async #transaction(transactionIndex: number, args?: any, amount?: string): Promise<string> {
         this.#logContract();
         const transaction = await this.contractBuilder.makeCall(this.contractData, transactionIndex, args, amount);
-        this.logger.line();
+        this.#logTransaction(transaction);
 
         await this.#gasEstimate(transaction);
         await this.#simulate(transaction, transactionIndex);
 
-        this.#logTransaction(transaction);
+        this.#logTransactionSend(transaction);
         await this.client.postTransaction(transaction.serialized.toString("hex"));
 
         await this.#waitForOneBlock();
@@ -259,6 +260,11 @@ export class ContractHandler implements IContractHandler {
     }
 
     #logTransaction(transaction: Contracts.Crypto.Transaction): void {
+        this.logger.line();
+        this.logger.logKV("Serialized transaction", `0x${transaction.serialized.toString("hex")}`);
+    }
+
+    #logTransactionSend(transaction: Contracts.Crypto.Transaction): void {
         this.logger.line();
         this.logger.logKV("Transaction sent", `0x${transaction.hash}`);
     }
