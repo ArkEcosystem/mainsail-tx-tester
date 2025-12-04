@@ -59,16 +59,20 @@ export class ViewBuilder extends Base implements IViewBuilder {
         }
     };
 
-    decodeViewError = (contractData: ContractData, data: string): void => {
+    decodeViewError = (contractData: ContractData, data: string | undefined): void => {
         try {
+            this.logger.line();
+            this.logger.log(`Decoded error:`);
+            this.logger.log(`Bytes: ${data}`);
+
+            if (!data) {
+                return;
+            }
+
             const result = decodeErrorResult({
                 abi: contractData.abi,
                 data: data as `0x${string}`,
             });
-
-            this.logger.line();
-            this.logger.log(`Decoded error:`);
-            this.logger.log(`Bytes: ${data}`);
             this.logger.log(`Name : ${result.errorName}`);
             this.logger.log(`Args : ${result.args?.length ? result.args.join(", ") : "None"}`);
         } catch (ex) {
