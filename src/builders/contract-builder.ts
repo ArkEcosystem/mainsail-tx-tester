@@ -62,7 +62,7 @@ export class ContractBuilder extends Base implements IContractBuilder {
             .resolve(TransactionBuilder)
             .gasPrice(this.config.gasPrice)
             .payload(data.slice(2))
-            .gasLimit(1_000_000)
+            .gasLimit(this.config.gasLimit)
             .recipientAddress(contractData.contractId)
             .value(amount)
             .nonce(walletNonce.toString());
