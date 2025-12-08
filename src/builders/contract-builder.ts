@@ -1,7 +1,7 @@
 import { injectable } from "@mainsail/container";
 import { Contracts } from "@mainsail/contracts";
 import { Base, deployFunction } from "./base.js";
-import { encodeFunctionData } from "viem";
+import { encodeDeployData, encodeFunctionData } from "viem";
 import { ContractData, ContractBuilder as IContractBuilder } from "../types.js";
 import { TransactionBuilder } from "@mainsail/crypto-transaction";
 
@@ -10,10 +10,19 @@ export class ContractBuilder extends Base implements IContractBuilder {
     async makeDeploy(contractData: ContractData): Promise<Contracts.Crypto.Transaction> {
         const walletNonce = await this.wallet.getNonce();
 
+        let deployData = contractData.bytecode;
+        if (contractData.constructorArgs && contractData.constructorArgs.length > 0) {
+            deployData = encodeDeployData({
+                abi: contractData.abi,
+                args: contractData.constructorArgs,
+                bytecode: contractData.bytecode as `0x${string}`,
+            });
+        }
+
         let builder = this.app
             .resolve(TransactionBuilder)
             .gasPrice(this.config.gasPrice)
-            .payload(contractData.bytecode.slice(2))
+            .payload(deployData)
             .gasLimit(this.config.gasLimit)
             .nonce(walletNonce.toString());
 

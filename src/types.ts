@@ -79,6 +79,7 @@ export type ContractData = {
     abi: Abi;
     name: string;
     contractId: string;
+    constructorArgs?: any[];
     bytecode: string;
     transactions: { functionName: string; args: any[]; amount?: number }[];
     views: { functionName: string; args: any[] }[];
