@@ -146,7 +146,7 @@ export class ContractHandler implements IContractHandler {
     }
 
     async #simulate(transaction: Contracts.Crypto.Transaction, functionIndex: number): Promise<void> {
-        if (hasFlag(this.flags, "noSimulate")) {
+        if (hasFlag(this.flags, "skipSimulate")) {
             this.logger.line();
             this.logger.log("Skipping transaction simulation.");
             return;
