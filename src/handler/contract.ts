@@ -220,6 +220,9 @@ export class ContractHandler implements IContractHandler {
 
         if (receipt.status === "0x0") {
             this.logger.log("Transaction failed:");
+            if (parseInt(receipt.gasUsed) >= tx.data.gasLimit) {
+                this.logger.log("Error: Out of gas");
+            }
         } else {
             this.logger.log("Transaction succeeded:");
         }
