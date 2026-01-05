@@ -124,8 +124,8 @@ export class ContractHandler implements IContractHandler {
             from: transaction.data.from,
             to: transaction.data.to!,
             data: `0x${transaction.data.data}`,
-            gas: `0x${transaction.data.gasLimit?.toString(16)}`,
-            gasPrice: `0x${transaction.data.gasPrice?.toString(16)}`,
+            // gas: `0x${transaction.data.gasLimit?.toString(16)}`,
+            // gasPrice: `0x${transaction.data.gasPrice?.toString(16)}`,
             value: transaction.data.value ? `0x${transaction.data.value.toString(16)}` : undefined,
         };
 
