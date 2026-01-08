@@ -1,5 +1,6 @@
 import { consensus } from "./contracts/consensus.js";
 import { dark20 } from "./contracts/dark20.js";
+import { erc20batchtransfer } from "./contracts/erc20batchtransfer.js";
 import { multiPayment } from "./contracts/multipayment.js";
 import { revert } from "./contracts/revert.js";
 import { test } from "./contracts/test.js";
@@ -27,6 +28,7 @@ const config = {
         dark20,
         revert,
         test,
+        erc20batchtransfer,
     },
     message: {
         publicKey: "0243333347c8cbf4e3cbc7a96964181d02a2b0c854faa2fef86b4b8d92afcf473d",
