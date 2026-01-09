@@ -1,23 +1,24 @@
-import { testnet } from "./networks/testnet.js";
-import { devnet } from "./networks/devnet.js";
-import { geth } from "./networks/geth.js";
-import { reth } from "./networks/reth.js";
-import { anvil } from "./networks/anvil.js";
-
 import { consensus } from "./contracts/consensus.js";
-import { usernames } from "./contracts/usernames.js";
-import { multiPayment } from "./contracts/multipayment.js";
 import { dark20 } from "./contracts/dark20.js";
+import { multiPayment } from "./contracts/multipayment.js";
 import { revert } from "./contracts/revert.js";
 import { test } from "./contracts/test.js";
+import { testnet } from "./networks/testnet.js";
+import { usernames } from "./contracts/usernames.js";
+
+// Other network options:
+// import { devnet } from "./networks/devnet.js";
+// import { geth } from "./networks/geth.js";
+// import { reth } from "./networks/reth.js";
+// import { anvil } from "./networks/anvil.js";
 
 const config = {
-    ...testnet,
+    ...testnet, // set network here
     gasPrice: 5_000_000_000,
     gasLimit: 5_000_000,
     transfer: {
         recipientAddress: "0xC870aF84F11e0d43c8a29C041F23a8E85a2Ce4ff",
-        value: "350000000000000000000",
+        value: "5000000000000000000", // 5 ARK
     },
     contracts: {
         consensus,
