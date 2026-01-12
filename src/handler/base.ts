@@ -18,13 +18,13 @@ export abstract class BaseHandler {
 
     protected flags!: Flags;
 
-    protected async handle(transaction: Contracts.Crypto.Transaction, transactionIndex: number = 0): Promise<void> {
+    protected async handle(transaction: Contracts.Crypto.Transaction): Promise<void> {
         this.#logTransaction(transaction);
 
         await this.#gasEstimate(transaction);
-        await this.#simulate(transaction, transactionIndex);
+        await this.#simulate(transaction);
 
-        this.logSend(transaction, transactionIndex);
+        this.logSend(transaction);
         await this.client.postTransaction(transaction.serialized.toString("hex"));
 
         await this.#waitForOneBlock();
@@ -66,7 +66,7 @@ export abstract class BaseHandler {
         this.logger.logKV("Estimated gas", gasEstimate.result);
     }
 
-    async #simulate(transaction: Contracts.Crypto.Transaction, functionIndex: number): Promise<void> {
+    async #simulate(transaction: Contracts.Crypto.Transaction): Promise<void> {
         if (hasFlag(this.flags, "skipSimulate")) {
             this.logger.line();
             this.logger.log("Skipping transaction simulation.");
@@ -90,7 +90,7 @@ export abstract class BaseHandler {
 
         const response = await this.client.ethCall(data);
         if (response.success) {
-            this.simulateSuccess(transaction, functionIndex, response);
+            this.simulateSuccess(transaction, response);
             return;
         }
 
@@ -158,11 +158,10 @@ export abstract class BaseHandler {
 
     protected abstract simulateSuccess(
         transaction: Contracts.Crypto.Transaction,
-        functionIndex: number,
         response: JSONRPCResultSuccess<string>,
     ): Promise<void>;
 
     protected abstract simulateError(response: JSONRPCResultError): Promise<void>;
 
-    protected abstract logSend(transaction: Contracts.Crypto.Transaction, transactionIndex: number): void;
+    protected abstract logSend(transaction: Contracts.Crypto.Transaction): void;
 }

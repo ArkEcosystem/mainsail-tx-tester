@@ -24,6 +24,7 @@ export class ContractHandler extends BaseHandler implements IContractHandler {
     private viewBuilder!: ViewBuilder;
 
     private contractData!: ContractData;
+    private transactionIndex = 0;
 
     public init(contractData: ContractData, flags: Flags): ContractHandler {
         this.contractData = contractData;
@@ -53,14 +54,16 @@ export class ContractHandler extends BaseHandler implements IContractHandler {
     }
 
     public async interact(transactionIndex: number, args?: any, amount?: string): Promise<string | void> {
-        if (transactionIndex === 0) {
+        this.transactionIndex = transactionIndex;
+
+        if (this.transactionIndex === 0) {
             return await this.#deploy();
         }
 
-        if (transactionIndex - 1 < this.contractData.transactions.length) {
-            return await this.#transaction(transactionIndex, args, amount);
-        } else if (transactionIndex - 1 < this.contractData.transactions.length + this.contractData.views.length) {
-            await this.#view(transactionIndex);
+        if (this.transactionIndex - 1 < this.contractData.transactions.length) {
+            return await this.#transaction(args, amount);
+        } else if (this.transactionIndex - 1 < this.contractData.transactions.length + this.contractData.views.length) {
+            await this.#view();
         } else {
             throw new Error("Invalid index");
         }
@@ -70,31 +73,27 @@ export class ContractHandler extends BaseHandler implements IContractHandler {
         this.#logContract();
 
         const transaction = await this.contractBuilder.makeDeploy(this.contractData);
-        this.handle(transaction, 0);
+        this.handle(transaction);
     }
 
-    async #transaction(transactionIndex: number, args?: any, amount?: string): Promise<void> {
+    async #transaction(args?: any, amount?: string): Promise<void> {
         this.#logContract();
 
-        const transaction = await this.contractBuilder.makeCall(this.contractData, transactionIndex, args, amount);
-        this.handle(transaction, transactionIndex);
+        const transaction = await this.contractBuilder.makeCall(this.contractData, this.transactionIndex, args, amount);
+        this.handle(transaction);
     }
 
-    protected async simulateSuccess(
-        transaction: Transaction,
-        functionIndex: number,
-        response: JSONRPCResultSuccess<string>,
-    ): Promise<void> {
-        this.viewBuilder.decodeViewResult(this.contractData, functionIndex, response.result);
+    protected async simulateSuccess(transaction: Transaction, response: JSONRPCResultSuccess<string>): Promise<void> {
+        this.viewBuilder.decodeViewResult(this.contractData, this.transactionIndex, response.result);
     }
 
     protected async simulateError(response: JSONRPCResultError): Promise<void> {
         this.viewBuilder.decodeViewError(this.contractData, response.data);
     }
 
-    async #view(functionIndex: number): Promise<void> {
+    async #view(): Promise<void> {
         this.#logContract();
-        const view = await this.viewBuilder.makeView(this.contractData, functionIndex);
+        const view = await this.viewBuilder.makeView(this.contractData, this.transactionIndex);
 
         this.logger.line();
         this.logger.log("Calling view...");
@@ -109,13 +108,13 @@ export class ContractHandler extends BaseHandler implements IContractHandler {
             return;
         }
 
-        this.viewBuilder.decodeViewResult(this.contractData, functionIndex, response.result);
+        this.viewBuilder.decodeViewResult(this.contractData, this.transactionIndex, response.result);
     }
 
-    protected logSend(transaction: Contracts.Crypto.Transaction, transactionIndex: number): void {
+    protected logSend(transaction: Contracts.Crypto.Transaction): void {
         this.logger.line();
 
-        if (transactionIndex === 0) {
+        if (this.transactionIndex === 0) {
             this.#logContractSend(transaction);
         } else {
             this.#logTransactionSend(transaction);
