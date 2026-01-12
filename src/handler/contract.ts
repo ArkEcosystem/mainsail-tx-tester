@@ -13,7 +13,6 @@ import {
 } from "../types.js";
 import { AppIdentifiers } from "../identifiers.js";
 import { BaseHandler } from "./base.js";
-import { Transaction } from "@mainsail/contracts/distribution/contracts/crypto/transactions.js";
 
 @injectable()
 export class ContractHandler extends BaseHandler implements IContractHandler {
@@ -69,7 +68,10 @@ export class ContractHandler extends BaseHandler implements IContractHandler {
         }
     }
 
-    protected async simulateSuccess(transaction: Transaction, response: JSONRPCResultSuccess<string>): Promise<void> {
+    protected async simulateSuccess(
+        transaction: Contracts.Crypto.Transaction,
+        response: JSONRPCResultSuccess<string>,
+    ): Promise<void> {
         this.viewBuilder.decodeViewResult(this.contractData, this.transactionIndex, response.result);
     }
 

@@ -32,7 +32,7 @@ export interface Client {
 }
 
 export interface TransactionHandler {
-    sendTransaction: (tx: Contracts.Crypto.Transaction) => Promise<void>;
+    sendTransaction: (tx: Contracts.Crypto.Transaction, flags: Flags) => Promise<void>;
 }
 
 export interface TransferBuilder {

@@ -49,7 +49,7 @@ export class Cli {
         }
 
         if (txType === 1) {
-            await this.handleTransfer(args);
+            await this.handleTransfer(args, flags);
         } else {
             await this.handleContract(args, flags, contracts[txType - PRE_CONTRACT_OFFSET - 1]);
         }
@@ -72,12 +72,12 @@ export class Cli {
         this.logger.log("--forceSend            : Always send transaction even if simulation fails");
     }
 
-    handleTransfer = async (args: Args) => {
+    handleTransfer = async (args: Args, flags: Flags) => {
         const recipient = args.length > 1 ? args[1] : undefined;
         const amount = args.length > 2 ? args[2] : undefined;
 
         const tx = await this.transferBuilder.makeTransfer(this.config, recipient, amount);
-        await this.transactionHandler.sendTransaction(tx);
+        await this.transactionHandler.sendTransaction(tx, flags);
     };
 
     handleContract = async (args: Args, flags: Flags, contractData: ContractData) => {
