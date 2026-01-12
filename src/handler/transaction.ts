@@ -20,11 +20,13 @@ export class TransactionHandler extends BaseHandler implements ITransactionHandl
         transaction: Contracts.Crypto.Transaction,
         response: JSONRPCResultSuccess<string>,
     ): Promise<void> {
-        this.logger.log(`Simulation successful:`);
+        this.logger.line();
+        this.logger.log(`Simulation successful: ${response.result}`);
     }
 
     protected async simulateError(response: JSONRPCResultError): Promise<void> {
-        this.logger.log(`Simulation failed: `);
+        this.logger.line();
+        this.logger.log(`Simulation failed: ${response.message}`);
     }
 
     protected logSend(transaction: Contracts.Crypto.Transaction): void {
