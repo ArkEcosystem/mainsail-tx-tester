@@ -66,22 +66,18 @@ export class ContractHandler extends BaseHandler implements IContractHandler {
         }
     }
 
-    async #deploy(): Promise<string> {
+    async #deploy(): Promise<void> {
         this.#logContract();
+
         const transaction = await this.contractBuilder.makeDeploy(this.contractData);
-
         this.handle(transaction, 0);
-
-        return transaction.hash;
     }
 
-    async #transaction(transactionIndex: number, args?: any, amount?: string): Promise<string> {
+    async #transaction(transactionIndex: number, args?: any, amount?: string): Promise<void> {
         this.#logContract();
+
         const transaction = await this.contractBuilder.makeCall(this.contractData, transactionIndex, args, amount);
-
         this.handle(transaction, transactionIndex);
-
-        return transaction.hash;
     }
 
     protected async simulateSuccess(
