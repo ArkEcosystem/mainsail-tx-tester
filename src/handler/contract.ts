@@ -4,28 +4,19 @@ import { getContractAddress } from "viem";
 
 import {
     ContractData,
-    Client,
     ContractHandler as IContractHandler,
     ContractBuilder,
     ViewBuilder,
-    Logger,
-    Config,
     Flags,
+    JSONRPCResultSuccess,
+    JSONRPCResultError,
 } from "../types.js";
 import { AppIdentifiers } from "../identifiers.js";
-import { sleep, hasFlag } from "../utils.js";
+import { BaseHandler } from "./base.js";
+import { Transaction } from "@mainsail/contracts/distribution/contracts/crypto/transactions.js";
 
 @injectable()
-export class ContractHandler implements IContractHandler {
-    @inject(AppIdentifiers.Logger)
-    private logger!: Logger;
-
-    @inject(AppIdentifiers.Config)
-    protected config!: Config;
-
-    @inject(AppIdentifiers.Client)
-    private client!: Client;
-
+export class ContractHandler extends BaseHandler implements IContractHandler {
     @inject(AppIdentifiers.ContractBuilder)
     private contractBuilder!: ContractBuilder;
 
@@ -33,7 +24,6 @@ export class ContractHandler implements IContractHandler {
     private viewBuilder!: ViewBuilder;
 
     private contractData!: ContractData;
-    private flags!: Flags;
 
     public init(contractData: ContractData, flags: Flags): ContractHandler {
         this.contractData = contractData;
@@ -41,7 +31,7 @@ export class ContractHandler implements IContractHandler {
         return this;
     }
 
-    list(): void {
+    public list(): void {
         this.#logContract();
         // Deploys:
         this.logger.header("Deploys:");
@@ -62,7 +52,7 @@ export class ContractHandler implements IContractHandler {
         }
     }
 
-    async interact(transactionIndex: number, args?: any, amount?: string): Promise<string | void> {
+    public async interact(transactionIndex: number, args?: any, amount?: string): Promise<string | void> {
         if (transactionIndex === 0) {
             return await this.#deploy();
         }
@@ -79,16 +69,16 @@ export class ContractHandler implements IContractHandler {
     async #deploy(): Promise<string> {
         this.#logContract();
         const transaction = await this.contractBuilder.makeDeploy(this.contractData);
-        this.#logTransaction(transaction);
+        // this.#logTransaction(transaction);
 
-        await this.#gasEstimate(transaction);
-        await this.#simulate(transaction, 0);
+        // await this.#gasEstimate(transaction);
+        // await this.#simulate(transaction, 0);
 
-        this.#logDeploy(transaction);
+        // this.#logDeploy(transaction);
 
-        await this.client.postTransaction(transaction.serialized.toString("hex"));
-        await this.#waitForOneBlock();
-        await this.#logTransactionReceipt(transaction);
+        // await this.client.postTransaction(transaction.serialized.toString("hex"));
+        // await this.#waitForOneBlock();
+        // await this.#logTransactionReceipt(transaction);
 
         return transaction.hash;
     }
@@ -96,138 +86,22 @@ export class ContractHandler implements IContractHandler {
     async #transaction(transactionIndex: number, args?: any, amount?: string): Promise<string> {
         this.#logContract();
         const transaction = await this.contractBuilder.makeCall(this.contractData, transactionIndex, args, amount);
-        this.#logTransaction(transaction);
 
-        await this.#gasEstimate(transaction);
-        await this.#simulate(transaction, transactionIndex);
-
-        this.#logTransactionSend(transaction);
-        await this.client.postTransaction(transaction.serialized.toString("hex"));
-
-        await this.#waitForOneBlock();
-        await this.#logTransactionReceipt(transaction);
+        this.handle(transaction, transactionIndex);
 
         return transaction.hash;
     }
 
-    async #gasEstimate(transaction: Contracts.Crypto.Transaction): Promise<void> {
-        if (!hasFlag(this.flags, "estimateGas")) {
-            this.logger.line();
-            this.logger.log("Skipping gas estimation.");
-            return;
-        }
-
-        this.logger.line();
-        this.logger.log("Estimating gas...");
-
-        const data = {
-            from: transaction.data.from,
-            to: transaction.data.to!,
-            data: `0x${transaction.data.data}`,
-            // gas: `0x${transaction.data.gasLimit?.toString(16)}`,
-            // gasPrice: `0x${transaction.data.gasPrice?.toString(16)}`,
-            value: transaction.data.value ? `0x${transaction.data.value.toString(16)}` : undefined,
-        };
-
-        this.logger.log("Gas estimation call data:");
-        this.logger.log(JSON.stringify(data, null, 2));
-
-        const gasEstimate = await this.client.ethEstimateGas(data);
-        if (!gasEstimate.success) {
-            this.logger.log(`Error estimating gas: ${gasEstimate.message}`);
-
-            if (!hasFlag(this.flags, "forceSend")) {
-                process.exit(0);
-            }
-            return;
-        }
-
-        this.logger.logKV("Estimated gas", gasEstimate.result);
+    protected async simulateSuccess(
+        transaction: Transaction,
+        functionIndex: number,
+        response: JSONRPCResultSuccess<string>,
+    ): Promise<void> {
+        this.viewBuilder.decodeViewResult(this.contractData, functionIndex, response.result);
     }
 
-    async #simulate(transaction: Contracts.Crypto.Transaction, functionIndex: number): Promise<void> {
-        if (hasFlag(this.flags, "skipSimulate")) {
-            this.logger.line();
-            this.logger.log("Skipping transaction simulation.");
-            return;
-        }
-
-        this.logger.line();
-        this.logger.log("Simulating transaction...");
-
-        const data = {
-            from: transaction.data.from,
-            to: transaction.data.to!,
-            data: `0x${transaction.data.data}`,
-            gas: `0x${transaction.data.gasLimit?.toString(16)}`,
-            gasPrice: `0x${transaction.data.gasPrice?.toString(16)}`,
-            value: transaction.data.value ? `0x${transaction.data.value.toString(16)}` : undefined,
-        };
-
-        this.logger.log("Simulation call data:");
-        this.logger.log(JSON.stringify(data, null, 2));
-
-        const response = await this.client.ethCall(data);
-        if (response.success) {
-            this.viewBuilder.decodeViewResult(this.contractData, functionIndex, response.result);
-            return;
-        }
-
-        this.logger.line();
-        this.logger.log(`Simulation failed: ${response.message}`);
-
-        if (response.data) {
-            this.viewBuilder.decodeViewError(this.contractData, response.data);
-        }
-
-        if (!hasFlag(this.flags, "forceSend")) {
-            process.exit(0);
-        }
-    }
-
-    async #waitForOneBlock(): Promise<void> {
-        if (!this.config.waitForBlock) {
-            return;
-        }
-
-        const timeout = 2000; // 2 seconds
-
-        const startHeight = await this.client.getHeight();
-        this.logger.line();
-        this.logger.log("Waiting for next block...");
-        await sleep(timeout);
-
-        while (startHeight + 1 >= (await this.client.getHeight())) {
-            this.logger.log(".");
-            await sleep(timeout);
-        }
-    }
-
-    async #logTransactionReceipt(tx: Contracts.Crypto.Transaction): Promise<void> {
-        this.logger.line();
-        this.logger.log(`Fetching transaction receipt for hash: 0x${tx.hash}`);
-
-        const result = await this.client.getReceipt(tx.hash);
-        if (!result.success) {
-            throw new Error(`Error getting transaction receipt: ${result.message}`);
-        }
-
-        const receipt = result.result;
-        if (receipt === null) {
-            this.logger.log("Transaction was not forged.");
-            return;
-        }
-
-        if (receipt.status === "0x0") {
-            this.logger.log("Transaction failed:");
-            if (parseInt(receipt.gasUsed) >= tx.data.gasLimit) {
-                this.logger.log("Error: Out of gas");
-            }
-        } else {
-            this.logger.log("Transaction succeeded:");
-        }
-
-        this.logger.log(JSON.stringify(receipt, null, 2));
+    protected async simulateError(response: JSONRPCResultError): Promise<void> {
+        this.viewBuilder.decodeViewError(this.contractData, response.data);
     }
 
     async #view(functionIndex: number): Promise<void> {
@@ -250,8 +124,17 @@ export class ContractHandler implements IContractHandler {
         this.viewBuilder.decodeViewResult(this.contractData, functionIndex, response.result);
     }
 
-    #logDeploy(transaction: Contracts.Crypto.Transaction): void {
+    protected logSend(transaction: Contracts.Crypto.Transaction, transactionIndex: number): void {
         this.logger.line();
+
+        if (transactionIndex === 0) {
+            this.#logContractSend(transaction);
+        } else {
+            this.#logTransactionSend(transaction);
+        }
+    }
+
+    #logContractSend(transaction: Contracts.Crypto.Transaction): void {
         this.logger.logKV("Deployment sent", `0x${transaction.hash}`);
         this.logger.logKV(
             "Contract address",
@@ -262,13 +145,7 @@ export class ContractHandler implements IContractHandler {
         );
     }
 
-    #logTransaction(transaction: Contracts.Crypto.Transaction): void {
-        this.logger.line();
-        this.logger.logKV("Serialized transaction", `0x${transaction.serialized.toString("hex")}`);
-    }
-
     #logTransactionSend(transaction: Contracts.Crypto.Transaction): void {
-        this.logger.line();
         this.logger.logKV("Transaction sent", `0x${transaction.hash}`);
     }
 
