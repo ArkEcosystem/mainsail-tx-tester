@@ -69,6 +69,24 @@ export class ContractHandler extends BaseHandler implements IContractHandler {
         }
     }
 
+    protected async simulateSuccess(transaction: Transaction, response: JSONRPCResultSuccess<string>): Promise<void> {
+        this.viewBuilder.decodeViewResult(this.contractData, this.transactionIndex, response.result);
+    }
+
+    protected async simulateError(response: JSONRPCResultError): Promise<void> {
+        this.viewBuilder.decodeViewError(this.contractData, response.data);
+    }
+
+    protected logSend(transaction: Contracts.Crypto.Transaction): void {
+        this.logger.line();
+
+        if (this.transactionIndex === 0) {
+            this.#logContractSend(transaction);
+        } else {
+            this.#logTransactionSend(transaction);
+        }
+    }
+
     async #deploy(): Promise<void> {
         this.#logContract();
 
@@ -81,14 +99,6 @@ export class ContractHandler extends BaseHandler implements IContractHandler {
 
         const transaction = await this.contractBuilder.makeCall(this.contractData, this.transactionIndex, args, amount);
         this.handle(transaction);
-    }
-
-    protected async simulateSuccess(transaction: Transaction, response: JSONRPCResultSuccess<string>): Promise<void> {
-        this.viewBuilder.decodeViewResult(this.contractData, this.transactionIndex, response.result);
-    }
-
-    protected async simulateError(response: JSONRPCResultError): Promise<void> {
-        this.viewBuilder.decodeViewError(this.contractData, response.data);
     }
 
     async #view(): Promise<void> {
@@ -109,16 +119,6 @@ export class ContractHandler extends BaseHandler implements IContractHandler {
         }
 
         this.viewBuilder.decodeViewResult(this.contractData, this.transactionIndex, response.result);
-    }
-
-    protected logSend(transaction: Contracts.Crypto.Transaction): void {
-        this.logger.line();
-
-        if (this.transactionIndex === 0) {
-            this.#logContractSend(transaction);
-        } else {
-            this.#logTransactionSend(transaction);
-        }
     }
 
     #logContractSend(transaction: Contracts.Crypto.Transaction): void {
