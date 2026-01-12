@@ -1,14 +1,5 @@
 import { injectable, inject } from "@mainsail/container";
-import {
-    Config,
-    Logger,
-    ContractHandlerFactory,
-    ContractData,
-    TransactionHandler,
-    TransferBuilder,
-    Args,
-    Flags,
-} from "./types.js";
+import { Config, Logger, ContractHandlerFactory, ContractData, TransactionHandler, Args, Flags } from "./types.js";
 import { AppIdentifiers } from "./identifiers.js";
 import { getArgsAndFlags } from "./utils.js";
 
@@ -21,9 +12,6 @@ export class Cli {
 
     @inject(AppIdentifiers.Logger)
     protected logger!: Logger;
-
-    @inject(AppIdentifiers.TransferBuilder)
-    protected transferBuilder!: TransferBuilder;
 
     @inject(AppIdentifiers.TransactionHandler)
     protected transactionHandler!: TransactionHandler;
@@ -76,8 +64,7 @@ export class Cli {
         const recipient = args.length > 1 ? args[1] : undefined;
         const amount = args.length > 2 ? args[2] : undefined;
 
-        const tx = await this.transferBuilder.makeTransfer(this.config, recipient, amount);
-        await this.transactionHandler.sendTransaction(tx, flags);
+        await this.transactionHandler.sendTransaction(flags, recipient, amount);
     };
 
     handleContract = async (args: Args, flags: Flags, contractData: ContractData) => {

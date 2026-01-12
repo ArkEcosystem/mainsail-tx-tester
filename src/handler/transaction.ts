@@ -1,19 +1,30 @@
 import { Contracts } from "@mainsail/contracts";
-import { injectable } from "@mainsail/container";
+import { injectable, inject } from "@mainsail/container";
 
 import {
     TransactionHandler as ITransactionHandler,
     JSONRPCResultSuccess,
     JSONRPCResultError,
     Flags,
+    TransferBuilder,
 } from "../types.js";
+import { AppIdentifiers } from "../identifiers.js";
 import { BaseHandler } from "./base.js";
 
 @injectable()
 export class TransactionHandler extends BaseHandler implements ITransactionHandler {
-    public async sendTransaction(tx: Contracts.Crypto.Transaction, flags: Flags): Promise<void> {
+    @inject(AppIdentifiers.TransferBuilder)
+    protected transferBuilder!: TransferBuilder;
+
+    public async sendTransaction(
+        flags: Flags,
+        recipient: string | undefined,
+        amount: string | undefined,
+    ): Promise<void> {
         this.flags = flags;
-        this.handle(tx);
+
+        const transaction = await this.transferBuilder.makeTransfer(this.config, recipient, amount);
+        this.handle(transaction);
     }
 
     protected async simulateSuccess(
