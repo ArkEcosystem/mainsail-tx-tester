@@ -1,0 +1,147 @@
+{
+    "_format": "hh-sol-artifact-1",
+    "contractName": "Test",
+    "sourceName": "config/solidity/test.sol",
+    "abi": [
+        {
+            "inputs": [],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidValue",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "reason",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "code",
+                    "type": "uint256"
+                }
+            ],
+            "name": "InvalidValueWithAttributes",
+            "type": "error"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "divisor",
+                    "type": "uint256"
+                }
+            ],
+            "name": "divideCounter",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getCounter",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "incrementCounter",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "newCounter",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setCounter",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "newCounter",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setCounterAndReturn",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "useError",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "useErrorView",
+            "outputs": [],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "useErrorWithAttributes",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "useErrorWithAttributesView",
+            "outputs": [],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "useRevert",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "useRevertView",
+            "outputs": [],
+            "stateMutability": "pure",
+            "type": "function"
+        }
+    ],
+    "bytecode": "0x6080604052348015600e575f5ffd5b505f5f81905550610602806100225f395ff3fe608060405234801561000f575f5ffd5b50600436106100a7575f3560e01c80638ada066e1161006f5780638ada066e146101035780638bb5d9c314610121578063940c84061461013d578063a4a2522f14610147578063c9904fbc14610151578063d0277d0214610181576100a7565b80635b34b966146100ab5780637641fd40146100b557806377694702146100bf5780637bc13de0146100ef578063846e8a06146100f9575b5f5ffd5b6100b361018b565b005b6100bd6101a3565b005b6100d960048036038101906100d49190610378565b6101db565b6040516100e691906103b2565b60405180910390f35b6100f76101f0565b005b610101610234565b005b61010b610266565b60405161011891906103b2565b60405180910390f35b61013b60048036038101906101369190610378565b61026e565b005b610145610277565b005b61014f6102b5565b005b61016b60048036038101906101669190610378565b6102f0565b60405161017891906103b2565b60405180910390f35b610189610300565b005b5f5f81548092919061019c906103f8565b9190505550565b5f5f819055506040517faa7feadc00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b5f815f546101e9919061046c565b9050919050565b5f5f81905550602a6040517fad05ebfd00000000000000000000000000000000000000000000000000000000815260040161022b9190610538565b60405180910390fd5b6040517faa7feadc00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b5f5f54905090565b805f8190555050565b602a6040517fad05ebfd0000000000000000000000000000000000000000000000000000000081526004016102ac9190610538565b60405180910390fd5b6040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016102e7906105ae565b60405180910390fd5b5f815f819055505f549050919050565b5f5f819055506040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610338906105ae565b60405180910390fd5b5f5ffd5b5f819050919050565b61035781610345565b8114610361575f5ffd5b50565b5f813590506103728161034e565b92915050565b5f6020828403121561038d5761038c610341565b5b5f61039a84828501610364565b91505092915050565b6103ac81610345565b82525050565b5f6020820190506103c55f8301846103a3565b92915050565b7f4e487b71000000000000000000000000000000000000000000000000000000005f52601160045260245ffd5b5f61040282610345565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8203610434576104336103cb565b5b600182019050919050565b7f4e487b71000000000000000000000000000000000000000000000000000000005f52601260045260245ffd5b5f61047682610345565b915061048183610345565b9250826104915761049061043f565b5b828204905092915050565b5f82825260208201905092915050565b7f437573746f6d20726561736f6e000000000000000000000000000000000000005f82015250565b5f6104e0600d8361049c565b91506104eb826104ac565b602082019050919050565b5f819050919050565b5f819050919050565b5f61052261051d610518846104f6565b6104ff565b610345565b9050919050565b61053281610508565b82525050565b5f6040820190508181035f83015261054f816104d4565b905061055e6020830184610529565b92915050565b7f546869732069732061207265766572746564207472616e73616374696f6e00005f82015250565b5f610598601e8361049c565b91506105a382610564565b602082019050919050565b5f6020820190508181035f8301526105c58161058c565b905091905056fea26469706673582212209042613cdb724f7adb36b2191c8234788b025f60e50b6cdef7fbddc4337a643464736f6c634300081e0033"
+}

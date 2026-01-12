@@ -5,8 +5,7 @@ import { getApplication, makeApplication } from "../boot.js";
 import { TransactionBuilder } from "@mainsail/crypto-transaction";
 import fixtureConfig from "../../config/fixtures.js";
 import { join } from "path";
-import { loadConfig } from "../loader.js";
-import { makeIdentityFactories } from "../builder.js";
+import { makeIdentityFactories } from "./utils.js";
 import { writeFileSync } from "fs";
 
 interface Identity {
@@ -50,7 +49,7 @@ const main = async () => {
     const mnemonic = process.argv.length === 3 ? process.argv[2] : DEFAULT_MNEMONIC;
     const secondMnemonic = fixtureConfig["secondPassphrase"] || undefined;
 
-    await makeApplication(loadConfig());
+    await makeApplication();
 
     await generateIdentity(mnemonic, secondMnemonic);
     await generateTransactions(mnemonic, secondMnemonic);

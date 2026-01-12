@@ -1,27 +1,26 @@
 import { keccak256, toHex } from "viem";
 
-import { loadConfig } from "../loader.js";
 import { makeApplication } from "../boot.js";
-import { makeIdentityFactories } from "../builder.js";
+import { makeIdentityFactories, loadConfig } from "./utils.js";
 
 const main = async () => {
     const config = loadConfig();
-    const app = await makeApplication(config);
+    const app = await makeApplication();
 
-    console.log("Message: ", config.cli.message.message);
-    console.log("Public Key: ", config.cli.message.publicKey);
-    console.log("Signature: ", config.cli.message.signature);
+    console.log("Message: ", config.message.message);
+    console.log("Public Key: ", config.message.publicKey);
+    console.log("Signature: ", config.message.signature);
 
     const { signatureFactory } = makeIdentityFactories(app);
 
     const isValidSignature = await signatureFactory.verifyRecoverable(
         {
-            r: config.cli.message.signature.slice(0, 64),
-            s: config.cli.message.signature.slice(64, 128),
-            v: parseInt(config.cli.message.signature.slice(128), 16),
+            r: config.message.signature.slice(0, 64),
+            s: config.message.signature.slice(64, 128),
+            v: parseInt(config.message.signature.slice(128), 16),
         },
-        Buffer.from(keccak256(toHex(config.cli.message.message)).slice(2), "hex"),
-        Buffer.from(config.cli.message.publicKey, "hex"),
+        Buffer.from(keccak256(toHex(config.message.message)).slice(2), "hex"),
+        Buffer.from(config.message.publicKey, "hex"),
     );
 
     console.log("Message verified: " + isValidSignature);

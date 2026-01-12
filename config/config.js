@@ -1,28 +1,24 @@
-// import crypto from "@mainsail/core/bin/config/devnet/core/crypto.json" with { type: "json" };
-import crypto from "mainsail-network-config/testnet/mainsail/crypto.json" with { type: "json" };
-import DARK20 from "./builds/DARK20.json" with { type: "json" };
 import { consensus } from "./contracts/consensus.js";
-import { usernames } from "./contracts/usernames.js";
-import { multiPayment } from "./contracts/multipayment.js";
 import { dark20 } from "./contracts/dark20.js";
+import { multiPayment } from "./contracts/multipayment.js";
 import { revert } from "./contracts/revert.js";
-import { tokenTransfer } from "./contracts/tokentransfer.js";
+import { test } from "./contracts/test.js";
+import { testnet } from "./networks/testnet.js";
+import { usernames } from "./contracts/usernames.js";
+
+// Other network options:
+// import { devnet } from "./networks/devnet.js";
+// import { geth } from "./networks/geth.js";
+// import { reth } from "./networks/reth.js";
+// import { anvil } from "./networks/anvil.js";
 
 const config = {
-    senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
-    senderSecondPassphrase: "", // REPLACE senderSecondPassphrase WITH THE SECOND PASSPHRASE OF YOUR WALLET if you have one
-    peer: {
-        apiTxPoolUrl: "https://testnet.mainsailhq.com/tx",
-        apiEvmUrl: "https://testnet.mainsailhq.com/rpc",
-    },
-    gasPrice: 5000000000,
+    ...testnet, // set network here
+    gasPrice: 5_000_000_000,
+    gasLimit: 5_000_000,
     transfer: {
         recipientAddress: "0xC870aF84F11e0d43c8a29C041F23a8E85a2Ce4ff",
-        value: "350000000000000000000",
-    },
-    evmDeploy: {
-        data: DARK20.bytecode,
-        vendorField: "",
+        value: "5000000000000000000", // 5 ARK
     },
     contracts: {
         consensus,
@@ -30,7 +26,7 @@ const config = {
         multiPayment,
         dark20,
         revert,
-        tokenTransfer,
+        test,
     },
     message: {
         publicKey: "0243333347c8cbf4e3cbc7a96964181d02a2b0c854faa2fef86b4b8d92afcf473d",
@@ -38,7 +34,6 @@ const config = {
         signature:
             "0e2e53409be748834cac44052817ecef569b429a0492aa6bbc0d934eb71a09547e77aeef33d45669bbcba0498149f0e2b637fe8905186e08a5410c6f2b013bb41b",
     },
-    crypto: crypto,
 };
 
 export default config;

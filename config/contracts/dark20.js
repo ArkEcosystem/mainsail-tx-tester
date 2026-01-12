@@ -4,6 +4,7 @@ export const dark20 = {
     abi: DARK20.abi,
     name: "DARK20",
     contractId: "",
+    bytecode: DARK20.bytecode,
     transactions: [
         {
             functionName: "transfer",

@@ -1,6 +1,6 @@
 import { ArgsAndFlags } from "./types.js";
 
-export const getArgs = (customArgs: string[] | undefined): ArgsAndFlags => {
+export const getArgsAndFlags = (customArgs?: string[]): ArgsAndFlags => {
     const allArgs = customArgs ? customArgs : process.argv.slice(2);
     const args = allArgs.filter((arg) => !arg.startsWith("--"));
     const flags = {};
@@ -13,3 +13,9 @@ export const getArgs = (customArgs: string[] | undefined): ArgsAndFlags => {
 
     return { args, flags };
 };
+
+export const hasFlag = (flags: Record<string, string>, flagName: string): boolean => {
+    return Object.keys(flags).includes(flagName);
+};
+
+export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

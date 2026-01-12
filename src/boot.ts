@@ -1,8 +1,14 @@
 import { Container } from "@mainsail/container";
 import { Identifiers, Contracts } from "@mainsail/contracts";
 import { Application, Providers } from "@mainsail/kernel";
-import { Config } from "./types.js";
 import { AppIdentifiers } from "./identifiers.js";
+import { Client } from "./client.js";
+import { ContractData, ContractHandlerFactory, Flags } from "./types.js";
+import { ContractHandler, TransactionHandler } from "./handler/index.js";
+import { Logger } from "./logger.js";
+import { Wallet } from "./wallet.js";
+import { TransferBuilder, ContractBuilder, ViewBuilder } from "./builders/index.js";
+import config from "../config/config.js";
 
 let app: Application | undefined = undefined;
 
@@ -14,7 +20,7 @@ export const getApplication = (): Application => {
     return app;
 };
 
-export const makeApplication = async (config: Config): Promise<Application> => {
+export const makeApplication = async (): Promise<Application> => {
     if (app) {
         return app;
     }
@@ -70,10 +76,23 @@ export const makeApplication = async (config: Config): Promise<Application> => {
         }
     }
 
+    app.bind(AppIdentifiers.Config).toConstantValue(config);
     app.get<Contracts.Crypto.Configuration>(Identifiers.Cryptography.Configuration).setConfig(config.crypto);
 
     // APP
-    app.bind(AppIdentifiers.WalletPassphrase).toConstantValue(config.cli.senderPassphrase);
+    app.bind(AppIdentifiers.Logger).to(Logger).inSingletonScope();
+    app.bind(AppIdentifiers.Client).to(Client).inSingletonScope();
+    app.bind(AppIdentifiers.Wallet).to(Wallet).inSingletonScope();
+    app.bind(AppIdentifiers.TransactionHandler).to(TransactionHandler).inSingletonScope();
+    app.bind(AppIdentifiers.TransferBuilder).to(TransferBuilder).inSingletonScope();
+    app.bind(AppIdentifiers.ContractBuilder).to(ContractBuilder).inSingletonScope();
+    app.bind(AppIdentifiers.ViewBuilder).to(ViewBuilder).inSingletonScope();
+
+    app.bind<ContractHandlerFactory>(AppIdentifiers.ContractHandlerFactory).toFactory(
+        (context: Contracts.Kernel.Container.ResolutionContext) =>
+            (contractData: ContractData, flags: Flags): ContractHandler =>
+                context.get(ContractHandler, { autobind: true }).init(contractData, flags),
+    );
 
     return app;
 };

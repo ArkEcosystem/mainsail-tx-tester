@@ -11,6 +11,8 @@
         "validator": "node dist/actions/validator-data.js",
         "fixtures": "node dist/actions/generate-fixtures.js",
         "get-nonce": "node dist/actions/get-nonce.js",
+        "build-contract": "node dist/actions/build-contract.js",
+        "prepare-contract": "node dist/actions/prepare-contract.js",
         "build": "del dist && tsc",
         "build:watch": "del dist && tsc -w",
         "debug": "node --inspect-brk dist/index.js",
@@ -42,6 +44,7 @@
         "fs-extra": "^9.0.1",
         "mainsail-network-config": "https://github.com/ArkEcosystem/mainsail-network-config#7479c6d1a3c9dea62a510a6d74ed4df28eb3e08a",
         "reflect-metadata": "^0.1.13",
+        "solc": "^0.8.30",
         "viem": "^2.16.3"
     },
     "devDependencies": {

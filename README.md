@@ -2,7 +2,7 @@
 
 ![Logo](banner.png)
 
-## Prerequisits
+## Prerequisites
 
 Ensure that you have a working `python` binary in your PATH as this script compiles native crypto bindings (specifically https://github.com/ChainSafe/blst-ts will cause you issues). If you notice that you run into an error while installing the dependencies and one of the lines in the stack trace includes `/bin/sh: python: command not found`, this is your issue. A [known scenario](https://github.com/ChainSafe/blst-ts/issues/87) where this happens is on later macOS versions where only a `python3` binary is present.
 
@@ -40,10 +40,10 @@ Send transfer:
 pnpm run start 1 <address (optional)> <amount (optional)>
 ```
 
-Deploy contract:
+Show contract options:
 
 ```bash
-pnpm run start 2
+pnpm run start <contract_id>
 ```
 
 Interact with contract:
@@ -80,6 +80,22 @@ pnpm run fixtures
 
 Fixtures can be configured in `config/fixtures.js`. They defaults are used for generating fixtures for our test suites. For fixtures with a second signature, please first set `senderSecondPassphrase` before generating the fixtures.
 
+## Contracts
+
+**Build contract from solidity**
+
+```bash
+pnpm run build-contract test.sol
+```
+
+You can also use contract build from other sources. Just make sure that you include them in builds and format matches other \*.json files .
+
+**Prepare contract for tester**
+
+```bash
+pnpm run prepare-contract Test.json
+```
+
 ## Configuration
 
 Look into `/config/config.js` file.
@@ -92,7 +108,7 @@ Adjust `senderPassphrase` and transaction data (recipientId, fee, amount) before
 
 ## Note
 
-TX Sender is using the Public API to obtain the wallet nonce and Transaction Pool API to send the transaction. Make sure that target node have both APIs enabled.
+TX Sender is using the ETH JSON_RPC API to obtain the wallet nonce and to send the transaction. Make sure that target node have API enabled.
 
 ## Check transactions
 

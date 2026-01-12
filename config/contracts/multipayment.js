@@ -4,6 +4,7 @@ export const multiPayment = {
     abi: MultiPaymentAbi.abi,
     name: "MultiPayment",
     contractId: "0x00EFd0D4639191C49908A7BddbB9A11A994A8527",
+    bytecode: MultiPaymentAbi.bytecode.object,
     transactions: [
         {
             functionName: "pay",

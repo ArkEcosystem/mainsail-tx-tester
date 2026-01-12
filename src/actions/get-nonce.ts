@@ -1,19 +1,18 @@
 import { makeApplication } from "../boot.js";
-import { loadConfig } from "../loader.js";
-import { makeIdentityFactories } from "../builder.js";
-import { getArgs } from "../utils.js";
+import { makeIdentityFactories, loadConfig } from "./utils.js";
+import { getArgsAndFlags } from "../utils.js";
+import { AppIdentifiers } from "../identifiers.js";
 
-import * as Client from "../client.js";
+import { Client } from "../client.js";
 
 export const main = async (customArgs?: string[]) => {
+    const { args } = getArgsAndFlags(customArgs);
+
     const config = loadConfig();
 
-    const { args } = getArgs(customArgs);
+    const passphrase = args.length === 1 ? args[0] : config.senderPassphrase;
 
-    const passphrase = args.length === 1 ? args[0] : config.cli.senderPassphrase;
-    const peer = config.cli.peer;
-
-    const app = await makeApplication(config);
+    const app = await makeApplication();
 
     const { addressFactory } = makeIdentityFactories(app);
 
@@ -21,7 +20,7 @@ export const main = async (customArgs?: string[]) => {
 
     let walletNonce = 0;
     try {
-        walletNonce = await Client.getWalletNonce(peer, walletAddress);
+        walletNonce = await app.get<Client>(AppIdentifiers.Client).getWalletNonce(walletAddress);
     } catch (e) {}
 
     console.log(walletNonce);
