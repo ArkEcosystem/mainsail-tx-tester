@@ -1,5 +1,6 @@
 import { consensus } from "./contracts/consensus.js";
 import { dark20 } from "./contracts/dark20.js";
+import { mainsailerc20 } from "./contracts/mainsailerc20.js";
 import { erc20batchtransfer } from "./contracts/erc20batchtransfer.js";
 import { multiPayment } from "./contracts/multipayment.js";
 import { revert } from "./contracts/revert.js";
@@ -24,6 +25,7 @@ const config = {
     contracts: {
         consensus,
         usernames,
+        mainsailerc20,
         multiPayment,
         dark20,
         revert,
