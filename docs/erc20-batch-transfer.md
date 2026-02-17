@@ -8,19 +8,19 @@ Follow this basic step-by-step guide to batch transfer ERC20 tokens:
 ## Prepare ERC20BatchTransfer contract
 
 - Deploy a copy of the ERC20BatchTransfer contract with
-`pnpm run start 8 0`
+`pnpm run start 9 0`
 
 - Grab contract address from logs and replace the `contractId` in `erc20batchtransfer.js`
 
 ## Prepare one or more ERC20 contracts
 
-- Deploy one or more ERC20 contracts with `pnpm run start 5 0`
+- Deploy one or more ERC20 contracts with `pnpm run start 6 0`
 
 - Batch transfer requires the token address, recipients, amounts and prior approval to move tokens on behalf of the sender.
 
 - Update `dark20.js` with a deployed ERC20 contract address and call `approve` with the approval receiver being the `ERC20BatchTransfer` contract.
 
-- You can call `approve` with `pnpm run start 5 2` (if you change the default amount, make sure it matches the actual amounts you will transfer further below)
+- You can call `approve` with `pnpm run start 6 2` (if you change the default amount, make sure it matches the actual amounts you will transfer further below)
 
 
 ## Execute Batch Transfers
@@ -47,7 +47,7 @@ E.g. if `0xB78d7D1B9048aFaF50a93D6B435ddf1c34C6AFe2` is your ERC20 address, the 
 },
 ```
 
-- Lastly, call batch transfer with `pnpm run start 8 1`
+- Lastly, call batch transfer with `pnpm run start 9 1`
 
 If successful your logs should contain something like this:
 
