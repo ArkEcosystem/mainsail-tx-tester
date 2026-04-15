@@ -1,5 +1,6 @@
 import { Container } from "@mainsail/container";
-import { Identifiers, Contracts } from "@mainsail/contracts";
+import type { Contracts } from "@mainsail/contracts";
+import { Identifiers } from "@mainsail/constants";
 import { Application, Providers } from "@mainsail/kernel";
 import { AppIdentifiers } from "./identifiers.js";
 import { Client } from "./client.js";

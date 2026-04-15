@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@mainsail/constants':
+        specifier: 0.0.1-rc.8
+        version: 0.0.1-rc.8
       '@mainsail/container':
         specifier: 0.0.1-rc.8
         version: 0.0.1-rc.8
