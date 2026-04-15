@@ -1,5 +1,5 @@
 import { injectable } from "@mainsail/container";
-import { Contracts } from "@mainsail/contracts";
+import type { Contracts } from "@mainsail/contracts";
 import { Base, deployFunction } from "./base.js";
 import { encodeDeployData, encodeFunctionData } from "viem";
 import { ContractData, ContractBuilder as IContractBuilder } from "../types.js";

@@ -1,5 +1,5 @@
 import { injectable } from "@mainsail/container";
-import { Contracts } from "@mainsail/contracts";
+import type { Contracts } from "@mainsail/contracts";
 import { Base } from "./base.js";
 import { Config, TransferBuilder as ITransferBuilder } from "../types.js";
 import { TransactionBuilder } from "@mainsail/crypto-transaction";

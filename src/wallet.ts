@@ -1,5 +1,6 @@
 import { injectable, inject, tagged } from "@mainsail/container";
-import { Contracts, Identifiers } from "@mainsail/contracts";
+import type { Contracts } from "@mainsail/contracts";
+import { Identifiers } from "@mainsail/constants";
 
 import { AppIdentifiers } from "./identifiers.js";
 import { Config, Client, Wallet as IWallet } from "./types.js";

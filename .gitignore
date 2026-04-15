@@ -8,3 +8,6 @@ data/
 .DS_Store
 .tags
 bundle.min.js
+
+# Pnpm
+.pnpm-store
