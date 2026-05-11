@@ -63,17 +63,5 @@
     },
     "engines": {
         "node": ">=24.x"
-    },
-    "pnpm": {
-        "onlyBuiltDependencies": [
-            "@chainsafe/blst",
-            "bcrypto",
-            "better-sqlite3",
-            "bstring",
-            "lmdb",
-            "msgpackr-extract",
-            "nsfw",
-            "protobufjs"
-        ]
     }
 }
