@@ -1,0 +1,8 @@
+allowBuilds:
+  bcrypto: true
+  better-sqlite3: true
+  bstring: true
+  lmdb: true
+  msgpackr-extract: true
+  nsfw: true
+  protobufjs: true
