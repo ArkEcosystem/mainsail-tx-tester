@@ -47,6 +47,9 @@ export const makeApplication = async (): Promise<Application> => {
             package: "@mainsail/crypto-key-pair-ecdsa",
         },
         {
+            package: "@mainsail/crypto-address-base58",
+        },
+        {
             package: "@mainsail/crypto-address-keccak256",
         },
         {
