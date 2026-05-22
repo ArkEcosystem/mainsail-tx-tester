@@ -1,4 +1,3 @@
-import { Container } from "@mainsail/container";
 import type { Contracts } from "@mainsail/contracts";
 import { Identifiers } from "@mainsail/constants";
 import { Application, Providers } from "@mainsail/kernel";
@@ -26,7 +25,7 @@ export const makeApplication = async (): Promise<Application> => {
         return app;
     }
 
-    app = new Application(new Container());
+    app = new Application();
 
     const plugins = [
         {
@@ -51,7 +50,7 @@ export const makeApplication = async (): Promise<Application> => {
             package: "@mainsail/crypto-address-keccak256",
         },
         {
-            package: "@mainsail/crypto-consensus-bls12-381",
+            package: "@mainsail/crypto-key-pair-bls12-381",
         },
         {
             package: "@mainsail/crypto-wif",
