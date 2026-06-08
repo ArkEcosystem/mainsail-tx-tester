@@ -7,24 +7,3 @@ allowBuilds:
     msgpackr-extract: true
     nsfw: true
     protobufjs: true
-overrides:
-    constants: link:../packages/constants
-    container: link:../packages/container
-    contracts: link:../packages/contracts
-    core: link:../packages/core
-    crypto-address-base58: link:../packages/crypto-address-base58
-    crypto-address-keccak256: link:../packages/crypto-address-keccak256
-    crypto-config: link:../packages/crypto-config
-    crypto-key-pair-bls12-381: link:../packages/crypto-key-pair-bls12-381
-    crypto-hash-bcrypto: link:../packages/crypto-hash-bcrypto
-    crypto-key-pair-ecdsa: link:../packages/crypto-key-pair-ecdsa
-    crypto-signature-ecdsa: link:../packages/crypto-signature-ecdsa
-    crypto-transaction: link:../packages/crypto-transaction
-    crypto-validation: link:../packages/crypto-validation
-    crypto-wif: link:../packages/crypto-wif
-    evm-contracts: link:../packages/evm-contracts
-    kernel: link:../packages/kernel
-    serializer: link:../packages/serializer
-    transactions: link:../packages/transactions
-    utils: link:../packages/utils
-    validation: link:../packages/validation
