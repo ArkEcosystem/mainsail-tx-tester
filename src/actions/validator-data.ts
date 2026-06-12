@@ -27,7 +27,7 @@ const generateBlsKeysPerLocale = async (
                 Buffer.from(privateKey, "hex"),
             );
 
-            result[locale].push({ mnemonic, publicKey, privateKey, proofOfPossession });
+            result[locale].push({mnemonic, privateKey, publicKey, proofOfPossession});
         }
     }
 
