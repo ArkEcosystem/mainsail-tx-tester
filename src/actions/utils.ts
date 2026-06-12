@@ -15,6 +15,7 @@ export const makeIdentityFactories = (
     consensusPublicKeyFactory: Contracts.Crypto.PublicKeyFactory;
     consensusPrivateKeyFactory: Contracts.Crypto.PrivateKeyFactory;
     signatureFactory: Contracts.Crypto.Signature;
+    consensusSignatureFactory: Contracts.Crypto.Signature;
     wifFactory: Contracts.Crypto.WIFFactory;
     keyPairFactory: Contracts.Crypto.KeyPairFactory;
 } => {
@@ -53,6 +54,12 @@ export const makeIdentityFactories = (
             Identifiers.Cryptography.Signature.Instance,
             "type",
             "wallet",
+        ),
+
+        consensusSignatureFactory: app.getTagged<Contracts.Crypto.Signature>(
+            Identifiers.Cryptography.Signature.Instance,
+            "type",
+            "consensus",
         ),
 
         wifFactory: app.getTagged<Contracts.Crypto.WIFFactory>(
