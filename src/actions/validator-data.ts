@@ -23,12 +23,14 @@ const generateBlsKeysPerLocale = async (
             const mnemonic = generateMnemonic(256, undefined, wordlist);
 
             const keyPair = await keyPairFactory.fromMnemonic(mnemonic);
-            const { pk, pop } = buildProofOfPossession(Buffer.from(keyPair.privateKey, "hex"));
+            const validatorPrivateKey = keyPair.privateKey;
+
+            const { pk, pop } = buildProofOfPossession(Buffer.from(validatorPrivateKey, "hex"));
 
             const validatorPublicKey = bytesToHex(pk);
             const validatorPop = bytesToHex(pop);
 
-            result[locale].push([mnemonic, keyPair.privateKey, validatorPublicKey, validatorPop]);
+            result[locale].push({mnemonic, validatorPrivateKey, validatorPublicKey, validatorPop});
         }
     }
 
