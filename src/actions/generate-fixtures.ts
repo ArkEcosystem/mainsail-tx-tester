@@ -80,21 +80,7 @@ const generateBlsKeysPerLocale = async () => {
         }
     }
 
-    const dataDir = join(process.cwd(), "data");
-    const outputPath = join(dataDir, "bls-keys.json");
-
-    try {
-        writeFileSync(outputPath, JSON.stringify(result, null, 4));
-    } catch (error) {
-        if ((error as NodeJS.ErrnoException).code === "ENOENT") {
-            const { mkdirSync } = await import("fs");
-            mkdirSync(dataDir, { recursive: true });
-            writeFileSync(outputPath, JSON.stringify(result, null, 4));
-        } else {
-            throw error;
-        }
-    }
-
+    await writeFixtureToFile("bls-keys.json", result);
     console.log("BLS keys written to data/bls-keys.json");
 };
 
