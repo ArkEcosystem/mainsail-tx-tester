@@ -1,12 +1,13 @@
 import { generateMnemonic, wordlists } from "bip39";
 import type { Contracts } from "@mainsail/contracts";
 import { makeApplication } from "../boot.js";
+import { Identifiers } from "@mainsail/constants";
+import { buildProofOfPossession } from "@mainsail/crypto-key-pair-bls12-381";
+import { bytesToHex } from "viem";
 import { makeIdentityFactories } from "./utils.js";
 
 const generateBlsKeysPerLocale = async (
-    consensusPublicKeyFactory: Contracts.Crypto.PublicKeyFactory,
-    consensusPrivateKeyFactory: Contracts.Crypto.PrivateKeyFactory,
-    consensusSignatureFactory: Contracts.Crypto.Signature,
+    keyPairFactory: Contracts.Crypto.KeyPairFactory,
 ): Promise<void> => {
     const result: Record<string, object[]> = {};
 
@@ -20,14 +21,14 @@ const generateBlsKeysPerLocale = async (
 
         for (let i = 0; i < 5; i++) {
             const mnemonic = generateMnemonic(256, undefined, wordlist);
-            const publicKey = await consensusPublicKeyFactory.fromMnemonic(mnemonic);
-            const privateKey = await consensusPrivateKeyFactory.fromMnemonic(mnemonic);
-            const proofOfPossession = await consensusSignatureFactory.sign(
-                Buffer.from(publicKey, "hex"),
-                Buffer.from(privateKey, "hex"),
-            );
 
-            result[locale].push({mnemonic, privateKey, publicKey, proofOfPossession});
+            const keyPair = await keyPairFactory.fromMnemonic(mnemonic);
+            const { pk, pop } = buildProofOfPossession(Buffer.from(keyPair.privateKey, "hex"));
+
+            const validatorPublicKey = bytesToHex(pk);
+            const validatorPop = bytesToHex(pop);
+
+            result[locale].push([mnemonic, keyPair.privateKey, validatorPublicKey, validatorPop]);
         }
     }
 
@@ -36,13 +37,19 @@ const generateBlsKeysPerLocale = async (
 
 const main = async () => {
     const app = await makeApplication();
-    const { consensusPrivateKeyFactory, consensusPublicKeyFactory, consensusSignatureFactory } =
-        makeIdentityFactories(app);
+
+    const keyPairFactory = app.getTagged<Contracts.Crypto.KeyPairFactory>(
+        Identifiers.Cryptography.Identity.KeyPair.Factory,
+        "type",
+        "consensus",
+    );
 
     if (process.argv.includes("--locales")) {
-        await generateBlsKeysPerLocale(consensusPublicKeyFactory, consensusPrivateKeyFactory, consensusSignatureFactory);
+        await generateBlsKeysPerLocale(keyPairFactory);
         return;
     }
+    
+    const { consensusPrivateKeyFactory, consensusPublicKeyFactory } = makeIdentityFactories(app);
 
     const mnemonic = process.argv.length === 3 ? process.argv[2] : generateMnemonic(256);
 
