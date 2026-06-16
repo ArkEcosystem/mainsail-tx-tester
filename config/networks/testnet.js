@@ -4,6 +4,7 @@ export const testnet = {
     privateKey: "",
     senderPassphrase: "", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     senderSecondPassphrase: "", // REPLACE senderSecondPassphrase WITH THE SECOND PASSPHRASE OF YOUR WALLET if you have one
+    validatorPassphrase: "", // REPLACE validatorPassphrase WITH THE VALIDATOR BLS PASSPHRASE
     peer: "https://testnet.mainsailhq.com/rpc/api",
     waitForBlock: true,
     crypto: crypto,

@@ -58,6 +58,7 @@ export type Config = {
     privateKey: string;
     senderPassphrase: string;
     senderSecondPassphrase: string;
+    validatorPassphrase: string;
     peer: string;
     gasPrice: number;
     gasLimit: number;

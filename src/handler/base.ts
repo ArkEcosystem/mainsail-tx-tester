@@ -42,12 +42,12 @@ export abstract class BaseHandler {
         this.logger.log("Estimating gas...");
 
         const data = {
-            from: transaction.data.from,
-            to: transaction.data.to!,
-            data: `0x${transaction.data.data}`,
+            from: transaction.from,
+            to: transaction.to!,
+            data: transaction.data,
             // gas: `0x${transaction.data.gasLimit?.toString(16)}`,
             // gasPrice: `0x${transaction.data.gasPrice?.toString(16)}`,
-            value: transaction.data.value ? `0x${transaction.data.value.toString(16)}` : undefined,
+            value: transaction.value ? `0x${transaction.value.toString(16)}` : undefined,
         };
 
         this.logger.log("Gas estimation call data:");
@@ -77,12 +77,12 @@ export abstract class BaseHandler {
         this.logger.log("Simulating transaction...");
 
         const data = {
-            from: transaction.data.from,
-            to: transaction.data.to!,
-            data: `0x${transaction.data.data}`,
-            gas: `0x${transaction.data.gasLimit?.toString(16)}`,
-            gasPrice: `0x${transaction.data.gasPrice?.toString(16)}`,
-            value: transaction.data.value ? `0x${transaction.data.value.toString(16)}` : undefined,
+            from: transaction.from,
+            to: transaction.to!,
+            data: transaction.data,
+            gas: `0x${transaction.gasLimit?.toString(16)}`,
+            gasPrice: `0x${transaction.gasPrice?.toString(16)}`,
+            value: transaction.value ? `0x${transaction.value.toString(16)}` : undefined,
         };
 
         this.logger.log("Simulation call data:");
@@ -90,7 +90,7 @@ export abstract class BaseHandler {
 
         const response = await this.client.ethCall(data);
         if (response.success) {
-            this.simulateSuccess(transaction, response);
+            await this.simulateSuccess(transaction, response);
             return;
         }
 
@@ -98,7 +98,7 @@ export abstract class BaseHandler {
         this.logger.log(`Simulation failed: ${response.message}`);
 
         if (response.data) {
-            this.simulateError(response);
+            await this.simulateError(response);
         }
 
         if (!hasFlag(this.flags, "forceSend")) {
@@ -141,7 +141,7 @@ export abstract class BaseHandler {
 
         if (receipt.status === "0x0") {
             this.logger.log("Transaction failed:");
-            if (parseInt(receipt.gasUsed) >= tx.data.gasLimit) {
+            if (parseInt(receipt.gasUsed) >= tx.gasLimit) {
                 this.logger.log("Error: Out of gas");
             }
         } else {

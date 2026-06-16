@@ -93,14 +93,14 @@ export class ContractHandler extends BaseHandler implements IContractHandler {
         this.#logContract();
 
         const transaction = await this.contractBuilder.makeDeploy(this.contractData);
-        this.handle(transaction);
+        await this.handle(transaction);
     }
 
     async #transaction(args?: any, amount?: string): Promise<void> {
         this.#logContract();
 
         const transaction = await this.contractBuilder.makeCall(this.contractData, this.transactionIndex, args, amount);
-        this.handle(transaction);
+        await this.handle(transaction);
     }
 
     async #view(): Promise<void> {
@@ -128,8 +128,8 @@ export class ContractHandler extends BaseHandler implements IContractHandler {
         this.logger.logKV(
             "Contract address",
             getContractAddress({
-                from: transaction.data.from as `0x${string}`,
-                nonce: transaction.data.nonce.toBigInt(),
+                from: transaction.from as `0x${string}`,
+                nonce: transaction.nonce,
             }),
         );
     }
