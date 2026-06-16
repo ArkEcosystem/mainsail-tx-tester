@@ -1,7 +1,10 @@
-import { encodeFunctionData } from "viem";
+import { encodeFunctionData, bytesToHex } from "viem";
 import { SigningKey, hashMessage } from "ethers";
 import { getApplication, makeApplication } from "../boot.js";
-
+import { generateMnemonic, wordlists } from "bip39";
+import { Identifiers } from "@mainsail/constants";
+import { buildProofOfPossession } from "@mainsail/crypto-key-pair-bls12-381";
+import type { Contracts } from "@mainsail/contracts";
 import { TransactionBuilder } from "@mainsail/crypto-transaction";
 import fixtureConfig from "../../config/fixtures.js";
 import { join } from "path";
@@ -44,6 +47,43 @@ const writeFixtureToFile = async (filename: string, data: any) => {
     }
 };
 
+const generateBlsKeysPerLocale = async () => {
+    const app = getApplication();
+
+    const keyPairFactory = app.getTagged<Contracts.Crypto.KeyPairFactory>(
+        Identifiers.Cryptography.Identity.KeyPair.Factory,
+        "type",
+        "consensus",
+    );
+
+    const result: Record<string, object[]> = {};
+
+    // EN and JA are aliases for english and japanese — skip to avoid duplicate entries
+    const aliases = new Set(["EN", "JA"]);
+
+    for (const [locale, wordlist] of Object.entries(wordlists)) {
+        if (aliases.has(locale)) continue;
+
+        result[locale] = [];
+
+        for (let i = 0; i < 5; i++) {
+            const mnemonic = generateMnemonic(256, undefined, wordlist);
+            const keyPair = await keyPairFactory.fromMnemonic(mnemonic);
+            const { pk, pop } = buildProofOfPossession(Buffer.from(keyPair.privateKey, "hex"));
+
+            result[locale].push({
+                mnemonic,
+                validatorPrivateKey: keyPair.privateKey,
+                validatorPublicKey: bytesToHex(pk),
+                validatorPop: bytesToHex(pop),
+            });
+        }
+    }
+
+    await writeFixtureToFile("bls-keys.json", result);
+    console.log("BLS keys written to data/bls-keys.json");
+};
+
 const main = async () => {
     const DEFAULT_MNEMONIC = fixtureConfig["passphrase"];
     const mnemonic = process.argv.length === 3 ? process.argv[2] : DEFAULT_MNEMONIC;
@@ -54,6 +94,7 @@ const main = async () => {
     await generateIdentity(mnemonic, secondMnemonic);
     await generateTransactions(mnemonic, secondMnemonic);
     await generateMessageSign(mnemonic);
+    await generateBlsKeysPerLocale();
 };
 
 const generateIdentity = async (mnemonic: string, secondMnemonic?: string) => {
