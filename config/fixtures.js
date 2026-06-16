@@ -1,6 +1,6 @@
 import { consensus } from "./contracts/consensus.js";
-import { multiPayment } from "./contracts/multipayment.js";
 import { dark20 } from "./contracts/dark20.js";
+import { multiPayment } from "./contracts/multipayment.js";
 import { usernames } from "./contracts/usernames.js";
 
 const fixtureConfig = {
@@ -40,11 +40,13 @@ const fixtureConfig = {
         gasLimit: 200000,
     },
     "validator-registration": {
+        // BLS passphrase used: toilet broom belt hunt letter sketch elite slam session matrix legal ahead victory soldier nation addict visa comic artwork pulse waste bless voice rail
         contract: {
             data: consensus,
             functionName: "registerValidator",
             args: [
-                "0x30954f46d6097a1d314e900e66e11e0dad0a57cd03e04ec99f0dedd1c765dcb11e6d7fa02e22cf40f9ee23d9cc1c0624",
+                "0xacd816f68a03d058a31d4e310c519ef3849b0803c39fef1285858bc71dc573a05cb4bbc05228ed6f7758532f776ddea4",
+                "0x86bc12b481467649ba00c3ca03fe60062ee6b89d3ff059bd730b5c8ff7781681361fa39984646450b7754acae5066078166435dd293f90843cf94f8ef9b2f2580ceb1225b23434c2e1ca01fdc129f354d5796a0285050ce11a898d27b17ae479",
             ],
         },
         gasLimit: 200000,
