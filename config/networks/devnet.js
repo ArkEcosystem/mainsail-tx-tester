@@ -5,6 +5,7 @@ export const devnet = {
     senderPassphrase:
         "render can fun volcano need extra famous cool similar whale skull wolf blue bind left bounce gentle deliver vote hero sadness vocal shop flower", // REPLACE senderPassphrase WITH THE PASSPHRASE OF YOUR WALLET
     senderSecondPassphrase: "", // REPLACE senderSecondPassphrase WITH THE SECOND PASSPHRASE OF YOUR WALLET if you have one
+    validatorPassphrase: "", // REPLACE validatorPassphrase WITH THE VALIDATOR BLS PASSPHRASE
     peer: "http://localhost:4008/api",
     waitForBlock: true,
     crypto: crypto,

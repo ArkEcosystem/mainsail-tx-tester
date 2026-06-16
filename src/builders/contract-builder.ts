@@ -1,9 +1,11 @@
 import { injectable } from "@mainsail/container";
 import type { Contracts } from "@mainsail/contracts";
 import { Base, deployFunction } from "./base.js";
-import { encodeDeployData, encodeFunctionData } from "viem";
+import { bytesToHex, encodeDeployData, encodeFunctionData } from "viem";
 import { ContractData, ContractBuilder as IContractBuilder } from "../types.js";
 import { TransactionBuilder } from "@mainsail/crypto-transaction";
+import { buildProofOfPossession } from "@mainsail/crypto-key-pair-bls12-381";
+import { Identifiers } from "@mainsail/constants";
 
 @injectable()
 export class ContractBuilder extends Base implements IContractBuilder {
@@ -39,12 +41,32 @@ export class ContractBuilder extends Base implements IContractBuilder {
         const walletNonce = await this.wallet.getNonce();
 
         const func = [deployFunction, ...contractData.transactions][functionIndex];
-        const usedArgs = args || func.args;
+        let usedArgs = args || func.args;
 
         this.normalizeContractCallArgs(contractData, func.functionName, usedArgs);
 
         if (!amount) {
             amount = func.amount ? func.amount.toString() : "0";
+        }
+
+        // Create Proof of Possession if not manually specified
+        if (["registerValidator", "updateValidator"].includes(func.functionName) && usedArgs.length === 1) {
+            const keyPairFactory = this.app.getTagged<Contracts.Crypto.KeyPairFactory>(
+                Identifiers.Cryptography.Identity.KeyPair.Factory,
+                "type",
+                "consensus",
+            );
+            const keyPair = await keyPairFactory.fromMnemonic(this.config.validatorPassphrase);
+            const { pk, pop } = buildProofOfPossession(Buffer.from(keyPair.privateKey, "hex"));
+
+            const validatorPublicKey = bytesToHex(pk);
+            const validatorPop = bytesToHex(pop);
+            console.log({
+                validatorPop,
+                validatorPublicKey,
+            });
+
+            usedArgs = [validatorPublicKey, validatorPop];
         }
 
         const data = encodeFunctionData({
