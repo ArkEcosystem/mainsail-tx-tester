@@ -92,9 +92,9 @@ const main = async () => {
     await makeApplication();
 
     await generateIdentity(mnemonic, secondMnemonic);
+    await generateBlsKeysPerLocale();
     await generateTransactions(mnemonic, secondMnemonic);
     await generateMessageSign(mnemonic);
-    await generateBlsKeysPerLocale();
 };
 
 const generateIdentity = async (mnemonic: string, secondMnemonic?: string) => {
