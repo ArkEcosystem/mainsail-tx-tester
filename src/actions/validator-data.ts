@@ -48,7 +48,7 @@ const main = async () => {
         await generateBlsKeysPerLocale(keyPairFactory);
         return;
     }
-    
+
     const { consensusPrivateKeyFactory, consensusPublicKeyFactory } = makeIdentityFactories(app);
 
     const mnemonic = process.argv.length === 3 ? process.argv[2] : generateMnemonic(256);

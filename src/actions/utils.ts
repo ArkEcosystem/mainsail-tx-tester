@@ -49,12 +49,6 @@ export const makeIdentityFactories = (
             "wallet",
         ),
 
-        consensusSignatureFactory: app.getTagged<Contracts.Crypto.Signature>(
-            Identifiers.Cryptography.Signature.Instance,
-            "type",
-            "consensus",
-        ),
-
         wifFactory: app.getTagged<Contracts.Crypto.WIFFactory>(
             Identifiers.Cryptography.Identity.Wif.Factory,
             "type",
