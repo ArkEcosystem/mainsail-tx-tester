@@ -40,12 +40,13 @@ const fixtureConfig = {
         gasLimit: 200000,
     },
     "validator-registration": {
+        // BLS passphrase used: toilet broom belt hunt letter sketch elite slam session matrix legal ahead victory soldier nation addict visa comic artwork pulse waste bless voice rail
         contract: {
             data: consensus,
             functionName: "registerValidator",
             args: [
-                "0xafb0dc0443f76223b1cd714d3f6aa625541d2367516678ac8d6108f983d38fe22fd7ec09d538efb2ea5ced8ebab6d1ea",
-                "0x8393b6cff09760c55785613d5ef0b8ec8d591bb16ef177a39758cd4ed932ad761d6a6ab84d845a5c6dc54b20de95249118f37426d9a39011c6515112cc56469d02fed8c6a5089a2bd056a72dc7291c883822d599e30503a00d22eb84b7fb5d15",
+                "0xacd816f68a03d058a31d4e310c519ef3849b0803c39fef1285858bc71dc573a05cb4bbc05228ed6f7758532f776ddea4",
+                "0x86bc12b481467649ba00c3ca03fe60062ee6b89d3ff059bd730b5c8ff7781681361fa39984646450b7754acae5066078166435dd293f90843cf94f8ef9b2f2580ceb1225b23434c2e1ca01fdc129f354d5796a0285050ce11a898d27b17ae479",
             ],
         },
         gasLimit: 200000,
