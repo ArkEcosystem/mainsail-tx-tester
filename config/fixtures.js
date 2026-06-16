@@ -1,6 +1,6 @@
 import { consensus } from "./contracts/consensus.js";
-import { multiPayment } from "./contracts/multipayment.js";
 import { dark20 } from "./contracts/dark20.js";
+import { multiPayment } from "./contracts/multipayment.js";
 import { usernames } from "./contracts/usernames.js";
 
 const fixtureConfig = {
@@ -44,7 +44,8 @@ const fixtureConfig = {
             data: consensus,
             functionName: "registerValidator",
             args: [
-                "0x30954f46d6097a1d314e900e66e11e0dad0a57cd03e04ec99f0dedd1c765dcb11e6d7fa02e22cf40f9ee23d9cc1c0624",
+                "0xafb0dc0443f76223b1cd714d3f6aa625541d2367516678ac8d6108f983d38fe22fd7ec09d538efb2ea5ced8ebab6d1ea",
+                "0x8393b6cff09760c55785613d5ef0b8ec8d591bb16ef177a39758cd4ed932ad761d6a6ab84d845a5c6dc54b20de95249118f37426d9a39011c6515112cc56469d02fed8c6a5089a2bd056a72dc7291c883822d599e30503a00d22eb84b7fb5d15",
             ],
         },
         gasLimit: 200000,

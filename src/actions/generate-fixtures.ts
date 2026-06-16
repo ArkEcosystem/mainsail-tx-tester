@@ -1,11 +1,12 @@
-import { encodeFunctionData, bytesToHex } from "viem";
 import { SigningKey, hashMessage } from "ethers";
-import { getApplication, makeApplication } from "../boot.js";
+import { bytesToHex, encodeFunctionData } from "viem";
 import { generateMnemonic, wordlists } from "bip39";
-import { Identifiers } from "@mainsail/constants";
-import { buildProofOfPossession } from "@mainsail/crypto-key-pair-bls12-381";
+import { getApplication, makeApplication } from "../boot.js";
+
 import type { Contracts } from "@mainsail/contracts";
+import { Identifiers } from "@mainsail/constants";
 import { TransactionBuilder } from "@mainsail/crypto-transaction";
+import { buildProofOfPossession } from "@mainsail/crypto-key-pair-bls12-381";
 import fixtureConfig from "../../config/fixtures.js";
 import { join } from "path";
 import { makeIdentityFactories } from "./utils.js";
