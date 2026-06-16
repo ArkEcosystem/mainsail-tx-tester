@@ -43,6 +43,12 @@ export const makeIdentityFactories = (
             "consensus",
         ),
 
+        consensusPrivateKeyFactory: app.getTagged<Contracts.Crypto.PublicKeyFactory>(
+            Identifiers.Cryptography.Identity.PrivateKey.Factory,
+            "type",
+            "consensus",
+        ),
+        
         signatureFactory: app.getTagged<Contracts.Crypto.Signature>(
             Identifiers.Cryptography.Signature.Instance,
             "type",
