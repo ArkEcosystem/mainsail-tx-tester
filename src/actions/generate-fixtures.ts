@@ -57,6 +57,9 @@ const generateBlsKeysPerLocale = async () => {
         "consensus",
     );
 
+    const addressFactory = app.get<Contracts.Crypto.AddressFactory>(Identifiers.Cryptography.Identity.Address.Factory);
+    const { chainId } = app.get<Contracts.Crypto.Configuration>(Identifiers.Cryptography.Configuration).getNetwork();
+
     const result: Record<string, object[]> = {};
 
     // EN and JA are aliases for english and japanese — skip to avoid duplicate entries
@@ -70,10 +73,16 @@ const generateBlsKeysPerLocale = async () => {
         for (let i = 0; i < 5; i++) {
             const mnemonic = generateMnemonic(256, undefined, wordlist);
             const keyPair = await keyPairFactory.fromMnemonic(mnemonic);
-            const { pk, pop } = buildProofOfPossession(Buffer.from(keyPair.privateKey, "hex"));
+
+            const address = await addressFactory.fromMnemonic(mnemonic);
+            const { pk, pop } = buildProofOfPossession(Buffer.from(keyPair.privateKey, "hex"), {
+                chainId,
+                registrantAddress: address,
+            });
 
             result[locale].push({
                 mnemonic,
+                address,
                 validatorPrivateKey: keyPair.privateKey,
                 validatorPublicKey: bytesToHex(pk),
                 validatorPop: bytesToHex(pop),

@@ -57,7 +57,14 @@ export class ContractBuilder extends Base implements IContractBuilder {
                 "consensus",
             );
             const keyPair = await keyPairFactory.fromMnemonic(this.config.validatorPassphrase);
-            const { pk, pop } = buildProofOfPossession(Buffer.from(keyPair.privateKey, "hex"));
+
+            const { chainId } = this.app
+                .get<Contracts.Crypto.Configuration>(Identifiers.Cryptography.Configuration)
+                .getNetwork();
+            const { pk, pop } = buildProofOfPossession(Buffer.from(keyPair.privateKey, "hex"), {
+                chainId,
+                registrantAddress: await this.wallet.getAddress(),
+            });
 
             const validatorPublicKey = bytesToHex(pk);
             const validatorPop = bytesToHex(pop);
