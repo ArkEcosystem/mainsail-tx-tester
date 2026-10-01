@@ -23,7 +23,6 @@
         "@mainsail/constants": "0.0.1-evm.55",
         "@mainsail/container": "0.0.1-evm.55",
         "@mainsail/contracts": "0.0.1-evm.55",
-        "@mainsail/core": "0.0.1-evm.55",
         "@mainsail/crypto-address-base58": "0.0.1-evm.55",
         "@mainsail/crypto-address-keccak256": "0.0.1-evm.55",
         "@mainsail/crypto-config": "0.0.1-evm.55",
@@ -42,7 +41,7 @@
         "bip39": "3.1.0",
         "ethers": "6.16.0",
         "fs-extra": "11.3.4",
-        "mainsail-network-config": "https://github.com/ArkEcosystem/mainsail-network-config#7479c6d1a3c9dea62a510a6d74ed4df28eb3e08a",
+        "mainsail-network-config": "https://github.com/ArkEcosystem/mainsail-network-config#039fd7d518612fa39312b18df37372f978267469",
         "reflect-metadata": "0.2.2",
         "solc": "0.8.34",
         "viem": "2.47.17"

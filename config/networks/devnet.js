@@ -1,4 +1,4 @@
-import crypto from "@mainsail/core/bin/config/devnet/core/crypto.json" with { type: "json" };
+import crypto from "mainsail-network-config/devnet/mainsail/crypto.json" with { type: "json" };
 
 export const devnet = {
     privateKey: "",
