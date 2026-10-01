@@ -1,5 +1,4 @@
 allowBuilds:
-  '@mainsail/evm': true
   bcrypto: true
   better-sqlite3: true
   bstring: true
