@@ -83,6 +83,7 @@ const generateBlsKeysPerLocale = async () => {
             result[locale].push({
                 mnemonic,
                 address,
+                chainId,
                 validatorPrivateKey: keyPair.privateKey,
                 validatorPublicKey: bytesToHex(pk),
                 validatorPop: bytesToHex(pop),
